@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+
+:root {
+  --branco: #fff;
+  --preto: #000;
+  --cinza: #222;
+  --cinza-claro: #ebebeb;
+  --verde-padrao: #00FF85;
+  --verde-verde: #00CC69;
+  --verde-claro: #4DFFA9;
+  --verde-escuro-1: #008042;
+  --verde-escuro-2: #268054;
+}
+
+/* --------------------------------------------------- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Mukta', sans-serif;
+  overflow-x: hidden;
+
+}
+
+.header {
+  max-height: 80px;
+  background-color: var(--branco);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-shadow: 0px 1px 10px var(--cinza);
+  align-items: center;
+  position: absolute;
+  z-index: 1000;
+}
+
+.contLogo {
+  min-width: 30%;
+  max-height: 80px;
+}
+
+.contLogo .logo-header {
+  max-height: 80px;
+  margin-left: 10px;
+}
+
+.contNavbar {
+  max-height: 80px;
+  min-width: 70%;
+}
+
+.navbar {
+  max-height: 80px;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navbar li {
+  font-size: 24px;
+  padding: 40px;
+  font-weight: 400;
+}
+
+
+.ativo {
+  color: var(--verde-verde);
+}
+
+.btnPro button {
+  background-color: var(--verde-escuro-2);
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  font-size: 20px;
+  width: 230px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.btnPro button:hover {
+  background-color: var(--verde-padrao);
+}
+
+
+/* --------------------------------------------------- */
+.contBanner {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: var(--cinza-claro);
+  box-shadow: 0px 1px 10px var(--cinza);
+
+
+}
+
+.bannerCardEsq {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.bola {
+  box-shadow: 0px 1px 5px var(--cinza);
+  width: 1100px;
+  height: 1100px;
+  position: absolute;
+  border-radius: 1000px;
+  background-color: var(--verde-escuro-2);
+  z-index: 0;
+  left: -310px;
+  top: -420px;
+}
+
+.cardBanner {
+  z-index: 1;
+  background-color: inherit;
+  padding: 30px;
+}
+
+.cardBanner b {
+  font-weight: 900;
+  color: var(--verde-padrao);
+
+}
+
+.cardBanner h1 {
+  font-weight: 400;
+  color: var(--branco);
+  font-size: 48px;
+}
+
+.cardBanner p {
+  color: var(--branco);
+}
+
+.cardBanner div {
+  color: var(--branco);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.cardBanner button {
+  background-color: var(--branco);
+  border: none;
+  border-radius: 50px;
+  color: var(--verde-escuro-2);
+  font-size: 16px;
+  width: 230px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.cardBanner button:hover {
+  color: var(--verde-padrao);
+  scale: 1.1;
+
+}
+
+.cardBanner .p2 {
+  margin-left: 3%;
+  text-decoration: underline;
+}
+
+.bannerCardDir {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.bannerCardDir img{
+  position: absolute;
+  height: 96%;
+  right: -120px;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.sobreNos {
+  height: 60vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+.blocos{
+  height: 40vh;
+  width: 100vw;
+}
+
+.contFoto {
+  width: 50%;
+  background-color: var(--branco);
+  display: flex;
+  justify-content: center;
+}
+.contFoto img{
+  height: 62%;
+  border: 10px solid #00FF85 ;
+  box-shadow: 0px 1px 10px var(--cinza);
+}
+
+.contNossaHist {
+  position: relative;
+  box-shadow: 0px 1px 10px var(--cinza);
+  width: 50%;
+  background-color: var(--verde-escuro-2);
+  z-index: -1;
+}
+.conteudoNossaHist{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  text-align: end;
+  color: var(--branco);
+  padding: 0 50px 0 100px;
+
+}
+
+.contNossaHist h1 {
+  font-size: 36px;
+}
+.contNossaHist p {
+  font-size: 16px;
+}
