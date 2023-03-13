@@ -3,7 +3,7 @@ import Header from '../Components/Header';
 import Bloco from '../Components/Bloco';
 import Footer from '../Components/Footer';
 
-function Home() {
+function Home() { 
     return (
         <body>
             <header>
@@ -13,8 +13,8 @@ function Home() {
                 <div className='bannerCardEsq'>
                     <div className='bola'></div>
                     <div className='cardBanner'>
-                        <h1>Na <b>manuall</b> você pode encontrar um profissional para <b>resolver</b> qualquer <b>problema</b></h1>
-                        <p>Contrate um profissional que vai te ensinar a resolver o problema.</p>
+                        <h1>Na <b>manuall</b> você encontra serviço e ensino para <b>resolver</b> qualquer <b>problema</b></h1>
+                        <p>Contrate um profissional, garanta seu aprendizado!</p>
                         <div><button>Encontrar</button><p className='p2'>Já tem uma conta? Fazer login</p></div>
                     </div>
                 </div>
@@ -30,9 +30,9 @@ function Home() {
                     </div>
                     <div className='sobreNosTexto'>
                         <h1>Como tudo começou?</h1>
-                        <p>Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco.</p>
-                        <p>Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco.</p>
-                        <p>Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco.</p>
+                        <p> A Manuall surgiu de um projeto na faculdade SPTech (São Paulo Tech School), com o intuito de criar uma plataforma que una uma pessoa com uma necessidade à quem pode atendê-la.</p>
+                        <p> Nosso olhar foi direcionado ao dia a dia das pessoas em suas casas, em momentos que são surpreendidas por necessidades de manutenção, desde uma troca de lâmpada, até pinturas e jardinagem.</p>
+                        <p> Portanto, nosso objetivo é reunir prestadores de serviços gerais às pessoas que precisam desse auxílio. Porém, não só proporcionando um serviço impessoal, mas criando uma relação de propósito e aprendizado, através da possibilidade de ensino das atividades.</p>
                     </div>
                 </div>
 
@@ -40,13 +40,13 @@ function Home() {
             <div className='nsei'>
                 <div className='blocos'>
                     <div>
-                        <Bloco iconi={"https://i.imgur.com/Kp72HOW.png"} titulo={"Missão"} texto={"Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco."}></Bloco>
+                        <Bloco iconi={"https://i.imgur.com/Kp72HOW.png"} titulo={"Missão"} texto={"Unir prestadores de serviços gerais vocacionados a servir e ensinar às pessoas."}></Bloco>
                     </div>
                     <div>
-                        <Bloco iconi={"https://i.imgur.com/UpBLuKn.png"} titulo={"Visão"} texto={"Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco."}></Bloco>
+                        <Bloco iconi={"https://i.imgur.com/UpBLuKn.png"} titulo={"Visão"} texto={"Ser a maior plataforma de prestadores de serviços gerais e ensino do Brasil."}></Bloco>
                     </div>
                     <div>
-                        <Bloco iconi={"https://i.imgur.com/byx0Unt.png"} titulo={"Valores"} texto={"Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco."}></Bloco>
+                        <Bloco iconi={"https://i.imgur.com/byx0Unt.png"} titulo={"Valores"} texto={"- Propósito em tudo que faz <br> - Excelência <br> - Aprendizado <br> - Transparência entre prestador e contratante"}></Bloco>
                     </div>
                 </div>
                 <div className='tecnologia'>
