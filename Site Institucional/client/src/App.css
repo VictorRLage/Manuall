@@ -463,3 +463,48 @@ progress[value]::-webkit-progress-bar {
   background-size: 35px 20px, 100% 100%, 100% 100%;
 
 }
+/* --------------------------------------------------------- */
+.contTime{
+  height: 180vh;
+  width: 100vw;
+  background-color: var(--cinza-claro);
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  column-gap: 70px;
+  row-gap: 50px;
+  justify-content: center;
+}
+
+.cardTime{
+  margin-top: 140px;
+  width: 300px;
+  height: 500px;
+  border: 2px solid var(--preto);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 10px var(--cinza);
+}
+.cardTime2{
+  width: 300px;
+  height: 500px;
+  border: 2px solid var(--preto);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 10px var(--cinza);
+}
+.ftTime{
+  width: 100%;
+  height: 85%;
+  background-size: cover;
+  border-bottom: 3px solid var(--verde-escuro-1);
+  
+}
+.nome{
+  font-size: 24px;
+  margin-left: 10px;
+}
+.cargo{
+  font-size: 16px;
+  margin-left: 10px;
+}
