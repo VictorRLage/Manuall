@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from '../Components/Header';
+import Bloco from '../Components/Bloco';
+import Footer from '../Components/Footer';
 
 function Home() {
     return (
@@ -21,20 +23,65 @@ function Home() {
                 </div>
             </div>
             <div className='sobreNos'>
-                <div className='contFoto'>
-                    <img src='https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'></img>
-                </div>
-                <div className='contNossaHist'>
-                    <div className='conteudoNossaHist'>
-                        <h1>Nossa Historia</h1>
-                        <p>Adipisicing deserunt non et cupidatat veniam dolor sint consequat dolore amet irure nostrud et. Quis dolor amet id veniam ipsum. Laborum minim aliquip quis ad tempor ullamco id ad proident cupidatat velit proident consequat.</p>
-                        <p>Nostrud dolore enim sit excepteur consectetur cupidatat laborum qui ipsum qui incididunt tempor proident dolor. Mollit mollit dolor esse sit mollit minim cupidatat ullamco et fugiat id tempor nulla. Ullamco consectetur enim ut magna. Anim ea mollit ipsum magna commodo commodo et est est in do aliquip. Ad tempor incididunt labore laboris amet dolor culpa anim excepteur laboris tempor dolore labore.</p>
+
+                <div className='contentSobreNos'>
+                    <div className='sobreNosFoto'>
+                        <img src='https://i.imgur.com/zTQzB2M.jpeg'></img>
+                    </div>
+                    <div className='sobreNosTexto'>
+                        <h1>Como tudo começou?</h1>
+                        <p>Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco.</p>
+                        <p>Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco.</p>
+                        <p>Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco.</p>
                     </div>
                 </div>
-            </div>
-            <div className='blocos'>
 
             </div>
+            <div className='nsei'>
+                <div className='blocos'>
+                    <div>
+                        <Bloco iconi={"https://i.imgur.com/Kp72HOW.png"} titulo={"Missão"} texto={"Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco."}></Bloco>
+                    </div>
+                    <div>
+                        <Bloco iconi={"https://i.imgur.com/UpBLuKn.png"} titulo={"Visão"} texto={"Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco."}></Bloco>
+                    </div>
+                    <div>
+                        <Bloco iconi={"https://i.imgur.com/byx0Unt.png"} titulo={"Valores"} texto={"Excepteur enim sint velit commodo incididunt ut duis dolore aliqua labore. Aliquip anim tempor ut non tempor aliquip irure ea magna Lorem sint occaecat tempor mollit. Sit occaecat ad in aliquip. Enim irure reprehenderit fugiat qui voluptate sunt ullamco."}></Bloco>
+                    </div>
+                </div>
+                <div className='tecnologia'>
+                    <h1>Tecnologias</h1>
+                    <div className='linhas'>
+                        <div className='tituloTec'>
+                            <h2>Kotlin</h2>
+                            <img className='foto' src='https://img.icons8.com/color/100/kotlin.png'></img>
+                        </div>
+                        <div className='linhaTec1'>
+                            <progress className='linha' id="file" value="90" max="100"></progress>
+                        </div>
+                        <div className='tituloTec'>
+                            <h2>JavaScript</h2>
+                            <img className='foto' src='https://cdn.worldvectorlogo.com/logos/javascript-1.svg'></img>
+                        </div>
+                        <div className='linhaTec2'>
+                            <progress className='linha' id="file" value="60" max="100"></progress>
+                        </div>
+                        <div className='span-secreto'></div>
+                        <div className='tituloTec'>
+                            <h2>Python</h2>
+                            <img className='foto' src='https://cdn-icons-png.flaticon.com/512/5968/5968350.png'></img>
+                        </div>
+                        <div className='linhaTec3'>
+                            <progress className='linha' id="file" value="30" max="100"></progress>
+                        </div>
+
+                    </div>
+                </div>
+                <div className='ttt'>
+                </div>
+            </div>
+
+
         </body>
     );
 }

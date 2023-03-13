@@ -84,6 +84,57 @@ body {
   background-color: var(--verde-padrao);
 }
 
+/* --------------------------------------------------- */
+.ttt {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 100vw;
+  height: 8vh;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 1px 10px var(--cinza);
+  align-items: center;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background-color: var(--branco);
+}
+.contLogoFooter{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  max-height: 100%;
+  width: 50%;
+}
+.contNavbarFooter{
+  width: 50%;
+  max-height: 100%;
+}
+.navbarFooter{
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  flex-direction: row;
+  margin: 0;
+  list-style: none;
+}
+
+.navbarFooter li {
+  font-size: 24px;
+  font-weight: 400;
+  margin-left: 50px;
+}
+.logoFooter{
+  height: 58px;
+  margin-right: 50px;
+
+}
+
+
 
 /* --------------------------------------------------- */
 .contBanner {
@@ -176,7 +227,8 @@ body {
   display: flex;
   flex-direction: column-reverse;
 }
-.bannerCardDir img{
+
+.bannerCardDir img {
   position: absolute;
   height: 96%;
   right: -120px;
@@ -185,48 +237,229 @@ body {
 }
 
 .sobreNos {
-  height: 60vh;
+  height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cinza-claro);
+}
+
+.contentSobreNos {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  box-shadow: 0px -10px 10px -15px var(--cinza);
+}
+
+.sobreNosFoto {
+  height: 100%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sobreNosFoto img {
+  height: 93%;
+  box-shadow: 0px 1px 10px var(--cinza);
+}
+
+.sobreNosTexto {
+  height: 100%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sobreNosTexto h1 {
+  font-size: 64px;
+  font-weight: 200;
+  margin: 10px;
+  color: var(--verde-escuro-1);
+}
+
+.sobreNosTexto p {
+  font-size: 24px;
+  margin: 10px;
+  width: 95%;
+}
+
+.nsei {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--cinza-claro);
+  display: flex;
+  flex-direction: column;
+
+}
+
+.bloco {
+  width: 450px;
+  height: 200px;
+  background-color: #000;
+  background-color: var(--branco);
+  border: 2px solid var(--verde-escuro-1);
+}
+
+.blocos {
+  height: 40vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: row;
+}
+
+.blocoCirculo {
+  position: relative;
+  background-color: var(--branco);
+  z-index: 9999;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  position: relative;
+  top: -37px;
+  right: -350px;
+  border: 2px solid var(--verde-escuro-1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blocoCirculo img {
+  width: 40px;
+  left: 40px;
+}
+
+.blocoTitulo h1 {
+  color: var(--verde-escuro-1);
+  position: relative;
+  top: -70px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.blocoTxt p {
+  position: relative;
+  top: -100px;
+  padding: 10px;
+}
+
+.tecnologia {
+  height: 52vh;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.tecnologia h1 {
+  font-size: 48px;
+  color: var(--verde-escuro-2);
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.tecnologia h2 {
+  margin: 0;
+  margin-top: 10px;
+}
+
+.tituloTec {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.foto {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+
+.linhaTec1 {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.linhaTec2 {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.linhaTec3 {
+  height: 40px;
   display: flex;
   flex-direction: row;
 }
-.blocos{
-  height: 40vh;
-  width: 100vw;
+
+.linha {
+  margin-top: 10px;
+  width: 100%;
+  height: 50%;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.contFoto {
-  width: 50%;
-  background-color: var(--branco);
-  display: flex;
-  justify-content: center;
-}
-.contFoto img{
-  height: 62%;
-  border: 10px solid #00FF85 ;
-  box-shadow: 0px 1px 10px var(--cinza);
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
-.contNossaHist {
-  position: relative;
-  box-shadow: 0px 1px 10px var(--cinza);
-  width: 50%;
-  background-color: var(--verde-escuro-2);
-  z-index: -1;
-}
-.conteudoNossaHist{
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  text-align: end;
-  color: var(--branco);
-  padding: 0 50px 0 100px;
+.linhaTec1 progress[value]::-webkit-progress-value {
+  background-image:
+    -webkit-linear-gradient(-45deg,
+      transparent 33%, rgba(0, 0, 0, .1) 33%,
+      rgba(0, 0, 0, .1) 66%, transparent 66%),
+    -webkit-linear-gradient(top,
+      rgba(255, 255, 255, .25),
+      rgba(0, 0, 0, .25)),
+    -webkit-linear-gradient(left, #557bde, #ec7d36);
+
+  border-radius: 2px;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
 
 }
 
-.contNossaHist h1 {
-  font-size: 36px;
+.linhaTec2 progress[value]::-webkit-progress-value {
+  background-image:
+    -webkit-linear-gradient(-45deg,
+      transparent 33%, rgba(0, 0, 0, .1) 33%,
+      rgba(0, 0, 0, .1) 66%, transparent 66%),
+    -webkit-linear-gradient(top,
+      rgba(255, 255, 255, .25),
+      rgba(0, 0, 0, .25)),
+    -webkit-linear-gradient(left, #ffde25, #ffde25);
+
+  border-radius: 2px;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
+
 }
-.contNossaHist p {
-  font-size: 16px;
+
+.linhaTec3 progress[value]::-webkit-progress-value {
+  background-image:
+    -webkit-linear-gradient(-45deg,
+      transparent 33%, rgba(0, 0, 0, .1) 33%,
+      rgba(0, 0, 0, .1) 66%, transparent 66%),
+    -webkit-linear-gradient(top,
+      rgba(255, 255, 255, .25),
+      rgba(0, 0, 0, .25)),
+    -webkit-linear-gradient(left, #356f9f, #ffe265);
+
+  border-radius: 2px;
+  background-size: 35px 20px, 100% 100%, 100% 100%;
+
 }
