@@ -232,7 +232,7 @@ body {
 .bannerCardDir img {
   position: absolute;
   height: 96%;
-  width: 1000px;
+  width: 1100px;
   right: -120px;
   z-index: 1001;
   pointer-events: none;
