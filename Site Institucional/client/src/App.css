@@ -173,6 +173,7 @@ body {
   z-index: 1;
   background-color: inherit;
   padding: 30px;
+
 }
 
 .cardBanner b {
@@ -231,6 +232,7 @@ body {
 .bannerCardDir img {
   position: absolute;
   height: 96%;
+  width: 1000px;
   right: -120px;
   z-index: 1001;
   pointer-events: none;
