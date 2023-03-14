@@ -527,6 +527,7 @@ progress[value]::-webkit-progress-bar {
   background-color: var(--cinza-claro);
   display: flex;
   flex-direction: row;
+  z-index: 9999;
 }
 
 .contMsgBox {
@@ -536,6 +537,7 @@ progress[value]::-webkit-progress-bar {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  z-index: 9999;
 }
 
 .tituloMsgBox {
@@ -562,8 +564,8 @@ progress[value]::-webkit-progress-bar {
   margin-top: 30px;
   width: 90%;
   height: 40px;
-  box-shadow: 0px 1px 5px var(--cinza);
   border: none;
+  border-radius: 5px;
 }
 
 .msgBox input:first-child {
@@ -574,18 +576,19 @@ progress[value]::-webkit-progress-bar {
   margin-top: 30px;
   width: 90%;
   height: 180px;
-  box-shadow: 0px 1px 5px var(--cinza);
   border: none;
+  border-radius: 5px;
 }
 
 .msgBox button {
   margin-top: 40px;
   width: 45%;
   height: 40px;
-  background-color: var(--cinza-claro);
+  background-color: var(--branco);
   border: none;
   font-size: 22px;
   font-weight: 500;
+  border-radius: 100px;
 }
 
 
@@ -595,6 +598,7 @@ progress[value]::-webkit-progress-bar {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
 }
 
 .contDados {
@@ -644,4 +648,11 @@ progress[value]::-webkit-progress-bar {
 
 .spam {
   margin-left: 10px;
+}
+
+.wave{
+  position: absolute;
+  width: 100%;
+  top: 391px;
+  z-index: 0;
 }
