@@ -325,7 +325,7 @@ body {
 .blocoCirculo {
   position: relative;
   background-color: var(--branco);
-  z-index: 9999;
+  z-index: 1;
   width: 70px;
   height: 70px;
   border-radius: 100%;
@@ -527,7 +527,7 @@ progress[value]::-webkit-progress-bar {
   background-color: var(--cinza-claro);
   display: flex;
   flex-direction: row;
-  z-index: 9999;
+  z-index: 1;
 }
 
 .contMsgBox {
@@ -537,7 +537,7 @@ progress[value]::-webkit-progress-bar {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  z-index: 9999;
+  z-index: 1;
 }
 
 .tituloMsgBox {
@@ -598,7 +598,7 @@ progress[value]::-webkit-progress-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 1;
 }
 
 .contDados {
@@ -655,4 +655,5 @@ progress[value]::-webkit-progress-bar {
   width: 100%;
   top: 461px;
   z-index: 0;
+  pointer-events: none;
 }
