@@ -4,8 +4,17 @@ import Bloco from '../Components/Bloco';
 import Footer from '../Components/Footer';
 
 function Home() { 
+    const EmptySpace = ({ spaceCount = 0 }) => {
+        return (
+          <>
+            {Array.from({ length: spaceCount }, (item, index) => {
+              return <br key={index} />;
+            })}
+          </>
+        );
+      };
 
-    
+
     return (
         <body>
             <header>
@@ -42,13 +51,13 @@ function Home() {
             <div className='nsei'>
                 <div className='blocos'>
                     <div>
-                        <Bloco iconi={"https://i.imgur.com/Kp72HOW.png"} titulo={"Missão"} texto={"Unir prestadores de serviços gerais vocacionados a servir e ensinar às pessoas."}></Bloco>
+                        <Bloco iconi={"https://i.imgur.com/Kp72HOW.png"} titulo={"Missão"} texto={"A nossa misão é unir os prestadores de serviços gerais vocacionados as pessoas que necessitam de seus serviços dando a eles a oportunidade de passar seu conhecimento e deixar a sua marca no mundo."}></Bloco>
                     </div>
                     <div>
-                        <Bloco iconi={"https://i.imgur.com/UpBLuKn.png"} titulo={"Visão"} texto={"Ser a maior plataforma de prestadores de serviços gerais e ensino do Brasil."}></Bloco>
+                        <Bloco iconi={"https://i.imgur.com/UpBLuKn.png"} titulo={"Visão"} texto={"Ser a maior plataforma de prestadores de serviços gerais e ensino do Brasil transformando o mercado unindo o prestador de serviço e professor na mesma pessoa."}></Bloco>
                     </div>
                     <div>
-                        <Bloco iconi={"https://i.imgur.com/byx0Unt.png"} titulo={"Valores"} texto={"- Propósito em tudo que faz <br> - Excelência <br> - Aprendizado <br> - Transparência entre prestador e contratante"}></Bloco>
+                        <Bloco iconi={"https://i.imgur.com/byx0Unt.png"} titulo={"Valores"} texto={"A Manual como valores visa ter propósito em tudo que faz, ter excelência, dar oportunidades as pessoas e ter transparência entre prestador e contratante"}></Bloco>
                     </div>
                 </div>
                 <div className='tecnologia'>

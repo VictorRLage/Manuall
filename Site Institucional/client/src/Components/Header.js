@@ -10,7 +10,7 @@ function Header({ ativo }) {
     return (
         <div className="header">
             <div className='contLogo'>
-                <img className='logo-header' src='https://i.imgur.com/wKDE0xz.png' />
+                <img className='logo-header' src='https://i.imgur.com/dqboyYc.jpeg' />
             </div>
             <div className='contNavbar'>
                 <ul className="navbar">
