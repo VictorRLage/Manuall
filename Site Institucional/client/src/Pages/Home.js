@@ -4,6 +4,8 @@ import Bloco from '../Components/Bloco';
 import Footer from '../Components/Footer';
 
 function Home() { 
+
+    
     return (
         <body>
             <header>
