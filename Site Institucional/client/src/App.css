@@ -653,6 +653,6 @@ progress[value]::-webkit-progress-bar {
 .wave{
   position: absolute;
   width: 100%;
-  top: 391px;
+  top: 421px;
   z-index: 0;
 }
