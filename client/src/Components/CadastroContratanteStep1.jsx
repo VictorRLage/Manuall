@@ -9,7 +9,6 @@ import  logo_extensa from '../assets/img/logo_manuall_extensa.png'
 
 function CadastroStep1(props) {
     return (
-<div className="flex justify-center h-screen font-mukta">
       <div id="container" className="bg-white h-hcadastro w-wcadastro self-center rounded-lg drop-shadow-all flex flex-row">
         <div id="container-esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col gap-2 justify-center">
           <div id="container-steps" className="flex h-16 w-full justify-center items-center">
@@ -42,7 +41,6 @@ function CadastroStep1(props) {
             <button className='text-2xl font-bold text-white self-center leading-relaxed mt-12 flex items-center'> <ChevronDoubleLeftIcon className='h-10 w-10'/> Voltar à Tela inicial</button>
         </div>
 
-      </div>
     </div>
     );
 }
