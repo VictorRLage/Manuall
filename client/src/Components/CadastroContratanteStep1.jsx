@@ -9,7 +9,7 @@ import  logo_extensa from '../assets/img/logo_manuall_extensa.png'
 
 function CadastroStep1(props) {
     return (
-      <div id="container" className="bg-white 2xl:h-144 2xl:w-288 xl:h-112 xl:w-256 self-center rounded-lg drop-shadow-all flex flex-row">
+      <div id="container" className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
         <div id="container-esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col gap-2 justify-center">
           <div id="container-steps" className="flex h-16 w-full justify-center items-center">
             <div id="step-1" className="bg-white border-4 border-verde-padrao rounded-full h-12 w-12 "></div>
