@@ -25,6 +25,8 @@ module.exports = {
         '55.5':'219px',
         '120':'30rem',
         '144': '36rem',
+        '168':'42rem',
+        '176':'44rem',
         '240':'60rem',
         '288': '72rem',
         '70per': '70%',
@@ -32,7 +34,8 @@ module.exports = {
 
       },
       gridTemplateColumns: {
-        'input-cadastro-step-1': '10rem 20rem',
+        '10x20': '10rem 20rem',
+        '10x20x10x20': '8rem 18rem 8rem 18rem'
       },
       dropShadow: {
         'all': '5px 4px 10px rgba(0, 0, 0, 0.25)',
