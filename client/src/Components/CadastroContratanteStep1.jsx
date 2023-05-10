@@ -29,16 +29,16 @@ function CadastroStep1(props) {
 
           </div>
           <div id="container-proximo" className="w-full h-10 flex justify-end">
-            <button className="text-4xl mr-16 mt-8 font-semibold text-verde-padrao flex items-center">Próximo <ChevronDoubleRightIcon className='h-10 w-10'/></button>
+            <button className="2xl:text-4xl xl:text-2xl mr-16 mt-8 font-semibold text-verde-padrao flex items-center">Próximo <ChevronDoubleRightIcon className='h-10 w-10'/></button>
           </div>
 
         </div>
         <div id="container-direita" className="bg-verde-padrao h-full w-30per rounded-r-lg flex flex-col">
-            <img src={logo_extensa} alt="Logo da Manuall por extensa" className='w-logo mt-12 self-center'/>
-            <p className='text-4xl font-bold text-white w-48 self-center leading-relaxed mt-10'>Cadastro de Contratante</p>
-            <p className='text-2xl font-semibold text-white w-55.5 self-center leading-relaxed mt-32'>Já possui uma conta?</p>
-            <button className='text-2xl font-bold text-white underline'>Entre aqui</button>
-            <button className='text-2xl font-bold text-white self-center leading-relaxed mt-12 flex items-center'> <ChevronDoubleLeftIcon className='h-10 w-10'/> Voltar à Tela inicial</button>
+            <img src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center'/>
+            <p className='2xl:text-4xl xl:text-2xl  font-bold text-white 2xl:w-48 xl:w-32 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Cadastro de Contratante</p>
+            <p className='2xl:text-2xl xl:text-xl  font-semibold text-white 2xl:w-55.5 xl:w-48 self-center 2xl:leading-relaxed 2xl:mt-32 xl:mt-32'>Já possui uma conta?</p>
+            <button className='2xl:text-2xl xl:text-xl font-bold text-white underline'>Entre aqui</button>
+            <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-12 xl:mt-10 flex items-center'> <ChevronDoubleLeftIcon className='h-10 w-10'/> Voltar à Tela inicial</button>
         </div>
 
     </div>

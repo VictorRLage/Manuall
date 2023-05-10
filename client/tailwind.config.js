@@ -21,6 +21,7 @@ module.exports = {
         'verde-escuro-2': '#268054'
       },
       spacing: {
+        '30':'7.5rem',
         '55.5':'219px',
         '120':'30rem',
         '144': '36rem',
@@ -28,7 +29,6 @@ module.exports = {
         '288': '72rem',
         '70per': '70%',
         '30per': '30%',
-        'logo': '15rem',
 
       },
       gridTemplateColumns: {
