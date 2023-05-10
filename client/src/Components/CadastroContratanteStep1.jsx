@@ -9,14 +9,14 @@ import  logo_extensa from '../assets/img/logo_manuall_extensa.png'
 
 function CadastroStep1(props) {
     return (
-      <div id="container" className="bg-white 2xl:h-hcadastro 2xl:w-wcadastro h-teste1 w-teste2 self-center rounded-lg drop-shadow-all flex flex-row">
+      <div id="container" className="bg-white 2xl:h-144 2xl:w-288 xl:h-112 xl:w-256 self-center rounded-lg drop-shadow-all flex flex-row">
         <div id="container-esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col gap-2 justify-center">
           <div id="container-steps" className="flex h-16 w-full justify-center items-center">
             <div id="step-1" className="bg-white border-4 border-verde-padrao rounded-full h-12 w-12 "></div>
             <div id="linha" className="bg-black h-1 w-14"></div>
             <div id="step-2" className="bg-white border-2 border-black rounded-full h-12 w-12 "></div>
           </div>
-          <div id="container-inputs" className="h-hbox-inputs w-wbox-inputs rounded-lg  self-center grid grid-cols-input-cadastro-step-1 grid-rows-4 justify-center items-center gap-0 p-10">
+          <div id="container-inputs" className="h-96 w-144 rounded-lg  self-center grid grid-cols-input-cadastro-step-1 grid-rows-4 justify-center items-center gap-0 p-10">
 
             <label htmlFor="usuario-inp" className="text-2xl text-verde-padrao font-extrabold flex items-center"><UserIcon className='h-8 w-8 mr-3'/> Nome:</label>
             <input id="usuario-inp" type="text" className="h-10 border-4 border-verde-padrao rounded-lg" />
