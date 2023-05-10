@@ -28,7 +28,9 @@ module.exports = {
         'wbox-inputs': '36rem',
         '70per': '70%',
         '30per': '30%',
-        'logo': '15rem'
+        'logo': '15rem',
+        'teste1':'32rem',
+        'teste2':'64rem'
       },
       gridTemplateColumns: {
         'input-cadastro-step-1': '10rem 20rem',
