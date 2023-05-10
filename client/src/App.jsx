@@ -1,10 +1,15 @@
 import React from 'react';
-import CadastroStep1 from './Components/CadastroStep1';
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import CasdastroContratante from './Pages/CadastroContratante';
 
 function App() {
   return (
     <div>
-        <CadastroStep1 />
+      <Router>
+        <Routes>
+          <Route path='/CadastroContratante' element={<CasdastroContratante />}></Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
