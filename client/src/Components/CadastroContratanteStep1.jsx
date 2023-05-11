@@ -18,13 +18,13 @@ function CadastroStep1(props) {
           </div>
           <div id="container-inputs" className="2xl:h-96 2xl:w-144 xl:h-72 rounded-lg  self-center grid 2xl:grid-cols-10x20 xl:grid-cols-10x16 grid-rows-4 justify-center items-center gap-0 p-10">
 
-            <label htmlFor="nome_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><UserIcon className='h-8 w-8 mr-3'/> Nome:</label>
+            <label htmlFor="nome_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><UserIcon className='2xl:h-8 2xl:w-8 xl:h-6 xl:w-6 mr-3'/> Nome:</label>
             <input id="nome_inp" type="name" className="2xl:h-10 xl:h-9 2xl:w-80 xl:w-64 border-4 border-verde-padrao rounded-lg" />
-            <label htmlFor="email_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><EnvelopeIcon className='h-8 w-8 mr-3'/> E-mail:</label>
+            <label htmlFor="email_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><EnvelopeIcon className='2xl:h-8 2xl:w-8 xl:h-6 xl:w-6 mr-3'/> E-mail:</label>
             <input id="email_inp" type="email" className="2xl:h-10 xl:h-9 2xl:w-80 xl:w-64 border-4 border-verde-padrao rounded-lg" />
-            <label htmlFor="cpf_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><IdentificationIcon className='h-8 w-8 mr-3'/> CPF:</label>
+            <label htmlFor="cpf_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><IdentificationIcon className='2xl:h-8 2xl:w-8 xl:h-6 xl:w-6 mr-3'/> CPF:</label>
             <input id="cpf_inp" type="cpf" className="2xl:h-10 xl:h-9 2xl:w-80 xl:w-64 border-4 border-verde-padrao rounded-lg" />
-            <label htmlFor="senha_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><LockClosedIcon className='h-8 w-8 mr-3'/> Senha:</label>
+            <label htmlFor="senha_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><LockClosedIcon className='2xl:h-8 2xl:w-8 xl:h-6 xl:w-6 mr-3'/> Senha:</label>
             <input id="senha_inp" type="password" className="2xl:h-10 xl:h-9 2xl:w-80 xl:w-64 border-4 border-verde-padrao rounded-lg" />
 
           </div>

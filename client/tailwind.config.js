@@ -23,12 +23,15 @@ module.exports = {
       spacing: {
         '12.5':'3.25rem',
         '13':'3.42rem',
+        '15':'3.75rem',
         '30':'7.5rem',
         '55.5':'219px',
         '120':'30rem',
         '144': '36rem',
         '168':'42rem',
+        '184':'46rem',
         '176':'44rem',
+        '200':'50rem',
         '240':'60rem',
         '288': '72rem',
         '70per': '70%',
@@ -38,7 +41,9 @@ module.exports = {
       gridTemplateColumns: {
         '10x20': '10rem 20rem',
         '10x16': '10rem 16rem',
-        '10x20x10x20': '8rem 18rem 8rem 18rem'
+        '14x18': '14rem 18rem',
+
+        '10x20x10x20': '7rem 14rem 7rem 14rem'
       },
       dropShadow: {
         'all': '5px 4px 10px rgba(0, 0, 0, 0.25)',
