@@ -29,7 +29,7 @@ function CadastroStep1(props) {
 
           </div>
           <div id="container_proximo" className="w-full h-10 flex justify-end">
-            <button className="2xl:text-4xl xl:text-2xl mr-12 mt-8 font-semibold text-verde-padrao flex items-center">Próximo <ChevronDoubleRightIcon className='h-10 w-10'/></button>
+            <button className="2xl:text-4xl xl:text-2xl 2xl:mr-12 xl:mr-11 mt-10 font-semibold text-verde-padrao flex items-center">Próximo <ChevronDoubleRightIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8'/></button>
           </div>
 
         </div>
@@ -38,7 +38,7 @@ function CadastroStep1(props) {
             <p className='2xl:text-4xl xl:text-2xl  font-bold text-white 2xl:w-48 xl:w-32 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Cadastro de Contratante</p>
             <p className='2xl:text-2xl xl:text-xl  font-semibold text-white 2xl:w-55.5 xl:w-48 self-center 2xl:leading-relaxed 2xl:mt-32 xl:mt-32'>Já possui uma conta?</p>
             <button className='2xl:text-2xl xl:text-xl font-bold text-white underline'>Entre aqui</button>
-            <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-12 xl:mt-11 flex items-center'> <ChevronDoubleLeftIcon className='h-10 w-10'/> Voltar à Tela inicial</button>
+            <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8'/> Voltar à Tela inicial</button>
         </div>
 
     </div>
