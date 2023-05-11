@@ -16,7 +16,7 @@ function CadastroStep1(props) {
             <div id="linha" className="bg-black h-1 2xl:w-14 xl:w-10"></div>
             <div id="step_2" className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10 "></div>
           </div>
-          <div id="container-inputs" className="2xl:h-96 2xl:w-144 xl:h-72 rounded-lg  self-center grid grid-cols-10x20 grid-rows-4 justify-center items-center gap-0 p-10">
+          <div id="container-inputs" className="2xl:h-96 2xl:w-144 xl:h-72 rounded-lg  self-center grid 2xl:grid-cols-10x20 xl:grid-cols-10x16 grid-rows-4 justify-center items-center gap-0 p-10">
 
             <label htmlFor="nome_inp" className="2xl:text-2xl xl:text-xl text-verde-padrao font-extrabold flex items-center"><UserIcon className='h-8 w-8 mr-3'/> Nome:</label>
             <input id="nome_inp" type="name" className="2xl:h-10 xl:h-9 2xl:w-80 xl:w-64 border-4 border-verde-padrao rounded-lg" />
@@ -29,7 +29,7 @@ function CadastroStep1(props) {
 
           </div>
           <div id="container_proximo" className="w-full h-10 flex justify-end">
-            <button className="2xl:text-4xl xl:text-2xl mr-16 mt-8 font-semibold text-verde-padrao flex items-center">Próximo <ChevronDoubleRightIcon className='h-10 w-10'/></button>
+            <button className="2xl:text-4xl xl:text-2xl mr-12 mt-8 font-semibold text-verde-padrao flex items-center">Próximo <ChevronDoubleRightIcon className='h-10 w-10'/></button>
           </div>
 
         </div>
@@ -38,7 +38,7 @@ function CadastroStep1(props) {
             <p className='2xl:text-4xl xl:text-2xl  font-bold text-white 2xl:w-48 xl:w-32 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Cadastro de Contratante</p>
             <p className='2xl:text-2xl xl:text-xl  font-semibold text-white 2xl:w-55.5 xl:w-48 self-center 2xl:leading-relaxed 2xl:mt-32 xl:mt-32'>Já possui uma conta?</p>
             <button className='2xl:text-2xl xl:text-xl font-bold text-white underline'>Entre aqui</button>
-            <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-12 xl:mt-10 flex items-center'> <ChevronDoubleLeftIcon className='h-10 w-10'/> Voltar à Tela inicial</button>
+            <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-12 xl:mt-11 flex items-center'> <ChevronDoubleLeftIcon className='h-10 w-10'/> Voltar à Tela inicial</button>
         </div>
 
     </div>
