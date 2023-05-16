@@ -42,6 +42,7 @@ module.exports = {
         '10x20': '10rem 20rem',
         '10x16': '10rem 16rem',
         '14x18': '14rem 18rem',
+        '14x18': '12rem 14rem',
 
         '10x20x10x20': '7rem 14rem 7rem 14rem'
       },
