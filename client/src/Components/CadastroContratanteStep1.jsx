@@ -9,7 +9,7 @@ import  logo_extensa from '../assets/img/logo_manuall_extensa.png'
 
 function CadastroStep1(props) {
     return (
-      <div id="container" className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
+      <div id="container" className="2xl:bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
         <div id="container_esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col gap-2 justify-center">
           <div id="container_steps" className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center">
             <div id="step_1" className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10"></div>
@@ -35,9 +35,9 @@ function CadastroStep1(props) {
         </div>
         <div id="container_direita" className="bg-verde-padrao h-full w-30per rounded-r-lg flex flex-col">
             <img src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center'/>
-            <p className='2xl:text-4xl xl:text-2xl  font-bold text-white 2xl:w-48 xl:w-32 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Cadastro de Contratante</p>
-            <p className='2xl:text-2xl xl:text-xl  font-semibold text-white 2xl:w-55.5 xl:w-48 self-center 2xl:leading-relaxed 2xl:mt-32 xl:mt-32'>Já possui uma conta?</p>
-            <button className='2xl:text-2xl xl:text-xl font-bold text-white underline'>Entre aqui</button>
+            <p className='2xl:text-4xl xl:text-2xl  font-bold text-white w-full text-center self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Cadastro de <br /> Contratante</p>
+            <p className='2xl:text-2xl xl:text-xl  font-semibold text-white w-full text-center self-center 2xl:leading-relaxed mt-32'>Já possui uma conta?</p>
+            <button className='2xl:text-2xl xl:text-xl font-bold text-white w-full underline'>Entre aqui</button>
             <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8'/> Voltar à Tela inicial</button>
         </div>
 
