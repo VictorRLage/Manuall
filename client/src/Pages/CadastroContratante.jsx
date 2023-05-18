@@ -4,8 +4,8 @@ import CadastroStep2 from '../Components/CadastroContratanteStep2';
 
 function CadastroContratante(props) {
     return (
-        <div className="flex justify-center font-mukta p-16">
-            <CadastroStep2 />
+        <div className="flex justify-center h-screen font-mukta ">
+            <CadastroStep1 />
         </div>
     );
 }

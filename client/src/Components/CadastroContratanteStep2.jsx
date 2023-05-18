@@ -13,7 +13,7 @@ import logo_extensa from '../assets/img/logo_manuall_extensa.png'
 
 function CadastroContratanteStep2(props) {
     return (
-        <div id='container' className="bg-white 2xl:h-200 2xl:w-288 xl:h-184 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
+        <div id='container' className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-ro">
             <div id="container_esquerda" className="bg-verde-padrao h-full w-30per rounded-l-lg flex flex-col ">
                 <img src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center' />
                 <p className='2xl:text-6xl xl:text-4xl  font-bold text-white 2xl:w-48 xl:w-48 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-20'>Cadastro de Contratante</p>
