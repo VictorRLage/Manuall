@@ -1,6 +1,6 @@
 import React from 'react';
-import CadastroStep1 from '../Components/CadastroContratanteStep1';
-import CadastroStep2 from '../Components/CadastroContratanteStep2';
+import CadastroStep1 from '../components/CadastroContratanteStep1';
+import CadastroStep2 from '../components/CadastroContratanteStep2';
 
 function CadastroContratante(props) {
     return (
