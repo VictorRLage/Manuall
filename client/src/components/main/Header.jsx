@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Header(props) {
     /*  validações :
         1 - em qual pagina você esta?        

@@ -18,13 +18,15 @@ module.exports = {
         'verde-claro-3': 'rgba(17, 173, 14, 0.25)',
         'verde-claro-4': '#92E3A9',
         'verde-escuro-1': '#008042',
-        'verde-escuro-2': '#268054'
+        'verde-escuro-2': '#268054',
+        'blur': 'rgba(0, 0, 0, 0.400)'
       },
       spacing: {
         '12.5':'3.25rem',
         '13':'3.42rem',
         '15':'3.65rem',
         '30':'7.5rem',
+        '42':'10.5rem',
         '55.5':'219px',
         '120':'30rem',
         '144': '36rem',
@@ -43,7 +45,6 @@ module.exports = {
         '10x16': '10rem 16rem',
         '14x18': '14rem 18rem',
         '16x16': '16rem 16rem',
-
         '10x20x10x20': '7rem 14rem 7rem 14rem'
       },
       dropShadow: {

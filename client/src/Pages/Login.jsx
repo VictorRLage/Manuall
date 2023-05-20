@@ -1,8 +1,12 @@
-import React from 'react';
+import axiosInstance from "../api/AxiosConfig"
+import { useState, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom";
 import { ChevronDoubleLeftIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import logo_extensa from '../assets/img/logo_manuall_extensa.png'
-
+import EntrarTrue from '../components/login/EntrarTrue'
+import EntrarFalse from '../components/login/EntrarFalse'
+import LoadingEmail from "../components/login/LoadingEmail";
 
 function Login() {
 
@@ -16,10 +20,96 @@ function Login() {
     Botão -  so libera depois de verificar o email
     */
 
+    const [tipoUsuario, setTipoUsuario] = useState(0);
+    const [entrar, setEntrar] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [check, setCheck] = useState(false);
+    const [notCheck, setNotCheck] = useState(false);
+
+    const email = useRef(null)
+    const senha = useRef(null)
+
+
+    const checarEmail = (e) => {
+        console.log("Checando email")
+        axiosInstance.post("/usuarios/login/checar", {
+            email: e.target.value
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    setTipoUsuario(res.data)
+                    mudarEntrar(true)
+                    mudarCheck(true)
+                    mudarNotCheck(false)
+                    mudarLoading()
+                } else if (res.status === 204) {
+                    console.log("Usuario não existe")
+                    mudarEntrar(false)
+                    mudarNotCheck(true)
+                    mudarLoading()
+                    // modal usuario nao existe
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 409) {
+                    console.log("Usuario possui 2 perfis")
+                    mudarEntrar(false)
+                    mudarNotCheck(true)
+                    mudarLoading()
+                    // modal 2 tipos de perfil
+                }
+            })
+    }
+
+    const entrarLogin = () => {
+        axiosInstance.post("/usuarios/login/efetuar", {
+            email: email.current.value,
+            senha: senha.current.value,
+            tipoUsuario: tipoUsuario
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log("Token recuperado")
+                    console.log(res.data)
+                    localStorage.TOKEN = res.data
+                    //res.data
+                    // if (tipoUsuario === 1) vai pra vendas
+                    // if (tipoUsuario === 2) vai pra perfil
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                if (err.response.status === 401) {
+                    console.log("Credenciais inválidas")
+                    // modal credenciais invalidas
+                } else if (err.response.status === 403) {
+                    // if (res.data === "Usuário não finalizou o cadastro") modal usuário não finalizou o cadastro
+                    // if (res.data === "Aprovação negada") modal aprovação negada
+                    // if (res.data === "Aprovação pendente") modal Aprovação pendente
+                }
+            })
+    }
+
     let navigate = useNavigate();
     const routeChangeToCadastroContratante = () => {
         let path = `/cadastroContratante`;
         navigate(path);
+    }
+
+    function mudarEntrar(props) {
+        setEntrar(props)
+    }
+
+    function mudarLoading() {
+        setLoading(!loading)
+    }
+
+    function mudarCheck(props) {
+        setCheck(props)
+    }
+
+    function mudarNotCheck(props) {
+        setNotCheck(props)
     }
 
 
@@ -40,29 +130,25 @@ function Login() {
                     </div>
                     <div id="container_inputs" className="2xl:h-96 2xl:w-96  xl:w-80 rounded-lg  self-center flex 2xl:justify-center flex-col 2xl:gap-10 xl:gap-8 2xl:mt-0 xl:mt-10">
 
-                        <div class="relative">
-                            <input type="text" id="email_inp" class="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
-                            <label for="cep_inp" class="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Endereço de email</label>
+                        <div className="relative">
+                            <input defaultValue={"joaquim.pires@sptech.school"} ref={email} onBlur={(e) => {checarEmail(e);}} onFocus={() => {mudarLoading(); mudarCheck(false)}} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <label htmlFor="email_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Endereço de email</label>
+                            {loading ? <LoadingEmail/>: null}
+                            {check ? <CheckCircleIcon className='text-verde-padrao absolute 2xl:h-6 2xl:w-6 xl:h-10 xl:w-10 left-80 top-0 ml-1'/>:  null}
+                            {notCheck ? <XCircleIcon className='text-red-500 absolute 2xl:h-6 2xl:w-6 xl:h-10 xl:w-10 left-80 top-0 ml-1'/>:  null}
                         </div>
-                        <div class="relative">
-                            <input type="text" id="senha_inp" class="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
-                            <label for="cidade_inp" class="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
+                        <div className="relative">
+                            <input defaultValue={"senha123"} ref={senha} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
                         </div>
-
-
                     </div>
                     <div id="container_esqueci_senha" className="w-full flex justify-center">
                         <Link to={''} className='text-center text-verde-padrao font-medium underline'>Esqueci minha senha</Link>
                     </div>
                     <div id="container_entrar" className="w-full flex justify-center">
-                        <button className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mt-14 xl:mt-10 font-semibold text-white ">Entrar</button>
+                        {entrar ? <EntrarTrue entrarLogin={entrarLogin}/> : < EntrarFalse />}
                     </div>
                 </div>
-
-
-
-
-
             </div>
         </div>
     );
