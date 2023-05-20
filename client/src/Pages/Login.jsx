@@ -128,24 +128,24 @@ function Login() {
                         <p className='text-verde-padrao font-extrabold text-6xl mt-14'>Bem-vindo de volta!</p>
                         <p className='text-verde-padrao font-extrabold text-2xl mt-2'>Acesse a sua conta agora mesmo.</p>
                     </div>
-                    <div id="container_inputs" className="2xl:h-96 2xl:w-96  xl:w-80 rounded-lg  self-center flex 2xl:justify-center flex-col 2xl:gap-10 xl:gap-8 2xl:mt-0 xl:mt-10">
+                    <div id="container_inputs" className="2xl:w-96  xl:w-80 rounded-lg  self-center flex flex-col 2xl:gap-10 xl:gap-8 2xl:mt-20 xl:mt-10 ">
 
                         <div className="relative">
-                            <input defaultValue={"joaquim.pires@sptech.school"} ref={email} onBlur={(e) => {checarEmail(e);}} onFocus={() => {mudarLoading(); mudarCheck(false)}} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <input defaultValue={"joaquim.pires@sptech.school"} ref={email} onBlur={(e) => {checarEmail(e);}} onFocus={() => {mudarLoading(); mudarCheck(false); mudarNotCheck(false);}} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
                             <label htmlFor="email_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Endereço de email</label>
                             {loading ? <LoadingEmail/>: null}
-                            {check ? <CheckCircleIcon className='text-verde-padrao absolute 2xl:h-6 2xl:w-6 xl:h-10 xl:w-10 left-80 top-0 ml-1'/>:  null}
-                            {notCheck ? <XCircleIcon className='text-red-500 absolute 2xl:h-6 2xl:w-6 xl:h-10 xl:w-10 left-80 top-0 ml-1'/>:  null}
+                            {check ? <CheckCircleIcon className='text-verde-padrao absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1'/>:  null}
+                            {notCheck ? <XCircleIcon className='text-red-500 absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1'/>:  null}
                         </div>
                         <div className="relative">
-                            <input defaultValue={"senha123"} ref={senha} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <input defaultValue={"senha123"} ref={senha} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
                             <label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
                         </div>
                     </div>
                     <div id="container_esqueci_senha" className="w-full flex justify-center">
-                        <Link to={''} className='text-center text-verde-padrao font-medium underline'>Esqueci minha senha</Link>
+                        <Link to={''} className='text-center text-verde-padrao font-medium underline 2xl:text-lg xl:text-base'>Esqueci minha senha</Link>
                     </div>
-                    <div id="container_entrar" className="w-full flex justify-center">
+                    <div id="container_entrar" className="w-full flex justify-center 2xl:mt-8.5 xl:mt-4">
                         {entrar ? <EntrarTrue entrarLogin={entrarLogin}/> : < EntrarFalse />}
                     </div>
                 </div>
