@@ -28,6 +28,7 @@ module.exports = {
         '13':'3.42rem',
         '15':'3.65rem',
         '18':'4.5rem',
+        '22':'5.5rem',
         '30':'7.5rem',
         '42':'10.5rem',
         '55.5':'219px',
@@ -48,10 +49,8 @@ module.exports = {
         '10x20': '10rem 20rem',
         '11.5x11.5': '11.5rem 11.5rem',
         '13.5x13.5': '13.5rem 13.5rem',
-        '10x16': '10rem 16rem',
-        '14x18': '14rem 18rem',
         '16x16': '16rem 16rem',
-        '10x20x10x20': '7rem 14rem 7rem 14rem'
+        '24x24': '24rem 24rem',
       },
       dropShadow: {
         'all': '5px 4px 10px rgba(0, 0, 0, 0.25)',

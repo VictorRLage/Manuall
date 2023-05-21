@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react'
 import CadastroStep1 from '../components/cadastroContratante/CadastroContratanteStep1';
 import CadastroStep2 from '../components/cadastroContratante/CadastroContratanteStep2';
