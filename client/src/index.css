@@ -15,14 +15,35 @@ code {
     monospace;
 }
 
-.slider {
-  @apply appearance-none cursor-pointer w-168 h-4 rounded-full shadow-[inset_0_0px_4px_rgba(0,0,0,0.4)] outline-none opacity-70 transition-opacity;
 
-  &::-webkit-slider-thumb {
-    @apply appearance-none w-4 h-4 rounded-full bg-gray-700 cursor-pointer;
-  }
 
-  &::-moz-range-thumb {
-    @apply w-4 h-4 rounded-full bg-gray-700 cursor-pointer;
-  }
+.horizontal-slider {
+  top: 5px;
+  width: 61.5%;
+  height: 50px;
+
+}
+
+.horizontal-slider .example-track {
+  top: .4rem;;
+  height: .7rem;
+  background-color: rgb(221, 221, 221);
+  border-radius: 10rem;
+}
+
+.example-track.example-track-1 {
+  background: #00CC69;
+}
+
+.horizontal-slider .example-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 32px;
+  border-radius: 100%;
+  font-size: 0.9em;
+  text-align: center;
+  background-color: #00CC69;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
 }

@@ -1,8 +1,10 @@
+import '../../index.css'
 // import { UserIcon } from '@heroicons/react/24/solid'
 import { useState } from "react"
-// import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
+import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
 import axiosInstance from '../../api/AxiosConfig'
-import Slider from "./Slider";
+// import Slider from "./Slider";
+import ReactSlider from 'react-slider'
 
 
 
@@ -14,6 +16,8 @@ function CadastroPrestadorStep3(props) {
     const [mapServico, setMapServico] = useState(false);
     const [selectedArea, setSelectedArea] = useState(0);
     const [dropDown, setdropDown] = useState(false);
+    const [range, setRange] = useState([]);
+
 
     const mudarDropDown = () => {
         setdropDown(!dropDown);
@@ -116,8 +120,41 @@ function CadastroPrestadorStep3(props) {
                     </div>
                 </div>
             </div>
-            <div id="cont_enbaixo" className="flex justify-center items-center w-full bg-rose-300">
-                <Slider />
+            <div id="cont_enbaixo" className="flex justify-center flex-col items-center w-full">
+                <div className='text-4xl font-medium mt-6'>
+                    <span>Selecione a media do valor cobrado:</span>
+                </div>
+                <div className='flex justify-center w-full mt-6'>
+                    <div className='w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
+                        <span>R$ {range[0]}</span>
+                    </div>
+                    <span className='text-2xl font-medium text-verde-padrao ml-2 mr-2'>Min</span>
+                    <ReactSlider
+                        className="horizontal-slider"
+                        thumbClassName="example-thumb"
+                        trackClassName="example-track"
+                        defaultValue={[1500, 3500]}
+                        min={0}
+                        max={5000}
+                        ariaLabel={['Lower thumb', 'Upper thumb']}
+                        ariaValuetext={state => `Thumb value ${state.valueNow}`}
+                        pearling
+                        minDistance={300}
+                        onChange={(value) => setRange(value)}
+                    />
+                    <span className='text-2xl font-medium text-verde-padrao ml-2 mr-2'>Max</span>
+                    <div className='w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
+                        <span>R$ {range[1]}</span>
+                    </div>
+                </div>
+                <div className='flex flex-row w-full'>
+                    <div id="container_proximo" className="w-full h-10 flex justify-start">
+                        <button className="2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center" onClick={props.passarStep}><ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
+                    </div>
+                    <div id="container_finalizar" className="w-full h-10 flex justify-end ">
+                        <button className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-12 2xl:mt-14 xl:mt-4 font-semibold text-white ">Finalizar</button>
+                    </div>
+                </div>
             </div>
 
         </div>
