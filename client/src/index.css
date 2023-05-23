@@ -14,3 +14,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.slider {
+  @apply appearance-none cursor-pointer w-168 h-4 rounded-full shadow-[inset_0_0px_4px_rgba(0,0,0,0.4)] outline-none opacity-70 transition-opacity;
+
+  &::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 rounded-full bg-gray-700 cursor-pointer;
+  }
+
+  &::-moz-range-thumb {
+    @apply w-4 h-4 rounded-full bg-gray-700 cursor-pointer;
+  }
+}
