@@ -145,7 +145,7 @@ function Login() {
                     <div id="container_esqueci_senha" className="w-full flex justify-center">
                         <Link to={''} className='text-center text-verde-padrao font-medium underline 2xl:text-lg xl:text-base'>Esqueci minha senha</Link>
                     </div>
-                    <div id="container_entrar" className="w-full flex justify-center 2xl:mt-8.5 xl:mt-4">
+                    <div id="container_entrar" className="w-full flex justify-center 2xl:mt-8.5 xl:mt-3">
                         {entrar ? <EntrarTrue entrarLogin={entrarLogin}/> : < EntrarFalse />}
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import '../../index.css'
 // import { UserIcon } from '@heroicons/react/24/solid'
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
 import axiosInstance from '../../api/AxiosConfig'
 // import Slider from "./Slider";
@@ -17,6 +17,10 @@ function CadastroPrestadorStep3(props) {
     const [selectedArea, setSelectedArea] = useState(0);
     const [dropDown, setdropDown] = useState(false);
     const [range, setRange] = useState([]);
+
+    const min = useRef(null)
+
+    const [testeSlider1, setTesteSlider1] = useState(0)
 
 
     const mudarDropDown = () => {
@@ -46,6 +50,11 @@ function CadastroPrestadorStep3(props) {
         })
     }
 
+    useEffect(() => {
+        min.current.value = range[0]
+    }, [range])
+
+
     return (
         <div className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all">
             <div id="container_steps" className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
@@ -58,7 +67,7 @@ function CadastroPrestadorStep3(props) {
 
             <div id='cont_encima' className='flex flex-row'>
 
-                <div id='cont_esquerda' className='flex flex-col justify-around mt-6 h-40 w-120 pr-12 pl-12  border-r-2 border-slate-300'>
+                <div id='cont_esquerda' className='flex flex-col justify-around mt-6 h-40 w-120 pr-12 pl-12  border-r-2  after:border-slate-300 border-slate-300'>
 
                     <div className='relative'>
                         <div className="relative inline-block w-full">
@@ -101,12 +110,12 @@ function CadastroPrestadorStep3(props) {
                             ) : null}
                         </div> : null}
                     </div>
-
+                    
                 </div>
 
-                <div id='cont_direita' className='flex flex-col justify-around mt-6 h-40 w-120 pr-12 pl-12  border-l-2 border-slate-300'>
+                <div id='cont_direita' className='flex flex-col justify-around mt-6 h-40 w-120 pr-12 pl-12  border-l-2   after:border-slate-300 border-slate-300'>
                     <div className="w-full text-start h-14">
-                        <span className="text-[36px] inline-block align-middle">Deseja ensinar?</span>
+                        <span className="text-[36px] inline-block align-middle text-verde-padrao">Deseja ensinar?</span>
                     </div>
                     <div className="relative inline-block w-full">
                         <select id='select_inp_ensinar' className="cursor-pointer block appearance-none w-full text-xl font-bold h-14 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
@@ -121,15 +130,16 @@ function CadastroPrestadorStep3(props) {
                 </div>
             </div>
             <div id="cont_enbaixo" className="flex justify-center flex-col items-center w-full">
-                <div className='text-4xl font-medium mt-6'>
-                    <span>Selecione a media do valor cobrado:</span>
+                <div className='text-4xl ml-24 w-full font-medium mt-6 text-verde-padrao'>
+                    <span onClick={() => {setRange([100,3500])}}>Faixa de valor cobrado:</span>
                 </div>
-                <div className='flex justify-center w-full mt-6'>
-                    <div className='w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
-                        <span>R$ {range[0]}</span>
+                <div className='flex justify-center w-full mt-7'>
+                    <div className='relative w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
+                        <span>R$ <input className='w-full bg-transparent absolute' type="number" ref={min} onChange={() => {setTesteSlider1(1000)}} /></span>
                     </div>
                     <span className='text-2xl font-medium text-verde-padrao ml-2 mr-2'>Min</span>
                     <ReactSlider
+                        value={testeSlider1}
                         className="horizontal-slider"
                         thumbClassName="example-thumb"
                         trackClassName="example-track"
@@ -139,8 +149,8 @@ function CadastroPrestadorStep3(props) {
                         ariaLabel={['Lower thumb', 'Upper thumb']}
                         ariaValuetext={state => `Thumb value ${state.valueNow}`}
                         pearling
-                        minDistance={300}
-                        onChange={(value) => setRange(value)}
+                        minDistance={50}
+                        onChange={(value) => {setRange(value)}}
                     />
                     <span className='text-2xl font-medium text-verde-padrao ml-2 mr-2'>Max</span>
                     <div className='w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
@@ -152,7 +162,7 @@ function CadastroPrestadorStep3(props) {
                         <button className="2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center" onClick={props.passarStep}><ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
                     </div>
                     <div id="container_finalizar" className="w-full h-10 flex justify-end ">
-                        <button className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-12 2xl:mt-14 xl:mt-4 font-semibold text-white ">Finalizar</button>
+                        <button className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-11 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-12 2xl:mt-14 xl:mt-3 font-semibold text-white ">Finalizar</button>
                     </div>
                 </div>
             </div>
