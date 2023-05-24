@@ -14,7 +14,6 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/cadastroPrestador' element={<CadastroPrestador />}></Route>
           <Route path='/cadastroContratante' element={<CasdastroContratante />}></Route>
-
         </Routes>
       </Router>
     </div>
