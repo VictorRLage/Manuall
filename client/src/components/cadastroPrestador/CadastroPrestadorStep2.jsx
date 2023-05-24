@@ -30,7 +30,7 @@ function CadastroPrestadorStep2(props) {
                 <div id="container-inputs" className="rounded-lg  self-center grid 2xl:grid-cols-16x16 xl:grid-cols-16x16  items-center 2xl:gap-10 xl:gap-8 2xl:mt-8 xl:mt-6">
                     <div className="relative">
                         <input type="text" id="cep_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
-                        <label htmlFor="cep_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><MapPinIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Cep</label>
+                        <label htmlFor="cep_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><MapPinIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />CEP</label>
                     </div>
                     <div className="relative">
                         <input type="text" id="cidade_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
@@ -58,7 +58,7 @@ function CadastroPrestadorStep2(props) {
                     </div>
                 </div>
                 <div id="container_proximo" className="w-full h-10 flex justify-end">
-                    <button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-22 xl:mt-15 font-bold text-verde-padrao flex items-center" onClick={props.passarStep}>Próximo <ChevronDoubleRightIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /></button>
+                    <button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-22 xl:mt-13 font-bold text-verde-padrao flex items-center" onClick={props.passarStep}>Próximo <ChevronDoubleRightIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /></button>
                 </div>
             </div>
         </div>
