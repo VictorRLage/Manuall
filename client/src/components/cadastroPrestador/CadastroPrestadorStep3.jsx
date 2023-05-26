@@ -1,7 +1,7 @@
 import '../../index.css'
 // import { UserIcon } from '@heroicons/react/24/solid'
 import { useState, useRef, useEffect } from "react"
-import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
+import {ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import axiosInstance from '../../api/AxiosConfig'
 // import Slider from "./Slider";
 import ReactSlider from 'react-slider'
@@ -16,11 +16,28 @@ function CadastroPrestadorStep3(props) {
     const [mapServico, setMapServico] = useState(false);
     const [selectedArea, setSelectedArea] = useState(0);
     const [dropDown, setdropDown] = useState(false);
-    const [range, setRange] = useState([]);
+    const [range, setRange] = useState([1500, 3500]);
 
     const min = useRef(null)
+    const max = useRef(null)
 
-    const [testeSlider1, setTesteSlider1] = useState(0)
+    const updateFirstValue = (newValue) => {
+        setRange([newValue, ...range.slice(1)]);
+      };
+    
+      const mudarPrimeiroValor = () => {
+        const inputValue = min.current.value;
+        updateFirstValue(inputValue);
+      };
+
+      const updateSecondValue = (newValue) => {
+        setRange([range[0], newValue, ...range.slice(2)]);
+      };
+    
+      const mudarSegundoValor = () => {
+        const inputValue2 = max.current.value;
+        updateSecondValue(inputValue2);
+      };
 
 
     const mudarDropDown = () => {
@@ -50,10 +67,6 @@ function CadastroPrestadorStep3(props) {
         })
     }
 
-    useEffect(() => {
-        min.current.value = range[0]
-    }, [range])
-
 
     return (
         <div className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all">
@@ -65,7 +78,7 @@ function CadastroPrestadorStep3(props) {
                 <div id="step_3" className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10"></div>
             </div>
 
-            <div id='cont_encima' className='flex flex-row'>
+            <div id='cont_encima' className='flex flex-row 2xl:justify-center'>
 
                 <div id='cont_esquerda' className='flex flex-col justify-around mt-6 h-40 w-120 pr-12 pl-12  border-r-2  after:border-slate-300 border-slate-300'>
 
@@ -130,36 +143,35 @@ function CadastroPrestadorStep3(props) {
                 </div>
             </div>
             <div id="cont_enbaixo" className="flex justify-center flex-col items-center w-full">
-                <div className='text-4xl ml-24 w-full font-medium mt-6 text-verde-padrao'>
-                    <span onClick={() => {setRange([100,3500])}}>Faixa de valor cobrado:</span>
+                <div className='2xl:ml-72 text-4xl ml-24 w-full font-medium mt-6 text-verde-padrao'>
+                    <span >Faixa de valor cobrado:</span>
                 </div>
-                <div className='flex justify-center w-full mt-7'>
+                <div className='flex justify-center w-full 2xl:w-[82%] mt-7'>
                     <div className='relative w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
-                        <span>R$ <input className='w-full bg-transparent absolute' type="number" ref={min} onChange={() => {setTesteSlider1(1000)}} /></span>
+                        <span>R$ <input className='min-max-inputs w-16 ml-1 appearance-none focus:ring-0 focus:outline-none focus:border-none bg-transparent absolute' value={range[0]} type="number" ref={min} onChange={mudarPrimeiroValor} /></span>
                     </div>
                     <span className='text-2xl font-medium text-verde-padrao ml-2 mr-2'>Min</span>
                     <ReactSlider
-                        value={testeSlider1}
+                        value={range}
                         className="horizontal-slider"
                         thumbClassName="example-thumb"
                         trackClassName="example-track"
-                        defaultValue={[1500, 3500]}
                         min={0}
                         max={5000}
                         ariaLabel={['Lower thumb', 'Upper thumb']}
                         ariaValuetext={state => `Thumb value ${state.valueNow}`}
                         pearling
                         minDistance={50}
-                        onChange={(value) => {setRange(value)}}
+                        onChange={(value) => setRange(value)}
                     />
                     <span className='text-2xl font-medium text-verde-padrao ml-2 mr-2'>Max</span>
                     <div className='w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium'>
-                        <span>R$ {range[1]}</span>
+                    <span>R$<input className='min-max-inputs w-16 ml-1 appearance-none focus:ring-0 focus:outline-none focus:border-none bg-transparent absolute' value={range[1]} type="number" ref={max} onChange={mudarSegundoValor} /></span>
                     </div>
                 </div>
                 <div className='flex flex-row w-full'>
                     <div id="container_proximo" className="w-full h-10 flex justify-start">
-                        <button className="2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center" onClick={props.passarStep}><ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
+                        <button className=" 2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center"><ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
                     </div>
                     <div id="container_finalizar" className="w-full h-10 flex justify-end ">
                         <button className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-11 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-12 2xl:mt-14 xl:mt-3 font-semibold text-white ">Finalizar</button>

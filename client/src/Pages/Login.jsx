@@ -58,9 +58,9 @@ function Login() {
         .catch((err) => {
             if (err.response.status === 403) {
                 const errorData = err.response.data
-                if (errorData == "Aprovação pendente") {
+                if (errorData === "Aprovação pendente") {
                     alert("Redirecionado para tela de aguarde aprovação")
-                } else if (errorData == "Aprovação negada") {
+                } else if (errorData === "Aprovação negada") {
                     alert("Redirecionado para tela de aprovação negada")
                 }
             } else if (err.response.status === 409) {
