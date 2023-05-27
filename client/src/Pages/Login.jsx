@@ -32,7 +32,7 @@ function Login() {
 
     const checarEmail = (e) => {
         console.log("Checando email")
-        axiosInstance.post("/usuarios/login/checar", {
+        axiosInstance.post("/usuario/login/checar", {
             email: e.target.value
         })
             .then((res) => {
@@ -62,7 +62,7 @@ function Login() {
     }
 
     const entrarLogin = () => {
-        axiosInstance.post("/usuarios/login/efetuar", {
+        axiosInstance.post("/usuario/login/efetuar", {
             email: email.current.value,
             senha: senha.current.value,
             tipoUsuario: tipoUsuario
