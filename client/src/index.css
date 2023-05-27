@@ -14,3 +14,42 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+.horizontal-slider {
+  top: 5px;
+  width: 61.5%;
+  height: 50px;
+
+}
+
+.horizontal-slider .example-track {
+  top: .4rem;;
+  height: .7rem;
+  background-color: rgb(221, 221, 221);
+  border-radius: 10rem;
+}
+
+.example-track.example-track-1 {
+  background: #00CC69;
+}
+
+.horizontal-slider .example-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 32px;
+  border-radius: 100%;
+  font-size: 0.9em;
+  text-align: center;
+  background-color: #00CC69;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.min-max-inputs::-webkit-inner-spin-button,
+.min-max-inputs::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
