@@ -47,7 +47,7 @@ function Header(props) {
         })
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data[0])
+                    // console.log(res.data[0])
                     if (res.data.length !== 0) {
                         setTemNotificacao(true)
                         setJsonNotificacao(res.data)
@@ -67,6 +67,7 @@ function Header(props) {
                 if (res.status === 200) {
                     console.log(res.data)
                     setJsonPessoasConversas(res.data)
+                    getMensagens()
                 }
             })
             .catch(err => {
@@ -74,7 +75,9 @@ function Header(props) {
             });
     }
 
-    const getMensagens = () => {
+    const getMensagens = async () => {
+        console.log(jsonPessoasConversas)
+        setJsonConversas([])
         jsonPessoasConversas.forEach(e => {
             axiosInstance.get(`/chat/${e.solicitacaoId}`, {
                 headers
@@ -83,6 +86,8 @@ function Header(props) {
                     if (res.status === 200) {
                         console.log(res.data)
                         const newItem = {
+                            'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
+                            'idSolicitação': e.solicitacaoId,
                             'nome': e.usuarioNome,
                             'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
                         }
@@ -95,21 +100,26 @@ function Header(props) {
         });
     }
 
-    const getUltimaMensagen = () => {
-        axiosInstance.get("/1/buscar/1", {
-            headers
-        })
-            .then((res) => {
-                if (res.status === 200) {
-                    console.log(res.data)
-                    setJsonPessoasConversas(res.data)
-                }
+    const checarNovaMsg = () => {
+        jsonConversas.forEach(e => {
+            axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
+                headers
             })
-            .catch(err => {
-                console.error(err);
-            });
+                .then((res) => {
+                    if (res.status === 200) {
+                        setTemChat(true)
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        });
     }
 
+    useEffect(() => {
+        getNotificacao()
+        getChat()
+    }, [])
     //setInterval(checarNotificacao, 60000)
 
 
@@ -118,11 +128,11 @@ function Header(props) {
         <div>
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
-                    <img onClick={() => { getChat(); getNotificacao() }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
+                    <img onClick={() => { console.log(jsonPessoasConversas) }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
                 </div>
                 <nav className="flex justify-between  items-center" style={{ width: tipoUsuario === undefined ? "46rem" : "38rem" }}>
                     <div className="flex justify-between w-[38%]" style={{ width: tipoUsuario === undefined ? "38%" : "47%" }}>
-                        <Link onClick={getMensagens} to="/inicio" style={{ color: props.pag === 'inicio' ? "#00CC69" : "black", fontWeight: props.pag === 'inicio' ? "700" : "400" }} className="text-xl" >Inicio</Link>
+                        <Link to="/inicio" style={{ color: props.pag === 'inicio' ? "#00CC69" : "black", fontWeight: props.pag === 'inicio' ? "700" : "400" }} className="text-xl" >Inicio</Link>
                         <Link to="/development" style={{ color: props.pag === 'prestadores' ? "#00CC69" : "black", fontWeight: props.pag === 'prestadores' ? "700" : "400" }} className="text-xl" >Prestadores</Link>
                         <Link to="/development" style={{ color: props.pag === 'contato' ? "#00CC69" : "black", fontWeight: props.pag === 'contato' ? "700" : "400" }} className="text-xl" >Contato</Link>
 
@@ -138,7 +148,14 @@ function Header(props) {
                                 <Link to="/development" className="text-xl" >Historico</Link>
                                 <div className="flex justify-between w-[62%] items-center">
                                     <div >
-                                        <button onClick={mudarDropDownChat} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
+                                        {temChat ? <div className="absolute z-10 ml-8">
+                                            <span className="relative flex h-3 w-3 ">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                            </span>
+                                        </div>
+                                            : null}
+                                        <button onClick={() => { mudarDropDownChat(); getMensagens() }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
                                         <Chat json={jsonConversas} dropDown={dropDownChat} />
                                     </div>
                                     {dropDownChat ? <button onClick={() => { setdropDownChat(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}

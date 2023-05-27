@@ -10,7 +10,7 @@ import UnderConstruction from './pages/UnderConstruction';
 function App() {
 
   return (
-    <div>
+    <div className='overflow-y-hidden'>
       <Router>
         <Routes>
           <Route path='/development' element={<UnderConstruction />}></Route>
