@@ -53,3 +53,18 @@ code {
   -webkit-appearance: none;
   margin: 0;
 }
+
+@layer utilities {
+  .py-auto {
+    padding-top: auto;
+    padding-bottom: auto;
+  }
+}
+
+.border-triangulo-cima{
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 20px;
+  border-color: transparent transparent #f8f8f8 transparent;
+}

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
-import logo_extensa from '../../assets/img/logo_manuall_extensa.png'
+import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
 
 function CadastroPrestadorStep2(props) {
 

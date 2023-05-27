@@ -50,7 +50,7 @@ function CadastroPrestadorStep3(props) {
 
     const getAreas = () => {
         console.log("Buscando areas")
-        axiosInstance.get("/usuarios/cadastrar/3/prestador/areas", {
+        axiosInstance.get("/usuario/areas", {
         }).then((res) => {
             setAreas(res.data)
             setMapArea(true)
@@ -60,7 +60,7 @@ function CadastroPrestadorStep3(props) {
 
     const getServicos = (props) => {
         console.log("Buscando servicos")
-        axiosInstance.get('/usuarios/cadastrar/3/prestador/buscarServicos/' + selectedArea, {
+        axiosInstance.get('/usuario/servico/' + selectedArea, {
         }).then((res) => {
             setServicos(res.data)
             setMapServico(true)
@@ -108,7 +108,7 @@ function CadastroPrestadorStep3(props) {
                                 <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                             </div>
                         </div>
-                        {dropDown ? <button onClick={() => { setdropDown(false) }} className='z-40 fixed h-full w-full top-0 left-0 right-0 bottom-0 cursor-default'></button> : null}
+                        {dropDown ? <button onClick={() => { setdropDown(false) }} className='z-40 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default'></button> : null}
                         {dropDown ? <div id='drop_drown_servico' className='z-50 absolute w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline'>
                             {mapServico ? servicos.map(function (data) {
                                 return (

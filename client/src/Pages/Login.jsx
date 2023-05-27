@@ -3,7 +3,7 @@ import { useState, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom";
 import { ChevronDoubleLeftIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid'
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
-import logo_extensa from '../assets/img/logo_manuall_extensa.png'
+import logo_extensa from '../assets/img/logo_manuall_extensa_branca.png'
 import EntrarTrue from '../components/login/EntrarTrue'
 import EntrarFalse from '../components/login/EntrarFalse'
 import LoadingEmail from "../components/login/LoadingEmail";
@@ -33,7 +33,7 @@ function Login() {
 
     const checarEmail = (e) => {
         console.log("Checando email")
-        axiosInstance.post("/usuarios/login/checar", {
+        axiosInstance.post("/usuario/login/checar", {
             email: e.target.value
         })
         .then((res) => {
@@ -76,7 +76,7 @@ function Login() {
     }
 
     const entrarLogin = () => {
-        axiosInstance.post("/usuarios/login/efetuar", {
+        axiosInstance.post("/usuario/login/efetuar", {
             email: email.current.value,
             senha: senha.current.value,
             tipoUsuario: tipoUsuario

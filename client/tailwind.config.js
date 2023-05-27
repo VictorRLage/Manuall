@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         'cinza': '222222',
         'cinza-claro-1': '#A7A5A5',
-        'cinza-claro-2': '#EBEBEB',
+        'cinza-claro-2': '#f8f8f8',
         'verde-padrao': '#00CC69',
         'verde-claro-1': '#00FF85',
         'verde-claro-2': '#4DFFA9',
@@ -31,7 +31,11 @@ module.exports = {
         '22': '5.5rem',
         '30': '7.5rem',
         '42': '10.5rem',
+        '46': '11.5rem',
         '55.5': '219px',
+        '84': '21rem',
+        '88': '22rem',
+        '100': '25rem',
         '112': '28rem',
         '120': '30rem',
         '144': '36rem',
@@ -54,6 +58,7 @@ module.exports = {
       },
       dropShadow: {
         'all': '5px 4px 10px rgba(0, 0, 0, 0.25)',
+        'all-icon': '0px 3px 1.5px rgba(0, 0, 0, 0.25)',
         'all-inp': '3px 2px 2px rgba(0, 0, 0, 0.25)'
       }
     },
