@@ -116,7 +116,7 @@ function Header(props) {
     return (
 
         <div>
-            <header className="z-20 flex py-4 px-16 w-full bg-white drop-shadow-all justify-between">
+            <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
                     <img onClick={() => { getChat(); getNotificacao() }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
                 </div>

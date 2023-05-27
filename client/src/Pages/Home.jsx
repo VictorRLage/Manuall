@@ -55,17 +55,17 @@ function Home(props) {
             <Header pag={'inicio'} />
             <div className='w-full h-full group '>
                 <div id='container_carousel'>
-                    <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className='w-full h-144 bg-center bg-cover duration-500'>
+                    <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className='w-full h-120 bg-center bg-cover duration-500'>
 
                     </div>
-                    <div onClick={nextSlide} id='seta_esquerda' className="cursor-pointer hidden group-hover:block absolute top-84 right-0">
+                    <div onClick={nextSlide} id='seta_esquerda' className="cursor-pointer hidden group-hover:block absolute top-72 right-0">
                         <ChevronRightIcon className="text-white w-16 h-16" />
                     </div>
-                    <div onClick={prevSlide} id='seta_direita' className="cursor-pointer hidden group-hover:block absolute top-84 left-0 ">
+                    <div onClick={prevSlide} id='seta_direita' className="cursor-pointer hidden group-hover:block absolute top-72 left-0 ">
                         <ChevronLeftIcon className="text-white w-16 h-16" />
                     </div>
                     <div className='flex top-4 justify-center'>
-                        <div className='hidden group-hover:flex  absolute bottom-20 cursor-pointer w-24 justify-between '>
+                        <div className='hidden group-hover:flex  absolute bottom-44 cursor-pointer w-24 justify-between '>
                             <div onClick={() => goToSlide(0)} style={{ backgroundColor: currentIndex === 0 ? "#00CC69" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-padrao rounded-full "></div>
                             <div onClick={() => goToSlide(1)} style={{ backgroundColor: currentIndex === 1 ? "#00CC69" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-padrao rounded-full "></div>
                             <div onClick={() => goToSlide(2)} style={{ backgroundColor: currentIndex === 2 ? "#00CC69" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-padrao rounded-full "></div>
@@ -73,12 +73,12 @@ function Home(props) {
                     </div>
                 </div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
-                    <div id="titulo" className="p-12 text-6xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
-                    <div id="botoes" className="w-full flex justify-between px-16">
+                    <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
+                    <div id="botoes" className="w-full flex justify-between px-32">
                         {
                             areas.slice(0, 6).map(function (data, i) {
                                 return (
-                                    <button className="w-40 h-12 bg-verde-padrao rounded-full text-2xl text-white font-semibold " key={i}>{data.nome}</button>
+                                    <button className="w-32 h-10 bg-verde-padrao rounded-full text-xl text-white font-semibold " key={i}>{data.nome}</button>
                                 )
                             })
                         }
@@ -93,65 +93,65 @@ function Home(props) {
                     </div>
 
                 </div>
-                <div id="container_contratar" className="w-full flex p-16 mt-10 flex-col">
+                <div id="container_contratar" className="w-full flex p-32  flex-col">
                     <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">contratar?</span></div>
                     <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
-                        <div className='w-96 h-144 rounded-3xl drop-shadow-all'>
+                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                 <img src='https://i.imgur.com/tLVE79n.png' alt="" />
                             </div>
                             <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-3xl font-medium'>Cadastre-se e <span className="text-verde-padrao font-semibold">pesquise</span> pelo prestador que <span className="text-verde-padrao font-semibold">você precisa!</span></span>
+                                <span className='text-2xl font-medium'>Cadastre-se e <span className="text-verde-padrao font-semibold">pesquise</span> pelo prestador que <span className="text-verde-padrao font-semibold">você precisa!</span></span>
                             </div>
                         </div>
 
-                        <div className='w-96 h-144 rounded-3xl drop-shadow-all'>
+                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                 <img src='https://i.imgur.com/cOE0Z8a.png' alt="" />
                             </div>
                             <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-3xl font-medium'>Faça <span className="text-verde-padrao font-semibold">a sua escolha</span> e solicite o serviço (+ aula, se você quiser) em apenas 3 etapas!</span>
+                                <span className='text-2xl font-medium'>Faça <span className="text-verde-padrao font-semibold">a sua escolha</span> e solicite o serviço (+ aula, se você quiser) em apenas 3 etapas!</span>
                             </div>
                         </div>
 
-                        <div className='w-96 h-144 rounded-3xl drop-shadow-all'>
+                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                 <img src='https://i.imgur.com/vAR85g2.png' alt="" />
                             </div>
                             <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-3xl font-medium'>Termine de negociar pelo chat e pronto! Seu <span className="text-verde-padrao font-semibold">prestador (e professor)</span> irá até você!</span>
+                                <span className='text-2xl font-medium'>Termine de negociar pelo chat e pronto! Seu <span className="text-verde-padrao font-semibold">prestador (e professor)</span> irá até você!</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="container_ensinar" className=" w-full flex px-16 pt-16 flex-col">
+                <div id="container_ensinar" className=" w-full flex px-32 flex-col">
                     <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">ensinar?</span></div>
                     <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
-                        <div className='w-96 h-144 rounded-3xl drop-shadow-all'>
+                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                 <img src='https://i.imgur.com/23p0hm6.png' alt="" />
                             </div>
                             <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-3xl font-medium'>Cadastre-se e converse conosco para sua <span className="text-verde-padrao font-semibold">aprovação!</span></span>
+                                <span className='text-2xl font-medium'>Cadastre-se e converse conosco para sua <span className="text-verde-padrao font-semibold">aprovação!</span></span>
                             </div>
                         </div>
 
-                        <div className='w-96 h-144 rounded-3xl drop-shadow-all'>
+                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                 <img src='https://i.imgur.com/bHeWCih.png' alt="" />
                             </div>
                             <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-3xl font-medium'>Compre seu <span className="text-verde-padrao font-semibold">plano </span> e monte seu perfil!</span>
+                                <span className='text-2xl font-medium'>Compre seu <span className="text-verde-padrao font-semibold">plano </span> e monte seu perfil!</span>
                             </div>
                         </div>
 
-                        <div className='w-96 h-144 rounded-3xl drop-shadow-all'>
+                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                 <img src='https://i.imgur.com/up9fCD3.png' alt="" />
                             </div>
                             <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-3xl font-medium'>Receba solicitações de <span className="text-verde-padrao font-semibold">serviço (e ensino)</span>  e negocie pelo chat!</span>
+                                <span className='text-2xl font-medium'>Receba solicitações de <span className="text-verde-padrao font-semibold">serviço (e ensino)</span>  e negocie pelo chat!</span>
                             </div>
                         </div>
                     </div>
