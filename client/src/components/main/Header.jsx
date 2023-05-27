@@ -24,6 +24,7 @@ function Header(props) {
     const [temChat, setTemChat] = useState(false)
     const [jsonPessoasConversas, setJsonPessoasConversas] = useState([])
     const [jsonConversas, setJsonConversas] = useState([])
+    const [contador, setContador] = useState(0)
 
     const addItem = (newItem) => {
         setJsonConversas(prevArray => [...prevArray, newItem]);
@@ -65,9 +66,8 @@ function Header(props) {
         })
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res.data)
+                    //console.log(res.data)
                     setJsonPessoasConversas(res.data)
-                    getMensagens()
                 }
             })
             .catch(err => {
@@ -75,7 +75,7 @@ function Header(props) {
             });
     }
 
-    const getMensagens = async () => {
+    const getMensagens = () => {
         console.log(jsonPessoasConversas)
         setJsonConversas([])
         jsonPessoasConversas.forEach(e => {
@@ -84,7 +84,7 @@ function Header(props) {
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        console.log(res.data)
+                        //console.log(res.data)
                         const newItem = {
                             'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
                             'idSolicitação': e.solicitacaoId,
@@ -100,7 +100,38 @@ function Header(props) {
         });
     }
 
-    const checarNovaMsg = () => {
+    useEffect(() => {
+        getNotificacao()
+        getChat()
+    }, [])
+
+    useEffect(() => {
+
+        jsonPessoasConversas.forEach(e => {
+            axiosInstance.get(`/chat/${e.solicitacaoId}`, {
+                headers
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        //console.log(res.data)
+                        const newItem = {
+                            'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
+                            'idSolicitação': e.solicitacaoId,
+                            'nome': e.usuarioNome,
+                            'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
+                        }
+                        addItem(newItem)
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        });
+    }, [jsonPessoasConversas])
+
+
+    useEffect(() => {
+        //console.log('checando')
         jsonConversas.forEach(e => {
             axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
                 headers
@@ -111,24 +142,22 @@ function Header(props) {
                     }
                 })
                 .catch(err => {
+
                     console.error(err);
                 });
         });
-    }
+    }, [contador])
 
-    useEffect(() => {
-        getNotificacao()
-        getChat()
-    }, [])
-    //setInterval(checarNotificacao, 60000)
-
+    setInterval(() => {
+        setContador(contador+1) 
+    }, 10000);
 
     return (
 
         <div>
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
-                    <img onClick={() => { console.log(jsonPessoasConversas) }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
+                    <img onClick={() => { console.log(jsonConversas) }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
                 </div>
                 <nav className="flex justify-between  items-center" style={{ width: tipoUsuario === undefined ? "46rem" : "38rem" }}>
                     <div className="flex justify-between w-[38%]" style={{ width: tipoUsuario === undefined ? "38%" : "47%" }}>
@@ -155,7 +184,7 @@ function Header(props) {
                                             </span>
                                         </div>
                                             : null}
-                                        <button onClick={() => { mudarDropDownChat(); getMensagens() }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
+                                        <button onClick={() => { mudarDropDownChat(); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
                                         <Chat json={jsonConversas} dropDown={dropDownChat} />
                                     </div>
                                     {dropDownChat ? <button onClick={() => { setdropDownChat(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}
@@ -186,7 +215,7 @@ function Header(props) {
                                                 </span>
                                             </div>
                                             <div >
-                                                <button onClick={mudarDropDownChat} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
+                                                <button onClick={() => { mudarDropDownChat(); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
                                                 <Chat json={jsonConversas} dropDown={dropDownChat} />
                                             </div>
                                             {dropDownChat ? <button onClick={() => { setdropDownChat(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}

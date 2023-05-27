@@ -102,7 +102,7 @@ function Home(props) {
                         {
                             areas.slice(0, 6).map(function (data, i) {
                                 return (
-                                    <button onClick={() =>{getPrestadoresByArea(data.id)}} className="w-32 h-10 bg-verde-padrao rounded-full text-xl text-white font-semibold " key={i}>{data.nome}</button>
+                                    <button onClick={() => { getPrestadoresByArea(data.id) }} className="w-32 h-10 bg-verde-padrao rounded-full text-xl text-white font-semibold " key={i}>{data.nome}</button>
                                 )
                             })
                         }
@@ -111,7 +111,7 @@ function Home(props) {
                         {
                             prestadores.slice(0, 6).map(function (data, i) {
                                 return (
-                                    <Card key={i} nome={data.nome} cidade={data.cidade} foto={data.anexoPfp} area={data.idArea} min={data.orcamentoMin} max={data.orcamentoMax} aula={data.prestaAula} mediaNota={data.mediaAvaliacoes}/>
+                                    <Card key={i} nome={data.nome} cidade={data.cidade} foto={data.anexoPfp} area={data.idArea} min={data.orcamentoMin} max={data.orcamentoMax} aula={data.prestaAula} mediaNota={data.mediaAvaliacoes} />
                                 )
                             })
                         }
@@ -184,7 +184,7 @@ function Home(props) {
                 </div>
             </div>
             <footer className="w-full relative">
-                <svg className="absolute" width="100%" height="288" viewBox="0 0 1920 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="1920" height="288" viewBox="0 0 1920 288" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d_701_17813)">
                         <path d="M0 352C0 365.807 10.8338 377 24.6409 377C168.22 377 907.084 377 1387 377C1733.96 377 1858.45 377 1903.09 377C1916.89 377 1928 365.807 1928 352V0.5V0.5C1928 12.575 1918.74 22.5535 1906.69 23.2898C1769.2 31.6889 1001.18 79.8099 618.065 129.441C249.565 177.178 53.1672 59.4728 9.44733 28.9888C3.32833 24.7222 0 17.6802 0 10.2206V4.49988V352Z" fill="#008042" />
                     </g>
@@ -201,9 +201,6 @@ function Home(props) {
                         </filter>
                     </defs>
                 </svg>
-
-
-
 
             </footer>
         </div>
