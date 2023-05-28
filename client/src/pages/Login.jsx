@@ -127,19 +127,19 @@ function Login() {
                     setAvisoTitulo("Credenciais inválidas")
                     setAvisoDescricao('Por favor tente novamente')
                 } else if (err.response.status === 403) {
-                    if (err.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
+                    if (err.res.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.data)
+                        setAvisoTitulo(err.res.data )
                         setAvisoDescricao('Irei redirecionar você para tela de cadastro para finaliza-lo')
                     }
-                    if (err.data === "Aprovação negada") { //modal aprovação negada
+                    if (err.res.data  === "Aprovação negada") { //modal aprovação negada
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.data)
+                        setAvisoTitulo(err.res.data )
                         setAvisoDescricao('Infelizmente sua aprovação foi negada')
                     }
-                    if (err.data === "Aprovação pendente") { //modal Aprovação pendente
+                    if (err.res.data  === "Aprovação pendente") { //modal Aprovação pendente
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.data)
+                        setAvisoTitulo(err.res.data )
                         setAvisoDescricao('Por favor aguarde a sua conta ser aprovada')
                     }
                 }
@@ -175,7 +175,7 @@ function Login() {
                             {notCheck ? <XCircleIcon className='text-red-500 absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1' /> : null}
                         </div>
                         <div className="relative">
-                            <input ref={senha_input} type="password" id="senha_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input ref={senha_input} type="password" id="senha_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
                         </div>
                     </div>

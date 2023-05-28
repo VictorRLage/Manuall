@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIcon, EnvelopeIcon, IdentificationIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon, PhoneIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
@@ -8,11 +8,50 @@ function CadastroStep1(props) {
 
 	const navigate = useNavigate()
 
+	const [validacaoNome, setValidacaoNome] = useState(true);
+	const [validacaoEmail, setValidacaoEmail] = useState(true);
+	const [validacaoCpf, setValidacaoCpf] = useState(true);
+	const [validacaoTelefone, setValidacaoTelefone] = useState(true);
+	const [validacaoSenha, setValidacaoSenha] = useState(true);
+	const [validacaoFinal, setValidacaoFinal] = useState(false);
+
 	const nome_input = useRef(null)
 	const email_input = useRef(null)
 	const cpf_input = useRef(null)
 	const telefone_input = useRef(null)
 	const senha_input = useRef(null)
+
+
+
+	const validarNome = () => {
+
+		const nome = nome_input.current.value
+		
+		if (
+			nome === "" ||
+			nome.indexOf("1") !== -1 ||
+			nome.indexOf("2") !== -1 ||
+			nome.indexOf("3") !== -1 ||
+			nome.indexOf("4") !== -1 ||
+			nome.indexOf("5") !== -1 ||
+			nome.indexOf("6") !== -1 ||
+			nome.indexOf("7") !== -1 ||
+			nome.indexOf("8") !== -1 ||
+			nome.indexOf("9") !== -1 ||
+			nome.indexOf("!") !== -1 ||
+			nome.indexOf("@") !== -1 ||
+			nome.indexOf("#") !== -1 ||
+			nome.indexOf("$") !== -1 ||
+			nome.indexOf("%") !== -1 ||
+			nome.indexOf("&") !== -1 ||
+			nome.length >= 100 
+			
+		){
+			setValidacaoNome(false)
+		} else {
+            setValidacaoNome(true)
+        }
+	}
 
 	const avancar = () => {
 		const nome = nome_input.current.value
@@ -22,7 +61,6 @@ function CadastroStep1(props) {
 		const senha = senha_input.current.value
 
 		if (
-			nome === "" ||
 			email === "" ||
 			cpf === "" ||
 			telefone === "" ||
@@ -55,6 +93,20 @@ function CadastroStep1(props) {
 			}
 		})
 	}
+
+
+	useEffect(()=>{
+		if(
+			validacaoNome &&
+			validacaoEmail &&
+			validacaoCpf &&
+			validacaoTelefone &&
+			validacaoSenha
+
+		){
+			setValidacaoFinal(true)
+		}
+	},[])
 
     const pegarDadosPipefy = () => {
         axiosInstance.post("/cadastrar/prospect", {
@@ -90,11 +142,11 @@ function CadastroStep1(props) {
 				</div>
 				<div id="container-inputs" className="2xl:w-112  xl:w-96 rounded-lg  self-center  2xl:justify-center grid 2xl:grid-cols-13.5x13.5 xl:grid-cols-11.5x11.5 2xl:gap-8 xl:gap-6 2xl:gap-x-4 xl:gap-x-4 2xl:mt-10 xl:mt-6">
 					<div className="relative col-span-2">
-						<input ref={nome_input} type="text" id="nome_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input onBlur={() => {validarNome()}} ref={nome_input} type="text" id="nome_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoNome ? `border-cinza-claro-1` : `border-red-500`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
 						<label htmlFor="nome_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><UserIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Nome completo</label>
 					</div>
 					<div className="relative col-span-2">
-						<input onChange={pegarDadosPipefy} ref={email_input} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input onChange={pegarDadosPipefy} ref={email_input} type="email" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="email_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Endereço de email</label>
 					</div>
 					<div className="relative ">
@@ -106,7 +158,7 @@ function CadastroStep1(props) {
 						<label htmlFor="numero_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><PhoneIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Telefone</label>
 					</div>
 					<div className="relative col-span-2">
-						<input ref={senha_input} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input ref={senha_input} type="password" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
 					</div>
 				</div>
