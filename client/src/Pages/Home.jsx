@@ -3,6 +3,7 @@ import Header from "../components/main/Header";
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/AxiosConfig";
 import Card from "../components/main/Card";
+import { useNavigate } from "react-router-dom";
 
 function Home(props) {
     const slides = [
@@ -17,10 +18,17 @@ function Home(props) {
         },
     ];
 
+    const navigate = useNavigate();
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [areas, setAreas] = useState([]);
     const [prestadores, setPrestadores] = useState([]);
+    const [botaoAtivo, setBotaoAtivo] = useState(0);
+    const [reclick, setReclick] = useState(false);
 
+    const mudarReclick = () => {
+        setReclick(!reclick)
+    }
 
     const prevSlide = () => {
         const isFirstSlide = currentIndex === 0;
@@ -57,17 +65,24 @@ function Home(props) {
     }
 
     const getPrestadoresByArea = (idArea) => {
-        console.log("Buscando todos prestadores")
-        axiosInstance.get(`/usuario/prestadores/${idArea}`, {
-        }).then((res) => {
-            setPrestadores(res.data)
-        })
+        //console.log("Buscando todos prestadores")
+        if (reclick) {
+            getPrestadores()
+            setBotaoAtivo(0)
+        } else {
+            axiosInstance.get(`/usuario/prestadores/${idArea}`, {
+            }).then((res) => {
+                setPrestadores(res.data)
+                setBotaoAtivo(idArea)
+            })
+        }
     }
 
     useEffect(() => {
         getAreas()
         getPrestadores()
     }, [])
+    
 
     return (
         <div>
@@ -75,26 +90,57 @@ function Home(props) {
             <div className='w-full h-full'>
                 <div id='container_carousel' className="group">
                     <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className='w-full h-120 bg-center bg-cover duration-500'>
+                        {currentIndex === 0 ?
+                            <div className="absolute">
+                                <div className="absolute ml-20 mt-20 text-white text-6xl">
+                                    Encontre <br /> prestadores de <br /> serviço <span className="font-bold">excelentes</span> <br /> prontos para te <br /> <span className="font-bold">ensinar!</span>
+                                </div>
+                                <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/development") }}>Encontrar</button>
+                                <svg width="100%" height="480" viewBox="0 0 883 631" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M883 292.237C883 678.017 842.268 628.986 355.217 628.986C-988.334 628.986 -45.5207 664.039 -45.5207 391.338C-45.5207 118.638 -207.46 0.595234 109.373 0.595234C426.205 0.595234 883 -26.9222 883 292.237Z" fill="#008042" />
+                                </svg>
+                            </div>
+                            : currentIndex === 1 ?
+                                <div className="absolute flex">
+                                    <div className="absolute ml-[66rem] mt-20 text-white text-6xl text-right">
+                                        Venha <span className=" font-bold">mudar</span> <br /> o mercado de <br /> <span className="font-bold">prestadores de <br /> serviço </span> com <br /> a gente
+                                    </div>
+                                    <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-[62rem] outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/cadastroPrestador") }}>Cadastrar</button>
+                                    <svg className="ml-[52rem]" width="698" height="480" viewBox="0 0 698 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1493.41 307.649C1493.41 693.19 1187.61 617.686 891.5 624.5C-303.5 652 78.5055 564.169 4.00007 141.5C-48.9945 -89.8309 589.006 6.66897 864.456 -25.1818C1140.6 -25.1818 1493.41 -11.3115 1493.41 307.649Z" fill="#008042" />
+                                    </svg>
 
+                                </div>
+                                : currentIndex === 2 ?
+                                    <div className="absolute flex justify-center">
+                                        <div className="absolute ml-52 mt-13 text-white text-6xl text-center">
+                                            Com a <span className="font-bold">Manuall</span> <br /> você pode passa o seu <br /> <span className="font-bold">conhecimento</span> adiante e <br /> deixar o seu <span className="font-bold">legado</span>
+                                        </div>
+                                        <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-84 ml-52 outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/cadastroPrestador") }}>Cadastrar</button>
+                                        <svg className="ml-52 mt-3" width="1102" height="430" viewBox="0 0 1102 523" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1102 258.803C1102 575.057 874.193 513.122 653.593 518.712C-236.658 541.27 60.9612 483.439 5.4562 136.729C-34.0237 -53.0297 441.274 26.1281 646.478 0.00128042C852.199 0.00128042 1102 -2.8374 1102 258.803Z" fill="#008042" />
+                                        </svg>
+
+                                    </div>
+                                    : null
+                        }
                         <div className="flex flex-row justify-between">
 
-                            <div onClick={prevSlide} id='seta_direita' className="mt-48 cursor-pointer hidden group-hover:block ">
+                            <div onClick={prevSlide} id='seta_direita' className="z-30 mt-48 cursor-pointer hidden group-hover:block ">
                                 <ChevronLeftIcon className="text-white w-16 h-16" />
                             </div>
-                            <div onClick={nextSlide} id='seta_esquerda' className="mt-48 right-0 cursor-pointer hidden group-hover:block ">
+                            <div onClick={nextSlide} id='seta_esquerda' className="z-30 mt-48 right-0 cursor-pointer hidden group-hover:block ">
                                 <ChevronRightIcon className="text-white w-16 h-16" />
                             </div>
                         </div>
                         <div className='flex justify-center'>
-                            <div className='hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
-                                <div onClick={() => goToSlide(0)} style={{ backgroundColor: currentIndex === 0 ? "#00CC69" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-padrao rounded-full "></div>
-                                <div onClick={() => goToSlide(1)} style={{ backgroundColor: currentIndex === 1 ? "#00CC69" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-padrao rounded-full "></div>
-                                <div onClick={() => goToSlide(2)} style={{ backgroundColor: currentIndex === 2 ? "#00CC69" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-padrao rounded-full "></div>
+                            <div className='z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
+                                <div onClick={() => goToSlide(0)} style={{ backgroundColor: currentIndex === 0 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
+                                <div onClick={() => goToSlide(1)} style={{ backgroundColor: currentIndex === 1 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
+                                <div onClick={() => goToSlide(2)} style={{ backgroundColor: currentIndex === 2 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
@@ -102,7 +148,7 @@ function Home(props) {
                         {
                             areas.slice(0, 6).map(function (data, i) {
                                 return (
-                                    <button onClick={() => { getPrestadoresByArea(data.id) }} className="w-32 h-10 bg-verde-padrao rounded-full text-xl text-white font-semibold " key={i}>{data.nome}</button>
+                                    <button onClick={() => { getPrestadoresByArea(data.id); mudarReclick() }} className={`${botaoAtivo == data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'} w-32 h-10  rounded-full text-xl  outline outline-offset-4 outline-4 outline-verde-padrao font-semibold`} key={i}>{data.nome}</button>
                                 )
                             })
                         }

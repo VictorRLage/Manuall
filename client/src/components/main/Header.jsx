@@ -154,7 +154,7 @@ function Header(props) {
         <div>
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
-                    <img onClick={() => { console.log(jsonConversas) }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
+                    <img onClick={() => { navigate("/inicio") }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
                 </div>
                 <nav className="flex justify-between  items-center" style={{ width: tipoUsuario === undefined ? "46rem" : "38rem" }}>
                     <div className="flex justify-between w-[38%]" style={{ width: tipoUsuario === undefined ? "38%" : "47%" }}>

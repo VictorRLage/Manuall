@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { StarIcon as StarIconCheio } from '@heroicons/react/24/solid';
 import { StarIcon as StarIconVazio } from '@heroicons/react/24/outline';
 import axiosInstance from '../../api/AxiosConfig';
+import { useNavigate } from 'react-router-dom';
 
 function Card(props) {
+
+    const navigate = useNavigate();
 
     const [area, setArea] = useState('');
 
@@ -48,10 +51,10 @@ function Card(props) {
                     {props.mediaNota >= 3 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
                     {props.mediaNota >= 4 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
                     {props.mediaNota === 5 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
-                    <span className='text-sm ml-2 font-medium'>{() => { props.mediaNota.toFixed(1) }}</span>
+                    <span className='text-sm ml-2 font-medium'>{props.mediaNota.toFixed(1)}</span>
                 </div>
                 <div className='flex mt-1 justify-center'>
-                    <button className=' w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold'>CONTRATAR</button>
+                    <button className=' w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold'  onClick={() => { navigate("/development") }}>CONTRATAR</button>
                 </div>
             </div>
         </div>

@@ -27,11 +27,31 @@ function Login() {
     const [loading, setLoading] = useState(false);
     const [check, setCheck] = useState(false);
     const [notCheck, setNotCheck] = useState(false);
+    const [validacaoEmail, setValidacaoEmail] = useState(true);
+    const [label, setLabel] = useState('');
 
-    const email = useRef(null)
-    const senha = useRef(null)
+    const email_input = useRef(null)
+    const senha_input = useRef(null)
+
 
     const checarEmail = (e) => {
+		const email = email_input.current.value
+        const senha = senha_input.current.value
+
+        if (
+			email === "" ||
+            email.indexOf("@") === -1
+		) {
+			setLabel("Campo invalido")
+            setValidacaoEmail(false)
+            setLoading(false)
+            setCheck(false)
+			return
+		} else {
+            setValidacaoEmail(true)
+        }
+
+
         console.log("Checando email")
         axiosInstance.post("/usuario/login/checar", {
             email: e.target.value
@@ -77,8 +97,8 @@ function Login() {
 
     const entrarLogin = () => {
         axiosInstance.post("/usuario/login/efetuar", {
-            email: email.current.value,
-            senha: senha.current.value,
+            email: email_input.current.value,
+            senha: senha_input.current.value,
             tipoUsuario: tipoUsuario
         })
         .then((res) => {
@@ -121,14 +141,15 @@ function Login() {
                     <div id="container_inputs" className="2xl:w-96  xl:w-80 rounded-lg  self-center flex flex-col 2xl:gap-10 xl:gap-8 2xl:mt-20 xl:mt-10 ">
 
                         <div className="relative">
-                            <input defaultValue={"joaquim.pires@sptech.school"} ref={email} onBlur={(e) => {checarEmail(e);}} onFocus={() => {setLoading(!loading); setCheck(false); setNotCheck(false);}} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <input ref={email_input} onBlur={(e) => {checarEmail(e);}} onFocus={() => {setLoading(!loading); setCheck(false); setNotCheck(false);}} type="text" id="email_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 ${validacaoEmail ? `border-cinza-claro-1` : `border-red-500`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="email_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Endereço de email</label>
+                            {validacaoEmail ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
                             {loading ? <LoadingEmail/>: null}
                             {check ? <CheckCircleIcon className='text-verde-padrao absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1'/>:  null}
-                            {notCheck ? <XCircleIcon className='text-red-500 absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1'/>:  null}
+                            {/* {notCheck ? <XCircleIcon className='text-red-500 absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1'/>:  null} */}
                         </div>
                         <div className="relative">
-                            <input defaultValue={"senha123"} ref={senha} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <input ref={senha_input} type="text" id="senha_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
                         </div>
                     </div>
