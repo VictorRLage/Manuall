@@ -127,19 +127,19 @@ function Login() {
                     setAvisoTitulo("Credenciais inválidas")
                     setAvisoDescricao('Por favor tente novamente')
                 } else if (err.response.status === 403) {
-                    if (res.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
+                    if (err.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
                         setMoldaAviso(true)
-                        setAvisoTitulo(res.data)
+                        setAvisoTitulo(err.data)
                         setAvisoDescricao('Irei redirecionar você para tela de cadastro para finaliza-lo')
                     }
-                    if (res.data === "Aprovação negada") { //modal aprovação negada
+                    if (err.data === "Aprovação negada") { //modal aprovação negada
                         setMoldaAviso(true)
-                        setAvisoTitulo(res.data)
+                        setAvisoTitulo(err.data)
                         setAvisoDescricao('Infelizmente sua aprovação foi negada')
                     }
-                    if (res.data === "Aprovação pendente") { //modal Aprovação pendente
+                    if (err.data === "Aprovação pendente") { //modal Aprovação pendente
                         setMoldaAviso(true)
-                        setAvisoTitulo(res.data)
+                        setAvisoTitulo(err.data)
                         setAvisoDescricao('Por favor aguarde a sua conta ser aprovada')
                     }
                 }
@@ -153,7 +153,7 @@ function Login() {
             {modalEscolherCadastro ? <ModalEscolherCadastro modal={setModalEscolherCadastro} /> : null}
             <div id='container' className=" bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
                 <div id="container_esquerda" className=" bg-verde-padrao h-full w-30per rounded-l-lg flex flex-col ">
-                    <img onClick={() => { console.log(tipoUsuario) }} src={logo_extensa} alt="Logo da Manuall por extensa" className='cursor-pointer 2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center' />
+                    <img onClick={() => { navigate("/inicio") }} src={logo_extensa} alt="Logo da Manuall por extensa" className='cursor-pointer 2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center' />
                     <p className='2xl:text-4xl xl:text-2xl  font-bold text-white w-full text-start 2xl:pl-10 xl:pl-14 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Ainda não possui<br />uma conta?</p>
                     <p className='2xl:text-2xl xl:text-xl   text-white w-full text-start 2xl:pl-10 xl:pl-14 self-center 2xl:leading-relaxed 2xl:mt-0 xl:mt-3'>Cadastre-se por aqui.</p>
                     <button onClick={() => { setModalEscolherCadastro(true) }} className='bg-white font-normal text-verde-escuro-1 2xl:text-2xl xl:text-xl self-center 2xl:w-64 2xl:h-14 xl:w-48 xl:h-12 rounded-full xl:mt-28'>Cadastre-se</button>

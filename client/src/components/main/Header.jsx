@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Notificacoes from "./Notificacoes";
 import Chat from "./Chat";
 import axiosInstance from "../../api/AxiosConfig";
+import ModalEscolherCadastro from "./ModalEscolherCadastro";
+
 
 function Header(props) {
     /*  validações :
@@ -14,6 +16,8 @@ function Header(props) {
         4 - se esta logado como como contratante tem CHAT, NOTIFICAÇOES, CONFIGURAÇÃO e link na navibar para Dashboard
     */
     const navigate = useNavigate()
+
+    const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
 
     const tipoUsuario = localStorage.TIPO_USUARIO
     const [dropDownNotificacao, setdropDownNotificacao] = useState(false);
@@ -91,11 +95,11 @@ function Header(props) {
                     "Authorization": `Bearer ${localStorage.TOKEN}`
                 }
             })
-            .then((res) => {
-                if (res.status === 200) {
-                    setTemChat(true)
-                }
-            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        setTemChat(true)
+                    }
+                })
         })
     }
 
@@ -133,6 +137,7 @@ function Header(props) {
 
     return (
         <div>
+            {modalEscolherCadastro ? <ModalEscolherCadastro modal={setModalEscolherCadastro} /> : null}
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
                     <img onClick={() => { navigate("/inicio") }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
@@ -148,7 +153,7 @@ function Header(props) {
                         <div className="flex justify-between w-[58%] items-center">
                             <Link to="/CadastroPrestador" className="text-xl" >Quero ensinar</Link>
                             <button onClick={() => { navigate("/login") }} className="text-xl border-4 w-32 h-11 border-verde-padrao rounded-full text-verde-padrao font-bold" >Fazer login</button>
-                            <button className="text-xl w-32 h-11 bg-verde-padrao rounded-full text-white font-bold">Cadastre-se</button>
+                            <button onClick={() => { setModalEscolherCadastro(true) }} className="text-xl w-32 h-11 bg-verde-padrao rounded-full text-white font-bold">Cadastre-se</button>
                         </div>
                         : tipoUsuario === '1' ?
                             <div className="flex justify-between w-[47%] items-center">
