@@ -1,6 +1,4 @@
 import { UserIcon } from "@heroicons/react/24/solid";
-import axiosInstance from "../../api/AxiosConfig";
-
 
 function Notificacoes(props) {
 

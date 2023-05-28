@@ -1,11 +1,8 @@
 import { useState } from 'react'
 import CadastroStep1 from '../components/cadastroContratante/CadastroContratanteStep1';
 import CadastroStep2 from '../components/cadastroContratante/CadastroContratanteStep2';
-import ModalAviso from "../components/main/ModalAviso"
 
 function CadastroContratante(props) {
-
-    const [modal, plotarModal] = useState(false)
 
     // Botão para mudar de step
     const [step, setStep] = useState(true);

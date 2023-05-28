@@ -25,10 +25,9 @@ function Card(props) {
         }
     };
 
-    useEffect(() =>{
+    useEffect(() => {
         getNomeAreaById(props.area)
-    },[])
-
+    }, []) // eslint-disable-line
 
     return (
         <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
@@ -44,14 +43,12 @@ function Card(props) {
                     <div className='w-[45%] bg-verde-padrao rounded-full text-white text-center'>{props.aula ? "Serviço + Aula" : "Serviço"}</div>
                 </div>
                 <div id='avaliação' className='flex mt-3'>
-                        {props.mediaNota >= 1 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
-                        {props.mediaNota >= 2 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />} 
-                        {props.mediaNota >= 3 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
-                        {props.mediaNota >= 4 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
-                        {props.mediaNota === 5 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
-                   
-                   
-                    <span className='text-sm ml-2 font-medium'>{(props.mediaNota).toFixed(1)}</span>
+                    {props.mediaNota >= 1 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
+                    {props.mediaNota >= 2 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
+                    {props.mediaNota >= 3 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
+                    {props.mediaNota >= 4 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
+                    {props.mediaNota === 5 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
+                    <span className='text-sm ml-2 font-medium'>{() => { props.mediaNota.toFixed(1) }}</span>
                 </div>
                 <div className='flex mt-1 justify-center'>
                     <button className=' w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold'>CONTRATAR</button>
@@ -61,4 +58,4 @@ function Card(props) {
     );
 }
 
-export default Card;
+export default Card

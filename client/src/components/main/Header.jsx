@@ -1,11 +1,10 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo_extensa from '../../assets/img/logo_manuall_extensa_verde.png'
 import { ChatBubbleBottomCenterTextIcon, BellIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import Notificacoes from "./Notificacoes";
 import Chat from "./Chat";
 import axiosInstance from "../../api/AxiosConfig";
-
 
 function Header(props) {
     /*  validações :
@@ -16,7 +15,7 @@ function Header(props) {
     */
     const navigate = useNavigate();
 
-    const [tipoUsuario, setTipoUsuario] = useState(localStorage.TIPO_USUARIO)
+    const tipoUsuario = localStorage.TIPO_USUARIO
     const [dropDownNotificacao, setdropDownNotificacao] = useState(false);
     const [dropDownChat, setdropDownChat] = useState(false);
     const [temNotificacao, setTemNotificacao] = useState(false)
@@ -103,7 +102,7 @@ function Header(props) {
     useEffect(() => {
         getNotificacao()
         getChat()
-    }, [])
+    }, []) // eslint-disable-line
 
     useEffect(() => {
 
@@ -127,7 +126,7 @@ function Header(props) {
                     console.error(err);
                 });
         });
-    }, [jsonPessoasConversas])
+    }, [jsonPessoasConversas]) // eslint-disable-line
 
 
     useEffect(() => {
@@ -146,14 +145,13 @@ function Header(props) {
                     console.error(err);
                 });
         });
-    }, [contador])
+    }, [contador]) // eslint-disable-line
 
     setInterval(() => {
-        setContador(contador+1) 
+        setContador(contador + 1)
     }, 10000);
 
     return (
-
         <div>
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
