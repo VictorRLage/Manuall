@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import axiosInstance from "../../api/AxiosConfig";
 import axios from "axios";
 
@@ -84,6 +84,15 @@ function CadastroPrestadorStep2(props) {
             }
         })
     }
+
+    useEffect(() => {
+        if (localStorage.getItem("ID_CADASTRANTE") === null) {
+            navigate("/cadastroPrestador")
+        }
+        if (sessionStorage.getItem("optCidade") !== undefined) {
+            rua_input.current.value = sessionStorage.getItem("optCidade")
+        }
+    }, [])
 
     return (
         <div id='container' className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">

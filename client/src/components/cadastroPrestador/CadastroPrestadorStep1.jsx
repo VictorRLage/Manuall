@@ -68,7 +68,11 @@ function CadastroPrestadorStep1(props) {
                     nome_input.current.value = res.data.nome
                 }
                 if (telefone_input.current.value === "") {
-                    telefone_input.current.value = res.data.telefone
+                    if (res.data.telefone.length > 11) {
+                        telefone_input.current.value = res.data.telefone.substring(2)
+                    } else {
+                        telefone_input.current.value = res.data.telefone
+                    }
                 }
                 if (res.data.blnInteresseEnsinar != null) {
                     sessionStorage.setItem("blnInteresseEnsinar", res.data.blnInteresseEnsinar)

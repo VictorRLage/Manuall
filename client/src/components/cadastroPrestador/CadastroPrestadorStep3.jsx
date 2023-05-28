@@ -3,8 +3,11 @@ import { useState, useRef, useEffect } from "react"
 import { ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import axiosInstance from '../../api/AxiosConfig'
 import ReactSlider from 'react-slider'
+import { useNavigate } from 'react-router-dom'
 
 function CadastroPrestadorStep3(props) {
+
+    const navigate = useNavigate()
 
     const [areas, setAreas] = useState([])
     const [servicos, setServicos] = useState([])
@@ -25,6 +28,9 @@ function CadastroPrestadorStep3(props) {
         const ensinar = ensinar_input.current.value
         const minn = min.current.value
         const maxx = max.current.value
+
+        console.log(area)
+        return
 
         let servicosSelecionados = []
         let algumSelecionado = false
@@ -96,6 +102,16 @@ function CadastroPrestadorStep3(props) {
             setServicos(newArray)
         })
     }, [selectedArea])
+    
+    useEffect(() => {
+        // if (localStorage.getItem("ID_CADASTRANTE") === null) {
+        //     navigate("/cadastroPrestador")
+        // }
+        // if (sessionStorage.getItem("optArea") !== undefined) {
+        //     console.log(sessionStorage.getItem("optArea"))
+        //     area_input.current.value = Number(sessionStorage.getItem("optArea"))
+        // }
+    }, [area_input])
 
     const alterarChecked = (index, check) => {
         const s = [...servicos]
