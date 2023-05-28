@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className='overflow-x-hidden'>
-      <Router>
+      <Router> 
         <Routes>
           <Route path='/development' element={<UnderConstruction />}></Route>
           <Route path='/*' element={<Erro />}></Route>
