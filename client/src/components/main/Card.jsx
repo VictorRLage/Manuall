@@ -51,7 +51,7 @@ function Card(props) {
                     {props.mediaNota >= 3 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
                     {props.mediaNota >= 4 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
                     {props.mediaNota === 5 ? <StarIconCheio className='w-4 h-4 text-yellow-500' /> : <StarIconVazio className='w-4 h-4 text-yellow-500' />}
-                    <span className='text-sm ml-2 font-medium'>{props.mediaNota.toFixed(1)}</span>
+                    <span className='text-sm ml-2 font-medium'>{props.mediaNota != null? props.mediaNota.toFixed(1): null}</span>
                 </div>
                 <div className='flex mt-1 justify-center'>
                     <button className=' w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold'  onClick={() => { navigate("/development") }}>CONTRATAR</button>

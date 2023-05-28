@@ -148,7 +148,7 @@ function Home(props) {
                         {
                             areas.slice(0, 6).map(function (data, i) {
                                 return (
-                                    <button onClick={() => { getPrestadoresByArea(data.id); mudarReclick() }} className={`${botaoAtivo == data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'} w-32 h-10  rounded-full text-xl  outline outline-offset-4 outline-4 outline-verde-padrao font-semibold`} key={i}>{data.nome}</button>
+                                    <button onClick={() => { getPrestadoresByArea(data.id); mudarReclick() }} className={`${botaoAtivo === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'} w-32 h-10  rounded-full text-xl  outline outline-offset-4 outline-4 outline-verde-padrao font-semibold`} key={i}>{data.nome}</button>
                                 )
                             })
                         }
