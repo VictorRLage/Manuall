@@ -100,6 +100,9 @@ function Header(props) {
     }
 
     useEffect(() => {
+        setInterval(() => {
+            setContador(contador + 1)
+        }, 10000);
         getNotificacao()
         getChat()
     }, []) // eslint-disable-line
@@ -130,7 +133,7 @@ function Header(props) {
 
 
     useEffect(() => {
-        //console.log('checando')
+        console.log('checando')
         jsonConversas.forEach(e => {
             axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
                 headers
@@ -146,10 +149,6 @@ function Header(props) {
                 });
         });
     }, [contador]) // eslint-disable-line
-
-    setInterval(() => {
-        setContador(contador + 1)
-    }, 10000);
 
     return (
         <div>
