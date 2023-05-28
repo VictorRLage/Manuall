@@ -62,7 +62,6 @@ function CadastroPrestadorStep1(props) {
             tipoUsuario: 2
         })
         .then((res) => {
-            console.log(res)
             if (res.status === 200) {
                 if (nome_input.current.value === "") {
                     nome_input.current.value = res.data.nome

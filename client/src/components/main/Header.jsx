@@ -13,7 +13,7 @@ function Header(props) {
         3 - se esta logado como como contratante tem CHAT e NOTIFICAÇOES e 
         4 - se esta logado como como contratante tem CHAT, NOTIFICAÇOES, CONFIGURAÇÃO e link na navibar para Dashboard
     */
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const tipoUsuario = localStorage.TIPO_USUARIO
     const [dropDownNotificacao, setdropDownNotificacao] = useState(false);
@@ -23,31 +23,15 @@ function Header(props) {
     const [temChat, setTemChat] = useState(false)
     const [jsonPessoasConversas, setJsonPessoasConversas] = useState([])
     const [jsonConversas, setJsonConversas] = useState([])
-    const [contador, setContador] = useState(0)
-
-    const addItem = (newItem) => {
-        setJsonConversas(prevArray => [...prevArray, newItem]);
-    };
-
-    const mudarDropDownNotificacao = () => {
-        setdropDownNotificacao(!dropDownNotificacao);
-    };
-
-    const mudarDropDownChat = () => {
-        setdropDownChat(!dropDownChat);
-    };
-
-    const headers = {
-        'Authorization': `Bearer ${localStorage.TOKEN}`,
-    };
 
     const getNotificacao = () => {
         axiosInstance.get("/perfil/solicitacoes", {
-            headers
+            headers: {
+                "Authorization": `Bearer ${localStorage.TOKEN}`
+            }
         })
             .then((res) => {
                 if (res.status === 200) {
-                    // console.log(res.data[0])
                     if (res.data.length !== 0) {
                         setTemNotificacao(true)
                         setJsonNotificacao(res.data)
@@ -61,11 +45,12 @@ function Header(props) {
 
     const getChat = () => {
         axiosInstance.get("/chat", {
-            headers
+            headers: {
+                "Authorization": `Bearer ${localStorage.TOKEN}`
+            }
         })
             .then((res) => {
                 if (res.status === 200) {
-                    //console.log(res.data)
                     setJsonPessoasConversas(res.data)
                 }
             })
@@ -75,22 +60,22 @@ function Header(props) {
     }
 
     const getMensagens = () => {
-        console.log(jsonPessoasConversas)
         setJsonConversas([])
         jsonPessoasConversas.forEach(e => {
             axiosInstance.get(`/chat/${e.solicitacaoId}`, {
-                headers
+                headers: {
+                    "Authorization": `Bearer ${localStorage.TOKEN}`
+                }
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        //console.log(res.data)
                         const newItem = {
                             'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
                             'idSolicitação': e.solicitacaoId,
                             'nome': e.usuarioNome,
                             'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
                         }
-                        addItem(newItem)
+                        setJsonConversas(prevArray => [...prevArray, newItem])
                     }
                 })
                 .catch(err => {
@@ -99,30 +84,45 @@ function Header(props) {
         });
     }
 
+    const buscarNovasNotificacoes = () => {
+        jsonConversas.forEach(e => {
+            axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.TOKEN}`
+                }
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    setTemChat(true)
+                }
+            })
+        })
+    }
+
     useEffect(() => {
-        setInterval(() => {
-            setContador(contador + 1)
-        }, 10000);
-        getNotificacao()
-        getChat()
+        if (localStorage.TOKEN !== undefined && localStorage.TOKEN !== null) {
+            setInterval(buscarNovasNotificacoes, 10000)
+            getNotificacao()
+            getChat()
+        }
     }, []) // eslint-disable-line
 
     useEffect(() => {
-
         jsonPessoasConversas.forEach(e => {
             axiosInstance.get(`/chat/${e.solicitacaoId}`, {
-                headers
+                headers: {
+                    "Authorization": `Bearer ${localStorage.TOKEN}`
+                }
             })
                 .then((res) => {
                     if (res.status === 200) {
-                        //console.log(res.data)
                         const newItem = {
                             'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
                             'idSolicitação': e.solicitacaoId,
                             'nome': e.usuarioNome,
                             'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
                         }
-                        addItem(newItem)
+                        setJsonConversas(prevArray => [...prevArray, newItem])
                     }
                 })
                 .catch(err => {
@@ -130,25 +130,6 @@ function Header(props) {
                 });
         });
     }, [jsonPessoasConversas]) // eslint-disable-line
-
-
-    useEffect(() => {
-        console.log('checando')
-        jsonConversas.forEach(e => {
-            axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
-                headers
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        setTemChat(true)
-                    }
-                })
-                .catch(err => {
-
-                    console.error(err);
-                });
-        });
-    }, [contador]) // eslint-disable-line
 
     return (
         <div>
@@ -181,7 +162,7 @@ function Header(props) {
                                             </span>
                                         </div>
                                             : null}
-                                        <button onClick={() => { mudarDropDownChat(); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
+                                        <button onClick={() => { setdropDownChat(!dropDownChat); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
                                         <Chat json={jsonConversas} dropDown={dropDownChat} />
                                     </div>
                                     {dropDownChat ? <button onClick={() => { setdropDownChat(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}
@@ -193,7 +174,7 @@ function Header(props) {
                                             </span>
                                         </div>
                                             : null} */}
-                                        <button onClick={mudarDropDownNotificacao} className="bg-verde-padrao w-11 h-11 border-2 border-verde-padrao drop-shadow-all-icon rounded-full flex justify-center items-center"><BellIcon className='w-7 text-white' /></button>
+                                        <button onClick={() => { setdropDownNotificacao(!dropDownNotificacao) }} className="bg-verde-padrao w-11 h-11 border-2 border-verde-padrao drop-shadow-all-icon rounded-full flex justify-center items-center"><BellIcon className='w-7 text-white' /></button>
                                         <Notificacoes json={jsonNotificacao} tipoUsuario={tipoUsuario} dropDown={dropDownNotificacao} />
                                     </div>
                                     {dropDownNotificacao ? <button onClick={() => { setdropDownNotificacao(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}
@@ -212,7 +193,7 @@ function Header(props) {
                                                 </span>
                                             </div>
                                             <div >
-                                                <button onClick={() => { mudarDropDownChat(); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
+                                                <button onClick={() => { setdropDownChat(!dropDownChat); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
                                                 <Chat json={jsonConversas} dropDown={dropDownChat} />
                                             </div>
                                             {dropDownChat ? <button onClick={() => { setdropDownChat(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}
@@ -227,7 +208,7 @@ function Header(props) {
                                             </div>
                                                 : null} */}
                                             {dropDownNotificacao ? <button onClick={() => { setdropDownNotificacao(false) }} className='z-40 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}
-                                            <button onClick={mudarDropDownNotificacao} className="bg-verde-padrao w-11 h-11 border-2 border-verde-padrao drop-shadow-all-icon rounded-full flex justify-center items-center"><BellIcon className='w-7 text-white' /></button>
+                                            <button onClick={() => { setdropDownNotificacao(!dropDownNotificacao) }} className="bg-verde-padrao w-11 h-11 border-2 border-verde-padrao drop-shadow-all-icon rounded-full flex justify-center items-center"><BellIcon className='w-7 text-white' /></button>
                                             <Notificacoes json={jsonNotificacao} tipoUsuario={tipoUsuario} dropDown={dropDownNotificacao} />
                                         </div>
                                         <button onClick={() => { navigate("/development") }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><UserIcon className='w-7 text-verde-padrao' /></button>

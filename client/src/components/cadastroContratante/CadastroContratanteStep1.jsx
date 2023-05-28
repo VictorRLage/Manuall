@@ -56,6 +56,30 @@ function CadastroStep1(props) {
 		})
 	}
 
+    const pegarDadosPipefy = () => {
+        axiosInstance.post("/cadastrar/prospect", {
+            email: email_input.current.value,
+            tipoUsuario: 1
+        })
+        .then((res) => {
+            if (res.status === 200) {
+                if (nome_input.current.value === "") {
+                    nome_input.current.value = res.data.nome
+                }
+                if (telefone_input.current.value === "") {
+                    if (res.data.telefone.length > 11) {
+                        telefone_input.current.value = res.data.telefone.substring(2)
+                    } else {
+                        telefone_input.current.value = res.data.telefone
+                    }
+                }
+                if (res.data.optCidade != null) {
+                    sessionStorage.setItem("optCidade", res.data.optCidade)
+                }
+            }
+        })
+    }
+
 	return (
 		<div id="container" className="2xl:bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
 			<div id="container_esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col">
@@ -66,23 +90,23 @@ function CadastroStep1(props) {
 				</div>
 				<div id="container-inputs" className="2xl:w-112  xl:w-96 rounded-lg  self-center  2xl:justify-center grid 2xl:grid-cols-13.5x13.5 xl:grid-cols-11.5x11.5 2xl:gap-8 xl:gap-6 2xl:gap-x-4 xl:gap-x-4 2xl:mt-10 xl:mt-6">
 					<div className="relative col-span-2">
-						<input defaultValue="Fulano Dedal" ref={nome_input} type="text" id="nome_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input ref={nome_input} type="text" id="nome_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="nome_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><UserIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Nome completo</label>
 					</div>
 					<div className="relative col-span-2">
-						<input defaultValue="fulano.dedal@gmail.com" ref={email_input} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input onChange={pegarDadosPipefy} ref={email_input} type="text" id="email_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="email_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Endereço de email</label>
 					</div>
 					<div className="relative ">
-						<input defaultValue="15533155708" ref={cpf_input} type="text" id="cpf_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input ref={cpf_input} type="text" id="cpf_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="cpf_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><IdentificationIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />CPF</label>
 					</div>
 					<div className="relative">
-						<input defaultValue="11947155226" ref={telefone_input} type="text" id="numero_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input ref={telefone_input} type="text" id="numero_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="numero_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><PhoneIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Telefone</label>
 					</div>
 					<div className="relative col-span-2">
-						<input defaultValue="cariocagirls" ref={senha_input} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+						<input ref={senha_input} type="text" id="senha_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
 						<label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Senha</label>
 					</div>
 				</div>

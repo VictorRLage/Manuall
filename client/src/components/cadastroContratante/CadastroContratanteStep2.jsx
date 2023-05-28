@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
@@ -9,7 +9,6 @@ function CadastroContratanteStep2(props) {
 
     const navigate = useNavigate()
 
-    // viacep lembrar
     const cep_input = useRef(null)
     const estado_input = useRef(null)
     const cidade_input = useRef(null)
@@ -24,12 +23,12 @@ function CadastroContratanteStep2(props) {
         }
         axios.get(`https://viacep.com.br/ws/${cep_input.current.value}/json/`)
         .then((res) => {
-            const e = res.data;
+            const e = res.data
 
-            estado_input.current.value = e.uf;
-            cidade_input.current.value = e.localidade;
-            bairro_input.current.value = e.bairro;
-            rua_input.current.value = e.logradouro;
+            estado_input.current.value = e.uf
+            cidade_input.current.value = e.localidade
+            bairro_input.current.value = e.bairro
+            rua_input.current.value = e.logradouro
 
             if (numero_input.current.value === "") {
                 numero_input.current.focus()
@@ -70,7 +69,6 @@ function CadastroContratanteStep2(props) {
             if (res.status === 201) {
                 navigate("/login")
             } else {
-                console.log(res)
                 alert("Erro interno")
             }
         })
@@ -80,11 +78,19 @@ function CadastroContratanteStep2(props) {
             } else if (err.response.status === 409) {
                 alert("Você já passou dessa fase")
             } else {
-                console.log(err)
                 alert("Erro interno")
             }
         })
     }
+
+    useEffect(() => {
+        if (localStorage.getItem("ID_CADASTRANTE") === null) {
+            navigate("/cadastroPrestador")
+        }
+        if (sessionStorage.getItem("optCidade") !== undefined) {
+            rua_input.current.value = sessionStorage.getItem("optCidade")
+        }
+    }, []) // eslint-disable-line
 
     return (
         <div id='container' className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">

@@ -23,12 +23,12 @@ function CadastroPrestadorStep2(props) {
         }
         axios.get(`https://viacep.com.br/ws/${cep_input.current.value}/json/`)
         .then((res) => {
-            const e = res.data;
+            const e = res.data
 
-            estado_input.current.value = e.uf;
-            cidade_input.current.value = e.localidade;
-            bairro_input.current.value = e.bairro;
-            rua_input.current.value = e.logradouro;
+            estado_input.current.value = e.uf
+            cidade_input.current.value = e.localidade
+            bairro_input.current.value = e.bairro
+            rua_input.current.value = e.logradouro
 
             if (numero_input.current.value === "") {
                 numero_input.current.focus()
@@ -69,7 +69,6 @@ function CadastroPrestadorStep2(props) {
             if (res.status === 201) {
                 props.passarStep()
             } else {
-                console.log(res)
                 alert("Erro interno")
             }
         })
@@ -79,7 +78,6 @@ function CadastroPrestadorStep2(props) {
             } else if (err.response.status === 409) {
                 alert("Você já passou dessa fase")
             } else {
-                console.log(err)
                 alert("Erro interno")
             }
         })
@@ -92,7 +90,7 @@ function CadastroPrestadorStep2(props) {
         if (sessionStorage.getItem("optCidade") !== undefined) {
             rua_input.current.value = sessionStorage.getItem("optCidade")
         }
-    }, [])
+    }, []) // eslint-disable-line
 
     return (
         <div id='container' className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">

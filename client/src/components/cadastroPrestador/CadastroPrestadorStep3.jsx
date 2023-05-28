@@ -29,9 +29,6 @@ function CadastroPrestadorStep3(props) {
         const minn = min.current.value
         const maxx = max.current.value
 
-        console.log(area)
-        return
-
         let servicosSelecionados = []
         let algumSelecionado = false
         for (let i = 0; i < servicos.length; i++) {
@@ -63,7 +60,6 @@ function CadastroPrestadorStep3(props) {
             if (res.status === 201) {
                 props.passarStep()
             } else {
-                console.log(res)
                 alert("Erro interno")
             }
         })
@@ -75,19 +71,35 @@ function CadastroPrestadorStep3(props) {
             } else if (err.response.status === 409) {
                 alert("Você já passou dessa fase")
             } else {
-                console.log(err)
                 alert("Erro interno")
             }
         })
     }
 
-    const getAreas = () => {
+    const alterarChecked = (index, check) => {
+        const s = [...servicos]
+
+        s[index].checked = check
+
+        setServicos(s)
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem("ID_CADASTRANTE") === null) {
+            navigate("/cadastroPrestador")
+        }
+        if (sessionStorage.getItem("optEnsinar") !== null) {
+            ensinar_input.current.value = JSON.parse(sessionStorage.getItem("optEnsinar")) ? "1" : "2"
+        }
+        if (sessionStorage.getItem("optMin") !== null && sessionStorage.getItem("optMax") !== null) {
+            setRange([Number(sessionStorage.getItem("optMin")), Number(sessionStorage.getItem("optMax"))])
+        }
         axiosInstance.get("/usuario/areas")
         .then((res1) => {
             setAreas(res1.data)
             setMapArea(true)
         })
-    }
+    }, []) // eslint-disable-line
 
     useEffect(() => {
         axiosInstance.get(`/usuario/servico/${selectedArea}`)
@@ -102,24 +114,16 @@ function CadastroPrestadorStep3(props) {
             setServicos(newArray)
         })
     }, [selectedArea])
-    
+
     useEffect(() => {
-        // if (localStorage.getItem("ID_CADASTRANTE") === null) {
-        //     navigate("/cadastroPrestador")
-        // }
-        // if (sessionStorage.getItem("optArea") !== undefined) {
-        //     console.log(sessionStorage.getItem("optArea"))
-        //     area_input.current.value = Number(sessionStorage.getItem("optArea"))
-        // }
-    }, [area_input])
-
-    const alterarChecked = (index, check) => {
-        const s = [...servicos]
-
-        s[index].checked = check
-
-        setServicos(s)
-    }
+        if (localStorage.getItem("ID_CADASTRANTE") === null) {
+            navigate("/cadastroPrestador")
+        }
+        if (sessionStorage.getItem("optArea") !== null) {
+            area_input.current.value = Number(sessionStorage.getItem("optArea"))
+            setSelectedArea(Number(sessionStorage.getItem("optArea")))
+        }
+    }, [mapArea]) // eslint-disable-line
 
     return (
         <div className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all">
@@ -137,7 +141,7 @@ function CadastroPrestadorStep3(props) {
 
                     <div className='relative'>
                         <div className="relative inline-block w-full">
-                            <select ref={area_input} id='select_inp' onChange={(e) => { setSelectedArea(e.target.value) }} onFocus={getAreas} className="cursor-pointer block appearance-none w-full text-xl font-bold h-14 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <select ref={area_input} id='select_inp' onChange={(e) => { setSelectedArea(e.target.value) }} className="cursor-pointer block appearance-none w-full text-xl font-bold h-14 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                                 <option id='null_opt' key='0' value='0' >Selecione sua area de atuação:</option>
                                 {mapArea ? areas.map((data, index) => (
                                     <option key={index} id={data.nome} value={data.id}>{data.nome}</option>
