@@ -48,7 +48,14 @@ function CadastroPrestadorStep1(props) {
 			}
 		})
 		.catch((err) => {
-			if (err.response.status === 409) {
+			if (err.response.status === 400) {
+				let textoModal = ""
+				for(let i = 0; i < err.response.data.errors.length; i++) {
+					textoModal +=
+					`Erro no campo ${err.response.data.errors[i].field}:\n${err.response.data.errors[i].defaultMessage}\n`
+				}
+				alert(textoModal)
+			} else if (err.response.status === 409) {
 				alert("Email já cadastrado")
 			} else {
 				alert("Erro interno")
