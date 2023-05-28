@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/development' element={<UnderConstruction />}></Route>
           <Route path='/*' element={<Erro />}></Route>
+          <Route path='/' element={<Home />}></Route>
           <Route path='/inicio' element={<Home />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/cadastroPrestador' element={<CadastroPrestador />}></Route>
