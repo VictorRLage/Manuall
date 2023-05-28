@@ -49,7 +49,7 @@ function CadastroPrestadorStep3(props) {
         axiosInstance.put(`/cadastrar/3/${localStorage.getItem("ID_CADASTRANTE")}`, {
             area: area,
             servico: servicosSelecionados,
-            prestaAula: ensinar === "1" ? true : false,
+            prestaAula: ensinar === "1",
             orcamentoMin: minn,
             orcamentoMax: maxx
         })

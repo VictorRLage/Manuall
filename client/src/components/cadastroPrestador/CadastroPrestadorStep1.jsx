@@ -57,15 +57,29 @@ function CadastroPrestadorStep1(props) {
     }
 
     const pegarDadosPipefy = () => {
-        axiosInstance.post("/usuario/prospect", {
+        axiosInstance.post("/cadastrar/prospect", {
             email: email_input.current.value,
             tipoUsuario: 2
         })
         .then((res) => {
             console.log(res)
-        })
-        .catch((err) => {
-            console.log(err)
+            if (res.status === 200) {
+                if (nome_input.current.value === "") {
+                    nome_input.current.value = res.data.nome
+                }
+                if (telefone_input.current.value === "") {
+                    telefone_input.current.value = res.data.telefone
+                }
+                if (res.data.blnInteresseEnsinar != null) {
+                    sessionStorage.setItem("blnInteresseEnsinar", res.data.blnInteresseEnsinar)
+                }
+                if (res.data.optCidade != null) {
+                    sessionStorage.setItem("optCidade", res.data.optCidade)
+                }
+                if (res.data.optArea != null) {
+                    sessionStorage.setItem("optArea", res.data.optArea)
+                }
+            }
         })
     }
 
