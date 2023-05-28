@@ -30,7 +30,7 @@ function Card(props) {
 
     useEffect(() => {
         getNomeAreaById(props.area)
-    }, []) // eslint-disable-line
+    }, [props.area]) // eslint-disable-line
 
     return (
         <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
