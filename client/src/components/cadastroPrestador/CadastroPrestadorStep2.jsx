@@ -62,15 +62,43 @@ function CadastroPrestadorStep2(props) {
             cep.indexOf("t") !== -1 ||
             cep.indexOf("u") !== -1 ||
             cep.indexOf("v") !== -1 ||
+            cep.indexOf("W") !== -1 ||
             cep.indexOf("x") !== -1 ||
             cep.indexOf("y") !== -1 ||
             cep.indexOf("z") !== -1 ||
+            cep.indexOf("A") !== -1 ||
+            cep.indexOf("B") !== -1 ||
+            cep.indexOf("C") !== -1 ||
+            cep.indexOf("D") !== -1 ||
+            cep.indexOf("E") !== -1 ||
+            cep.indexOf("F") !== -1 ||
+            cep.indexOf("G") !== -1 ||
+            cep.indexOf("H") !== -1 ||
+            cep.indexOf("I") !== -1 ||
+            cep.indexOf("J") !== -1 ||
+            cep.indexOf("K") !== -1 ||
+            cep.indexOf("L") !== -1 ||
+            cep.indexOf("M") !== -1 ||
+            cep.indexOf("N") !== -1 ||
+            cep.indexOf("O") !== -1 ||
+            cep.indexOf("P") !== -1 ||
+            cep.indexOf("Q") !== -1 ||
+            cep.indexOf("R") !== -1 ||
+            cep.indexOf("S") !== -1 ||
+            cep.indexOf("T") !== -1 ||
+            cep.indexOf("U") !== -1 ||
+            cep.indexOf("V") !== -1 ||
+            cep.indexOf("W") !== -1 ||
+            cep.indexOf("X") !== -1 ||
+            cep.indexOf("Y") !== -1 ||
+            cep.indexOf("Z") !== -1 ||
             cep.indexOf("!") !== -1 ||
             cep.indexOf("@") !== -1 ||
             cep.indexOf("#") !== -1 ||
             cep.indexOf("$") !== -1 ||
             cep.indexOf("%") !== -1 ||
             cep.indexOf("&") !== -1 ||
+            cep.indexOf("-") !== -1 ||
             cep.length !== 8
         ) {
             setLabel('Campo inválido')
@@ -133,17 +161,45 @@ function CadastroPrestadorStep2(props) {
             numero.indexOf("t") !== -1 ||
             numero.indexOf("u") !== -1 ||
             numero.indexOf("v") !== -1 ||
+            numero.indexOf("W") !== -1 ||
             numero.indexOf("x") !== -1 ||
             numero.indexOf("y") !== -1 ||
             numero.indexOf("z") !== -1 ||
+            numero.indexOf("A") !== -1 ||
+            numero.indexOf("B") !== -1 ||
+            numero.indexOf("C") !== -1 ||
+            numero.indexOf("D") !== -1 ||
+            numero.indexOf("E") !== -1 ||
+            numero.indexOf("F") !== -1 ||
+            numero.indexOf("G") !== -1 ||
+            numero.indexOf("H") !== -1 ||
+            numero.indexOf("I") !== -1 ||
+            numero.indexOf("J") !== -1 ||
+            numero.indexOf("K") !== -1 ||
+            numero.indexOf("L") !== -1 ||
+            numero.indexOf("M") !== -1 ||
+            numero.indexOf("N") !== -1 ||
+            numero.indexOf("O") !== -1 ||
+            numero.indexOf("P") !== -1 ||
+            numero.indexOf("Q") !== -1 ||
+            numero.indexOf("R") !== -1 ||
+            numero.indexOf("S") !== -1 ||
+            numero.indexOf("T") !== -1 ||
+            numero.indexOf("U") !== -1 ||
+            numero.indexOf("V") !== -1 ||
+            numero.indexOf("W") !== -1 ||
+            numero.indexOf("X") !== -1 ||
+            numero.indexOf("Y") !== -1 ||
+            numero.indexOf("Z") !== -1 ||
             numero.indexOf("!") !== -1 ||
             numero.indexOf("@") !== -1 ||
             numero.indexOf("#") !== -1 ||
             numero.indexOf("$") !== -1 ||
             numero.indexOf("%") !== -1 ||
             numero.indexOf("&") !== -1 ||
+            numero.indexOf("-") !== -1 ||
             numero <= 0 ||
-            numero.length > 9
+            numero.length >= 9
         ) {
             setLabel('Campo inválido')
             setValidacaoNumero(1)
