@@ -216,12 +216,14 @@ function CadastroStep1(props) {
 			})
 			.catch((err) => {
 				if (err.response.status === 400) {
-					let textoModal = ""
 					for (let i = 0; i < err.response.data.errors.length; i++) {
-						textoModal +=
-							`Erro no campo ${err.response.data.errors[i].field}:\n${err.response.data.errors[i].defaultMessage}\n`
+						const stringOriginal = err.response.data.errors[i].field
+						const stringMaiuscula = stringOriginal.toUpperCase();
+						setMoldaAviso(true)
+						setAvisoTitulo(`${stringMaiuscula} inválido`)
+						setAvisoDescricao(err.response.data.errors[i].defaultMessage)
 					}
-					alert(textoModal)
+
 				} else if (err.response.status === 409) {
 					setMoldaAviso(true)
 					setAvisoTitulo('Email já cadastrado')
