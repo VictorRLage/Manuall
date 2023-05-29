@@ -245,6 +245,7 @@ function CadastroStep1(props) {
 				if (res.status === 200) {
 					if (nome_input.current.value === "") {
 						nome_input.current.value = res.data.nome
+						validarNome()
 					}
 					if (telefone_input.current.value === "") {
 						if (res.data.telefone.length > 11) {
