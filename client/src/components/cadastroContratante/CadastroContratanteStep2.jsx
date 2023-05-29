@@ -107,7 +107,50 @@ function CadastroContratanteStep2(props) {
 
     const validarNumero = () => {
 
-        console.log('a')
+        const numero = numero_input.current.value
+
+        if (
+            numero === "" ||
+            numero.indexOf("a") !== -1 ||
+            numero.indexOf("b") !== -1 ||
+            numero.indexOf("c") !== -1 ||
+            numero.indexOf("d") !== -1 ||
+            numero.indexOf("e") !== -1 ||
+            numero.indexOf("f") !== -1 ||
+            numero.indexOf("g") !== -1 ||
+            numero.indexOf("h") !== -1 ||
+            numero.indexOf("i") !== -1 ||
+            numero.indexOf("j") !== -1 ||
+            numero.indexOf("k") !== -1 ||
+            numero.indexOf("l") !== -1 ||
+            numero.indexOf("m") !== -1 ||
+            numero.indexOf("n") !== -1 ||
+            numero.indexOf("o") !== -1 ||
+            numero.indexOf("p") !== -1 ||
+            numero.indexOf("q") !== -1 ||
+            numero.indexOf("r") !== -1 ||
+            numero.indexOf("s") !== -1 ||
+            numero.indexOf("t") !== -1 ||
+            numero.indexOf("u") !== -1 ||
+            numero.indexOf("v") !== -1 ||
+            numero.indexOf("x") !== -1 ||
+            numero.indexOf("y") !== -1 ||
+            numero.indexOf("z") !== -1 ||
+            numero.indexOf("!") !== -1 ||
+            numero.indexOf("@") !== -1 ||
+            numero.indexOf("#") !== -1 ||
+            numero.indexOf("$") !== -1 ||
+            numero.indexOf("%") !== -1 ||
+            numero.indexOf("&") !== -1 ||
+            numero <= 0 ||
+            numero.length > 9
+        ) {
+            setLabel('Campo inválido')
+            setValidacaoNumero(1)
+            return
+        } else {
+            setValidacaoNumero(2)
+        }
 
     }
 
@@ -172,16 +215,24 @@ function CadastroContratanteStep2(props) {
                 if (res.status === 201) {
                     navigate("/login")
                 } else {
-                    alert("Erro interno")
+                    setMoldaAviso(true)
+                    setAvisoTitulo('Erro interno')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 }
             })
             .catch((err) => {
                 if (err.response.status === 404) {
-                    alert("Você ainda não chegou nessa fase")
+                    setMoldaAviso(true)
+					setAvisoTitulo('Você ainda não chegou nessa fase')
+					setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else if (err.response.status === 409) {
-                    alert("Você já passou dessa fase")
+                    setMoldaAviso(true)
+					setAvisoTitulo('Você já passou dessa fase')
+					setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else {
-                    alert("Erro interno")
+                    setMoldaAviso(true)
+                    setAvisoTitulo('Erro interno')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 }
             })
     }
