@@ -120,6 +120,7 @@ function Login() {
                     }
                 } if (res.status === 206) {
                     localStorage.TOKEN = res.data
+                    localStorage.TIPO_USUARIO = tipoUsuario
                     if (tipoUsuario === 1) {
                         navigate("/inicio") // vai pra vendas
                     } else if (tipoUsuario === 2) {
