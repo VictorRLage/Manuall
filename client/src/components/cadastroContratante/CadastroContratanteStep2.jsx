@@ -191,17 +191,19 @@ function CadastroContratanteStep2(props) {
         const numero = numero_input.current.value
         const complemento = complemento_input.current.value
 
-        if (
-            cep === "" ||
-            estado === "" ||
-            cidade === "" ||
-            bairro === "" ||
-            rua === "" ||
-            numero === ""
-        ) {
-            alert("Preencha todos os campos")
-            return
-        }
+		if (
+			validacaoCep !== 2 &&
+			validacaoEstado !== 2 &&
+			validacaoCidade !== 2 &&
+			validacaoBairro !== 2 &&
+			validacaoRua !== 2 &&
+			validacaoNumero !== 2
+		) {
+			setMoldaAviso(true)
+			setAvisoTitulo('Campos inválidos')
+			setAvisoDescricao('Preencha todos os campos')
+			return
+		}
         axiosInstance.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
             cep: cep,
             estado: estado,
