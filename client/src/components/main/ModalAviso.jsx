@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { XCircleIcon } from "@heroicons/react/24/solid"
 
 function ModalAviso(props) {
 

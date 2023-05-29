@@ -20,7 +20,7 @@ function CadastroContratanteStep2(props) {
     const [validacaoBairro, setValidacaoBairro] = useState(0);
     const [validacaoRua, setValidacaoRua] = useState(0);
     const [validacaoNumero, setValidacaoNumero] = useState(0);
-    const [validacaoComplento, setValidacaoComplento] = useState(0);
+    // const [validacaoComplento, setValidacaoComplento] = useState(0);
     // 0  não mexeu ainda | 1 mexeu e não validou | 2 mexeu e validou
 
     const [label, setLabel] = useState('');
@@ -111,25 +111,25 @@ function CadastroContratanteStep2(props) {
 
     const validarCidade = () => {
 
-        console.log('a')
+        setValidacaoCidade(2)
 
     }
 
     const validarEstado = () => {
 
-        console.log('a')
+        setValidacaoEstado(2)
 
     }
 
     const validarBairro = () => {
 
-        console.log('a')
+        setValidacaoBairro(2)
 
     }
 
     const validarRua = () => {
 
-        console.log('a')
+        setValidacaoRua(2)
 
     }
 

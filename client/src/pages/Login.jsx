@@ -45,7 +45,6 @@ function Login() {
 
     const checarEmail = (e) => {
         const email = email_input.current.value
-        const senha = senha_input.current.value
 
         if (
             email === "" ||
