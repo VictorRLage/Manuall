@@ -107,8 +107,6 @@ function Login() {
         })
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("Token recuperado")
-                    console.log(res.data)
                     localStorage.TOKEN = res.data
                     if (tipoUsuario === 1) {
                         navigate("/inicio") // vai pra vendas
@@ -117,7 +115,17 @@ function Login() {
                         navigate("/inicio") // vai pra vendas
                     }
                     if (tipoUsuario === 3) {
-                        navigate("/login") // vai pra aprovar
+                        navigate("/adm/dashboard") // vai pra aprovar
+                    }
+                } if (res.status === 206) {
+                    localStorage.TOKEN = res.data
+                    if (tipoUsuario === 1) {
+                        navigate("/inicio") // vai pra vendas
+                    } else if (tipoUsuario === 2) {
+                        alert("under development")
+//                        navigate("/") // vai pra tela de escolha de planos
+                    } if (tipoUsuario === 3) {
+                        navigate("/adm/dashboard") // vai pra aprovar
                     }
                 }
             })
@@ -129,7 +137,7 @@ function Login() {
                 } else if (err.response.status === 403) {
                     if (err.res.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.res.data )
+                        setAvisoTitulo(err.res.data)
                         setAvisoDescricao('Irei redirecionar você para tela de cadastro para finaliza-lo')
                     }
                     if (err.res.data  === "Aprovação negada") { //modal aprovação negada
