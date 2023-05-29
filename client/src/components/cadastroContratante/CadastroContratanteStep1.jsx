@@ -223,7 +223,6 @@ function CadastroStep1(props) {
 					}
 					alert(textoModal)
 				} else if (err.response.status === 409) {
-					alert("Email já cadastrado")
 					setMoldaAviso(true)
 					setAvisoTitulo('Email já cadastrado')
 					setAvisoDescricao('Tente acessar sua conta')

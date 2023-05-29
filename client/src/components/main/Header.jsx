@@ -104,11 +104,7 @@ function Header(props) {
     }
 
     useEffect(() => {
-        if (localStorage.TOKEN !== undefined && localStorage.TOKEN !== null) {
-            setInterval(buscarNovasNotificacoes, 10000)
-            getNotificacao()
-            getChat()
-        }
+        console.log(tipoUsuario)
     }, []) // eslint-disable-line
 
     useEffect(() => {
