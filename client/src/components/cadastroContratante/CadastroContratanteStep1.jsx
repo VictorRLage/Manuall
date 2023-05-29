@@ -65,7 +65,7 @@ function CadastroStep1(props) {
 			nome.indexOf("&") !== -1 ||
 			nome.length >= 100
 		) {
-			setLabel('Campo invalido')
+			setLabel('Campo inválido')
 			setValidacaoNome(1)
 			return
 		} else {
@@ -89,7 +89,7 @@ function CadastroStep1(props) {
 			email.length >= 256 ||
 			email.indexOf("$") !== -1
 		) {
-			setLabel("Campo invalido")
+			setLabel("Campo inválido")
 			setValidacaoEmail(1)
 			return
 		} else {
@@ -103,9 +103,9 @@ function CadastroStep1(props) {
 
 		if (
 			cpf === "" ||
-			cpf.length < 11
+			cpf.length !== 11 
 		) {
-			setLabel("Campo invalido")
+			setLabel("Campo inválido")
 			setValidacaoCpf(1)
 			return
 		} else {
@@ -152,7 +152,7 @@ function CadastroStep1(props) {
 			telefone.indexOf("&") !== -1 ||
 			telefone.length !== 11
 		) {
-			setLabel("Campo invalido")
+			setLabel("Campo inválido")
 			setValidacaoTelefone(1)
 			return
 		} else {
@@ -169,7 +169,7 @@ function CadastroStep1(props) {
 			senha.length < 8 ||
 			senha.length > 24
 		) {
-			setLabel("Campo invalido")
+			setLabel("Campo inválido")
 			setValidacaoSenha(1)
 			return
 		} else {
@@ -192,7 +192,7 @@ function CadastroStep1(props) {
 			validacaoSenha !== 2
 		) {
 			setMoldaAviso(true)
-			setAvisoTitulo('Campos invalidos')
+			setAvisoTitulo('Campos inválidos')
 			setAvisoDescricao('Preencha todos os campos')
 			return
 		}
