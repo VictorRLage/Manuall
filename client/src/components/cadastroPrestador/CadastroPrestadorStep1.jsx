@@ -41,7 +41,6 @@ function CadastroPrestadorStep1(props) {
             .replace(/(\b[a-zA-Z]{2}\b)/g, match => match.toUpperCase());
     }
 
-
     const validarNome = () => {
 
         const nome = nome_input.current.value
@@ -202,12 +201,12 @@ function CadastroPrestadorStep1(props) {
             cpf: cpf,
             telefone: telefone,
             senha: senha,
-            tipoUsuario: 1
+            tipoUsuario: 2
         })
             .then((res) => {
                 if (res.status === 201) {
                     localStorage.setItem("ID_CADASTRANTE", res.data)
-                    props.mudarStep()
+                    props.passarStep()
                 } else {
                     setMoldaAviso(true)
                     setAvisoTitulo('Erro interno')
@@ -215,6 +214,7 @@ function CadastroPrestadorStep1(props) {
                 }
             })
             .catch((err) => {
+                console.log(err)
                 if (err.response.status === 400) {
                     let textoModal = ""
                     for (let i = 0; i < err.response.data.errors.length; i++) {
@@ -238,12 +238,13 @@ function CadastroPrestadorStep1(props) {
     const pegarDadosPipefy = () => {
         axiosInstance.post("/cadastrar/prospect", {
             email: email_input.current.value,
-            tipoUsuario: 1
+            tipoUsuario: 2
         })
             .then((res) => {
                 if (res.status === 200) {
                     if (nome_input.current.value === "") {
                         nome_input.current.value = res.data.nome
+                        validarNome()
                     }
                     if (telefone_input.current.value === "") {
                         if (res.data.telefone.length > 11) {
