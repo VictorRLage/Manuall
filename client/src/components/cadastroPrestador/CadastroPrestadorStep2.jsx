@@ -111,25 +111,25 @@ function CadastroPrestadorStep2(props) {
 
     const validarCidade = () => {
 
-        console.log('a')
+        setValidacaoCidade(2)
 
     }
 
     const validarEstado = () => {
 
-        console.log('a')
+        setValidacaoEstado(2)
 
     }
 
     const validarBairro = () => {
 
-        console.log('a')
+        setValidacaoBairro(2)
 
     }
 
     const validarRua = () => {
 
-        console.log('a')
+        setValidacaoRua(2)
 
     }
 

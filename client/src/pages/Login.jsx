@@ -107,6 +107,7 @@ function Login() {
             .then((res) => {
                 if (res.status === 200) {
                     localStorage.TOKEN = res.data
+                    console.log('aaaaaaaaaaaaa')
                     localStorage.TIPO_USUARIO = tipoUsuario
                     if (tipoUsuario === 1) {
                         navigate("/inicio") // vai pra vendas
@@ -119,6 +120,7 @@ function Login() {
                     }
                 } if (res.status === 206) {
                     localStorage.TOKEN = res.data
+                    localStorage.TIPO_USUARIO = tipoUsuario
                     if (tipoUsuario === 1) {
                         navigate("/inicio") // vai pra vendas
                     } else if (tipoUsuario === 2) {

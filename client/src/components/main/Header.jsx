@@ -27,6 +27,12 @@ function Header(props) {
     const [temChat, setTemChat] = useState(false)
     const [jsonPessoasConversas, setJsonPessoasConversas] = useState([])
     const [jsonConversas, setJsonConversas] = useState([])
+    const [contador, setContador] = useState(0)
+
+    const logOff = () =>{
+        localStorage.removeItem('TOKEN')
+        localStorage.removeItem('TIPO_USUARIO')
+    }
 
     const getNotificacao = () => {
         axiosInstance.get("/perfil/solicitacoes", {
@@ -89,23 +95,44 @@ function Header(props) {
     }
 
     const buscarNovasNotificacoes = () => {
+        console.log(jsonConversas)
         jsonConversas.forEach(e => {
+            console.log('verificando1')
             axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.TOKEN}`
                 }
             })
                 .then((res) => {
+                    console.log('verificando2')
                     if (res.status === 200) {
+                        console.log('verificando3')
                         setTemChat(true)
                     }
                 })
         })
     }
 
+
+
     useEffect(() => {
-        console.log(tipoUsuario)
+        if (localStorage.TOKEN !== undefined && localStorage.TOKEN !== null) {
+            getNotificacao()
+            getChat()
+        }
     }, []) // eslint-disable-line
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          setContador(prevContador => prevContador + 1);
+        }, 5000);
+      }, []);
+
+    useEffect(() => {
+        buscarNovasNotificacoes()
+    }, [contador])
+
+
 
     useEffect(() => {
         jsonPessoasConversas.forEach(e => {
@@ -179,7 +206,7 @@ function Header(props) {
                                         <Notificacoes json={jsonNotificacao} tipoUsuario={tipoUsuario} dropDown={dropDownNotificacao} />
                                     </div>
                                     {dropDownNotificacao ? <button onClick={() => { setdropDownNotificacao(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button> : null}
-                                    <button onClick={() => { navigate("/development") }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><UserIcon className='w-7 text-verde-padrao' /></button>
+                                    <button onClick={() => {  logOff() }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><UserIcon className='w-7 text-verde-padrao' /></button>
                                 </div>
                             </div>
                             : tipoUsuario === '2' ?
@@ -212,7 +239,7 @@ function Header(props) {
                                             <button onClick={() => { setdropDownNotificacao(!dropDownNotificacao) }} className="bg-verde-padrao w-11 h-11 border-2 border-verde-padrao drop-shadow-all-icon rounded-full flex justify-center items-center"><BellIcon className='w-7 text-white' /></button>
                                             <Notificacoes json={jsonNotificacao} tipoUsuario={tipoUsuario} dropDown={dropDownNotificacao} />
                                         </div>
-                                        <button onClick={() => { navigate("/development") }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><UserIcon className='w-7 text-verde-padrao' /></button>
+                                        <button onClick={() => { logOff() }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><UserIcon className='w-7 text-verde-padrao' /></button>
                                     </div>
                                 </div>
                                 : null}
