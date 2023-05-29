@@ -11,7 +11,7 @@ function CadastroContratante(props) {
     }
 
     return (
-        <div className="flex justify-center h-screen font-mukta ">
+        <div className='font-mukta'>
             {step ? <CadastroStep1 mudarStep={mudarStep} /> : <CadastroStep2 />}
         </div>
     );
