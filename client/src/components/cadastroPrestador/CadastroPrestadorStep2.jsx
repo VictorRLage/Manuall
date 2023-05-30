@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
+import { ChevronDoubleRightIcon, MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
 import axiosInstance from "../../api/AxiosConfig";
 import axios from "axios";
@@ -271,7 +271,8 @@ function CadastroPrestadorStep2(props) {
         })
             .then((res) => {
                 if (res.status === 201) {
-                    navigate("/login")
+                    console.log('cadastrou')
+                    props.passarStep()
                 } else {
                     setMoldaAviso(true)
                     setAvisoTitulo('Erro interno')
@@ -310,7 +311,7 @@ function CadastroPrestadorStep2(props) {
             <div id='container' className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
                 <div id="container_esquerda" className="bg-verde-padrao h-full w-30per rounded-l-lg flex flex-col ">
                     <img src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center' />
-                    <p className='2xl:text-4xl xl:text-2xl  font-bold text-white w-full self-center 2xl:leading-relaxed text-center 2xl:mt-10 xl:mt-8'>Cadastro de <br /> Prestador</p>
+                    <p className='2xl:text-4xl xl:text-2xl  font-bold text-white w-full self-center 2xl:leading-relaxed text-center 2xl:mt-10 xl:mt-8'>Cadastro de <br /> Contratante</p>
                     <p className='2xl:text-2xl xl:text-xl  font-semibold text-white w-full self-center 2xl:leading-relaxed text-center mt-32'>Já possui uma conta?</p>
                     <button className='2xl:text-2xl xl:text-xl font-bold text-white w-full text-center underline' onClick={() => { navigate("/login") }}>Entre aqui</button>
                     <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
@@ -361,9 +362,9 @@ function CadastroPrestadorStep2(props) {
                             <label htmlFor="complemento_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HashtagIcon className='2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1' />Complemento</label>
                         </div>
                     </div>
-                    <div id="container_finalizar" className="w-full h-10 flex justify-end ">
-                        <button onClick={avancar} className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-16 2xl:mt-14 xl:mt-9 font-semibold text-white ">Finalizar</button>
-                    </div>
+                    <div id="container_proximo" className="w-full h-10 flex justify-end">
+						<button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-18 xl:mt-12 font-bold text-verde-padrao flex items-center" onClick={avancar}>Próximo <ChevronDoubleRightIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /></button>
+					</div>
                 </div>
             </div>
         </div>

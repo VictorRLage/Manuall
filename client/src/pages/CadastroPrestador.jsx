@@ -9,6 +9,7 @@ function CadastroPrestador(props) {
         // Botão para mudar de step
         const [step, setStep] = useState(1);
         function passarStep() {
+            console.log('passou')
             setStep(step + 1)
         }
 
