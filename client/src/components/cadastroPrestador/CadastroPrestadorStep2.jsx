@@ -20,7 +20,6 @@ function CadastroPrestadorStep2(props) {
     const [validacaoBairro, setValidacaoBairro] = useState(0);
     const [validacaoRua, setValidacaoRua] = useState(0);
     const [validacaoNumero, setValidacaoNumero] = useState(0);
-    const [validacaoComplento, setValidacaoComplento] = useState(0);
     // 0  não mexeu ainda | 1 mexeu e não validou | 2 mexeu e validou
 
     const [label, setLabel] = useState('');
@@ -314,7 +313,7 @@ function CadastroPrestadorStep2(props) {
                     <p className='2xl:text-4xl xl:text-2xl  font-bold text-white w-full self-center 2xl:leading-relaxed text-center 2xl:mt-10 xl:mt-8'>Cadastro de <br /> Contratante</p>
                     <p className='2xl:text-2xl xl:text-xl  font-semibold text-white w-full self-center 2xl:leading-relaxed text-center mt-32'>Já possui uma conta?</p>
                     <button className='2xl:text-2xl xl:text-xl font-bold text-white w-full text-center underline' onClick={() => { navigate("/login") }}>Entre aqui</button>
-                    <button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
+                    <button onClick={() => { navigate("/inicio") }} className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
                 </div>
                 <div id='container_direita' className='bg-white h-full w-70per rounded-r-lg flex flex-col'>
                     <div id="container_steps" className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
