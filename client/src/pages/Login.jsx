@@ -55,7 +55,7 @@ function Login() {
             email.length >= 256 ||
             email.indexOf("$") !== -1
         ) {
-            setLabel("Campo invalido")
+            setLabel("Campo inválido")
             setValidacaoEmail(false)
             setLoading(false)
             setCheck(false)
