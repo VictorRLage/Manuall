@@ -116,7 +116,7 @@ function Login() {
                         if (res.status === 200) {
                             navigate("/inicio") // vai pra vendas
                         } else {
-                            navigate("/development") // tela de escolha de planos
+                            navigate("/inicio") // tela de escolha de planos
                         }
                     }
                     if (tipoUsuario === 3) {

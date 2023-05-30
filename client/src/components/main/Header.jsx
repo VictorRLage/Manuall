@@ -214,12 +214,13 @@ function Header(props) {
                                     <Link to="/development" className="text-xl" >Dashboard</Link>
                                     <div className="flex justify-between w-[62%] items-center">
                                         <div className="realtive">
-                                            <div className="absolute z-10 ml-8">
-                                                <span className="relative flex h-3 w-3 ">
-                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                                                </span>
-                                            </div>
+                                        {temChat ? <div className="absolute z-10 ml-8">
+                                            <span className="relative flex h-3 w-3 ">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                                            </span>
+                                        </div>
+                                            : null}
                                             <div >
                                                 <button onClick={() => { setdropDownChat(!dropDownChat); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"><ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' /></button>
                                                 <Chat json={jsonConversas} dropDown={dropDownChat} />

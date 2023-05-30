@@ -362,7 +362,7 @@ function CadastroPrestadorStep2(props) {
                         </div>
                     </div>
                     <div id="container_proximo" className="w-full h-10 flex justify-end">
-						<button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-18 xl:mt-12 font-bold text-verde-padrao flex items-center" onClick={avancar}>Próximo <ChevronDoubleRightIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /></button>
+						<button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-16 xl:mt-12 font-bold text-verde-padrao flex items-center" onClick={avancar}>Próximo <ChevronDoubleRightIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /></button>
 					</div>
                 </div>
             </div>

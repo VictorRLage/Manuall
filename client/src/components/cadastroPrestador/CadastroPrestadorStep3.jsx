@@ -163,14 +163,21 @@ function CadastroPrestadorStep3(props) {
             })
             .catch((err) => {
                 if (err.response.status === 403) {
-                    alert("Tipo usuário inválido")
+                    setMoldaAviso(true)
+                    setAvisoTitulo('Tipo usuário inválido')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else if (err.response.status === 404) {
-                    alert("Você ainda não chegou nessa fase")
+                    setMoldaAviso(true)
+                    setAvisoTitulo('Você ainda não chegou nessa fase')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else if (err.response.status === 409) {
-                    alert("Você já passou dessa fase")
+                    setMoldaAviso(true)
+                    setAvisoTitulo('Você já passou dessa fase')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else {
-                    alert("Erro interno")
-                }
+                    setMoldaAviso(true)
+                    setAvisoTitulo('Erro interno')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')                }
             })
     }
 
@@ -303,7 +310,7 @@ function CadastroPrestadorStep3(props) {
                             <span >Faixa de valor cobrado:</span>
                         </div>
                         <div className='flex justify-center w-full 2xl:w-[82%] mt-7'>
-                            <div className={`relative w-20 h-8 border-4 border-verde-padrao rounded-md text-xl font-medium`}>
+                            <div className={`relative w-20 h-8 border-4 ${validacaoValorMin === 1 ? `border-red-500` : `border-verde-padrao`} rounded-md text-xl font-medium`}>
                                 <span>R$ <input onBlur={()=>{validarMin()}} className={`min-max-inputs w-16 ml-1 appearance-none focus:ring-0 focus:outline-none focus:border-none bg-transparent absolute`} value={range[0]} type="number" ref={min} onChange={() => { setRange([min.current.value, ...range.slice(1)]) }} /></span>
                             </div>
                             
