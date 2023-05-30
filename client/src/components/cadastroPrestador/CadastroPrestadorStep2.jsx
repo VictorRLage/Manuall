@@ -223,8 +223,8 @@ function CadastroPrestadorStep2(props) {
                     setLabel('CEP inexistente')
                     setValidacaoCep(1)
                 } else {
-                    estado_input.current.value = e.uf
-                    cidade_input.current.value = e.localidade
+                    estado_input.current.value = e.localidade
+                    cidade_input.current.value = e.uf
                     bairro_input.current.value = e.bairro
                     rua_input.current.value = e.logradouro
 
