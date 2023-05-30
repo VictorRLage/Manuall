@@ -207,7 +207,7 @@ function CadastroStep1(props) {
 			.then((res) => {
 				if (res.status === 201) {
 					localStorage.setItem("ID_CADASTRANTE", res.data)
-					props.passarStep()
+					props.mudarStep()
 				} else {
 					setMoldaAviso(true)
 					setAvisoTitulo('Erro interno')
@@ -215,6 +215,7 @@ function CadastroStep1(props) {
 				}
 			})
 			.catch((err) => {
+				console.log(err)
 				if (err.response.status === 400) {
 					for (let i = 0; i < err.response.data.errors.length; i++) {
 						const stringOriginal = err.response.data.errors[i].field

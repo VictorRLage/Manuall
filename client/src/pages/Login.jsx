@@ -99,34 +99,27 @@ function Login() {
     }
 
     const entrarLogin = () => {
+
         axiosInstance.post("/usuario/login/efetuar", {
             email: email_input.current.value,
             senha: senha_input.current.value,
             tipoUsuario: tipoUsuario
         })
             .then((res) => {
-                if (res.status === 200) {
+                if (res.status === 200 || res.status === 206) {
                     localStorage.TOKEN = res.data
-                    console.log('aaaaaaaaaaaaa')
                     localStorage.TIPO_USUARIO = tipoUsuario
                     if (tipoUsuario === 1) {
                         navigate("/inicio") // vai pra vendas
                     }
                     if (tipoUsuario === 2) {
-                        navigate("/inicio") // vai pra vendas
+                        if (res.status === 200) {
+                            navigate("/inicio") // vai pra vendas
+                        } else {
+                            navigate("/development") // tela de escolha de planos
+                        }
                     }
                     if (tipoUsuario === 3) {
-                        navigate("/adm/dashboard") // vai pra aprovar
-                    }
-                } if (res.status === 206) {
-                    localStorage.TOKEN = res.data
-                    localStorage.TIPO_USUARIO = tipoUsuario
-                    if (tipoUsuario === 1) {
-                        navigate("/inicio") // vai pra vendas
-                    } else if (tipoUsuario === 2) {
-                        alert("under development")
-//                        navigate("/") // vai pra tela de escolha de planos
-                    } if (tipoUsuario === 3) {
                         navigate("/adm/dashboard") // vai pra aprovar
                     }
                 }
@@ -144,12 +137,12 @@ function Login() {
                     }
                     if (err.res.data  === "Aprovação negada") { //modal aprovação negada
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.res.data )
+                        setAvisoTitulo(err.res.data)
                         setAvisoDescricao('Infelizmente sua aprovação foi negada')
                     }
                     if (err.res.data  === "Aprovação pendente") { //modal Aprovação pendente
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.res.data )
+                        setAvisoTitulo(err.res.data)
                         setAvisoDescricao('Por favor aguarde a sua conta ser aprovada')
                     }
                 }
