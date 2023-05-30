@@ -116,7 +116,7 @@ function Login() {
                         if (res.status === 200) {
                             navigate("/inicio") // vai pra vendas
                         } else {
-                            navigate("/inicio") // tela de escolha de planos
+                            navigate("/development")
                         }
                     }
                     if (tipoUsuario === 3) {
@@ -130,19 +130,19 @@ function Login() {
                     setAvisoTitulo("Credenciais inválidas")
                     setAvisoDescricao('Por favor tente novamente')
                 } else if (err.response.status === 403) {
-                    if (err.res.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
+                    if (err.response.data === "Usuário não finalizou o cadastro") { //modal usuário não finalizou o cadastro
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.res.data)
+                        setAvisoTitulo(err.response.data)
                         setAvisoDescricao('Irei redirecionar você para tela de cadastro para finaliza-lo')
                     }
-                    if (err.res.data  === "Aprovação negada") { //modal aprovação negada
+                    if (err.response.data  === "Aprovação negada") { //modal aprovação negada
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.res.data)
+                        setAvisoTitulo(err.response.data)
                         setAvisoDescricao('Infelizmente sua aprovação foi negada')
                     }
-                    if (err.res.data  === "Aprovação pendente") { //modal Aprovação pendente
+                    if (err.response.data  === "Aprovação pendente") { //modal Aprovação pendente
                         setMoldaAviso(true)
-                        setAvisoTitulo(err.res.data)
+                        setAvisoTitulo(err.response.data)
                         setAvisoDescricao('Por favor aguarde a sua conta ser aprovada')
                     }
                 }
