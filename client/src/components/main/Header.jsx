@@ -168,7 +168,7 @@ function Header(props) {
                 <nav className="flex justify-between  items-center" style={{ width: tipoUsuario === undefined ? "46rem" : "38rem" }}>
                     <div className="flex justify-between w-[38%]" style={{ width: tipoUsuario === undefined ? "38%" : "47%" }}>
                         <Link to="/inicio" style={{ color: props.pag === 'inicio' ? "#00CC69" : "black", fontWeight: props.pag === 'inicio' ? "700" : "400" }} className="text-xl" >Inicio</Link>
-                        <Link to="/development" style={{ color: props.pag === 'prestadores' ? "#00CC69" : "black", fontWeight: props.pag === 'prestadores' ? "700" : "400" }} className="text-xl" >Prestadores</Link>
+                        <Link to="/prestadores" style={{ color: props.pag === 'prestadores' ? "#00CC69" : "black", fontWeight: props.pag === 'prestadores' ? "700" : "400" }} className="text-xl" >Prestadores</Link>
                         <Link to="/development" style={{ color: props.pag === 'contato' ? "#00CC69" : "black", fontWeight: props.pag === 'contato' ? "700" : "400" }} className="text-xl" >Contato</Link>
 
                     </div>
