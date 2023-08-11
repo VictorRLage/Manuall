@@ -114,7 +114,7 @@ function Home(props) {
                                 : currentIndex === 2 ?
                                     <div className="absolute flex justify-center">
                                         <div className="absolute ml-52 mt-13 text-white text-6xl text-center">
-                                            Com a <span className="font-bold">Manuall</span> <br /> você pode passa o seu <br /> <span className="font-bold">conhecimento</span> adiante e <br /> deixar o seu <span className="font-bold">legado</span>
+                                            Com a <span className="font-bold">Manuall</span> <br /> você pode passar o seu <br /> <span className="font-bold">conhecimento</span> adiante e <br /> deixar o seu <span className="font-bold">legado</span>
                                         </div>
                                         <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-84 ml-52 outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/cadastroPrestador") }}>Cadastrar</button>
                                         <svg className="ml-52 mt-3" width="1102" height="430" viewBox="0 0 1102 523" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -88,60 +88,6 @@ function Home(props) {
         <div>
             <Header pag={'prestadores'} />
             <div className='w-full h-full'>
-                <div id='container_carousel' className="group">
-                    <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className='w-full h-120 bg-center bg-cover duration-500'>
-                        {currentIndex === 0 ?
-                            <div className="absolute">
-                                <div className="absolute ml-20 mt-20 text-white text-6xl">
-                                    Encontre <br /> prestadores de <br /> serviço <span className="font-bold">excelentes</span> <br /> prontos para te <br /> <span className="font-bold">ensinar!</span>
-                                </div>
-                                <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/development") }}>Encontrar</button>
-                                <svg width="100%" height="480" viewBox="0 0 883 631" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M883 292.237C883 678.017 842.268 628.986 355.217 628.986C-988.334 628.986 -45.5207 664.039 -45.5207 391.338C-45.5207 118.638 -207.46 0.595234 109.373 0.595234C426.205 0.595234 883 -26.9222 883 292.237Z" fill="#008042" />
-                                </svg>
-                            </div>
-                            : currentIndex === 1 ?
-                                <div className="absolute flex">
-                                    <div className="absolute ml-[66rem] mt-20 text-white text-6xl text-right">
-                                        Venha <span className=" font-bold">mudar</span> <br /> o mercado de <br /> <span className="font-bold">prestadores de <br /> serviço </span> com <br /> a gente
-                                    </div>
-                                    <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-[62rem] outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/cadastroPrestador") }}>Cadastrar</button>
-                                    <svg className="ml-[52rem]" width="698" height="480" viewBox="0 0 698 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1493.41 307.649C1493.41 693.19 1187.61 617.686 891.5 624.5C-303.5 652 78.5055 564.169 4.00007 141.5C-48.9945 -89.8309 589.006 6.66897 864.456 -25.1818C1140.6 -25.1818 1493.41 -11.3115 1493.41 307.649Z" fill="#008042" />
-                                    </svg>
-
-                                </div>
-                                : currentIndex === 2 ?
-                                    <div className="absolute flex justify-center">
-                                        <div className="absolute ml-52 mt-13 text-white text-6xl text-center">
-                                            Com a <span className="font-bold">Manuall</span> <br /> você pode passa o seu <br /> <span className="font-bold">conhecimento</span> adiante e <br /> deixar o seu <span className="font-bold">legado</span>
-                                        </div>
-                                        <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-84 ml-52 outline outline-offset-4 outline-4 outline-verde-padrao " onClick={() => { navigate("/cadastroPrestador") }}>Cadastrar</button>
-                                        <svg className="ml-52 mt-3" width="1102" height="430" viewBox="0 0 1102 523" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1102 258.803C1102 575.057 874.193 513.122 653.593 518.712C-236.658 541.27 60.9612 483.439 5.4562 136.729C-34.0237 -53.0297 441.274 26.1281 646.478 0.00128042C852.199 0.00128042 1102 -2.8374 1102 258.803Z" fill="#008042" />
-                                        </svg>
-
-                                    </div>
-                                    : null
-                        }
-                        <div className="flex flex-row justify-between">
-
-                            <div onClick={prevSlide} id='seta_direita' className="z-30 mt-48 cursor-pointer hidden group-hover:block ">
-                                <ChevronLeftIcon className="text-white w-16 h-16" />
-                            </div>
-                            <div onClick={nextSlide} id='seta_esquerda' className="z-30 mt-48 right-0 cursor-pointer hidden group-hover:block ">
-                                <ChevronRightIcon className="text-white w-16 h-16" />
-                            </div>
-                        </div>
-                        <div className='flex justify-center'>
-                            <div className='z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
-                                <div onClick={() => goToSlide(0)} style={{ backgroundColor: currentIndex === 0 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
-                                <div onClick={() => goToSlide(1)} style={{ backgroundColor: currentIndex === 1 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
-                                <div onClick={() => goToSlide(2)} style={{ backgroundColor: currentIndex === 2 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
                     <div id="botoes" className="w-full flex justify-between px-32">
@@ -155,7 +101,7 @@ function Home(props) {
                     </div>
                     <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
                         {
-                            prestadores.slice(0, 6).map(function (data, i) {
+                            prestadores.map(function (data, i) {
                                 return (
                                     <Card key={i} nome={data.nome} cidade={data.cidade} foto={data.anexoPfp} area={data.idArea} min={data.orcamentoMin} max={data.orcamentoMax} aula={data.prestaAula} mediaNota={data.mediaAvaliacoes} />
                                 )
@@ -165,69 +111,7 @@ function Home(props) {
                     </div>
 
                 </div>
-                <div id="container_contratar" className="w-full flex p-32  flex-col">
-                    <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">contratar?</span></div>
-                    <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/tLVE79n.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Cadastre-se e <span className="text-verde-padrao font-semibold">pesquise</span> pelo prestador que <span className="text-verde-padrao font-semibold">você precisa!</span></span>
-                            </div>
-                        </div>
-
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/cOE0Z8a.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Faça <span className="text-verde-padrao font-semibold">a sua escolha</span> e solicite o serviço (+ aula, se você quiser) em apenas 3 etapas!</span>
-                            </div>
-                        </div>
-
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/vAR85g2.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Termine de negociar pelo chat e pronto! Seu <span className="text-verde-padrao font-semibold">prestador (e professor)</span> irá até você!</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="container_ensinar" className=" w-full flex px-32 flex-col">
-                    <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">ensinar?</span></div>
-                    <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/23p0hm6.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Cadastre-se e converse conosco para sua <span className="text-verde-padrao font-semibold">aprovação!</span></span>
-                            </div>
-                        </div>
-
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/bHeWCih.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Compre seu <span className="text-verde-padrao font-semibold">plano </span> e monte seu perfil!</span>
-                            </div>
-                        </div>
-
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/up9fCD3.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Receba solicitações de <span className="text-verde-padrao font-semibold">serviço (e ensino)</span>  e negocie pelo chat!</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             <footer className="w-full relative">
                 <svg width="1920" height="288" viewBox="0 0 1920 288" fill="none" xmlns="http://www.w3.org/2000/svg">
