@@ -94,46 +94,47 @@ function Home(props) {
     return (
         <>
             <ModalCustom modalGettr={modalVisible1} modalSettr={setModalVisible1} canClose={false} w={'1000px'} h={'500px'}>
-                <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
-                    <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
+                <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
+                    <div className="border-8  rounded-lg">
+                        <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
                         Qual serviço você necessita?
+                        </div>
+                        <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center gap-2">
+                            <div>
+                                <input type="checkbox" name="" id="opcao1"/> 
+                                <label  className="mx-2"htmlFor="opcao1">Serviço 1 </label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="" id="opcao2" />
+                                <label className="mx-2"htmlFor="">Servico 2</label>
+                            </div>
+                            <div> 
+                                <input type="checkbox" name="" id="opcao3" />
+                                <label className="mx-2"htmlFor="">Servico 3</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="" id="opcao4" />
+                                <label className="mx-2"htmlFor="">Servico 4</label>
+                            </div>
+                            <div> 
+                                <input type="checkbox" name="" id="opcao5" />
+                                <label className="mx-2"htmlFor="">Servico 5</label>
+                            </div>
+                        </div>
+                        <div id="botoes" className="flex flex-row space-x-5 w-40" >
+                            <div className="w-80 m-10 ml-20 flex justify-center items-center">
+                                <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}> 
+                                Voltar
+                                </button>
+                            </div>
+                            <div className="w-80 flex justify-center items-center">
+                                <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible2(true) }}>
+                                Próximo
+                                </button>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center">
-                        <div>
-                            <input type="checkbox" name="" id="opcao1"/> 
-                            <label className=""htmlFor="opcao1">Serviço 1 </label>
-                        </div>
-                       <div>
-                            <input type="checkbox" name="" id="opcao2" />
-                            <label htmlFor="">Servico 2</label>
-                       </div>
-                        <div> 
-                            <input type="checkbox" name="" id="opcao3" />
-                            <label htmlFor="">Servico 3</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="" id="opcao4" />
-                            <label htmlFor="">Servico 4</label>
-                       </div>
-                        <div> 
-                            <input type="checkbox" name="" id="opcao5" />
-                            <label htmlFor="">Servico 5</label>
-                        </div>
-                        
-                    </div>
-                    <div id="botoes" className="flex flex-row space-x-5 w-40" >
-                        <div className="w-80 m-10 ml-20 flex justify-center items-center">
-                        <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}> 
-                            Voltar
-                        </button>
-                        </div>
-                        <div className="w-80 flex justify-center items-center">
-                        <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible2(true) }}>
-                            Próximo
-                        </button>
-                        </div>
-                    </div>
-                </div>
             </ModalCustom>
             <ModalCustom modalGettr={modalVisible2} modalSettr={setModalVisible2} canClose={false} w={'1000px'} h={'500px'}>
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
