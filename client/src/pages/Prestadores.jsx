@@ -88,18 +88,8 @@ function Home(props) {
         <div>
             <Header pag={'prestadores'} />
             <div className='w-full h-full'>
-                <div className="menuSuperior"><input type="text"/> <button>Teste</button></div>
+                <div className="menuSuperior"><input type="text"/> <img className="imgLupa" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg"/> </div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
-                    <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
-                    <div id="botoes" className="w-full flex justify-between px-32">
-                        {
-                            areas.slice(0, 6).map(function (data, i) {
-                                return (
-                                    <button onClick={() => { getPrestadoresByArea(data.id); mudarReclick(); console.log(prestadores) }} className={`${botaoAtivo === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'} w-32 h-10  rounded-full text-xl  outline outline-offset-4 outline-4 outline-verde-padrao font-semibold`} key={i}>{data.nome}</button>
-                                )
-                            })
-                        }
-                    </div>
                     <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
                         {
                             prestadores.map(function (data, i) {
