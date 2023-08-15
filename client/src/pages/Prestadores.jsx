@@ -88,6 +88,7 @@ function Home(props) {
         <div>
             <Header pag={'prestadores'} />
             <div className='w-full h-full'>
+                <div className="menuSuperior"><input type="text"/> <button>Teste</button></div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
                     <div id="botoes" className="w-full flex justify-between px-32">
@@ -137,4 +138,4 @@ function Home(props) {
     );
 }
 
-export default Home;
+export default Home
