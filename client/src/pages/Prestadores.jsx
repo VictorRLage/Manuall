@@ -82,13 +82,22 @@ function Home(props) {
         getAreas()
         getPrestadores()
     }, [])
-    
+
 
     return (
         <div>
             <Header pag={'prestadores'} />
             <div className='w-full h-full'>
-                <div className="menuSuperior"><input type="text"/> <img className="imgLupa" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg"/> </div>
+                <div class="menuSuperior"><input type="text" placeholder="Buscar" /> <img class="imgLupa" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
+
+                    <select name="dropdownCategoria" id="dropdownCategoria">
+                        <option value="todas">Todas as categorias</option>
+                    </select>
+
+                    <select name="dropdownFiltro" id="dropdownFiltro">
+                        <option value="todas">Filtrando por Relevância</option>
+                    </select>
+                </div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
                         {
@@ -102,7 +111,7 @@ function Home(props) {
                     </div>
 
                 </div>
-                
+
             </div>
             <footer className="w-full relative">
                 <svg width="1920" height="288" viewBox="0 0 1920 288" fill="none" xmlns="http://www.w3.org/2000/svg">
