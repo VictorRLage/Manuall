@@ -83,12 +83,34 @@ function Home(props) {
         getPrestadores()
     }, [])
 
+    useEffect(() => {
+        const inputElement = document.getElementById("i_pesquisa");
+        if (inputElement) {
+            inputElement.addEventListener("keypress", handleKeyPress);
+        }
+
+        return () => {
+            if (inputElement) {
+                inputElement.removeEventListener("keypress", handleKeyPress);
+            }
+        };
+    }, []); // Make sure to add any dependencies if needed
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            teste();
+        }
+    };
+
+    function teste() {
+        alert("Testando");
+    }
 
     return (
         <div>
             <Header pag={'prestadores'} />
             <div className='w-full h-full'>
-                <div class="menuSuperior"><input type="text" placeholder="Buscar" /> <img class="imgLupa" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
+                <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" /> <img className="imgLupa" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
 
                     <select name="dropdownCategoria" id="dropdownCategoria">
                         <option value="todas">Todas as categorias</option>
@@ -98,6 +120,7 @@ function Home(props) {
                         <option value="todas">Filtrando por Relevância</option>
                     </select>
                 </div>
+                <span className="breadCrumbs"><a href="./inicio" className="breadcrumbAnterior">Página Inicial</a> / <a className="breadcrumbAtual">Prestadores</a></span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
                         {
