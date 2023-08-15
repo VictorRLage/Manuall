@@ -9,7 +9,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        'cinza': '222222',
+        'cinza': '#D9D9D9',
         'cinza-claro-1': '#A7A5A5',
         'cinza-claro-2': '#f8f8f8',
         'verde-padrao': '#00CC69',

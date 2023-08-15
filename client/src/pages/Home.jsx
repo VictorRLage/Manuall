@@ -31,8 +31,8 @@ function Home(props) {
     const [modalVisible2, setModalVisible2] = useState(false)
     const [modalVisible3, setModalVisible3] = useState(false)
     const [modalVisible4, setModalVisible4] = useState(false)
-    
-    
+
+
     const mudarReclick = () => {
         setReclick(!reclick)
     }
@@ -94,98 +94,142 @@ function Home(props) {
     return (
         <>
             <ModalCustom modalGettr={modalVisible1} modalSettr={setModalVisible1} canClose={false} w={'1000px'} h={'500px'}>
+                {/* <svg width="199" height="171" viewBox="0 0 199 171" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute">
+                    <g filter="url(#filter0_d_58_243)">
+                        <path d="M49.5886 90.0657C82.9039 -29.7075 242.667 48.4445 180.079 -39.6362C117.49 -127.717 15.9489 -74.6179 1.00283 -41.3637C-13.9433 -8.1096 -80.7015 -68.6921 -78.3172 50.5829C-75.9329 169.858 16.2733 209.839 49.5886 90.0657Z" fill="#92E3A9" />
+                    </g>
+                    <defs>
+                        <filter id="filter0_d_58_243" x="-82.3799" y="-87.8804" width="280.854" height="258.28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dy="4" />
+                            <feGaussianBlur stdDeviation="2" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_58_243" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_58_243" result="shape" />
+                        </filter>
+                    </defs>
+                </svg> */}
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
-                    <div className="border-8  rounded-lg">
-                        <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
-                        Qual serviço você necessita?
+                    <div className="border-[40px] rounded-lg w-[900px]">
+                        <div className="bg-cinza flex w-[450px] h-[15px] rounded-full ml-[200px] mt-[20px]">
+                            <div className="bg-verde-padrao w-[150px] rounded-full">
+                            </div>
+                        </div>
+                        <div className="w-full flex justify-center items-center text-black text-2xl font-extrabold mt-3">
+                            Qual serviço você necessita?
                         </div>
                         <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center gap-2">
                             <div>
-                                <input type="checkbox" name="" id="opcao1"/> 
-                                <label  className="mx-2"htmlFor="opcao1">Serviço 1 </label>
+                                <input className="bg-verde-escuro-1 w-[60px]" type="checkbox" name="" id="opcao1" />
+                                <label className="mx-2" htmlFor="opcao1">Serviço 1 </label>
                             </div>
                             <div>
-                                <input type="checkbox" name="" id="opcao2" />
-                                <label className="mx-2"htmlFor="">Servico 2</label>
-                            </div>
-                            <div> 
-                                <input type="checkbox" name="" id="opcao3" />
-                                <label className="mx-2"htmlFor="">Servico 3</label>
+                                <input className="bg-verde-escuro-1 w-[60px]" type="checkbox" name="" id="opcao2" />
+                                <label className="mx-2" htmlFor="">Serviço 2</label>
                             </div>
                             <div>
-                                <input type="checkbox" name="" id="opcao4" />
-                                <label className="mx-2"htmlFor="">Servico 4</label>
+                                <input className="bg-verde-escuro-1 w-[60px]" type="checkbox" name="" id="opcao3" />
+                                <label className="mx-2" htmlFor="">Serviço 3</label>
                             </div>
-                            <div> 
-                                <input type="checkbox" name="" id="opcao5" />
-                                <label className="mx-2"htmlFor="">Servico 5</label>
+                            <div>
+                                <input className="bg-verde-escuro-1 w-[60px]" type="checkbox" name="" id="opcao4" />
+                                <label className="mx-2" htmlFor="">Serviço 4</label>
+                            </div>
+                            <div>
+                                <input className="bg-verde-escuro-1 w-[60px]" type="checkbox" name="" id="opcao5" />
+                                <label className="mx-2" htmlFor="">Serviço 5</label>
                             </div>
                         </div>
-                        <div id="botoes" className="flex flex-row space-x-5 w-40" >
-                            <div className="w-80 m-10 ml-20 flex justify-center items-center">
-                                <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}> 
-                                Voltar
+                        <div id="botoes" className="flex flex-row ml-[320px] mt-[45px] space-x-8" >
+                            <div className="flex justify-center items-center">
+                                <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { { navigate("/inicio") } }}>
+                                    {'<'} Voltar
                                 </button>
                             </div>
-                            <div className="w-80 flex justify-center items-center">
-                                <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible2(true) }}>
-                                Próximo
+                            <div className="flex justify-center items-center">
+                                <button className=" w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible2(true); setModalVisible1(false) }}>
+                                    Próximo {'>'}
                                 </button>
                             </div>
-                            </div>
-                        </div>
-                    </div>
-            </ModalCustom>
-            <ModalCustom modalGettr={modalVisible2} modalSettr={setModalVisible2} canClose={false} w={'1000px'} h={'500px'}>
-                <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
-                    <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
-                        Informe o tamanho e a medida do serviço:
-                    </div>
-                    <div className="flex flex-row m-5 justify-center items-center text-black text-2xl font-base text-center">
-                       <input placeholder="Tamanho" type="text" className="w-30" />
-                       <select name="" id="">
-                        <option value="">Unidade</option>
-                        <option value="">m²</option>
-                        <option value="">m</option>
-                        <option value="">cm</option>
-                       </select>
-                        
-                    </div>
-                    <div id="botoes" className="flex flex-row space-x-5 w-40" >
-                        <div className="w-80 m-10 ml-20 flex justify-center items-center">
-                        <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}> 
-                            Voltar
-                        </button>
-                        </div>
-                        <div className="w-80 flex justify-center items-center">
-                        <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible3(true) }}>
-                            Próximo
-                        </button>
                         </div>
                     </div>
                 </div>
             </ModalCustom>
+            <ModalCustom modalGettr={modalVisible2} modalSettr={setModalVisible2} canClose={false} w={'1000px'} h={'500px'}>
+                {/* <svg width="199" height="171" viewBox="0 0 199 171" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute">
+                    <g filter="url(#filter0_d_58_243)">
+                        <path d="M49.5886 90.0657C82.9039 -29.7075 242.667 48.4445 180.079 -39.6362C117.49 -127.717 15.9489 -74.6179 1.00283 -41.3637C-13.9433 -8.1096 -80.7015 -68.6921 -78.3172 50.5829C-75.9329 169.858 16.2733 209.839 49.5886 90.0657Z" fill="#92E3A9" />
+                    </g>
+                    <defs>
+                        <filter id="filter0_d_58_243" x="-82.3799" y="-87.8804" width="280.854" height="258.28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dy="4" />
+                            <feGaussianBlur stdDeviation="2" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_58_243" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_58_243" result="shape" />
+                        </filter>
+                    </defs>
+                </svg> */}
+                <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
+                    <div className="border-[40px] rounded-lg w-[900px]">
+                        <div className="bg-cinza flex w-[450px] h-[15px] rounded-full ml-[200px] mt-[20px]">
+                            <div className="bg-verde-padrao w-[150px] rounded-full">
+                            </div>
+                        </div>
+                        <div className="w-full flex justify-center items-center text-black text-2xl font-extrabold mt-3">
+                        Informe o tamanho e a medida do serviço:
+                        </div>
+                        <div className="flex flex-row ml-[280px] mt-[20px]  w-[275px] h-[170px] rounded-lg border-verde-padrao border-2 justify-center items-center text-black text-2xl font-base text-center gap-2">
+                            <input placeholder="Tamanho" type="text" className="w-[95px] text-lg" />
+                            <select className="text-lg" name="" id="">
+                                <option className="bg-verde-escuro-1 w-[25px] text-lg" value="">Unidade</option>
+                                <option className="bg-verde-padrao" value="">m²</option>
+                                <option className="bg-verde-padrao" value="">m</option>
+                                <option className="bg-verde-padrao" value="">cm</option>
+                            </select>
+                        </div>
+                        <div id="botoes" className="flex flex-row ml-[320px] mt-[45px] space-x-8" >
+                            <div className="flex justify-center items-center">
+                                <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => {setModalVisible2(false);setModalVisible1(true) }}>
+                                    {'<'} Voltar
+                                </button>
+                            </div>
+                            <div className="flex justify-center items-center">
+                                <button className=" w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible2(false); setModalVisible3(true) }}>
+                                    Próximo {'>'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ModalCustom>
+
             <ModalCustom modalGettr={modalVisible3} modalSettr={setModalVisible3} canClose={false} w={'1000px'} h={'500px'}>
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
                     <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
                         Algo mais a acrescentar? (Opcional)
                     </div>
                     <div className="flex flex-col m-10 justify-center items-center text-black text-2xl font-base text-center">
-                       <input placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="w-200 h-50" />
+                        <input placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="w-200 h-50" />
                         <div className="mt-5 border-black border-dashed">
                             Insira aqui sua mídia
                         </div>
                     </div>
                     <div id="botoes" className="flex flex-row space-x-5 w-40" >
                         <div className="w-80 m-10 ml-20 flex justify-center items-center">
-                        <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}> 
-                            Voltar
-                        </button>
+                            <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}>
+                                Voltar
+                            </button>
                         </div>
                         <div className="w-80 flex justify-center items-center">
-                        <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible4(true) }}>
-                            Próximo
-                        </button>
+                            <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible4(true) }}>
+                                Próximo
+                            </button>
                         </div>
                     </div>
                 </div>
