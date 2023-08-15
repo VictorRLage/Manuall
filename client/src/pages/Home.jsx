@@ -112,7 +112,7 @@ function Home(props) {
                     </defs>
                 </svg> */}
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
-                    <div className="border-[40px] rounded-lg w-[900px]">
+                    <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
                         <div className="bg-cinza flex w-[450px] h-[15px] rounded-full ml-[200px] mt-[20px]">
                             <div className="bg-verde-padrao w-[150px] rounded-full">
                             </div>
@@ -142,7 +142,7 @@ function Home(props) {
                                 <label className="mx-2" htmlFor="">Serviço 5</label>
                             </div>
                         </div>
-                        <div id="botoes" className="flex flex-row ml-[320px] mt-[45px] space-x-8" >
+                        <div id="botoes" className="flex flex-row ml-[320px] mt-[30px] space-x-8" >
                             <div className="flex justify-center items-center">
                                 <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { { navigate("/inicio") } }}>
                                     {'<'} Voltar
@@ -176,13 +176,13 @@ function Home(props) {
                     </defs>
                 </svg> */}
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
-                    <div className="border-[40px] rounded-lg w-[900px]">
+                    <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
                         <div className="bg-cinza flex w-[450px] h-[15px] rounded-full ml-[200px] mt-[20px]">
-                            <div className="bg-verde-padrao w-[150px] rounded-full">
+                            <div className="bg-verde-padrao w-[300px] rounded-full">
                             </div>
                         </div>
                         <div className="w-full flex justify-center items-center text-black text-2xl font-extrabold mt-3">
-                        Informe o tamanho e a medida do serviço:
+                            Informe o tamanho e a medida do serviço:
                         </div>
                         <div className="flex flex-row ml-[280px] mt-[20px]  w-[275px] h-[170px] rounded-lg border-verde-padrao border-2 justify-center items-center text-black text-2xl font-base text-center gap-2">
                             <input placeholder="Tamanho" type="text" className="w-[95px] text-lg" />
@@ -193,9 +193,9 @@ function Home(props) {
                                 <option className="bg-verde-padrao" value="">cm</option>
                             </select>
                         </div>
-                        <div id="botoes" className="flex flex-row ml-[320px] mt-[45px] space-x-8" >
+                        <div id="botoes" className="flex flex-row ml-[300px] mt-[45px] space-x-8" >
                             <div className="flex justify-center items-center">
-                                <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => {setModalVisible2(false);setModalVisible1(true) }}>
+                                <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { setModalVisible2(false); setModalVisible1(true) }}>
                                     {'<'} Voltar
                                 </button>
                             </div>
@@ -210,38 +210,49 @@ function Home(props) {
             </ModalCustom>
 
             <ModalCustom modalGettr={modalVisible3} modalSettr={setModalVisible3} canClose={false} w={'1000px'} h={'500px'}>
-                <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
-                    <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
-                        Algo mais a acrescentar? (Opcional)
-                    </div>
-                    <div className="flex flex-col m-10 justify-center items-center text-black text-2xl font-base text-center">
-                        <input placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="w-200 h-50" />
-                        <div className="mt-5 border-black border-dashed">
-                            Insira aqui sua mídia
+                <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
+                    <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
+                        <div className="bg-cinza flex w-[450px] h-[15px] rounded-full ml-[200px] mt-[20px]">
+                            <div className="bg-verde-padrao w-[450px] rounded-full">
+                            </div>
                         </div>
-                    </div>
-                    <div id="botoes" className="flex flex-row space-x-5 w-40" >
-                        <div className="w-80 m-10 ml-20 flex justify-center items-center">
-                            <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { { navigate("/inicio") } }}>
-                                Voltar
+                        <div className="w-full flex justify-center items-center text-black text-2xl font-extrabold mt-3">
+                            Algo mais a acrescentar? (Opcional)
+                        </div>
+                        <div className="flex flex-col ml-[210px] mt-[20px] w-[422px] h-[92px] rounded-lg border-verde-padrao border-2 justify-center text-black text-2xl">
+                            <input placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="w-[350px] h-[30px] text-lg ml-[10px]" />
+                            
+                        </div>
+                        <div className="flex flex-col ml-[370px] mt-[20px] w-[102px] h-[100px] px-2 rounded-lg border-verde-padrao border-2 justify-center text-black text-xs">
+                                Insira aqui sua mídia +
+                        </div>
+                   
+                    <div id="botoes" className="flex flex-row ml-[300px] mt-[30px] space-x-8" >
+                        <div className="flex justify-center items-center">
+                            <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { setModalVisible2(true); setModalVisible3(false) }}>
+                                {'<'} Voltar
                             </button>
                         </div>
-                        <div className="w-80 flex justify-center items-center">
-                            <button className="bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { setModalVisible4(true) }}>
-                                Próximo
+                        <div className="flex justify-center items-center">
+                            <button className=" w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible4(true); setModalVisible3(false) }}>
+                                Enviar {'>'}
                             </button>
                         </div>
                     </div>
                 </div>
-            </ModalCustom>
+            </div>
+        </ModalCustom >
             <ModalCustom modalGettr={modalVisible4} modalSettr={setModalVisible4} canClose={false} w={'1000px'} h={'500px'}>
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
-                    <div className="w-full flex justify-center items-center text-cinza text-2xl font-extrabold">
+                <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
+                <div className="w-full mt-[50px] flex justify-center items-center text-verde-escuro-1 text-2xl font-extrabold">
                         SUA SOLICITAÇÃO FOI REALIZADA COM SUCESSO!
                     </div>
-                    <div className="flex justify-center items-center text-black text-2xl font-base text-center">
+                    <div className="flex justify-center items-center text-black text-lg font-base text-center">
                         Aguarde o retorno do prestador!
                     </div>
+                </div>
+                    
                 </div>
             </ModalCustom>
             <div>
