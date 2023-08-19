@@ -144,12 +144,12 @@ function Home(props) {
                         </div>
                         <div id="botoes" className="flex flex-row ml-[320px] mt-[30px] space-x-8" >
                             <div className="flex justify-center items-center">
-                                <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { { navigate("/inicio") } }}>
+                                <button className="w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { navigate("/inicio") }}>
                                     {'<'} Voltar
                                 </button>
                             </div>
                             <div className="flex justify-center items-center">
-                                <button className=" w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible2(true); setModalVisible1(false) }}>
+                                <button className="w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible2(true); setModalVisible1(false) }}>
                                     Próximo {'>'}
                                 </button>
                             </div>
@@ -329,16 +329,20 @@ function Home(props) {
                             }
                         </div>
                         <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
-                            {
-                                prestadores.slice(0, 6).map(function (data, i) {
-                                    return (
-                                        <Card key={i} nome={data.nome} cidade={data.cidade} foto={data.anexoPfp} area={data.idArea} min={data.orcamentoMin} max={data.orcamentoMax} aula={data.prestaAula} mediaNota={data.mediaAvaliacoes} />
-                                    )
-                                })
-                            }
-
+                            {prestadores?.slice(0, 6).map((data, i) => (
+                                <Card
+                                    key={i}
+                                    nome={data.nome}
+                                    cidade={data.cidade}
+                                    foto={data.anexoPfp}
+                                    area={areas?.find(area => area.id === data.idArea)?.nome}
+                                    min={data.orcamentoMin}
+                                    max={data.orcamentoMax}
+                                    aula={data.prestaAula}
+                                    mediaNota={data.mediaAvaliacoes}
+                                />
+                            ))}
                         </div>
-
                     </div>
                     <div id="container_contratar" className="w-full flex p-32  flex-col">
                         <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">contratar?</span></div>

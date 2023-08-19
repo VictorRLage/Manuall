@@ -1,50 +1,11 @@
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "../components/main/Header";
 import { useEffect, useState } from "react";
 import axiosInstance from "../api/AxiosConfig";
 import Card from "../components/main/Card";
-import { useNavigate } from "react-router-dom";
 
 function Home(props) {
-    const slides = [
-        {
-            url: 'https://i.imgur.com/BQlaUcO.jpeg',
-        },
-        {
-            url: 'https://i.imgur.com/BQlaUcO.jpeg',
-        },
-        {
-            url: 'https://i.imgur.com/BQlaUcO.jpeg',
-        },
-    ];
-
-    const navigate = useNavigate();
-
-    const [currentIndex, setCurrentIndex] = useState(0);
     const [areas, setAreas] = useState([]);
     const [prestadores, setPrestadores] = useState([]);
-    const [botaoAtivo, setBotaoAtivo] = useState(0);
-    const [reclick, setReclick] = useState(false);
-
-    const mudarReclick = () => {
-        setReclick(!reclick)
-    }
-
-    const prevSlide = () => {
-        const isFirstSlide = currentIndex === 0;
-        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-        setCurrentIndex(newIndex);
-    };
-
-    const nextSlide = () => {
-        const isLastSlide = currentIndex === slides.length - 1;
-        const newIndex = isLastSlide ? 0 : currentIndex + 1;
-        setCurrentIndex(newIndex);
-    };
-
-    const goToSlide = (slideIndex) => {
-        setCurrentIndex(slideIndex);
-    };
 
     const getAreas = () => {
         console.log("Buscando areas")
@@ -54,8 +15,6 @@ function Home(props) {
         })
     }
 
-
-
     const getPrestadores = () => {
         console.log("Buscando todos prestadores")
         axiosInstance.get("/usuario/prestadores", {
@@ -64,77 +23,50 @@ function Home(props) {
         })
     }
 
-    const getPrestadoresByArea = (idArea) => {
-        //console.log("Buscando todos prestadores")
-        if (reclick) {
-            getPrestadores()
-            setBotaoAtivo(0)
-        } else {
-            axiosInstance.get(`/usuario/prestadores/${idArea}`, {
-            }).then((res) => {
-                setPrestadores(res.data)
-                setBotaoAtivo(idArea)
-            })
-        }
-    }
-
     useEffect(() => {
         getAreas()
         getPrestadores()
     }, [])
 
-    useEffect(() => {
-        const inputElement = document.getElementById("i_pesquisa");
-        if (inputElement) {
-            inputElement.addEventListener("keypress", handleKeyPress);
-        }
-
-        return () => {
-            if (inputElement) {
-                inputElement.removeEventListener("keypress", handleKeyPress);
-            }
-        };
-    }, []); // Make sure to add any dependencies if needed
-
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            teste();
-        }
-    };
-
-    function teste() {
-        alert("Testando");
-    }
-
     return (
         <div>
             <Header pag={'prestadores'} />
             <div className='w-full h-full'>
-                <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" /> <img className="imgLupa" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
-
+                <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
+                    <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
                     <select name="dropdownCategoria" id="dropdownCategoria">
                         <option value="todas">Todas as categorias</option>
                     </select>
-
                     <select name="dropdownFiltro" id="dropdownFiltro">
                         <option value="todas">Filtrando por Relevância</option>
                     </select>
                 </div>
-                <span className="breadCrumbs"><a href="./inicio" className="breadcrumbAnterior">Página Inicial</a> / <a className="breadcrumbAtual">Prestadores</a></span>
+                <span className="breadCrumbs">
+                    <a href="./inicio" className="breadcrumbAnterior">
+                        Página Inicial
+                    </a>
+                    /
+                    <span className="breadcrumbAtual">
+                        Prestadores
+                    </span>
+                </span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
-                        {
-                            prestadores.map(function (data, i) {
-                                return (
-                                    <Card key={i} nome={data.nome} cidade={data.cidade} foto={data.anexoPfp} area={data.idArea} min={data.orcamentoMin} max={data.orcamentoMax} aula={data.prestaAula} mediaNota={data.mediaAvaliacoes} />
-                                )
-                            })
-                        }
-
+                        {prestadores?.slice(0, 6).map((data, i) => (
+                            <Card
+                                key={i}
+                                nome={data.nome}
+                                cidade={data.cidade}
+                                foto={data.anexoPfp}
+                                area={areas?.find(area => area.id === data.idArea)?.nome}
+                                min={data.orcamentoMin}
+                                max={data.orcamentoMax}
+                                aula={data.prestaAula}
+                                mediaNota={data.mediaAvaliacoes}
+                            />
+                        ))}
                     </div>
-
                 </div>
-
             </div>
             <footer className="w-full relative">
                 <svg width="1920" height="288" viewBox="0 0 1920 288" fill="none" xmlns="http://www.w3.org/2000/svg">

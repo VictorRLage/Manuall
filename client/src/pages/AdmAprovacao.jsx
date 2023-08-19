@@ -3,7 +3,7 @@ import Sidebar from "../components/adm/Sidebar"
 import { useEffect, useState } from "react"
 import axiosInstance from "../api/AxiosConfig"
 
-const AdmAprovacao = (props) => {
+export default function AdmAprovacao(props) {
 
     const [prestadores, setPrestadores] = useState([])
 
@@ -102,5 +102,3 @@ const AdmAprovacao = (props) => {
         </div>
     )
 }
-
-export default AdmAprovacao
