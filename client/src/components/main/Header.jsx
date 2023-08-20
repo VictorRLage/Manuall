@@ -166,26 +166,26 @@ export default function Header(props) {
                         <Link to="/prestadores" style={{ color: props.pag === 'prestadores' ? "#00CC69" : "black", fontWeight: props.pag === 'prestadores' ? "700" : "400" }} className="text-xl">
                             Prestadores
                         </Link>
-                        <Link to="/contato" style={{ color: props.pag === 'contato' ? "#00CC69" : "black", fontWeight: props.pag === 'contato' ? "700" : "400" }} className="text-xl">
+                        <Link to="/contato" style={{ color: props.pag === 'contato' ? "#00CC69" : "black", fontWeight: props.pag === 'contato' ? "700" : "400" }} className="text-xl mr-2">
                             Contato
                         </Link>
                     </div>
                     {!tipoUsuario || tipoUsuario === 3 ?
-                        <div className="flex justify-between w-[58%] items-center">
+                        <div className="flex justify-between w-[68%] items-center">
                             <Link to="/CadastroPrestador" className="text-xl" >
                                 Quero ensinar
                             </Link>
-                            <button onClick={() => { navigate("/login") }} className="text-xl border-4 w-32 h-11 border-verde-padrao rounded-full text-verde-padrao font-bold" >
+                            <button onClick={() => { navigate("/login") }} className="text-xl border-4 w-28 h-11 mr-2 ml-2 border-verde-padrao rounded-full text-verde-padrao font-bold" >
                                 Fazer login
                             </button>
-                            <button onClick={() => { setModalEscolherCadastro(true) }} className="text-xl w-32 h-11 bg-verde-padrao rounded-full text-white font-bold">
+                            <button onClick={() => { setModalEscolherCadastro(true) }} className="text-xl w-28 h-11 bg-verde-padrao rounded-full text-white font-bold">
                                 Cadastre-se
                             </button>
                         </div>
                         : <div className="flex justify-between w-[47%] items-center">
                             {tipoUsuario === 1
                                 ? <Link to="/development" className="text-xl" >
-                                    Historico
+                                    Histórico
                                 </Link>
                                 : <Link to="/development" className="text-xl">
                                     Dashboard
