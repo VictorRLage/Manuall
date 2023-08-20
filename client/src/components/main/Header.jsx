@@ -166,7 +166,7 @@ export default function Header(props) {
                         <Link to="/prestadores" style={{ color: props.pag === 'prestadores' ? "#00CC69" : "black", fontWeight: props.pag === 'prestadores' ? "700" : "400" }} className="text-xl">
                             Prestadores
                         </Link>
-                        <Link to="/development" style={{ color: props.pag === 'contato' ? "#00CC69" : "black", fontWeight: props.pag === 'contato' ? "700" : "400" }} className="text-xl">
+                        <Link to="/contato" style={{ color: props.pag === 'contato' ? "#00CC69" : "black", fontWeight: props.pag === 'contato' ? "700" : "400" }} className="text-xl">
                             Contato
                         </Link>
                     </div>

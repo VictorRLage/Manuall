@@ -9,6 +9,7 @@ import Erro from './pages/Erro'
 import UnderConstruction from './pages/UnderConstruction';
 import AdmAprovacao from './pages/AdmAprovacao';
 import AdmDashboard from './pages/AdmDashboard';
+import Contato from './pages/Contato';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 					<Route path='/cadastroContratante' element={<CasdastroContratante />}></Route>
 					<Route path="adm/aprovacao" element={<AdmAprovacao />} />
 					<Route path="adm/dashboard" element={<AdmDashboard />} />
+					<Route path="/contato" element={<Contato/>} />
 				</Routes>
 			</Router>
 		</div>
