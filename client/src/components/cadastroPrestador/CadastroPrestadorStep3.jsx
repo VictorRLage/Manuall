@@ -1,4 +1,3 @@
-import '../../index.css'
 import { useState, useRef, useEffect } from "react"
 import { ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import axiosInstance from '../../api/AxiosConfig'

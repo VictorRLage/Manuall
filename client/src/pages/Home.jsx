@@ -5,6 +5,7 @@ import axiosInstance from "../api/AxiosConfig";
 import Card from "../components/main/Card";
 import { useNavigate } from "react-router-dom";
 import ModalCustom from "../components/main/ModalCustom";
+import Skeleton from 'react-loading-skeleton';
 
 function Home(props) {
     const slides = [
@@ -22,7 +23,7 @@ function Home(props) {
     const navigate = useNavigate();
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [areas, setAreas] = useState([]);
+    const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState([]);
     const [botaoAtivo, setBotaoAtivo] = useState(0);
     const [reclick, setReclick] = useState(false);
@@ -54,7 +55,6 @@ function Home(props) {
     };
 
     const getAreas = () => {
-        console.log("Buscando areas")
         axiosInstance.get("/usuario/areas", {
         }).then((res) => {
             setAreas(res.data)
@@ -89,7 +89,6 @@ function Home(props) {
         getAreas()
         getPrestadores()
     }, [])
-
 
     return (
         <>
@@ -208,7 +207,6 @@ function Home(props) {
                     </div>
                 </div>
             </ModalCustom>
-
             <ModalCustom modalGettr={modalVisible3} modalSettr={setModalVisible3} canClose={false} w={'1000px'} h={'500px'}>
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
                     <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
@@ -221,38 +219,38 @@ function Home(props) {
                         </div>
                         <div className="flex flex-col ml-[210px] mt-[20px] w-[422px] h-[92px] rounded-lg border-verde-padrao border-2 justify-center text-black text-2xl">
                             <input placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="w-[350px] h-[30px] text-lg ml-[10px]" />
-                            
+
                         </div>
                         <div className="flex flex-col ml-[370px] mt-[20px] w-[102px] h-[100px] px-2 rounded-lg border-verde-padrao border-2 justify-center text-black text-xs">
-                                Insira aqui sua mídia +
+                            Insira aqui sua mídia +
                         </div>
-                   
-                    <div id="botoes" className="flex flex-row ml-[300px] mt-[30px] space-x-8" >
-                        <div className="flex justify-center items-center">
-                            <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { setModalVisible2(true); setModalVisible3(false) }}>
-                                {'<'} Voltar
-                            </button>
-                        </div>
-                        <div className="flex justify-center items-center">
-                            <button className=" w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible4(true); setModalVisible3(false) }}>
-                                Enviar {'>'}
-                            </button>
+
+                        <div id="botoes" className="flex flex-row ml-[300px] mt-[30px] space-x-8" >
+                            <div className="flex justify-center items-center">
+                                <button className=" w-[100px] white text-verde-padrao rounded-full text-lg border-2 border-verde-padrao" onClick={() => { setModalVisible2(true); setModalVisible3(false) }}>
+                                    {'<'} Voltar
+                                </button>
+                            </div>
+                            <div className="flex justify-center items-center">
+                                <button className=" w-[100px] bg-verde-padrao text-white rounded-full text-lg" onClick={() => { setModalVisible4(true); setModalVisible3(false) }}>
+                                    Enviar {'>'}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </ModalCustom >
+            </ModalCustom>
             <ModalCustom modalGettr={modalVisible4} modalSettr={setModalVisible4} canClose={false} w={'1000px'} h={'500px'}>
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center" >
-                <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
-                <div className="w-full mt-[50px] flex justify-center items-center text-verde-escuro-1 text-2xl font-extrabold">
-                        SUA SOLICITAÇÃO FOI REALIZADA COM SUCESSO!
+                    <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
+                        <div className="w-full mt-[50px] flex justify-center items-center text-verde-escuro-1 text-2xl font-extrabold">
+                            SUA SOLICITAÇÃO FOI REALIZADA COM SUCESSO!
+                        </div>
+                        <div className="flex justify-center items-center text-black text-lg font-base text-center">
+                            Aguarde o retorno do prestador!
+                        </div>
                     </div>
-                    <div className="flex justify-center items-center text-black text-lg font-base text-center">
-                        Aguarde o retorno do prestador!
-                    </div>
-                </div>
-                    
+
                 </div>
             </ModalCustom>
             <div>
@@ -284,7 +282,6 @@ function Home(props) {
                                         <svg className="ml-[52rem]" width="698" height="480" viewBox="0 0 698 630" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M1493.41 307.649C1493.41 693.19 1187.61 617.686 891.5 624.5C-303.5 652 78.5055 564.169 4.00007 141.5C-48.9945 -89.8309 589.006 6.66897 864.456 -25.1818C1140.6 -25.1818 1493.41 -11.3115 1493.41 307.649Z" fill="#008042" />
                                         </svg>
-
                                     </div>
                                     : currentIndex === 2 ?
                                         <div className="absolute flex justify-center">
@@ -319,14 +316,26 @@ function Home(props) {
                     </div>
                     <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                         <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
-                        <div id="botoes" className="w-full flex justify-between px-32">
-                            {
-                                areas.slice(0, 6).map(function (data, i) {
-                                    return (
-                                        <button onClick={() => { getPrestadoresByArea(data.id); mudarReclick(); console.log(prestadores) }} className={`${botaoAtivo === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'} w-32 h-10  rounded-full text-xl  outline outline-offset-4 outline-4 outline-verde-padrao font-semibold`} key={i}>{data.nome}</button>
-                                    )
-                                })
-                            }
+                        <div id="botoes" className="w-full flex justify-center flex-wrap">
+                            {areas
+                                ? areas.slice(0, 6).map((data, i) => (
+                                    <button
+                                        onClick={() => { getPrestadoresByArea(data.id); mudarReclick() }}
+                                        key={i}
+                                        className={
+                                            `${botaoAtivo === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'}
+                                    w-32 h-10 rounded-full text-xl font-semibold border-verde-padrao border-2 p-6 flex justify-center items-center m-3`}
+                                    >
+                                        {data.nome}
+                                    </button>
+                                ))
+                                : <>
+                                    {Array(6).fill().map((_, i) => (
+                                        <div key={i} className="w-32 h-[52px] m-3">
+                                            <Skeleton height={"100%"} borderRadius={"9999px"} />
+                                        </div>
+                                    ))}
+                                </>}
                         </div>
                         <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
                             {prestadores?.slice(0, 6).map((data, i) => (
@@ -355,7 +364,6 @@ function Home(props) {
                                     <span className='text-2xl font-medium'>Cadastre-se e <span className="text-verde-padrao font-semibold">pesquise</span> pelo prestador que <span className="text-verde-padrao font-semibold">você precisa!</span></span>
                                 </div>
                             </div>
-
                             <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                                 <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                     <img src='https://i.imgur.com/cOE0Z8a.png' alt="" />
@@ -364,7 +372,6 @@ function Home(props) {
                                     <span className='text-2xl font-medium'>Faça <span className="text-verde-padrao font-semibold">a sua escolha</span> e solicite o serviço (+ aula, se você quiser) em apenas 3 etapas!</span>
                                 </div>
                             </div>
-
                             <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                                 <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                     <img src='https://i.imgur.com/vAR85g2.png' alt="" />
@@ -375,7 +382,6 @@ function Home(props) {
                             </div>
                         </div>
                     </div>
-
                     <div id="container_ensinar" className=" w-full flex px-32 flex-col">
                         <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">ensinar?</span></div>
                         <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
@@ -387,7 +393,6 @@ function Home(props) {
                                     <span className='text-2xl font-medium'>Cadastre-se e converse conosco para sua <span className="text-verde-padrao font-semibold">aprovação!</span></span>
                                 </div>
                             </div>
-
                             <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                                 <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                     <img src='https://i.imgur.com/bHeWCih.png' alt="" />
@@ -396,7 +401,6 @@ function Home(props) {
                                     <span className='text-2xl font-medium'>Compre seu <span className="text-verde-padrao font-semibold">plano </span> e monte seu perfil!</span>
                                 </div>
                             </div>
-
                             <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                                 <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
                                     <img src='https://i.imgur.com/up9fCD3.png' alt="" />
@@ -426,7 +430,6 @@ function Home(props) {
                             </filter>
                         </defs>
                     </svg>
-
                 </footer>
             </div>
         </>

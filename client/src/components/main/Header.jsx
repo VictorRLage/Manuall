@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo_extensa from '../../assets/img/logo_manuall_extensa_verde.png'
-import { ChatBubbleBottomCenterTextIcon, BellIcon, UserIcon } from "@heroicons/react/24/solid";
+import { BellIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import Notificacoes from "./Notificacoes";
 import Chat from "./Chat";
@@ -9,23 +9,18 @@ import ModalEscolherCadastro from "./ModalEscolherCadastro";
 
 export default function Header(props) {
     /*  validações :
-        1 - em qual pagina você esta?        
+        1 - em qual pagina você esta?
         2 - logado?
-        3 - se esta logado como como contratante tem CHAT e NOTIFICAÇOES e 
+        3 - se esta logado como como contratante tem CHAT e NOTIFICAÇOES e
         4 - se esta logado como como contratante tem CHAT, NOTIFICAÇOES, CONFIGURAÇÃO e link na navibar para Dashboard
     */
     const navigate = useNavigate()
 
-    const tipoUsuario = Number(localStorage.TIPO_USUARIO)
+    const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
     const [dropDownNotificacao, setdropDownNotificacao] = useState(false);
-    const [dropDownChat, setdropDownChat] = useState(false);
-    const [temNotificacao, setTemNotificacao] = useState(false)
+    // const [temNotificacao, setTemNotificacao] = useState(false)
     const [jsonNotificacao, setJsonNotificacao] = useState([])
-    const [temChat, setTemChat] = useState(false)
-    const [jsonPessoasConversas, setJsonPessoasConversas] = useState([])
-    const [jsonConversas, setJsonConversas] = useState([])
-    const [contador, setContador] = useState(0)
 
     const logOff = () => {
         localStorage.removeItem('TOKEN')
@@ -42,7 +37,7 @@ export default function Header(props) {
             .then((res) => {
                 if (res.status === 200) {
                     if (res.data.length !== 0) {
-                        setTemNotificacao(true)
+                        // setTemNotificacao(true)
                         setJsonNotificacao(res.data)
                     }
                 }
@@ -52,108 +47,13 @@ export default function Header(props) {
             });
     }
 
-    const getChat = () => {
-        axiosInstance.get("/chat", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.TOKEN}`
-            }
-        })
-            .then((res) => {
-                if (res.status === 200) {
-                    setJsonPessoasConversas(res.data)
-                }
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    }
-
-    const getMensagens = () => {
-        setJsonConversas([])
-        jsonPessoasConversas.forEach(e => {
-            axiosInstance.get(`/chat/${e.solicitacaoId}`, {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.TOKEN}`
-                }
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        const newItem = {
-                            'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
-                            'idSolicitação': e.solicitacaoId,
-                            'nome': e.usuarioNome,
-                            'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
-                        }
-                        setJsonConversas(prevArray => [...prevArray, newItem])
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-        });
-    }
-
-    const buscarNovasNotificacoes = () => {
-        jsonConversas.forEach(e => {
-            console.log('verificando1')
-            axiosInstance.get(`/chat/${e.idSolicitação}/buscar/${e.idMsg}`, {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.TOKEN}`
-                }
-            })
-                .then((res) => {
-                    console.log('verificando2')
-                    if (res.status === 200) {
-                        console.log('verificando3')
-                        setTemChat(true)
-                    }
-                })
-        })
-    }
-
     useEffect(() => {
-        if (localStorage.TOKEN !== undefined && localStorage.TOKEN !== null) {
-            getNotificacao()
-            getChat()
-        }
-        setInterval(() => {
-            setContador(prevContador => prevContador + 1);
-        }, 5000);
-    }, []) // eslint-disable-line
-
-    useEffect(() => {
-        buscarNovasNotificacoes()
-    }, [contador]) // eslint-disable-line
-
-    useEffect(() => {
-        jsonPessoasConversas.forEach(e => {
-            axiosInstance.get(`/chat/${e.solicitacaoId}`, {
-                headers: {
-                    "Authorization": `Bearer ${localStorage.TOKEN}`
-                }
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        const newItem = {
-                            'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
-                            'idSolicitação': e.solicitacaoId,
-                            'nome': e.usuarioNome,
-                            'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
-                        }
-                        setJsonConversas(prevArray => [...prevArray, newItem])
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-        });
-    }, [jsonPessoasConversas]) // eslint-disable-line
+        if (localStorage.TOKEN) getNotificacao()
+    }, [])
 
     return (
-        <div>
-            {modalEscolherCadastro
-                ? <ModalEscolherCadastro modal={setModalEscolherCadastro} />
-                : null}
+        <>
+            {modalEscolherCadastro && <ModalEscolherCadastro modal={setModalEscolherCadastro} />}
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between">
                 <div>
                     <img onClick={() => { navigate("/inicio") }} src={logo_extensa} alt="Logo da Manuall por extensa" className='2xl:w-60 xl:w-52' />
@@ -190,36 +90,18 @@ export default function Header(props) {
                                 : <Link to="/development" className="text-xl">
                                     Dashboard
                                 </Link>}
-                            <div className="flex justify-between w-[62%] items-center">
+                            <div className="flex justify-between w-[42%] items-center">
                                 <div>
-                                    {temChat
+                                    {/* Funcionalidade depreciada por enquanto */}
+                                    {/* temNotificacao
                                         ? <div className="absolute z-10 ml-8">
                                             <span className="relative flex h-3 w-3 ">
                                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
                                                 <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
                                             </span>
                                         </div>
-                                        : null}
-                                    <button onClick={() => { setdropDownChat(!dropDownChat); getMensagens(); setTemChat(false) }} className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center">
-                                        <ChatBubbleBottomCenterTextIcon className='w-7 text-verde-padrao' />
-                                    </button>
-                                    <Chat json={jsonConversas} dropDown={dropDownChat} />
-                                    {dropDownChat
-                                        ? <button onClick={() => { setdropDownChat(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button>
-                                        : null}
-                                </div>
-                                <div>
-                                    {temNotificacao
-                                        ? <div className="absolute z-10 ml-8">
-                                            <span className="relative flex h-3 w-3 ">
-                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                                            </span>
-                                        </div>
-                                        : null}
-                                    {dropDownNotificacao
-                                        ? <button onClick={() => { setdropDownNotificacao(false) }} className='z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default '></button>
-                                        : null}
+                                        : null */}
+                                    {dropDownNotificacao && <button onClick={() => { setdropDownNotificacao(false) }} className="z-30 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default"></button>}
                                     <button onClick={() => { setdropDownNotificacao(!dropDownNotificacao) }} className="bg-verde-padrao w-11 h-11 border-2 border-verde-padrao drop-shadow-all-icon rounded-full flex justify-center items-center">
                                         <BellIcon className='w-7 text-white' />
                                     </button>
@@ -232,6 +114,7 @@ export default function Header(props) {
                         </div>}
                 </nav>
             </header>
-        </div>
+            {tipoUsuario && [1, 2].includes(tipoUsuario) && <Chat />}
+        </>
     );
 }

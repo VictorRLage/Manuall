@@ -1,6 +1,7 @@
 import { StarIcon as StarIconCheio } from '@heroicons/react/24/solid';
 import { StarIcon as StarIconVazio } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
+import Skeleton from 'react-loading-skeleton';
 
 export default function Card(props) {
 
@@ -15,15 +16,29 @@ export default function Card(props) {
         }
     }
 
+    const addFotoPadrao = ({ target }) =>
+        target.src = "https://www.truckeradvisor.com/media/uploads/profilePics/notFound.jpg"
+
     return (
         <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-            <div style={{ backgroundImage: `url(${props.foto})` }} className='h-[55%] w-full rounded-t-3xl bg-verde-padrao bg-cover bg-center' ></div>
+            <img
+                onError={addFotoPadrao}
+                src={props.foto}
+                alt=""
+                className='object-cover h-[55%] w-full rounded-t-3xl bg-verde-padrao bg-cover bg-center'
+            />
             <div className='h-[45%] w-full rounded-b-3xl bg-white py-2 px-4'>
                 <div className='flex flex-col'>
-                    <span className='text-2xl font-semibold'>{props.nome}</span>
-                    <span className='text-xl font-medium'>
-                        {props.area}
-                        {props.area?.[props.area.length - 1] !== "a" ? '(a)' : ''}
+                    <span className='text-2xl font-semibold'>
+                        {props.nome}
+                    </span>
+                    <span className='text-xl font-thin'>
+                        {props.area
+                            ? <>
+                                {props.area}
+                                {props.area[props.area.length - 1] !== "a" && "(a)"}
+                            </>
+                            : <Skeleton />}
                     </span>
                     <span className='text-lg font-normal mt-1'>
                         Faixa de Preço: R$ {props.min} - R$ {props.max}

@@ -10,9 +10,9 @@ import UnderConstruction from './pages/UnderConstruction';
 import AdmAprovacao from './pages/AdmAprovacao';
 import AdmDashboard from './pages/AdmDashboard';
 import Contato from './pages/Contato';
+import 'react-loading-skeleton/dist/skeleton.css'
 
-function App() {
-
+export default function App() {
 	return (
 		<div className='overflow-x-hidden'>
 			<Router>
@@ -33,5 +33,3 @@ function App() {
 		</div>
 	);
 }
-
-export default App
