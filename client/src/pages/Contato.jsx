@@ -18,7 +18,7 @@ function Contato() {
         </span>
       </span>
       <div className="bg-verde-escuro-1">
-      <iframe className=" w-[900px] h-[450px] ml-[200px] mt-[20px] "
+      <iframe title="formulario_contato" className=" w-[900px] h-[450px] ml-[200px] mt-[20px] "
         src='https://app.pipefy.com/public/form/fdmepBpW?embedded=true'
         frameborder='0'
       ></iframe>
