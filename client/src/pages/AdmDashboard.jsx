@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import Sidebar from "../components/adm/Sidebar"
-import axiosInstance from "../api/AxiosConfig"
+import axios from "../api/AxiosConfig"
 import { useNavigate } from "react-router-dom"
 
 const AdmDashboard = (props) => {
@@ -8,7 +8,7 @@ const AdmDashboard = (props) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axiosInstance.get("/usuario/login/checar/validade", {
+        axios.get("/usuario/login/checar/validade", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
             }

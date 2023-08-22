@@ -1,7 +1,7 @@
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "../components/main/Header";
 import { useEffect, useState } from "react";
-import axiosInstance from "../api/AxiosConfig";
+import axios from "../api/AxiosConfig";
 import Card from "../components/main/Card";
 import { useNavigate } from "react-router-dom";
 import ModalCustom from "../components/main/ModalCustom";
@@ -55,7 +55,7 @@ function Home(props) {
     };
 
     const getAreas = () => {
-        axiosInstance.get("/usuario/areas", {
+        axios.get("/usuario/areas", {
         }).then((res) => {
             setAreas(res.data)
         })
@@ -65,7 +65,7 @@ function Home(props) {
 
     const getPrestadores = () => {
         console.log("Buscando todos prestadores")
-        axiosInstance.get("/usuario/prestadores", {
+        axios.get("/usuario/prestadores", {
         }).then((res) => {
             setPrestadores(res.data)
         })
@@ -77,7 +77,7 @@ function Home(props) {
             getPrestadores()
             setBotaoAtivo(0)
         } else {
-            axiosInstance.get(`/usuario/prestadores/${idArea}`, {
+            axios.get(`/usuario/prestadores/${idArea}`, {
             }).then((res) => {
                 setPrestadores(res.data)
                 setBotaoAtivo(idArea)

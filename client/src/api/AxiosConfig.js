@@ -1,8 +1,6 @@
-import axios from "axios"
+import axios from "axios";
 
-const axiosInstance = axios.create({
+export default axios.create({
     baseURL: "http://localhost:8080",
-    timeout: 15000
+    timeout: 15000,
 });
-
-export default axiosInstance

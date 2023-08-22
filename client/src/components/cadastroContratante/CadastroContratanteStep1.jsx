@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIcon, EnvelopeIcon, IdentificationIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon, PhoneIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
-import axiosInstance from "../../api/AxiosConfig";
+import axios from "../../api/AxiosConfig";
 import ModalAviso from "../main/ModalAviso";
 
 function CadastroStep1(props) {
@@ -196,7 +196,7 @@ function CadastroStep1(props) {
 			setAvisoDescricao('Preencha todos os campos')
 			return
 		}
-		axiosInstance.post("/cadastrar/1", {
+		axios.post("/cadastrar/1", {
 			nome: nome,
 			email: email,
 			cpf: cpf,
@@ -238,7 +238,7 @@ function CadastroStep1(props) {
 	}
 
 	const pegarDadosPipefy = () => {
-		axiosInstance.post("/cadastrar/prospect", {
+		axios.post("/cadastrar/prospect", {
 			email: email_input.current.value,
 			tipoUsuario: 1
 		})

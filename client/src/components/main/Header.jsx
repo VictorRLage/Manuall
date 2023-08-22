@@ -4,7 +4,7 @@ import { BellIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 import Notificacoes from "./Notificacoes";
 import Chat from "./Chat";
-import axiosInstance from "../../api/AxiosConfig";
+import axios from "../../api/AxiosConfig";
 import ModalEscolherCadastro from "./ModalEscolherCadastro";
 
 export default function Header(props) {
@@ -29,7 +29,7 @@ export default function Header(props) {
     }
 
     const getNotificacao = () => {
-        axiosInstance.get("/perfil/solicitacoes", {
+        axios.get("/perfil/solicitacoes", {
             headers: {
                 "Authorization": `Bearer ${localStorage.TOKEN}`
             }

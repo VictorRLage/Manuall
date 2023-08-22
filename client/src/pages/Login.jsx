@@ -1,4 +1,4 @@
-import axiosInstance from "../api/AxiosConfig"
+import axios from "../api/AxiosConfig"
 import { useState, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom";
 import { ChevronDoubleLeftIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid'
@@ -66,7 +66,7 @@ function Login() {
 
 
         console.log("Checando email")
-        axiosInstance.post("/usuario/login/checar", {
+        axios.post("/usuario/login/checar", {
             email: e.target.value
         })
             .then((res) => {
@@ -100,7 +100,7 @@ function Login() {
 
     const entrarLogin = () => {
 
-        axiosInstance.post("/usuario/login/efetuar", {
+        axios.post("/usuario/login/efetuar", {
             email: email_input.current.value,
             senha: senha_input.current.value,
             tipoUsuario: tipoUsuario

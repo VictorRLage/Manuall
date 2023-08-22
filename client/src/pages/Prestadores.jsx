@@ -1,6 +1,6 @@
 import Header from "../components/main/Header";
 import { useEffect, useState } from "react";
-import axiosInstance from "../api/AxiosConfig";
+import axios from "../api/AxiosConfig";
 import Card from "../components/main/Card";
 
 function Home(props) {
@@ -9,7 +9,7 @@ function Home(props) {
 
     const getAreas = () => {
         console.log("Buscando areas")
-        axiosInstance.get("/usuario/areas", {
+        axios.get("/usuario/areas", {
         }).then((res) => {
             setAreas(res.data)
         })
@@ -17,7 +17,7 @@ function Home(props) {
 
     const getPrestadores = () => {
         console.log("Buscando todos prestadores")
-        axiosInstance.get("/usuario/prestadores", {
+        axios.get("/usuario/prestadores", {
         }).then((res) => {
             setPrestadores(res.data)
         })

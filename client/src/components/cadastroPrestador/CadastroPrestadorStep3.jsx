@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import { ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
-import axiosInstance from '../../api/AxiosConfig'
+import axios from '../../api/AxiosConfig'
 import ReactSlider from 'react-slider'
 import { useNavigate } from 'react-router-dom'
 import ModalAviso from "../main/ModalAviso";
@@ -146,7 +146,7 @@ function CadastroPrestadorStep3(props) {
             return
         }
 
-        axiosInstance.put(`/cadastrar/3/${localStorage.getItem("ID_CADASTRANTE")}`, {
+        axios.put(`/cadastrar/3/${localStorage.getItem("ID_CADASTRANTE")}`, {
             area: area,
             servico: servicosSelecionados,
             prestaAula: ensinar === "1",
@@ -198,7 +198,7 @@ function CadastroPrestadorStep3(props) {
         if (sessionStorage.getItem("optMin") !== null && sessionStorage.getItem("optMax") !== null) {
             setRange([Number(sessionStorage.getItem("optMin")), Number(sessionStorage.getItem("optMax"))])
         }
-        axiosInstance.get("/usuario/areas")
+        axios.get("/usuario/areas")
             .then((res1) => {
                 setAreas(res1.data)
                 setMapArea(true)
@@ -206,7 +206,7 @@ function CadastroPrestadorStep3(props) {
     }, []) // eslint-disable-line
 
     useEffect(() => {
-        axiosInstance.get(`/usuario/servico/${selectedArea}`)
+        axios.get(`/usuario/servico/${selectedArea}`)
             .then((res2) => {
                 let newArray = []
                 for (let i = 0; i < res2.data.length; i++) {

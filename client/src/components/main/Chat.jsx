@@ -3,7 +3,7 @@ import LinedArrow from "../../assets/svg/arrow-icon.svg";
 import Arrow from "../../assets/svg/lineless_arrow.svg";
 import Manuel from "../../assets/img/manuel_pfp.png";
 import BotCertification from "../../assets/svg/bot_certification.svg";
-// import axiosInstance from "../../api/AxiosConfig";
+// import axios from "../../api/AxiosConfig";
 
 export default function Chat(props) {
 
@@ -17,7 +17,7 @@ export default function Chat(props) {
     const [chatAtual, setChatAtual] = useState()
 
     // const getNewConversas = () => {
-    //     axiosInstance.get("/chat", {
+    //     axios.get("/chat", {
     //         headers: {
     //             "Authorization": `Bearer ${localStorage.TOKEN}`
     //         }
@@ -35,7 +35,7 @@ export default function Chat(props) {
 
     // const getNewMensagens = () => {
     //     conversas?.forEach(e => {
-    //         axiosInstance.get(`/chat/${e.solicitacaoId}`, {
+    //         axios.get(`/chat/${e.solicitacaoId}`, {
     //             headers: {
     //                 "Authorization": `Bearer ${localStorage.TOKEN}`
     //             }

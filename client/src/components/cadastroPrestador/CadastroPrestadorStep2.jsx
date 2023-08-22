@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDoubleRightIcon, MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
-import axiosInstance from "../../api/AxiosConfig";
+import axios from "../../api/AxiosConfig";
 import axios from "axios";
 import ModalAviso from "../main/ModalAviso";
 
@@ -259,7 +259,7 @@ function CadastroPrestadorStep2(props) {
             setAvisoDescricao('Preencha todos os campos')
             return
         }
-        axiosInstance.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
+        axios.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
             cep: cep,
             estado: estado,
             cidade: cidade,

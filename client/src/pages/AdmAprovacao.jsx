@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import Sidebar from "../components/adm/Sidebar"
 import { useEffect, useState } from "react"
-import axiosInstance from "../api/AxiosConfig"
+import axios from "../api/AxiosConfig"
 
 export default function AdmAprovacao(props) {
 
@@ -10,7 +10,7 @@ export default function AdmAprovacao(props) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axiosInstance.get("/usuario/login/checar/validade", {
+        axios.get("/usuario/login/checar/validade", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
             }
@@ -29,7 +29,7 @@ export default function AdmAprovacao(props) {
     }, []) // eslint-disable-line
 
     const btnClick = (idPrestador, aprovar) => {
-        axiosInstance.get(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`, {
+        axios.get(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
             }
@@ -38,7 +38,7 @@ export default function AdmAprovacao(props) {
     }
 
     const buscarNovosPrestadores = () => {
-        axiosInstance.get("/usuario/aprovacoesPendentes", {
+        axios.get("/usuario/aprovacoesPendentes", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
             }
