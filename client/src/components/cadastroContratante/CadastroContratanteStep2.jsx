@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
 import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
 import axios from "../../api/AxiosConfig";
-import axios from "axios";
+import viaCep from "../../api/AxiosConfig";
 import ModalAviso from "../main/ModalAviso";
 
 function CadastroContratanteStep2(props) {
@@ -188,7 +188,7 @@ function CadastroContratanteStep2(props) {
         if (cep_input.current.value === "") {
             return
         }
-        axios.get(`https://viacep.com.br/ws/${cep_input.current.value}/json/`)
+        viaCep.get(`/${cep_input.current.value}/json/`)
             .then((res) => {
                 const e = res.data
                 console.log(e)
