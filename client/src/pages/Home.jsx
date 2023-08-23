@@ -83,7 +83,7 @@ export default function Home(props) {
     return (
         <>
             <ModalCustom modalGettr={modalVisible1} modalSettr={setModalVisible1} canClose={false} w={'1000px'} h={'500px'}>
-                {/* <svg width="199" height="171" viewBox="0 0 199 171" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute">
+                <svg width="199" height="171" viewBox="0 0 199 171" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute">
                     <g filter="url(#filter0_d_58_243)">
                         <path d="M49.5886 90.0657C82.9039 -29.7075 242.667 48.4445 180.079 -39.6362C117.49 -127.717 15.9489 -74.6179 1.00283 -41.3637C-13.9433 -8.1096 -80.7015 -68.6921 -78.3172 50.5829C-75.9329 169.858 16.2733 209.839 49.5886 90.0657Z" fill="#92E3A9" />
                     </g>
@@ -99,7 +99,7 @@ export default function Home(props) {
                             <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_58_243" result="shape" />
                         </filter>
                     </defs>
-                </svg> */}
+                </svg>
                 <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
                     <div className="border-[30px] rounded-lg w-[900px] h-[450px]">
                         <div className="bg-cinza flex w-[450px] h-[15px] rounded-full ml-[200px] mt-[20px]">
