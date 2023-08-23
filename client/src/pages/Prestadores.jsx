@@ -2,25 +2,24 @@ import Header from "../components/main/Header";
 import { useEffect, useState } from "react";
 import axios from "../api/AxiosConfig";
 import Card from "../components/main/Card";
+import Skeleton from 'react-loading-skeleton';
 
 function Home(props) {
-    const [areas, setAreas] = useState([]);
-    const [prestadores, setPrestadores] = useState([]);
+    const [areas, setAreas] = useState();
+    const [prestadores, setPrestadores] = useState();
 
     const getAreas = () => {
-        console.log("Buscando areas")
-        axios.get("/usuario/areas", {
-        }).then((res) => {
-            setAreas(res.data)
-        })
+        axios.get("/usuario/areas")
+            .then((res) => {
+                setAreas(res.data)
+            })
     }
 
     const getPrestadores = () => {
-        console.log("Buscando todos prestadores")
-        axios.get("/usuario/prestadores", {
-        }).then((res) => {
-            setPrestadores(res.data)
-        })
+        axios.get("/usuario/prestadores")
+            .then((res) => {
+                setPrestadores(res.data)
+            })
     }
 
     useEffect(() => {
@@ -51,8 +50,8 @@ function Home(props) {
                     </span>
                 </span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
-                    <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
-                        {prestadores?.slice(0, 6).map((data, i) => (
+                    <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
+                        {prestadores ? prestadores.slice(0, 6).map((data, i) => (
                             <Card
                                 key={i}
                                 nome={data.nome}
@@ -64,7 +63,13 @@ function Home(props) {
                                 aula={data.prestaAula}
                                 mediaNota={data.mediaAvaliacoes}
                             />
-                        ))}
+                        )) : <>
+                            {Array(6).fill().map((_, i) => (
+                                <div key={i}>
+                                    <Skeleton width={"320px"} height={"480px"} borderRadius={"1.5rem"} />
+                                </div>
+                            ))}
+                        </>}
                     </div>
                 </div>
             </div>

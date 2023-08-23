@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ModalCustom from "../components/main/ModalCustom";
 import Skeleton from 'react-loading-skeleton';
 
-function Home(props) {
+export default function Home(props) {
     const slides = [
         {
             url: 'https://i.imgur.com/BQlaUcO.jpeg',
@@ -24,19 +24,13 @@ function Home(props) {
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [areas, setAreas] = useState();
-    const [prestadores, setPrestadores] = useState([]);
-    const [botaoAtivo, setBotaoAtivo] = useState(0);
-    const [reclick, setReclick] = useState(false);
+    const [prestadores, setPrestadores] = useState();
+    const [areaAtiva, setAreaAtiva] = useState(0);
     // solicitacao
     const [modalVisible1, setModalVisible1] = useState(false)
     const [modalVisible2, setModalVisible2] = useState(false)
     const [modalVisible3, setModalVisible3] = useState(false)
     const [modalVisible4, setModalVisible4] = useState(false)
-
-
-    const mudarReclick = () => {
-        setReclick(!reclick)
-    }
 
     const prevSlide = () => {
         const isFirstSlide = currentIndex === 0;
@@ -61,27 +55,23 @@ function Home(props) {
         })
     }
 
-
-
     const getPrestadores = () => {
-        console.log("Buscando todos prestadores")
-        axios.get("/usuario/prestadores", {
-        }).then((res) => {
-            setPrestadores(res.data)
-        })
+        axios.get("/usuario/prestadores")
+            .then((res) => {
+                setPrestadores(res.data)
+            })
     }
 
-    const getPrestadoresByArea = (idArea) => {
-        //console.log("Buscando todos prestadores")
-        if (reclick) {
+    const changeAreaAtiva = (idArea) => {
+        if (areaAtiva === idArea) {
             getPrestadores()
-            setBotaoAtivo(0)
+            setAreaAtiva(0)
         } else {
-            axios.get(`/usuario/prestadores/${idArea}`, {
-            }).then((res) => {
-                setPrestadores(res.data)
-                setBotaoAtivo(idArea)
-            })
+            axios.get(`/usuario/prestadores/${idArea}`)
+                .then((res) => {
+                    setPrestadores(res.data)
+                    setAreaAtiva(idArea)
+                })
         }
     }
 
@@ -250,7 +240,6 @@ function Home(props) {
                             Aguarde o retorno do prestador!
                         </div>
                     </div>
-
                 </div>
             </ModalCustom>
             <div>
@@ -292,12 +281,10 @@ function Home(props) {
                                             <svg className="ml-52 mt-3" width="1102" height="430" viewBox="0 0 1102 523" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M1102 258.803C1102 575.057 874.193 513.122 653.593 518.712C-236.658 541.27 60.9612 483.439 5.4562 136.729C-34.0237 -53.0297 441.274 26.1281 646.478 0.00128042C852.199 0.00128042 1102 -2.8374 1102 258.803Z" fill="#008042" />
                                             </svg>
-
                                         </div>
                                         : null
                             }
                             <div className="flex flex-row justify-between">
-
                                 <div onClick={prevSlide} id='seta_direita' className="z-30 mt-48 cursor-pointer hidden group-hover:block ">
                                     <ChevronLeftIcon className="text-white w-16 h-16" />
                                 </div>
@@ -307,9 +294,9 @@ function Home(props) {
                             </div>
                             <div className='flex justify-center'>
                                 <div className='z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
-                                    <div onClick={() => goToSlide(0)} style={{ backgroundColor: currentIndex === 0 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
-                                    <div onClick={() => goToSlide(1)} style={{ backgroundColor: currentIndex === 1 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
-                                    <div onClick={() => goToSlide(2)} style={{ backgroundColor: currentIndex === 2 ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full "></div>
+                                    {Array(3).fill().map((_, i) => (
+                                        <div key={i} onClick={() => goToSlide(i)} style={{ backgroundColor: currentIndex === i ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full"></div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -320,10 +307,10 @@ function Home(props) {
                             {areas
                                 ? areas.slice(0, 6).map((data, i) => (
                                     <button
-                                        onClick={() => { getPrestadoresByArea(data.id); mudarReclick() }}
+                                        onClick={() => { changeAreaAtiva(data.id) }}
                                         key={i}
                                         className={
-                                            `${botaoAtivo === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'}
+                                            `${areaAtiva === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'}
                                     w-32 h-10 rounded-full text-xl font-semibold border-verde-padrao border-2 p-6 flex justify-center items-center m-3`}
                                     >
                                         {data.nome}
@@ -337,8 +324,8 @@ function Home(props) {
                                     ))}
                                 </>}
                         </div>
-                        <div id="cards" className="px-16 mt-12 grid grid-cols-3 gap-20 self-center">
-                            {prestadores?.slice(0, 6).map((data, i) => (
+                        <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
+                            {prestadores ? prestadores.slice(0, 6).map((data, i) => (
                                 <Card
                                     key={i}
                                     nome={data.nome}
@@ -350,7 +337,13 @@ function Home(props) {
                                     aula={data.prestaAula}
                                     mediaNota={data.mediaAvaliacoes}
                                 />
-                            ))}
+                            )) : <>
+                                {Array(6).fill().map((_, i) => (
+                                    <div key={i}>
+                                        <Skeleton width={"320px"} height={"480px"} borderRadius={"1.5rem"} />
+                                    </div>
+                                ))}
+                            </>}
                         </div>
                     </div>
                     <div id="container_contratar" className="w-full flex p-32  flex-col">
@@ -435,5 +428,3 @@ function Home(props) {
         </>
     );
 }
-
-export default Home;

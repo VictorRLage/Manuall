@@ -41,7 +41,7 @@ export default function Card(props) {
                             : <Skeleton />}
                     </span>
                     <span className='text-lg font-normal mt-1'>
-                        Faixa de Preço: R$ {props.min} - R$ {props.max}
+                        R${props.min} - R${props.max}
                     </span>
                 </div>
                 <div className='flex w-full justify-between mt-1'>
