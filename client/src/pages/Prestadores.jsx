@@ -1,10 +1,14 @@
-import Header from "../components/main/Header";
+import Header from "@/components/main/Header";
 import { useEffect, useState } from "react";
-import axios from "../api/AxiosConfig";
-import Card from "../components/main/Card";
-import Skeleton from 'react-loading-skeleton';
+import { useNavigate } from "react-router-dom";
+import axios from "@/api/AxiosConfig";
+import Card from "@/components/main/Card";
+import Skeleton from "react-loading-skeleton";
 
-function Home(props) {
+export default function Home(props) {
+
+    const navigate = useNavigate()
+
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
 
@@ -41,9 +45,9 @@ function Home(props) {
                     </select>
                 </div>
                 <span className="breadCrumbs">
-                    <a href="./inicio" className="breadcrumbAnterior">
+                    <span onClick={() => { navigate("/inicio") }} className="breadcrumbAnterior cursor-pointer">
                         Página Inicial
-                    </a>
+                    </span>
                     /
                     <span className="breadcrumbAtual">
                         Prestadores
@@ -96,5 +100,3 @@ function Home(props) {
         </div>
     );
 }
-
-export default Home

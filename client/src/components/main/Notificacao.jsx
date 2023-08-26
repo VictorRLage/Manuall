@@ -1,7 +1,7 @@
-import { BellIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import axios from "../../api/AxiosConfig";
-import { Oval } from "react-loader-spinner"
+import { BellIcon, UserIcon } from "@heroicons/react/24/solid";
+import { Oval } from "react-loader-spinner";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function Notificacoes(props) {
 
@@ -9,11 +9,7 @@ export default function Notificacoes(props) {
     const [notificacoes, setNotificacoes] = useState()
 
     const getNotificacoes = () => {
-        axios.get("/perfil/solicitacoes", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.TOKEN}`
-            }
-        })
+        axios.get("/perfil/solicitacoes")
             .then((res) => {
                 if (res.status === 200) {
                     setNotificacoes(res.data)

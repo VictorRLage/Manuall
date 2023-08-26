@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
-import logo_extensa from '../../assets/img/logo_manuall_extensa_branca.png'
-import axios from "../../api/AxiosConfig";
-import viaCep from "../../api/AxiosConfig";
-import ModalAviso from "../main/ModalAviso";
+import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
+import logo_extensa from "@/assets/img/logo_manuall_extensa_branca.png";
+import axios, { viaCep } from "@/api/AxiosConfig";
+import ModalAviso from "@/components/main/ModalAviso";
 
-function CadastroContratanteStep2(props) {
+export default function CadastroContratanteStep2(props) {
 
     const [modalAviso, setMoldaAviso] = useState(false)
     const [avisoTitulo, setAvisoTitulo] = useState('')
@@ -340,5 +339,3 @@ function CadastroContratanteStep2(props) {
 
     );
 }
-
-export default CadastroContratanteStep2;

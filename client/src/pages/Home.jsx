@@ -1,11 +1,11 @@
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
-import Header from "../components/main/Header";
+import Header from "@/components/main/Header";
 import { useEffect, useState } from "react";
-import axios from "../api/AxiosConfig";
-import Card from "../components/main/Card";
+import axios from "@/api/AxiosConfig";
+import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
-import Skeleton from 'react-loading-skeleton';
-import ModaisSolicitacao from "../components/solicitacao/ModaisSolicitacaoServico";
+import Skeleton from "react-loading-skeleton";
+import ModaisSolicitacao from "@/components/solicitacao/ModaisSolicitacaoServico";
 
 export default function Home(props) {
     const slides = [

@@ -1,17 +1,17 @@
-import axios from "../api/AxiosConfig"
-import { useState, useRef } from "react"
+import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { ChevronDoubleLeftIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/solid'
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline'
-import logo_extensa from '../assets/img/logo_manuall_extensa_branca.png'
-import EntrarTrue from '../components/login/EntrarTrue'
-import EntrarFalse from '../components/login/EntrarFalse'
-import LoadingEmail from "../components/login/LoadingEmail";
-import ModalEscolherConta from "../components/login/ModalEscolherConta";
-import ModalAviso from "../components/main/ModalAviso";
-import ModalEscolherCadastro from "../components/main/ModalEscolherCadastro";
+import { ChevronDoubleLeftIcon, EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import logo_extensa from "@/assets/img/logo_manuall_extensa_branca.png";
+import axios from "@/api/AxiosConfig";
+import EntrarTrue from "@/components/login/EntrarTrue";
+import EntrarFalse from "@/components/login/EntrarFalse";
+import LoadingEmail from "@/components/login/LoadingEmail";
+import ModalEscolherConta from "@/components/login/ModalEscolherConta";
+import ModalAviso from "@/components/main/ModalAviso";
+import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 
-function Login() {
+export default function Login() {
 
     /*
     Validações:
@@ -193,5 +193,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;

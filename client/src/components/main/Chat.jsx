@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import LinedArrow from "../../assets/svg/arrow-icon.svg";
-import Arrow from "../../assets/svg/lineless_arrow.svg";
-import Manuel from "../../assets/img/manuel_pfp.png";
-import BotCertification from "../../assets/svg/bot_certification.svg";
-// import axios from "../../api/AxiosConfig";
+import LinedArrow from "@/assets/svg/arrow-icon.svg";
+import Arrow from "@/assets/svg/lineless_arrow.svg";
+import Manuel from "@/assets/img/manuel_pfp.png";
+import BotCertification from "@/assets/svg/bot_certification.svg";
+// import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function Chat(props) {
 
@@ -17,11 +17,7 @@ export default function Chat(props) {
     const [chatAtual, setChatAtual] = useState()
 
     // const getNewConversas = () => {
-    //     axios.get("/chat", {
-    //         headers: {
-    //             "Authorization": `Bearer ${localStorage.TOKEN}`
-    //         }
-    //     })
+    //     axios.get("/chat")
     //         .then((res) => {
     //             if (res.status === 200) {
     //                 setConversas(res.data)
@@ -35,11 +31,7 @@ export default function Chat(props) {
 
     // const getNewMensagens = () => {
     //     conversas?.forEach(e => {
-    //         axios.get(`/chat/${e.solicitacaoId}`, {
-    //             headers: {
-    //                 "Authorization": `Bearer ${localStorage.TOKEN}`
-    //             }
-    //         })
+    //         axios.get(`/chat/${e.solicitacaoId}`)
     //             .then((res) => {
     //                 if (res.status === 200) {
     //                     const newItem = {

@@ -1,8 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { XCircleIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from "react-router-dom";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 
-function ModalEscolherCadastro(props) {
+export default function ModalEscolherCadastro(props) {
 
     const navigate = useNavigate();
 
@@ -19,5 +18,3 @@ function ModalEscolherCadastro(props) {
         </div>
     );
 }
-
-export default ModalEscolherCadastro;

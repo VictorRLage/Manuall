@@ -1,6 +1,4 @@
-import React from 'react';
-
-function UnderConstructions(props) {
+export default function UnderConstructions(props) {
     return (
         <div className='w-screen h-screen flex justify-center items-center flex-col'>
             <svg width="600" height="600" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -569,5 +567,3 @@ function UnderConstructions(props) {
         </div>
     );
 }
-
-export default UnderConstructions;

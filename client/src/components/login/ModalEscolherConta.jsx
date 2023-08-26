@@ -1,6 +1,4 @@
-import React from 'react';
-
-function ModalEscolherConta(props) {
+export default function ModalEscolherConta(props) {
     return (
         <div className='z-50 fixed h-screen w-screen bg-blur flex justify-center items-center'>
             <div className='h-72 w-100 bg-white rounded-lg flex flex-col items-center p-10'>
@@ -14,5 +12,3 @@ function ModalEscolherConta(props) {
         </div>
     );
 }
-
-export default ModalEscolherConta;

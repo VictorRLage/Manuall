@@ -1,7 +1,7 @@
-import { StarIcon as StarIconCheio } from '@heroicons/react/24/solid';
-import { StarIcon as StarIconVazio } from '@heroicons/react/24/outline';
-import { useNavigate } from 'react-router-dom';
-import Skeleton from 'react-loading-skeleton';
+import { useNavigate } from "react-router-dom";
+import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
+import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import Skeleton from "react-loading-skeleton";
 
 export default function Card(props) {
 

@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom"
-import Sidebar from "../components/adm/Sidebar"
-import { useEffect, useState } from "react"
-import axios from "../api/AxiosConfig"
+import { useNavigate } from "react-router-dom";
+import Sidebar from "@/components/adm/Sidebar";
+import { useEffect, useState } from "react";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function AdmAprovacao(props) {
 
@@ -10,11 +10,7 @@ export default function AdmAprovacao(props) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get("/usuario/login/checar/validade", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
-            }
-        })
+        axios.get("/usuario/login/checar/validade")
         .then((res) => {
             if (res.status !== 200 || res.data !== 3) {
                 localStorage.removeItem("TOKEN")
@@ -29,20 +25,12 @@ export default function AdmAprovacao(props) {
     }, []) // eslint-disable-line
 
     const btnClick = (idPrestador, aprovar) => {
-        axios.get(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`, {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
-            }
-        })
+        axios.get(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`)
         .then(buscarNovosPrestadores)
     }
 
     const buscarNovosPrestadores = () => {
-        axios.get("/usuario/aprovacoesPendentes", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
-            }
-        })
+        axios.get("/usuario/aprovacoesPendentes")
         .then((res) => {
             if (res.status === 200) {
                 setPrestadores(res.data)

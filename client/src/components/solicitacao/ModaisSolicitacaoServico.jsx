@@ -1,7 +1,7 @@
-import ModalCustom from "../main/ModalCustom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronRightIcon, ChevronLeftIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import ModalCustom from "@/components/main/ModalCustom";
 
 export default function ModaisSolicitacaoServico(props) {
 

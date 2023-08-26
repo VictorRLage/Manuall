@@ -1,7 +1,6 @@
-import React from 'react';
-import { useState } from "react"
+import { useState } from "react";
 
-function EntrarFalse(props) {
+export default function EntrarFalse(props) {
 
     const [showTooltip, setShowTooltip] = useState(false);
 
@@ -20,5 +19,3 @@ function EntrarFalse(props) {
         </div>
     );
 }
-
-export default EntrarFalse;

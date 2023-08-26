@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Erro(props) {
     return (
         <div className='w-screen h-screen flex justify-center items-center flex-col'>

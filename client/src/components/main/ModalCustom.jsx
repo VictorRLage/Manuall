@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
-const ModalCustom = (props) => {
+export default function ModalCustom(props) {
 
     const [lastTimeout, setLastTimeout] = useState(0)
 
@@ -33,5 +33,3 @@ const ModalCustom = (props) => {
         </div>
     )
 }
-
-export default ModalCustom

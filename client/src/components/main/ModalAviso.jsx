@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-function ModalAviso(props) {
+export default function ModalAviso(props) {
 
     const [lastTimeout, setLastTimeout] = useState(0)
 
@@ -25,5 +25,3 @@ function ModalAviso(props) {
         </div>
     )
 }
-
-export default ModalAviso

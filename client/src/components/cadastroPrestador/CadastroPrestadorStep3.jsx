@@ -1,13 +1,13 @@
-import { useState, useRef, useEffect } from "react"
-import { ChevronDoubleLeftIcon } from '@heroicons/react/24/solid'
-import axios from '../../api/AxiosConfig'
-import ReactSlider from 'react-slider'
-import { useNavigate } from 'react-router-dom'
-import ModalAviso from "../main/ModalAviso";
-import ModalCustom from "../main/ModalCustom"
-import bgmodal from "../../assets/img/bg-modal.png"
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import ReactSlider from "react-slider";
+import { ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
+import axios from "@/api/AxiosConfig";
+import ModalAviso from "@/components/main/ModalAviso";
+import ModalCustom from "@/components/main/ModalCustom";
+import bgmodal from "@/assets/img/bg-modal.png";
 
-function CadastroPrestadorStep3(props) {
+export default function CadastroPrestadorStep3(props) {
 
     const [modalAviso, setMoldaAviso] = useState(false)
     const [avisoTitulo, setAvisoTitulo] = useState('')
@@ -40,7 +40,6 @@ function CadastroPrestadorStep3(props) {
     const validarArea = () => {
         const area = area_input.current.value
         console.log(area)
-
 
         if (
             area === '0'
@@ -362,5 +361,3 @@ function CadastroPrestadorStep3(props) {
         </>
     )
 }
-
-export default CadastroPrestadorStep3

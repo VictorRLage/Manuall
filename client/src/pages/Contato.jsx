@@ -1,18 +1,19 @@
-import Header from "../components/main/Header";
-import fundoContato from "../assets/svg/Rectangle269.svg";
+import { useNavigate } from "react-router-dom";
+import Header from "@/components/main/Header";
+import fundoContato from "@/assets/svg/Rectangle269.svg";
 
+export default function Contato() {
 
-function Contato() {
+  const navigate = useNavigate()
 
   return (
-
     <>
       <Header />
       <div className="flex flex-row">
         <span className="ml-[190px] mt-[40px] space-x-1">
-          <a href="./inicio" className="text-cinza mr-[2px]">
+          <span onClick={() => { navigate("/inicio") }} className="text-cinza mr-[2px] cursor-pointer">
             Página Inicial
-          </a>
+          </span>
           /
           <span className="font-extrabold text-verde-escuro-1">
             Contato
@@ -21,7 +22,6 @@ function Contato() {
         <div id="titulo" className="pt-10 text-4xl ml-[250px] font-semibold text-center">Contato
         </div>
       </div>
-      
       <div style={{ backgroundImage: `url(${fundoContato})` }} className=" h-[500px] bg-cover bg-center flex flex-row space-x-32 mt-[5px]" >
         {/* <svg className="absolute w-[100%] h-[100%]" viewBox="0 0 1920 797" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M-186.819 19.5827C183.252 19.3957 1596.99 150.469 1942.37 18.5075C2287.75 -113.454 2288.44 525.925 1980.6 733.287C1672.75 940.649 124.127 391.442 -187.206 728.991C-498.538 1066.54 -556.889 19.7698 -186.819 19.5827Z" fill="#268054" />
@@ -48,15 +48,6 @@ function Contato() {
           </div>
         </div>
       </div>
-
-
     </>
   )
-
-
-
-
-
 }
-
-export default Contato;

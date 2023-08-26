@@ -1,18 +1,14 @@
-import { useEffect } from "react"
-import Sidebar from "../components/adm/Sidebar"
-import axios from "../api/AxiosConfig"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "@/components/adm/Sidebar";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
-const AdmDashboard = (props) => {
+export default function AdmDashboard(props) {
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        axios.get("/usuario/login/checar/validade", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("TOKEN")}`
-            }
-        })
+        axios.get("/usuario/login/checar/validade")
         .then((res) => {
             if (res.status !== 200 || res.data !== 3) {
                 localStorage.removeItem("TOKEN")
@@ -31,5 +27,3 @@ const AdmDashboard = (props) => {
         </div>
     )
 }
-
-export default AdmDashboard
