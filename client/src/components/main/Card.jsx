@@ -7,14 +7,12 @@ export default function Card(props) {
 
     const navigate = useNavigate();
 
-    const estrelas = [];
-    for (let i = 1; i <= 5; i++) {
-        if (props.mediaNota >= i) {
-            estrelas.push(<StarIconCheio key={i} className='w-4 h-4 text-yellow-500' />);
-        } else {
-            estrelas.push(<StarIconVazio key={i} className='w-4 h-4 text-yellow-500' />);
-        }
-    }
+    const estrelas = Array.from({ length: 5 }, (_, i) => {
+        const estrela = i + 1
+        return props.mediaNota >= estrela
+            ? <StarIconCheio key={estrela} className="w-4 h-4 text-yellow-500" />
+            : <StarIconVazio key={estrela} className="w-4 h-4 text-yellow-500" />
+    });
 
     const addFotoPadrao = ({ target }) =>
         target.src = "https://www.truckeradvisor.com/media/uploads/profilePics/notFound.jpg"

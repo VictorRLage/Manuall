@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Header from "@/components/main/Header";
+import Header from "@/components/header/Header";
 import fundoContato from "@/assets/svg/Rectangle269.svg";
 
 export default function Contato() {

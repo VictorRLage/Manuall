@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import LinedArrow from "@/assets/svg/arrow-icon.svg";
 import Arrow from "@/assets/svg/lineless_arrow.svg";
 import Manuel from "@/assets/img/manuel_pfp.png";
+import ChatManuel from "@/components/header/ChatManuel";
 import BotCertification from "@/assets/svg/bot_certification.svg";
 // import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
@@ -56,24 +57,15 @@ export default function Chat(props) {
         // if (isOpen && localStorage.TOKEN) getNewConversas()
     }
 
+    const historicoMensagensManuel = "0,1"
+
     const selecionarChat = (e, isManuel = false) => {
         if (isManuel) {
             setChatAtual({
                 name: "Manuel",
                 isManuel: true,
-                mensagens: [
-                    { texto: "Bom dia! eu sou o Manuel, o assistente virtual da manuall. Posso ajudar em algo?", selfsender: false },
-                    { texto: "Sim, eu gostaria de contratar um prestador", selfsender: true },
-                    { texto: "Ok, qual serviço você deseja?", selfsender: false },
-                    { texto: "Eu gostaria de contratar um prestador para fazer um serviço de pintura", selfsender: true },
-                    { texto: "Ok, qual a sua cidade?", selfsender: false },
-                    { texto: "São Paulo", selfsender: true },
-                    { texto: "Ok, vou procurar por prestadores de pintura em São Paulo", selfsender: false },
-                    { texto: "Ok, vou procurar por prestadores de pintura em São Paulo", selfsender: false },
-                    { texto: "Ok, vou procurar por prestadores de pintura em São Paulo", selfsender: false },
-                    { texto: "Ok, vou procurar por prestadores de pintura em São Paulo", selfsender: false },
-                    { texto: "Parece que o Manuel pifou", selfsender: true },
-                ]
+                mensagens: [],
+                stringifiedMsgs: historicoMensagensManuel
             })
         } else {
         }
@@ -105,18 +97,22 @@ export default function Chat(props) {
             </div>
             {chatAtual
                 ? <>
-                <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
-                    {chatAtual.mensagens.map((msg, i) => (
-                        <div key={i} className={`w-full px-3 py-1 flex ${msg.selfsender ? "justify-end" : "justify-start"}`}>
-                            {!msg.selfsender && <div className="w-2 h-3 bg-[#c0e8c0]" style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}></div>}
-                            <div className={`max-w-[80%] p-2 rounded-lg ${msg.selfsender ? "bg-[#5faf88] rounded-tr-none" : "bg-[#c0e8c0] rounded-tl-none"}`}>
-                                {msg.texto}
-                            </div>
-                            {msg.selfsender && <div className="w-2 h-3 bg-[#5faf88]" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}></div>}
-                        </div>
-                    ))}
-                </div>
-                {!chatAtual.isManuel && <div className="bg-gray-500 h-[40px] flex"></div>}
+                    <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
+                        {chatAtual.isManuel
+                            ? <ChatManuel chat={chatAtual} setChat={setChatAtual} />
+                            : <>
+                                {chatAtual.mensagens.map((msg, i) => (
+                                    <div key={i} className={`w-full px-3 py-1 flex ${msg.selfsender ? "justify-end" : "justify-start"}`}>
+                                        {!msg.selfsender && <div className="w-2 h-3 bg-[#c0e8c0]" style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}></div>}
+                                        <div className={`max-w-[80%] p-2 rounded-lg ${msg.selfsender ? "bg-[#5faf88] rounded-tr-none" : "bg-[#c0e8c0] rounded-tl-none"}`}>
+                                            {msg.texto}
+                                        </div>
+                                        {msg.selfsender && <div className="w-2 h-3 bg-[#5faf88]" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}></div>}
+                                    </div>
+                                ))}
+                            </>}
+                    </div>
+                    {!chatAtual.isManuel && <div className="bg-gray-500 h-[40px] flex"></div>}
                 </>
                 : <div className="bg-white h-[400px] flex flex-col overflow-y-auto">
                     <div onClick={() => { selecionarChat(undefined, true) }} className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all">

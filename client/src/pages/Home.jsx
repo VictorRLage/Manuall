@@ -1,5 +1,5 @@
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
-import Header from "@/components/main/Header";
+import Header from "@/components/header/Header";
 import { useEffect, useState } from "react";
 import axios from "@/api/AxiosConfig";
 import Card from "@/components/main/Card";

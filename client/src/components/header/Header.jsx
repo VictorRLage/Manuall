@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo_extensa from "@/assets/img/logo_manuall_extensa_verde.png";
 import { UserIcon } from "@heroicons/react/24/solid";
-import Notificacao from "@/components/main/Notificacao";
-import Chat from "@/components/main/Chat";
+import Notificacao from "@/components/header/Notificacao";
+import Chat from "@/components/header/Chat";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 
 export default function Header(props) {
