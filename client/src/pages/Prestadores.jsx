@@ -29,7 +29,7 @@ function Home(props) {
 
     return (
         <div>
-            <Header pag={'prestadores'} />
+            <Header />
             <div className='w-full h-full'>
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />

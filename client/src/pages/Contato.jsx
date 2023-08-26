@@ -7,7 +7,7 @@ function Contato() {
   return (
 
     <>
-      <Header></Header>
+      <Header />
       <div className="flex flex-row">
         <span className="ml-[190px] mt-[40px] space-x-1">
           <a href="./inicio" className="text-cinza mr-[2px]">

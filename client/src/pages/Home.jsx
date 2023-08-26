@@ -9,15 +9,9 @@ import ModaisSolicitacao from "../components/solicitacao/ModaisSolicitacaoServic
 
 export default function Home(props) {
     const slides = [
-        {
-            url: 'https://i.imgur.com/BQlaUcO.jpeg',
-        },
-        {
-            url: 'https://i.imgur.com/BQlaUcO.jpeg',
-        },
-        {
-            url: 'https://i.imgur.com/BQlaUcO.jpeg',
-        },
+        { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
+        { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
+        { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
     ];
 
     const navigate = useNavigate();
@@ -81,7 +75,7 @@ export default function Home(props) {
         <>
         <ModaisSolicitacao modalSolicitacao = {modaisSolicitacao}></ModaisSolicitacao>
             <div>
-                <Header pag={'inicio'} />
+                <Header />
                 <div className='w-full h-full'>
                     <div id='container_carousel' className="group">
                         <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className='w-full h-120 bg-center bg-cover duration-500'>
