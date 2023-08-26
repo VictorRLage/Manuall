@@ -1,63 +1,138 @@
 import { useEffect, useState } from "react"
 import falasManuelEnum from "@/enum/FalasManuelENUM";
 
-export default function ChatManuel({ chat, setChat }) {
+export default function ChatManuel({ chat, setChat, scrollDown }) {
 
-    useEffect(() => {
+    // const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
+    const tipoUsuario = 2
+
+    // const [dadosConversa, setDadosConversa] = useState()
+
+    // useEffect(() => {
+
+    // }, [])
+
+    const buscarPorMensagens = async () => {
 
         if (!chat.isManuel) return;
-
+        
         const msgs = chat.stringifiedMsgs.split(",")
         const mensagensExibidas = []
         const respostas = []
 
-        let msgAtual = falasManuelEnum[2]
-        if (msgs.length > 0) {
-            msgAtual = msgAtual[msgs[0]]
+        if (tipoUsuario === 1) {
 
-            mensagensExibidas.push({
-
-                // FALTA ENDPOINT CHATBOT
-                texto: msgAtual.getFala(),
-                selfsender: !msgAtual.isManuel
-            })
-
-            if(msgs.length <= 1) {
-                if(/* prestador foi contratado no ultimo mes? */ false) {
-                    msgs.push("0")
-                } else {
-                    msgs.push("1")
-                }
+        } else {
+            if (msgs.length === 0) {
+                return setChat({
+                    ...chat,
+                    stringifiedMsgs: msgs.concat("0").join(",")
+                })
             }
-            msgAtual = msgAtual.next[msgs[1]]
 
-            mensagensExibidas.push({
-                texto: msgAtual.getFala(),
-                selfsender: !msgAtual.isManuel
-            })
-            
-            if (msgs.length > 2) {
-                msgAtual = msgAtual.next[msgs[2]]
+            // Fase 0 Fluxo prestador
+            if (msgs[0] === "0") {
+                let msgAtual = falasManuelEnum[2][0]
 
                 mensagensExibidas.push({
-                    texto: msgAtual.getFala(),
-                    selfsender: !msgAtual.isManuel
+                    texto: msgAtual.get(/* nomeUsuario */),
+                    selfsender: false
                 })
+    
+                // Fase 1 Fluxo prestador
+                if (msgs.length <= 1) {
 
-                if (msgs.length > 3) {
+                    //ultimaDataContratado - new Date() > 1000 * 60 * 60 * 24 * 30
+                    if (/* prestador foi contratado no ultimo mes? */ false) {
+                        return setChat({
+                            ...chat,
+                            stringifiedMsgs: msgs.concat("0").join(",")
+                        })
+                    } else {
+                        return setChat({
+                            ...chat,
+                            stringifiedMsgs: msgs.concat("1").join(",")
+                        })
+                    }
+                }
+
+                msgAtual = msgAtual.next[msgs[1]]
+    
+                mensagensExibidas.push({
+                    texto: msgAtual.get(),
+                    selfsender: false
+                })
+                
+                // Fase 2 Fluxo prestador
+                if (msgs.length > 2) {
+                    msgAtual = msgAtual.next[msgs[2]]
+
+                    mensagensExibidas.push({
+                        texto: msgAtual.get(),
+                        selfsender: true
+                    })
+    
+                    if (msgs.length === 3) {
+                        return setChat({
+                            ...chat,
+                            stringifiedMsgs: msgs.concat("0").join(",")
+                        })
+                    }
+
+                    // Fase 3 Fluxo prestador
                     msgAtual = msgAtual.next[msgs[3]]
 
                     mensagensExibidas.push({
-                        texto: msgAtual.getFala(),
-                        selfsender: !msgAtual.isManuel
+                        texto: msgAtual.get(),
+                        selfsender: false
                     })
-                }
-            } else {
-                for(let i = 0; i < msgAtual.next.length; i++) {
-                    respostas.push({
-                        texto: msgAtual.next[i].getFala(),
-                        id: i,
-                    })
+
+                    if (msgs.length > 4) {
+                        // Fase 4 Fluxo prestador
+
+                        msgAtual = msgAtual.next[msgs[4]]
+
+
+                        mensagensExibidas.push({
+                            texto: msgAtual.get(),
+                            selfsender: true
+                        })
+
+                        if (msgs.length === 5) {
+                            return setChat({
+                                ...chat,
+                                stringifiedMsgs: msgs.concat("0").join(",")
+                            })
+                        }
+
+                        // Fase 5 Fluxo prestador
+                        msgAtual = msgAtual.next[msgs[5]]
+
+                        mensagensExibidas.push({
+                            texto: msgAtual.get(),
+                            selfsender: false
+                        })
+
+                    } else {
+
+                        // Fase 3 Fluxo prestador
+                        for (let i = 0; i < msgAtual.next.length; i++) {
+                            respostas.push({
+                                texto: msgAtual.next[i].get(),
+                                id: i,
+                            })
+                        }
+
+                    }
+                } else {
+                    
+                    // Fase 1 Fluxo prestador
+                    for (let i = 0; i < msgAtual.next.length; i++) {
+                        respostas.push({
+                            texto: msgAtual.next[i].get(),
+                            id: i,
+                        })
+                    }
                 }
             }
         }
@@ -69,12 +144,18 @@ export default function ChatManuel({ chat, setChat }) {
                 respostas,
             })
         }
-    }, [chat])
+
+        scrollDown()
+    }
+
+    useEffect(() => {
+        buscarPorMensagens()
+    }, [chat, /* dadosConversa */])
 
     const sendMsg = (id) => {
         setChat({
             ...chat,
-            stringifiedMsgs: chat.stringifiedMsgs + `,${id}`
+            stringifiedMsgs: chat.stringifiedMsgs + "," + id
         })
     }
 

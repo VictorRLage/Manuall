@@ -57,7 +57,8 @@ export default function Chat(props) {
         // if (isOpen && localStorage.TOKEN) getNewConversas()
     }
 
-    const historicoMensagensManuel = "0,1"
+    // faltou a requisiçao que pega e posta isso
+    const historicoMensagensManuel = "0"
 
     const selecionarChat = (e, isManuel = false) => {
         if (isManuel) {
@@ -68,8 +69,13 @@ export default function Chat(props) {
                 stringifiedMsgs: historicoMensagensManuel
             })
         } else {
+            // implementação chat real
         }
 
+        scrollDown()
+    }
+
+    const scrollDown = () => {
         setTimeout(() => {
             scrollingDiv.current.scrollTop = scrollingDiv.current.scrollHeight
         }, 1)
@@ -99,7 +105,7 @@ export default function Chat(props) {
                 ? <>
                     <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
                         {chatAtual.isManuel
-                            ? <ChatManuel chat={chatAtual} setChat={setChatAtual} />
+                            ? <ChatManuel chat={chatAtual} setChat={setChatAtual} scrollDown={scrollDown} />
                             : <>
                                 {chatAtual.mensagens.map((msg, i) => (
                                     <div key={i} className={`w-full px-3 py-1 flex ${msg.selfsender ? "justify-end" : "justify-start"}`}>
