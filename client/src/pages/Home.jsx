@@ -73,7 +73,7 @@ export default function Home(props) {
 
     return (
         <>
-        <ModaisSolicitacao modalSolicitacao = {modaisSolicitacao}></ModaisSolicitacao>
+        <ModaisSolicitacao modalSolicitacao = {modaisSolicitacao} modalSettr = {setModaisSolicitacao}></ModaisSolicitacao>
             <div>
                 <Header />
                 <div className='w-full h-full'>

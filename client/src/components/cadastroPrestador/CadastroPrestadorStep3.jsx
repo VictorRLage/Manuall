@@ -269,7 +269,7 @@ export default function CadastroPrestadorStep3(props) {
                                         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                                     </div>
                                 </div>
-                                {dropDown ? <>
+                                {dropDown && <>
                                     <button onClick={() => { setdropDown(false) }} className='z-40 fixed h-screen w-screen top-0 left-0 right-0 bottom-0 cursor-default'></button>
                                     <div id='drop_drown_servico' className={`z-50 absolute w-full bg-white border ${validacaoServico === 1 ? `border-red-500` : `border-cinza-claro-1`} hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline`}>
                                         {mapServico ? servicos.map((data, index) => (
@@ -282,7 +282,7 @@ export default function CadastroPrestadorStep3(props) {
                                         )) : null}
                                     </div>
                                     {validacaoServico !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
-                                </> : null}
+                                </> }
                             </div>
                         </div>
 
