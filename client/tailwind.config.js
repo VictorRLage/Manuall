@@ -8,6 +8,9 @@ module.exports = {
       'mukta': ['Mukta', 'sans-serif']
     },
     extend: {
+      backgroundImage: {
+        'bg-fundoContato': "url('/src/assets/svg/Rectangle269.svg')",
+      },
       colors: {
         'cinza': '#D9D9D9',
         'cinza-claro-1': '#A7A5A5',
