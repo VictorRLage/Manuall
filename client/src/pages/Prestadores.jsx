@@ -45,7 +45,7 @@ export default function Home(props) {
                     </select>
                 </div>
                 <span className="breadCrumbs">
-                    <span onClick={() => { navigate("/inicio") }} className="breadcrumbAnterior cursor-pointer">
+                    <span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">
                         Página Inicial
                     </span>
                     /

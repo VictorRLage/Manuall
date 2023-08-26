@@ -72,7 +72,7 @@ export default function ModaisSolicitacaoServico(props) {
                         <div id="botoes" className="flex flex-row ml-[300px] mt-[30px] space-x-8" >
                             <div className="flex justify-center items-center rounded-full border-2  border-verde-padrao w-[120px]">
                             <ChevronLeftIcon className="text-verde-padrao w-[25px] h-[25px]" />
-                                <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { navigate("/inicio") }}>
+                                <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { navigate("/") }}>
                                     Voltar
                                 </button>
                             </div>

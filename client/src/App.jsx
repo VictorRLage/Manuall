@@ -19,7 +19,6 @@ export default function App(props) {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/inicio" element={<Home />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/cadastroPrestador" element={<CadastroPrestador />} />
 					<Route path="/cadastroContratante" element={<CasdastroContratante />} />

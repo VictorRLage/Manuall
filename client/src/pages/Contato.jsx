@@ -11,7 +11,7 @@ export default function Contato() {
       <Header />
       <div className="flex flex-row">
         <span className="ml-[190px] mt-[40px] space-x-1">
-          <span onClick={() => { navigate("/inicio") }} className="text-cinza mr-[2px] cursor-pointer">
+          <span onClick={() => { navigate("/") }} className="text-cinza mr-[2px] cursor-pointer">
             Página Inicial
           </span>
           /

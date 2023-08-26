@@ -30,17 +30,17 @@ export default function Header(props) {
             {modalEscolherCadastro && <ModalEscolherCadastro modal={setModalEscolherCadastro} />}
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between items-center">
                 <img
-                    onClick={() => { navigate("/inicio") }}
+                    onClick={() => { navigate("/") }}
                     src={logo_extensa}
                     alt="Logo da Manuall por extensa"
                     className='w-[200px]'
                 />
                 <nav className="flex items-center gap-4">
                     <button
-                        onClick={() => { navigate("/inicio") }}
+                        onClick={() => { navigate("/") }}
                         style={{
-                            color: pathname === "/inicio" ? "#00CC69" : "black",
-                            fontWeight: pathname === "/inicio" ? "700" : "400"
+                            color: pathname === "/" ? "#00CC69" : "black",
+                            fontWeight: pathname === "/" ? "700" : "400"
                         }}
                         className="text-xl"
                     >

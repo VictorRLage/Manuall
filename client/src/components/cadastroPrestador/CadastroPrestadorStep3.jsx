@@ -333,7 +333,7 @@ export default function CadastroPrestadorStep3(props) {
                         </div>
                         <div className='flex flex-row w-full'>
                             <div id="container_proximo" className="w-full h-10 flex justify-start">
-                                <button onClick={() => { navigate("/inicio") }} className=" 2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center"><ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
+                                <button onClick={() => { navigate("/") }} className=" 2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center"><ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
                             </div>
                             <div id="container_finalizar" className="w-full h-10 flex justify-end ">
                                 <button onClick={avancar} className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-11 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-12 2xl:mt-14 xl:mt-3 font-semibold text-white ">Finalizar</button>
@@ -352,7 +352,7 @@ export default function CadastroPrestadorStep3(props) {
                         Ao retornar, você poderá escolher o seu plano!
                     </div>
                     <div className="h-[33%] w-full flex justify-center items-center">
-                        <button className="h-[50%] w-[40%] bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { navigate("/inicio") }}>
+                        <button className="h-[50%] w-[40%] bg-verde-padrao text-white rounded-lg text-lg" onClick={() => { navigate("/") }}>
                             Retornar à tela inicial
                         </button>
                     </div>

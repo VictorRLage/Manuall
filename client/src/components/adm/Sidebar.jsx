@@ -9,7 +9,7 @@ export default function Sidebar(props) {
 
     return (
         <div className="h-full min-w-[250px] w-[18%] flex flex-col items-center bg-verde-escuro-1">
-            <div onClick={() => { navigate("/inicio") }} className="cursor-pointer w-[90%] h-[10%] flex justify-center items-center border-b-[1px] border-white">
+            <div onClick={() => { navigate("/") }} className="cursor-pointer w-[90%] h-[10%] flex justify-center items-center border-b-[1px] border-white">
                 <img className="w-[80%]" src={logo} alt="" />
             </div>
             <div onClick={() => { navigate("/adm/aprovacao") }} className="cursor-pointer w-[90%] h-[10%] flex justify-center items-center border-b-[1px] border-white">
