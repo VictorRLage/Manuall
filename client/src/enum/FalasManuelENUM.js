@@ -1,5 +1,54 @@
 const FalasManuelENUM = {
-    /* tipoUsuario: */ 1: {},
+    /* tipoUsuario: */ 1: /* next: */[{
+        get(nomeUsuario = "") {
+            const dataAtual = new Date().getHours();
+            return `${dataAtual >= 4 && dataAtual <= 12
+                ? "Bom dia"
+                : dataAtual > 12 && dataAtual <= 18
+                    ? "Boa tarde"
+                    : dataAtual > 18 && dataAtual <= 1
+                        ? "Boa noite"
+                        : "Boa madrugada"
+                }${nomeUsuario && " " + nomeUsuario}, eu sou Manuel, o seu assistente virtual!`;
+        },
+        next: [{
+            get: () => "Vimos que você acessou nosso site recentemente, está precisando de algum serviço?",
+            next: [{
+                get: () => "Sim",
+                next: [{
+                    get: () => "Ok, vou te mostrar alguns serviços que temos disponíveis!",
+                    next: [{
+                        get: (areas = []) => areas,
+                        next: [{
+                            get: () => "Entendido!",
+                            next: [{
+                                get: () => "Poderia confirmar a região que você mora para um atendimento mais personalizado?",
+                                next: [{
+                                    get: (cidades = []) => cidades,
+                                    next: [{
+                                        get: () => "Entendido!",
+                                        next: [{
+                                            get: () => "Vou te encaminhar à uma página especial que mostra apenas prestadores da sua região!",
+                                            next: [{
+                                                get: () => "Ok",
+                                                next: []
+                                            }]
+                                        }]
+                                    }]
+                                }]
+                            }]
+                        }]
+                    }]
+                }]
+            }, {
+                get: () => "Não",
+                next: [{
+                    get: () => "Ok, você ainda pode entrar em contato se mudar de ideia!",
+                    next: []
+                }]
+            }]
+        }]
+    }],
     /* tipoUsuario: */ 2: /* next: */[{
         get(nomeUsuario = "") {
             const dataAtual = new Date().getHours();
@@ -10,7 +59,7 @@ const FalasManuelENUM = {
                     : dataAtual > 18 && dataAtual <= 1
                         ? "Boa noite"
                         : "Boa madrugada"
-                }${nomeUsuario ? " " + nomeUsuario : nomeUsuario}, eu sou Manuel, o seu assistente virtual!`;
+                }${nomeUsuario && " " + nomeUsuario}, eu sou Manuel, o seu assistente virtual!`;
         },
         next: [{
             get: (plano = "ERROR") => `Vimos no nosso sistema que você possui o plano ${plano}, e estamos com uma oportunidade para você!`,
