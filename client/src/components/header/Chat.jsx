@@ -98,6 +98,7 @@ export default function Chat(props) {
                 setManuelMsgs(data)
             })
             .catch((err) => {
+                setManuelMsgs(true)
                 console.log(err)
             })
     }, [])
