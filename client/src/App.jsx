@@ -23,7 +23,7 @@ export default function App(props) {
 					<Route path="/cadastroPrestador" element={<CadastroPrestador />} />
 					<Route path="/cadastroContratante" element={<CasdastroContratante />} />
 					<Route path="/prestadores" element={<Prestadores />} />
-					<Route path="/contato" element={<Contato/>} />
+					<Route path="/contato" element={<Contato />} />
 					<Route path="/adm/aprovacao" element={<AdmAprovacao />} />
 					<Route path="/adm/dashboard" element={<AdmDashboard />} />
 					<Route path="/development" element={<UnderConstruction />} />
