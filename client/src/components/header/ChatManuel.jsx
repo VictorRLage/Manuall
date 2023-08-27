@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import falasManuelEnum from "@/enum/FalasManuelENUM";
 import cidades from "@/enum/ChatbotCidadesENUM";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
-export default function ChatManuel({ chat, setChat, scrollDown }) {
+export default function ChatManuel({ chat, setChat, scrollDown, originalMsgs }) {
 
     const navigate = useNavigate()
 
@@ -26,10 +27,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
         if (tipoUsuario === 1) {
             if (msgs.length === 0) {
-                return setChat({
-                    ...chat,
-                    stringifiedMsgs: msgs.concat("0").join(",")
-                })
+                return pushMessage(msgs.concat("0").join(","))
             }
 
             // Fase 0 Fluxo contratante
@@ -43,10 +41,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
                 // Fase 1 Fluxo contratante
                 if (msgs.length === 1) {
-                    return setChat({
-                        ...chat,
-                        stringifiedMsgs: msgs.concat("0").join(",")
-                    })
+                    return pushMessage(msgs.concat("0").join(","))
                 }
 
                 msgAtual = msgAtual.next[msgs[1]]
@@ -66,10 +61,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                     })
 
                     if (msgs.length === 3) {
-                        return setChat({
-                            ...chat,
-                            stringifiedMsgs: msgs.concat("0").join(",")
-                        })
+                        return pushMessage(msgs.concat("0").join(","))
                     }
 
                     // Fase 3 Fluxo contratante
@@ -98,10 +90,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                         })
 
                         if (msgs.length === 5) {
-                            return setChat({
-                                ...chat,
-                                stringifiedMsgs: msgs.concat("0").join(",")
-                            })
+                            return pushMessage(msgs.concat("0").join(","))
                         }
 
                         msgAtual = msgAtual.next[msgs[5]]
@@ -112,10 +101,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                         })
 
                         if (msgs.length === 6) {
-                            return setChat({
-                                ...chat,
-                                stringifiedMsgs: msgs.concat("0").join(",")
-                            })
+                            return pushMessage(msgs.concat("0").join(","))
                         }
 
                         // Fase 5 Fluxo contratante
@@ -137,10 +123,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                             })
 
                             if (msgs.length === 8) {
-                                return setChat({
-                                    ...chat,
-                                    stringifiedMsgs: msgs.concat("0").join(",")
-                                })
+                                return pushMessage(msgs.concat("0").join(","))
                             }
 
                             // Fase 7 Fluxo contratante
@@ -152,10 +135,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                             })
 
                             if (msgs.length === 9) {
-                                return setChat({
-                                    ...chat,
-                                    stringifiedMsgs: msgs.concat("0").join(",")
-                                })
+                                return pushMessage(msgs.concat("0").join(","))
                             }
 
                             // Fase 8 Fluxo contratante
@@ -170,7 +150,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
                                 // Fase 9 Fluxo contratante
                                 msgAtual = msgAtual.next[msgs[10]]
-                                
+
                                 navigate({ pathname: "/development" })
                             } else {
                                 for (let i = 0; i < msgAtual.next.length; i++) {
@@ -217,10 +197,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
         } else {
             if (msgs.length === 0) {
-                return setChat({
-                    ...chat,
-                    stringifiedMsgs: msgs.concat("0").join(",")
-                })
+                return pushMessage(msgs.concat("0").join(","))
             }
 
             // Fase 0 Fluxo prestador
@@ -237,15 +214,9 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
                     //ultimaDataContratado - new Date() > 1000 * 60 * 60 * 24 * 30
                     if (/* prestador foi contratado no ultimo mes? */ false) {
-                        return setChat({
-                            ...chat,
-                            stringifiedMsgs: msgs.concat("0").join(",")
-                        })
+                        return pushMessage(msgs.concat("0").join(","))
                     } else {
-                        return setChat({
-                            ...chat,
-                            stringifiedMsgs: msgs.concat("1").join(",")
-                        })
+                        return pushMessage(msgs.concat("1").join(","))
                     }
                 }
 
@@ -266,10 +237,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                     })
 
                     if (msgs.length === 3) {
-                        return setChat({
-                            ...chat,
-                            stringifiedMsgs: msgs.concat("0").join(",")
-                        })
+                        return pushMessage(msgs.concat("0").join(","))
                     }
 
                     // Fase 3 Fluxo prestador
@@ -292,10 +260,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                         })
 
                         if (msgs.length === 5) {
-                            return setChat({
-                                ...chat,
-                                stringifiedMsgs: msgs.concat("0").join(",")
-                            })
+                            return pushMessage(msgs.concat("0").join(","))
                         }
 
                         // Fase 5 Fluxo prestador
@@ -346,10 +311,21 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
     }, [chat, /* dadosConversa */])
 
     const sendMsg = (id) => {
+        pushMessage(chat.stringifiedMsgs + "," + id)
+    }
+
+    const pushMessage = (msg) => {
         setChat({
             ...chat,
-            stringifiedMsgs: chat.stringifiedMsgs + "," + id
+            stringifiedMsgs: msg
         })
+        if (msg.split(",").length > 10) return
+        axios.post("/chatbot", {
+            log: msg
+        })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     return (

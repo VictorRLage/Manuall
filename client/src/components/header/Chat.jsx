@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Oval } from "react-loader-spinner";
 import LinedArrow from "@/assets/svg/arrow-icon.svg";
 import Arrow from "@/assets/svg/lineless_arrow.svg";
 import Manuel from "@/assets/img/manuel_pfp.png";
 import ChatManuel from "@/components/header/ChatManuel";
 import BotCertification from "@/assets/svg/bot_certification.svg";
-// import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function Chat(props) {
 
@@ -13,7 +14,8 @@ export default function Chat(props) {
     const scrollingDiv = useRef(null)
 
     const [isOpen, setIsOpen] = useState(false)
-    // const [conversas, setConversas] = useState()
+    const [manuelMsgs, setManuelMsgs] = useState()
+    const [conversas, setConversas] = useState()
     // const [mensagens, setMensagens] = useState()
     const [chatAtual, setChatAtual] = useState()
 
@@ -57,16 +59,13 @@ export default function Chat(props) {
         // if (isOpen && localStorage.TOKEN) getNewConversas()
     }
 
-    // faltou a requisiçao que pega e posta isso
-    const historicoMensagensManuel = "0"
-
-    const selecionarChat = (e, isManuel = false) => {
+    const selecionarChat = (id, isManuel = false) => {
         if (isManuel) {
             setChatAtual({
                 name: "Manuel",
                 isManuel: true,
                 mensagens: [],
-                stringifiedMsgs: historicoMensagensManuel
+                stringifiedMsgs: manuelMsgs
             })
         } else {
             // implementação chat real
@@ -80,6 +79,28 @@ export default function Chat(props) {
             scrollingDiv.current.scrollTop = scrollingDiv.current.scrollHeight
         }, 1)
     }
+
+    useEffect(() => {
+        setConversas([{
+            solicitacaoId: 1,
+            usuarioId: 1,
+            usuarioNome: "Michael",
+            usuarioPfp: "https://akamai.sscdn.co/uploadfile/letras/fotos/3/4/1/b/341be9c93b5809ae1cf9862d71319531.jpg",
+        }, {
+            solicitacaoId: 2,
+            usuarioId: 2,
+            usuarioNome: "Mitsuki",
+            usuarioPfp: "https://cdn.amomama.com/4bf8d90018c96028117814b9b5c0c2fe.jpg",
+        }])
+
+        axios.get("/chatbot")
+            .then(({ data }) => {
+                setManuelMsgs(data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
     return (
         <div className="fixed z-50 right-8 w-[350px] transition-all" style={{ bottom: isOpen ? "0" : "-400px" }}>
@@ -105,7 +126,7 @@ export default function Chat(props) {
                 ? <>
                     <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
                         {chatAtual.isManuel
-                            ? <ChatManuel chat={chatAtual} setChat={setChatAtual} scrollDown={scrollDown} />
+                            ? <ChatManuel chat={chatAtual} setChat={setChatAtual} scrollDown={scrollDown} originalMsgs={manuelMsgs} />
                             : <>
                                 {chatAtual.mensagens.map((msg, i) => (
                                     <div key={i} className={`w-full px-3 py-1 flex ${msg.selfsender ? "justify-end" : "justify-start"}`}>
@@ -119,16 +140,51 @@ export default function Chat(props) {
                             </>}
                     </div>
                     {!chatAtual.isManuel && <div className="bg-gray-500 h-[40px] flex"></div>}
-                </>
-                : <div className="bg-white h-[400px] flex flex-col overflow-y-auto">
-                    <div onClick={() => { selecionarChat(undefined, true) }} className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all">
-                        <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                            <img src={Manuel} className="w-10 rounded-full" alt="" />
-                            <span className="p-2">Manuel</span>
-                            <img src={BotCertification} className="w-5" alt="" />
+                </> //manuelMsgs
+                : <>
+                    {conversas && manuelMsgs
+                        ? <div className="bg-white h-[400px] flex flex-col overflow-y-auto">
+                            {typeof manuelMsgs === "string" && <div
+                                onClick={() => { selecionarChat(undefined, true) }}
+                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                            >
+                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                    <img src={Manuel} className="w-10 rounded-full" alt="" />
+                                    <span className="p-2">Manuel</span>
+                                    <img src={BotCertification} className="w-5" alt="" />
+                                </div>
+                            </div>}
+                            {conversas?.map((cvs, i) => (
+                                <div
+                                    onClick={() => { selecionarChat(cvs.solicitacaoId) }}
+                                    className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                                    key={cvs.usuarioId}
+                                >
+                                    <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                        <img
+                                            src={cvs.usuarioPfp}
+                                            className="w-10 h-10 rounded-full object-cover" alt=""
+                                        />
+                                        <span className="p-2">{cvs.usuarioNome}</span>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    </div>
-                </div>}
+                        : <div className="bg-white h-[400px] flex justify-center items-center">
+                            <Oval
+                                height={50}
+                                color="#00cc69"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                                visible={true}
+                                ariaLabel='oval-loading'
+                                secondaryColor="#00cc69"
+                                strokeWidth={1}
+                                strokeWidthSecondary={4}
+                            />
+                        </div>
+                    }
+                </>}
         </div>
     );
 }
