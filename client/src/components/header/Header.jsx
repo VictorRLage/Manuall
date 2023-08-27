@@ -5,6 +5,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Notificacao from "@/components/header/Notificacao";
 import Chat from "@/components/header/Chat";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
+import { logoff } from "@/utils/functions";
 
 export default function Header(props) {
     /*  validações :
@@ -18,12 +19,6 @@ export default function Header(props) {
 
     const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
-
-    const logOff = () => {
-        localStorage.removeItem('TOKEN')
-        localStorage.removeItem('TIPO_USUARIO')
-        window.location.reload()
-    }
 
     return (
         <>
@@ -100,7 +95,7 @@ export default function Header(props) {
                                 </button>}
                             <Notificacao tipoUsuario={tipoUsuario} />
                             <button
-                                onClick={logOff}
+                                onClick={logoff}
                                 className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"
                             >
                                 <UserIcon className='w-7 text-verde-padrao' />
