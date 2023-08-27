@@ -188,24 +188,18 @@ export default function CadastroContratanteStep2(props) {
             return
         }
         viaCep.get(`/${cep_input.current.value}/json/`)
-            .then((res) => {
-                const e = res.data
-                console.log(e)
-                if (e.erro) {
+            .then(({ data }) => {
+                if (data.erro) {
                     setLabel('CEP inexistente')
                     setValidacaoCep(1)
                 } else {
-                    estado_input.current.value = e.localidade
-                    cidade_input.current.value = e.uf
-                    bairro_input.current.value = e.bairro
-                    rua_input.current.value = e.logradouro
+                    estado_input.current.value = data.localidade
+                    cidade_input.current.value = data.uf
+                    bairro_input.current.value = data.bairro
+                    rua_input.current.value = data.logradouro
 
-                    if (numero_input.current.value === "") {
-                        numero_input.current.focus()
-                    }
+                    if (numero_input.current.value === "") numero_input.current.focus()
                 }
-
-
             })
     }
 
@@ -218,26 +212,28 @@ export default function CadastroContratanteStep2(props) {
         const numero = numero_input.current.value
         const complemento = complemento_input.current.value
 
-		if (
-			validacaoCep !== 2 &&
-			validacaoEstado !== 2 &&
-			validacaoCidade !== 2 &&
-			validacaoBairro !== 2 &&
-			validacaoRua !== 2 &&
-			validacaoNumero !== 2
-		) {
-			setMoldaAviso(true)
-			setAvisoTitulo('Campos inválidos')
-			setAvisoDescricao('Preencha todos os campos')
-			return
-		}
+        const validacoes = [
+            validacaoCep,
+            validacaoEstado,
+            validacaoCidade,
+            validacaoBairro,
+            validacaoRua,
+            validacaoNumero
+        ];
+        if (validacoes.every(validacao => validacao !== 2)) {
+            setMoldaAviso(true);
+            setAvisoTitulo('Campos inválidos');
+            setAvisoDescricao('Preencha todos os campos');
+            return;
+        }
+        
         axios.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
-            cep: cep,
-            estado: estado,
-            cidade: cidade,
-            bairro: bairro,
-            rua: rua,
-            numero: numero,
+            cep,
+            estado,
+            cidade,
+            bairro,
+            rua,
+            numero,
             complemento: complemento === "" ? null : complemento,
         })
             .then((res) => {
@@ -252,12 +248,12 @@ export default function CadastroContratanteStep2(props) {
             .catch((err) => {
                 if (err.response.status === 404) {
                     setMoldaAviso(true)
-					setAvisoTitulo('Você ainda não chegou nessa fase')
-					setAvisoDescricao('Por favor tente novamente mais tarde')
+                    setAvisoTitulo('Você ainda não chegou nessa fase')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else if (err.response.status === 409) {
                     setMoldaAviso(true)
-					setAvisoTitulo('Você já passou dessa fase')
-					setAvisoDescricao('Por favor tente novamente mais tarde')
+                    setAvisoTitulo('Você já passou dessa fase')
+                    setAvisoDescricao('Por favor tente novamente mais tarde')
                 } else {
                     setMoldaAviso(true)
                     setAvisoTitulo('Erro interno')

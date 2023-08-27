@@ -95,7 +95,6 @@ export default function Home(props) {
                         </filter>
                     </defs>
                 </svg>
-
             </footer>
         </div>
     );

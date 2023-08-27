@@ -15,7 +15,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
     const buscarPorMensagens = async () => {
 
         if (!chat.isManuel) return;
-        
+
         const msgs = chat.stringifiedMsgs.split(",")
         const mensagensExibidas = []
         const respostas = []
@@ -38,7 +38,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                     texto: msgAtual.get(/* nomeUsuario */),
                     selfsender: false
                 })
-    
+
                 // Fase 1 Fluxo prestador
                 if (msgs.length <= 1) {
 
@@ -57,12 +57,12 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                 }
 
                 msgAtual = msgAtual.next[msgs[1]]
-    
+
                 mensagensExibidas.push({
                     texto: msgAtual.get(),
                     selfsender: false
                 })
-                
+
                 // Fase 2 Fluxo prestador
                 if (msgs.length > 2) {
                     msgAtual = msgAtual.next[msgs[2]]
@@ -71,7 +71,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
                         texto: msgAtual.get(),
                         selfsender: true
                     })
-    
+
                     if (msgs.length === 3) {
                         return setChat({
                             ...chat,
@@ -125,7 +125,7 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
                     }
                 } else {
-                    
+
                     // Fase 1 Fluxo prestador
                     for (let i = 0; i < msgAtual.next.length; i++) {
                         respostas.push({

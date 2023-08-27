@@ -71,7 +71,6 @@ export default function CadastroStep1(props) {
 		} else {
 			setValidacaoNome(2)
 			const nomeFormatar = formatNome(nome);
-			//console.log(nomeFormatar)
 			setNomeFormatado(nomeFormatar)
 		}
 	}
@@ -103,7 +102,7 @@ export default function CadastroStep1(props) {
 
 		if (
 			cpf === "" ||
-			cpf.length !== 11 
+			cpf.length !== 11
 		) {
 			setLabel("Campo inválido")
 			setValidacaoCpf(1)

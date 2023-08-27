@@ -64,8 +64,6 @@ export default function Login() {
             setValidacaoEmail(true)
         }
 
-
-        console.log("Checando email")
         axios.post("/usuario/login/checar", {
             email: e.target.value
         })
