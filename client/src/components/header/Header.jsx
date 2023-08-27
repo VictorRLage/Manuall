@@ -40,7 +40,6 @@ export default function Header(props) {
                         onClick={() => { navigate("/") }}
                         style={{
                             color: pathname === "/" ? "#00CC69" : "black",
-                            fontWeight: pathname === "/" ? "700" : "400"
                         }}
                         className="text-xl"
                     >
@@ -50,7 +49,6 @@ export default function Header(props) {
                         onClick={() => { navigate("/prestadores") }}
                         style={{
                             color: pathname === "/prestadores" ? "#00CC69" : "black",
-                            fontWeight: pathname === "/prestadores" ? "700" : "400"
                         }}
                         className="text-xl"
                     >
@@ -60,7 +58,6 @@ export default function Header(props) {
                         onClick={() => { navigate("/contato") }}
                         style={{
                             color: pathname === "/contato" ? "#00CC69" : "black",
-                            fontWeight: pathname === "/contato" ? "700" : "400"
                         }}
                         className="text-xl"
                     >
