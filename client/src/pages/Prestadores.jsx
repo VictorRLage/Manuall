@@ -9,9 +9,34 @@ export default function Home(props) {
 
     const navigate = useNavigate()
 
-    const [selectedArea, setSelectedArea] = useState("todas");
+    const [areaAtiva, setAreaAtiva] = useState(0);
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
+
+    // const handleSelectChange = (e) => {
+    //     setSelectedArea(e.target.value);
+    // };
+
+    // useEffect(() => {
+    //     teste(selectedArea);
+    // }, [selectedArea]);
+
+    const changeAreaAtiva = (e) => {
+        const idArea = e.target.value;
+        if (areaAtiva === idArea || idArea === "todas") { // Verifica se é a mesma área ou "Todas as categorias"
+            getPrestadores();
+            setAreaAtiva("todas"); // Define "todas" como área ativa
+        } else {
+            axios.get(`/usuario/prestadores/${idArea}`)
+                .then((res) => {
+                    setPrestadores(res.data);
+                    setAreaAtiva(idArea);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }    
 
     const getAreas = () => {
         axios.get("/usuario/areas")
@@ -52,7 +77,7 @@ export default function Home(props) {
     };
 
     function teste() {
-        alert(selectedArea);
+        alert(areaAtiva);
     }
 
     return (
@@ -61,10 +86,8 @@ export default function Home(props) {
             <div className='w-full h-full'>
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
-                    <select name="dropdownCategoria" id="dropdownCategoria" value={selectedArea} onChange={(e) => {
-                        setSelectedArea(e.target.value);
-                        teste(e.target.value); // Chama a função teste com o valor atualizado
-                    }}>
+
+                    <select name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
                         <option value="todas">Todas as categorias</option>
                         {areas &&
                             areas.map(area => (
@@ -108,7 +131,7 @@ export default function Home(props) {
                                 <div key={i}>
                                     <Skeleton width={"320px"} height={"480px"} borderRadius={"1.5rem"} />
                                 </div>
-                            ))}
+                            ))},
                         </>}
                     </div>
                 </div>
