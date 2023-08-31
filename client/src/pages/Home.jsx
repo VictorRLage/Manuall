@@ -82,7 +82,7 @@ export default function Home(props) {
                                 <div className="absolute ml-20 mt-20 text-white text-6xl">
                                     Encontre <br /> prestadores de <br /> serviço <span className="font-bold">excelentes</span> <br /> prontos para te <br /> <span className="font-bold">ensinar!</span>
                                 </div>
-                                <button class="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring">Encontrar
+                                <button onClick={() => { setModaisSolicitacao(true) }} className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring">Encontrar
                                 </button>
 
                                 <svg width="100%" height="480" viewBox="0 0 883 631" fill="none" xmlns="http://www.w3.org/2000/svg">
