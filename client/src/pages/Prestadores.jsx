@@ -9,6 +9,7 @@ export default function Home(props) {
 
     const navigate = useNavigate()
 
+    const [selectedArea, setSelectedArea] = useState("todas");
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
 
@@ -31,15 +32,50 @@ export default function Home(props) {
         getPrestadores()
     }, [])
 
+    useEffect(() => {
+        const inputElement = document.getElementById("i_pesquisa");
+        if (inputElement) {
+            inputElement.addEventListener("keypress", handleKeyPress);
+        }
+
+        return () => {
+            if (inputElement) {
+                inputElement.removeEventListener("keypress", handleKeyPress);
+            }
+        };
+    }, []);
+
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {
+            teste();
+        }
+    };
+
+    function teste() {
+        alert(selectedArea);
+    }
+
     return (
         <div>
             <Header />
             <div className='w-full h-full'>
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
-                    <select name="dropdownCategoria" id="dropdownCategoria">
+                    <select name="dropdownCategoria" id="dropdownCategoria" value={selectedArea} onChange={(e) => {
+                        setSelectedArea(e.target.value);
+                        teste(e.target.value); // Chama a função teste com o valor atualizado
+                    }}>
                         <option value="todas">Todas as categorias</option>
+                        {areas &&
+                            areas.map(area => (
+                                <option key={area.id} value={area.id}>
+                                    {area.nome}
+                                </option>
+                            ))
+                        }
                     </select>
+
+
                     <select name="dropdownFiltro" id="dropdownFiltro">
                         <option value="todas">Filtrando por Relevância</option>
                     </select>
