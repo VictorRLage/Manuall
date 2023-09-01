@@ -1,35 +1,35 @@
 import Header from "@/components/header/Header";
+import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "@/api/AxiosConfig";
 import Card from "@/components/main/Card";
 import Skeleton from "react-loading-skeleton";
 
-export default function Home(props) {
+export default function Prestadores(props) {
 
     const navigate = useNavigate()
 
     const [areaAtiva, setAreaAtiva] = useState(0);
-    const [areas, setAreas] = useState();
-    const [prestadores, setPrestadores] = useState();
-
-    // const handleSelectChange = (e) => {
-    //     setSelectedArea(e.target.value);
-    // };
-
-    // useEffect(() => {
-    //     teste(selectedArea);
-    // }, [selectedArea]);
+    const [areas, setAreas] = useState([]);
+    const [prestadores, setPrestadores] = useState([]);
+    const [showNoPrestadorMessage, setShowNoPrestadorMessage] = useState(false);
 
     const changeAreaAtiva = (e) => {
         const idArea = e.target.value;
-        if (areaAtiva === idArea || idArea === "todas") { // Verifica se é a mesma área ou "Todas as categorias"
+        if (areaAtiva === idArea || idArea === "todas") {
             getPrestadores();
-            setAreaAtiva("todas"); // Define "todas" como área ativa
+            setAreaAtiva("todas");
         } else {
             axios.get(`/usuario/prestadores/${idArea}`)
                 .then((res) => {
-                    setPrestadores(res.data);
+                    const data = res.data;
+                    if (data.length === 0) {
+                        setShowNoPrestadorMessage(true);
+                    } else {
+                        setShowNoPrestadorMessage(false);
+                    }
+                    setPrestadores(data);
                     setAreaAtiva(idArea);
                 })
                 .catch((error) => {
@@ -49,6 +49,7 @@ export default function Home(props) {
         axios.get("/usuario/prestadores")
             .then((res) => {
                 setPrestadores(res.data)
+                setShowNoPrestadorMessage(false); // Reinicia a mensagem de "Nenhum prestador encontrado"
             })
     }
 
@@ -114,25 +115,23 @@ export default function Home(props) {
                 </span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
-                        {prestadores ? prestadores.slice(0, 6).map((data, i) => (
-                            <Card
-                                key={i}
-                                nome={data.nome}
-                                cidade={data.cidade}
-                                foto={data.anexoPfp}
-                                area={areas?.find(area => area.id === data.idArea)?.nome}
-                                min={data.orcamentoMin}
-                                max={data.orcamentoMax}
-                                aula={data.prestaAula}
-                                mediaNota={data.mediaAvaliacoes}
-                            />
-                        )) : <>
-                            {Array(6).fill().map((_, i) => (
-                                <div key={i}>
-                                    <Skeleton width={"320px"} height={"480px"} borderRadius={"1.5rem"} />
-                                </div>
-                            ))},
-                        </>}
+                        {showNoPrestadorMessage ? (
+                            <NenhumPrestadorEncontrado /> // Exibe a mensagem quando não há prestadores
+                        ) : (
+                            prestadores.map((data, i) => (
+                                <Card
+                                    key={i}
+                                    nome={data.nome}
+                                    cidade={data.cidade}
+                                    foto={data.anexoPfp}
+                                    area={areas?.find(area => area.id === data.idArea)?.nome}
+                                    min={data.orcamentoMin}
+                                    max={data.orcamentoMax}
+                                    aula={data.prestaAula}
+                                    mediaNota={data.mediaAvaliacoes}
+                                />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
