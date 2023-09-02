@@ -7,13 +7,13 @@ import Card from "@/components/main/Card";
 import Skeleton from "react-loading-skeleton";
 
 export default function Prestadores(props) {
-
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const [areaAtiva, setAreaAtiva] = useState(0);
     const [areas, setAreas] = useState([]);
     const [prestadores, setPrestadores] = useState([]);
     const [showNoPrestadorMessage, setShowNoPrestadorMessage] = useState(false);
+    const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
+    const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
     const changeAreaAtiva = (e) => {
         const idArea = e.target.value;
@@ -36,27 +36,65 @@ export default function Prestadores(props) {
                     console.error(error);
                 });
         }
-    }    
+    }
 
     const getAreas = () => {
         axios.get("/usuario/areas")
             .then((res) => {
                 setAreas(res.data)
-            })
+            });
     }
 
     const getPrestadores = () => {
         axios.get("/usuario/prestadores")
             .then((res) => {
                 setPrestadores(res.data)
-                setShowNoPrestadorMessage(false); // Reinicia a mensagem de "Nenhum prestador encontrado"
+                setShowNoPrestadorMessage(false);
+            });
+    }
+
+    const getPrestadoresFiltrados = () => {
+
+        let areaId = areaAtiva;
+        if (areaAtiva === "todas") {
+            // Se "Todas as categorias" está selecionada, envie null ou outro valor especial para o backend
+            areaId = 0; // Ou outro valor que represente todas as áreas
+        }
+
+        axios.get(`/usuario/prestadores/${areaId}/${filtroSelecionado}/${ordemSelecionada}`)
+            .then((res) => {
+                setPrestadores(res.data);
+                console.log(areaId);
+                console.log(filtroSelecionado);
+                console.log(ordemSelecionada);
             })
+            .catch((error) => {
+                console.error(error);
+                console.log(areaId);
+                console.log(filtroSelecionado);
+                console.log(ordemSelecionada);
+            });
+    }
+
+    const handleFiltroChange = (e) => {
+        const novoFiltro = e.target.value;
+        setFiltroSelecionado(novoFiltro);
+    }
+
+    const handleOrdemChange = (e) => {
+        const novaOrdem = e.target.value === "asc";
+        setOrdemSelecionada(novaOrdem);
     }
 
     useEffect(() => {
         getAreas()
         getPrestadores()
     }, [])
+
+    useEffect(() => {
+        // Use este efeito para observar as mudanças nas variáveis de filtro e ordem
+        getPrestadoresFiltrados();
+    }, [areaAtiva, filtroSelecionado, ordemSelecionada]);
 
     useEffect(() => {
         const inputElement = document.getElementById("i_pesquisa");
@@ -88,7 +126,7 @@ export default function Prestadores(props) {
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
 
-                    <select name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
+                    <select className="dropdownCategoria" name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
                         <option value="todas">Todas as categorias</option>
                         {areas &&
                             areas.map(area => (
@@ -100,8 +138,19 @@ export default function Prestadores(props) {
                     </select>
 
 
-                    <select name="dropdownFiltro" id="dropdownFiltro">
-                        <option value="todas">Filtrando por Relevância</option>
+                    <select className="dropdownFiltro" name="dropdownFiltro" id="dropdownFiltro" value={filtroSelecionado} onChange={handleFiltroChange}>
+                        <option value="Nota">Filtrar por Nota</option>
+                        <option value="PrecoMax">Filtrar por Maior Preço</option>
+                        <option value="PrecoMin">Filtrar por Menor Preço</option>
+                        <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
+                        <option value="Servico">Filtrar por Serviços</option>
+                        <option value="ServicoAula">Filtrar por Serviços e Aulas</option>
+                        {/* Adicione outras opções de filtro aqui */}
+                    </select>
+
+                    <select className="dropdownOrdem" name="dropdownOrdem" id="dropdownOrdem" value={ordemSelecionada ? "asc" : "desc"} onChange={handleOrdemChange}>
+                        <option value="asc">Crescente</option>
+                        <option value="desc">Decrescente</option>
                     </select>
                 </div>
                 <span className="breadCrumbs">
