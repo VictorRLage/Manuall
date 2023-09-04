@@ -1,21 +1,14 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import falasManuelEnum from "@/enum/FalasManuelENUM";
-import cidades from "@/enum/ChatbotCidadesENUM";
+import cidades from "@/enum/CrmCidadesENUM";
 import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
-export default function ChatManuel({ chat, setChat, scrollDown, originalMsgs }) {
+export default function ChatManuel({ chat, setChat, scrollDown }) {
 
     const navigate = useNavigate()
 
-    // const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
-    const tipoUsuario = 1
-
-    // const [dadosConversa, setDadosConversa] = useState()
-
-    // useEffect(() => {
-
-    // }, [])
+    const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
 
     const buscarPorMensagens = async () => {
 
@@ -25,7 +18,7 @@ export default function ChatManuel({ chat, setChat, scrollDown, originalMsgs }) 
         const mensagensExibidas = []
         const respostas = []
 
-        if (tipoUsuario === 1) {
+        if (tipoUsuario !== 1) {
             if (msgs.length === 0) {
                 return pushMessage(msgs.concat("0").join(","))
             }
@@ -220,10 +213,11 @@ export default function ChatManuel({ chat, setChat, scrollDown, originalMsgs }) 
                     }
                 }
 
+                console.log(msgs[1])
                 msgAtual = msgAtual.next[msgs[1]]
 
                 mensagensExibidas.push({
-                    texto: msgAtual.get(),
+                    texto: msgAtual.get("tanto faz"),
                     selfsender: false
                 })
 
@@ -320,12 +314,13 @@ export default function ChatManuel({ chat, setChat, scrollDown, originalMsgs }) 
             stringifiedMsgs: msg
         })
         if (msg.split(",").length > 10) return
-        axios.post("/chatbot", {
-            log: msg
-        })
-            .catch((err) => {
-                console.log(err)
-            })
+        
+        // axios.post("/crm", {
+        //     log: msg
+        // })
+        //     .catch((err) => {
+        //         console.log(err)
+        //     })
     }
 
     return (

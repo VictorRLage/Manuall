@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronRightIcon, ChevronLeftIcon, XCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import ModalCustom from "@/components/main/ModalCustom";
@@ -6,7 +6,6 @@ import WaitingBro from "@/assets/svg/Waiting_bro.svg"
 import SentMessage from "@/assets/svg/SentMessage.svg"
 import CantoEsquerdo from "@/assets/svg/CantoEsquerdo.svg"
 import CantoDireito from "@/assets/svg/CantoDireito.svg"
-import axios from "@/api/AxiosConfig";
 import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function ModaisSolicitacaoServico(props) {

@@ -93,9 +93,11 @@ export default function Chat(props) {
             usuarioPfp: "https://cdn.amomama.com/4bf8d90018c96028117814b9b5c0c2fe.jpg",
         }])
 
-        axios.get("/chatbot")
+        axios.get("/crm")
             .then(({ data }) => {
-                setManuelMsgs(data)
+                setManuelMsgs(
+                    (typeof data === "string" || typeof data === "number") && String(data)
+                )
             })
             .catch((err) => {
                 setManuelMsgs(true)
@@ -127,7 +129,11 @@ export default function Chat(props) {
                 ? <>
                     <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
                         {chatAtual.isManuel
-                            ? <ChatManuel chat={chatAtual} setChat={setChatAtual} scrollDown={scrollDown} originalMsgs={manuelMsgs} />
+                            ? <ChatManuel
+                                chat={chatAtual}
+                                setChat={setChatAtual}
+                                scrollDown={scrollDown}
+                            />
                             : <>
                                 {chatAtual.mensagens.map((msg, i) => (
                                     <div key={i} className={`w-full px-3 py-1 flex ${msg.selfsender ? "justify-end" : "justify-start"}`}>
@@ -141,11 +147,11 @@ export default function Chat(props) {
                             </>}
                     </div>
                     {!chatAtual.isManuel && <div className="bg-gray-500 h-[40px] flex"></div>}
-                </> //manuelMsgs
+                </>
                 : <>
-                    {conversas && manuelMsgs
+                    {conversas && manuelMsgs !== undefined
                         ? <div className="bg-white h-[400px] flex flex-col overflow-y-auto">
-                            {typeof manuelMsgs === "string" && <div
+                            {typeof manuelMsgs !== "boolean" && <div
                                 onClick={() => { selecionarChat(undefined, true) }}
                                 className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
                             >
@@ -178,7 +184,7 @@ export default function Chat(props) {
                                 wrapperStyle={{}}
                                 wrapperClass=""
                                 visible={true}
-                                ariaLabel='oval-loading'
+                                ariaLabel="oval-loading"
                                 secondaryColor="#00cc69"
                                 strokeWidth={1}
                                 strokeWidthSecondary={4}
