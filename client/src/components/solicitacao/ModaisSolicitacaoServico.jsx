@@ -31,7 +31,7 @@ export default function ModaisSolicitacaoServico(props) {
     
 
     useEffect(() => {
-        axios.get(`solicitacao/servicos/1`) // pegar a info dinâmica do ID do prestador
+        axios.get(`solicitacao/servicos/1`) // pegar a info dinâmica do ID do prestador, é o ID Cadastratante mesmo
             .then((response) => {
                 let servicosPrestador = []
                 for (let i = 0; i < response.data.length; i++) {
