@@ -1,36 +1,100 @@
 import Header from "@/components/header/Header";
+import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "@/api/AxiosConfig";
 import Card from "@/components/main/Card";
 import Skeleton from "react-loading-skeleton";
 
-export default function Home(props) {
+export default function Prestadores(props) {
+    const navigate = useNavigate();
+    const [areaAtiva, setAreaAtiva] = useState(0);
+    const [areas, setAreas] = useState([]);
+    const [prestadores, setPrestadores] = useState([]);
+    const [showNoPrestadorMessage, setShowNoPrestadorMessage] = useState(false);
+    const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
+    const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
-    const navigate = useNavigate()
-
-    const [selectedArea, setSelectedArea] = useState("todas");
-    const [areas, setAreas] = useState();
-    const [prestadores, setPrestadores] = useState();
+    const changeAreaAtiva = (e) => {
+        const idArea = e.target.value;
+        if (areaAtiva === idArea || idArea === "todas") {
+            getPrestadores();
+            setAreaAtiva("todas");
+        } else {
+            axios.get(`/usuario/prestadores/${idArea}`)
+                .then((res) => {
+                    const data = res.data;
+                    if (data.length === 0) {
+                        setShowNoPrestadorMessage(true);
+                    } else {
+                        setShowNoPrestadorMessage(false);
+                    }
+                    setPrestadores(data);
+                    setAreaAtiva(idArea);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }
 
     const getAreas = () => {
         axios.get("/usuario/areas")
             .then((res) => {
                 setAreas(res.data)
-            })
+            });
     }
 
     const getPrestadores = () => {
         axios.get("/usuario/prestadores")
             .then((res) => {
                 setPrestadores(res.data)
+                setShowNoPrestadorMessage(false);
+            });
+    }
+
+    const getPrestadoresFiltrados = () => {
+
+        let areaId = areaAtiva;
+        if (areaAtiva === "todas") {
+            // Se "Todas as categorias" está selecionada, envie null ou outro valor especial para o backend
+            areaId = 0; // Ou outro valor que represente todas as áreas
+        }
+
+        axios.get(`/usuario/prestadores/${areaId}/${filtroSelecionado}/${ordemSelecionada}`)
+            .then((res) => {
+                setPrestadores(res.data);
+                console.log(areaId);
+                console.log(filtroSelecionado);
+                console.log(ordemSelecionada);
             })
+            .catch((error) => {
+                console.error(error);
+                console.log(areaId);
+                console.log(filtroSelecionado);
+                console.log(ordemSelecionada);
+            });
+    }
+
+    const handleFiltroChange = (e) => {
+        const novoFiltro = e.target.value;
+        setFiltroSelecionado(novoFiltro);
+    }
+
+    const handleOrdemChange = (e) => {
+        const novaOrdem = e.target.value === "asc";
+        setOrdemSelecionada(novaOrdem);
     }
 
     useEffect(() => {
         getAreas()
         getPrestadores()
     }, [])
+
+    useEffect(() => {
+        // Use este efeito para observar as mudanças nas variáveis de filtro e ordem
+        getPrestadoresFiltrados();
+    }, [areaAtiva, filtroSelecionado, ordemSelecionada]);
 
     useEffect(() => {
         const inputElement = document.getElementById("i_pesquisa");
@@ -52,7 +116,7 @@ export default function Home(props) {
     };
 
     function teste() {
-        alert(selectedArea);
+        alert(areaAtiva);
     }
 
     return (
@@ -61,10 +125,8 @@ export default function Home(props) {
             <div className='w-full h-full'>
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
-                    <select name="dropdownCategoria" id="dropdownCategoria" value={selectedArea} onChange={(e) => {
-                        setSelectedArea(e.target.value);
-                        teste(e.target.value); // Chama a função teste com o valor atualizado
-                    }}>
+
+                    <select className="dropdownCategoria" name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
                         <option value="todas">Todas as categorias</option>
                         {areas &&
                             areas.map(area => (
@@ -76,8 +138,19 @@ export default function Home(props) {
                     </select>
 
 
-                    <select name="dropdownFiltro" id="dropdownFiltro">
-                        <option value="todas">Filtrando por Relevância</option>
+                    <select className="dropdownFiltro" name="dropdownFiltro" id="dropdownFiltro" value={filtroSelecionado} onChange={handleFiltroChange}>
+                        <option value="Nota">Filtrar por Nota</option>
+                        <option value="PrecoMax">Filtrar por Maior Preço</option>
+                        <option value="PrecoMin">Filtrar por Menor Preço</option>
+                        <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
+                        <option value="Servico">Filtrar por Serviços</option>
+                        <option value="ServicoAula">Filtrar por Serviços e Aulas</option>
+                        {/* Adicione outras opções de filtro aqui */}
+                    </select>
+
+                    <select className="dropdownOrdem" name="dropdownOrdem" id="dropdownOrdem" value={ordemSelecionada ? "asc" : "desc"} onChange={handleOrdemChange}>
+                        <option value="asc">Crescente</option>
+                        <option value="desc">Decrescente</option>
                     </select>
                 </div>
                 <span className="breadCrumbs">
@@ -91,25 +164,23 @@ export default function Home(props) {
                 </span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
-                        {prestadores ? prestadores.slice(0, 6).map((data, i) => (
-                            <Card
-                                key={i}
-                                nome={data.nome}
-                                cidade={data.cidade}
-                                foto={data.anexoPfp}
-                                area={areas?.find(area => area.id === data.idArea)?.nome}
-                                min={data.orcamentoMin}
-                                max={data.orcamentoMax}
-                                aula={data.prestaAula}
-                                mediaNota={data.mediaAvaliacoes}
-                            />
-                        )) : <>
-                            {Array(6).fill().map((_, i) => (
-                                <div key={i}>
-                                    <Skeleton width={"320px"} height={"480px"} borderRadius={"1.5rem"} />
-                                </div>
-                            ))}
-                        </>}
+                        {showNoPrestadorMessage ? (
+                            <NenhumPrestadorEncontrado /> // Exibe a mensagem quando não há prestadores
+                        ) : (
+                            prestadores.map((data, i) => (
+                                <Card
+                                    key={i}
+                                    nome={data.nome}
+                                    cidade={data.cidade}
+                                    foto={data.anexoPfp}
+                                    area={areas?.find(area => area.id === data.idArea)?.nome}
+                                    min={data.orcamentoMin}
+                                    max={data.orcamentoMax}
+                                    aula={data.prestaAula}
+                                    mediaNota={data.mediaAvaliacoes}
+                                />
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

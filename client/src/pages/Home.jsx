@@ -132,7 +132,7 @@ export default function Home(props) {
                     <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
                     <div id="botoes" className="w-full flex justify-center flex-wrap">
                         {areas
-                            ? areas.slice(0, 6).map((data, i) => (
+                            ? areas.slice(0).map((data, i) => (
                                 <button
                                     onClick={() => { changeAreaAtiva(data.id) }}
                                     key={i}
