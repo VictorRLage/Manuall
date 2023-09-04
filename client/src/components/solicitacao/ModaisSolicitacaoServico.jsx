@@ -7,6 +7,7 @@ import SentMessage from "@/assets/svg/SentMessage.svg"
 import CantoEsquerdo from "@/assets/svg/CantoEsquerdo.svg"
 import CantoDireito from "@/assets/svg/CantoDireito.svg"
 import axios from "@/api/AxiosConfig";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function ModaisSolicitacaoServico(props) {
 
@@ -21,6 +22,15 @@ export default function ModaisSolicitacaoServico(props) {
     const [dropDown, setdropDown] = useState(false)
     const [mapServico, setMapServico] = useState(false)
     const [servicos, setServicos] = useState([])
+    // solicitacao etapa2 tamanho e medida
+    const [solicitacao, setSolicitacao] = useState(0);
+    const [validacaoTamanho, setValidacaoTamanho] = useState(0);
+    const [validacaoMedida, setValidacaoMedida] = useState(0);
+    const servico_input = useRef(null)
+    const tamanho_input = useRef(null)
+    const medida_input = useRef(null)
+    const descricao_input = useRef(null)
+    const anexo = useRef(null)
 
     const closeModal = () => {
         if (props.canClose) {
@@ -51,6 +61,65 @@ export default function ModaisSolicitacaoServico(props) {
         setServicos(s)
     }
 
+    // integracao geral -> tamanho e medida
+    const avancar = () => {
+        const idPrestador = 1 //atualizar quando tela de perfil estiver pronta
+        const servico = servico_input.current.value
+        const tamanho = tamanho_input.current.value
+        const medida = medida_input.current.value
+        const descricao = descricao_input.current.value
+        const anexo = anexo.current.value
+        
+        // if (
+        //     validacaoNome !== 2 &&
+        //     validacaoEmail !== 2 &&
+        // ) {
+        //     setMoldaAviso(true)
+        //     setAvisoTitulo('Campos inválidos')
+        //     setAvisoDescricao('Preencha todos os campos')
+        //     return
+        // }
+
+        axios.post("/solicitacao", {
+            idPrestador: 1, // atualizar quando tela de perfil estiver pronta
+            servico: servico,
+            tamanho: tamanho,
+            medida: medida,
+            descricao: descricao,
+            anexo: null
+        })
+            // .then((res) => {
+            //     if (res.status === 201) {
+            //         localStorage.setItem("ID_CADASTRANTE", res.data)
+            //         props.passarStep()
+            //     } else {
+            //         setMoldaAviso(true)
+            //         setAvisoTitulo('Erro interno')
+            //         setAvisoDescricao('Por favor tente novamente mais tarde')
+            //     }
+            // })
+            // .catch((err) => {
+            //     console.log(err)
+            //     if (err.response.status === 400) {
+            //         for (let i = 0; i < err.response.data.errors.length; i++) {
+			// 			const stringOriginal = err.response.data.errors[i].field
+			// 			const stringMaiuscula = stringOriginal.toUpperCase();
+			// 			setMoldaAviso(true)
+			// 			setAvisoTitulo(`${stringMaiuscula} inválido`)
+			// 			setAvisoDescricao(err.response.data.errors[i].defaultMessage)
+            //         }
+            //     } else if (err.response.status === 409) {
+            //         setMoldaAviso(true)
+            //         setAvisoTitulo('Email já cadastrado')
+            //         setAvisoDescricao('Tente acessar sua conta')
+            //     } else {
+            //         setMoldaAviso(true)
+            //         setAvisoTitulo('Erro interno')
+            //         setAvisoDescricao('Por favor tente novamente mais tarde')
+            //     }
+            // })
+    }
+
 
     return (
         <>
@@ -72,7 +141,7 @@ export default function ModaisSolicitacaoServico(props) {
                             {servicos.map((data, index) => (
                                 <div key={index} className="block min-h-6">
                                     <label className='flex items-center'>
-                                        <input className="bg-verde-escuro-1 w-[60px]" onChange={(e) => { alterarChecked(index, e.target.checked) }} id={data.item.id} type="checkbox" />
+                                        <input ref={servico_input} className="bg-verde-escuro-1 w-[60px]" onChange={(e) => { alterarChecked(index, e.target.checked) }} id={data.item.id} type="checkbox" />
                                         <label htmlFor={data.item.id} className="cursor-pointer select-none text-slate-700 mx-2 text-xl">{data.item.nome}</label>
                                     </label>
                                 </div>
@@ -111,7 +180,7 @@ export default function ModaisSolicitacaoServico(props) {
                                 Informe o tamanho e a medida do serviço:
                             </div>
                             <div className=" shadow-xl flex flex-row p-[50px] w-[275px] mt-[20px] rounded-lg border-verde-escuro-1 border-2 justify-center items-center text-black text-2xl font-base text-center gap-2">
-                                <input placeholder="Tamanho" type="text" className="w-[95px] text-lg" />
+                                <input placeholder="Tamanho" type="text" className="w-[95px] text-lg" ref={tamanho_input} />
                                 <select className="cursor-pointer flex items-center w-[180px] text-xl font-bold h-14 bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" name="" id="">
                                     <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="">Unidade</option>
                                     <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="">m²</option>
@@ -153,7 +222,7 @@ export default function ModaisSolicitacaoServico(props) {
                                 Algo mais a acrescentar? (Opcional)
                             </div>
                             <div className="flex flex-col mt-[20px] w-[422px] h-[92px] rounded-lg border-verde-escuro-1 border-2 justify-center text-black text-2xl">
-                                <input placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="flex w-full h-full text-lg rounded-lg px-[10px]" />
+                                <input ref={descricao_input} placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="flex w-full h-full text-lg rounded-lg px-[10px]" />
 
                             </div>
                             <div className="shadow-xl flex flex-col mt-[20px] w-[90px] h-[100px] px-2 rounded-lg border-verde-escuro-1 border-2 justify-center items-center text-black text-xs text-center">
