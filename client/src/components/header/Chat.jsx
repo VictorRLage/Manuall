@@ -7,7 +7,7 @@ import ChatManuel from "@/components/header/ChatManuel";
 import BotCertification from "@/assets/svg/bot_certification.svg";
 import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
-export default function Chat(props) {
+export default function Chat({}) {
 
     const btnFecharConversa = useRef(null)
     const imgBtnFecharConversa = useRef(null)
@@ -65,7 +65,7 @@ export default function Chat(props) {
                 name: "Manuel",
                 isManuel: true,
                 mensagens: [],
-                stringifiedMsgs: manuelMsgs
+                msgsFlow: [20458]
             })
         } else {
             // implementação chat real
@@ -127,7 +127,7 @@ export default function Chat(props) {
             </div>
             {chatAtual
                 ? <>
-                    <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
+                    <div ref={scrollingDiv} className="bg-white flex flex-col overflow-y-auto py-2 scroll-smooth" style={{ height: chatAtual.isManuel ? "400px" : "360px" }}>
                         {chatAtual.isManuel
                             ? <ChatManuel
                                 chat={chatAtual}
