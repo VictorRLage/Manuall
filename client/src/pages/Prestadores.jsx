@@ -49,6 +49,7 @@ export default function Prestadores(props) {
         axios.get("/usuario/prestadores")
             .then((res) => {
                 setPrestadores(res.data)
+                console.log(res.data);
                 setShowNoPrestadorMessage(false);
             });
     }
@@ -125,7 +126,7 @@ export default function Prestadores(props) {
             <div className='w-full h-full'>
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
-
+                    
                     <select className="dropdownCategoria" name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
                         <option value="todas">Todas as categorias</option>
                         {areas &&
@@ -153,15 +154,7 @@ export default function Prestadores(props) {
                         <option value="desc">Decrescente</option>
                     </select>
                 </div>
-                <span className="breadCrumbs">
-                    <span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">
-                        Página Inicial
-                    </span>
-                    /
-                    <span className="breadcrumbAtual">
-                        Prestadores
-                    </span>
-                </span>
+                <span className="breadCrumbs"><span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">Página Inicial </span>/<span className="breadcrumbAtual"> Prestadores</span></span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
                         {showNoPrestadorMessage ? (

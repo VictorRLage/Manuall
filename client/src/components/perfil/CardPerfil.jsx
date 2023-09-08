@@ -72,7 +72,7 @@ export default function Card(props) {
                             {props.aula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
-                    <div id='avaliação' className='flex mt-2'>
+                    <div id='avaliação' className='flex mt-3'>
                         {estrelas}
                         <span className='text-sm ml-2 font-medium'>
                             {props.mediaNota?.toFixed(1)}
