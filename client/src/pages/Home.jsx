@@ -155,6 +155,7 @@ export default function Home(props) {
                         {prestadores ? prestadores.slice(0, 6).map((data, i) => (
                             <Card
                                 key={i}
+                                id={data.id}
                                 nome={data.nome}
                                 cidade={data.cidade}
                                 foto={data.anexoPfp}
