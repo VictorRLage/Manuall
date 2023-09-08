@@ -27,9 +27,11 @@ export default function Card(props) {
     });
 
     const verificarLogin = () => {
-        if (localStorage.getItem("token") === null) {
+        if (localStorage.getItem("TOKEN") === null) {
             localStorage.PRESTADOR_INTERESSE = props.id
             setModalNaoLogado(true)
+        } else {
+            navigate("/prestadores/perfil", { state: { id: props.id } })
         }
     }
 

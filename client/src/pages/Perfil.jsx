@@ -6,10 +6,11 @@ import axios from "@/api/AxiosConfig";
 // 2. Define the component function
 export default function Perfil(props) {
 
+    const [prestador, setPrestador] = useState({});
     const getInfoPrestador = () => {
-        axios.post("/perfil/acessar/2")
+        axios.get("/perfil/2")
             .then((res) => {
-                console.log(res);
+                setPrestador(res.data)
             });
     }
 
@@ -23,7 +24,7 @@ export default function Perfil(props) {
                     </div>
                     <div id="tags" className="ml-36 mt-10 w-full space-x-6 ">
                         <button onClick={getInfoPrestador} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">Eletricista</button>
-                        <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">São Paulo</button>
+                        <button onClick={() => console.log(console.log(props.location.state.id))} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">São Paulo</button>
                         <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">Serviço</button>
                     </div>
                     <div id="content" className="flex justify-between pt-5 pl-36 pr-36 ">
@@ -32,7 +33,7 @@ export default function Perfil(props) {
                         </div>
                         
                         <div id="conteinerCard">
-                            <div id="card" className="z-50 fixed flex flex-col p-5 bg-white w-84 h-120 top-[11.75rem] right-72 rounded-3xl drop-shadow-all">
+                            <div id="card" className="z-40 fixed flex flex-col p-5 bg-white w-84 h-120 top-[11.75rem] right-72 rounded-3xl drop-shadow-all">
                                 <img src="https://i.imgur.com/KLKeel7.png" id="foto" className="bg-cover bg-no-repeat h-48 w-48 rounded-3xl ml-auto mr-auto"></img>
                                 <span className="mt-2 font-bold ml-auto mr-auto text-3xl">João Gomes</span>
 
