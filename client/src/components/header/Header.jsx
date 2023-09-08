@@ -28,7 +28,7 @@ export default function Header(props) {
                     onClick={() => { navigate("/") }}
                     src={logo_extensa}
                     alt="Logo da Manuall por extensa"
-                    className='w-[200px]'
+                    className='w-[200px] cursor-pointer'
                 />
                 <nav className="flex items-center gap-4">
                     <button
