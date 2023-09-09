@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
+import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
 import Header from "@/components/header/Header";
 import axios from "@/api/AxiosConfig";
 
@@ -7,12 +9,56 @@ import axios from "@/api/AxiosConfig";
 export default function Perfil(props) {
 
     const [prestador, setPrestador] = useState({});
+    const navigate = useNavigate();
+    const location = useLocation();
+
+
     const getInfoPrestador = () => {
-        axios.get("/perfil/2")
+        const receivedId = location.state?.id;
+        if (!receivedId) return;
+
+        axios.get(`/perfil/${receivedId}`)
             .then((res) => {
-                setPrestador(res.data)
+                setPrestador(res.data);
             });
     }
+
+    useEffect(() => {
+        getInfoPrestador();
+        window.scrollTo(0, 0);
+    }, []);
+
+    const [scrollY, setScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const scrollThreshold = 100;
+    const translateYValue = scrollY > scrollThreshold ? 0 : scrollThreshold - scrollY;
+
+    let notas = [];
+
+    if (prestador && prestador.avaliacoes) {
+        for (let avaliacao of prestador.avaliacoes) {
+            notas.push(avaliacao.nota);
+        }
+    }
+    const media = notas.reduce((acc, num) => acc + num, 0) / notas.length;
+
+    const estrelas = Array.from({ length: 5 }, (_, i) => {
+        const estrela = i + 1
+        return media >= estrela
+            ? <StarIconCheio key={estrela} className="w-6 h-6 text-yellow-500" />
+            : <StarIconVazio key={estrela} className="w-6 h-6 text-yellow-500" />
+    });
 
     return (
         <>
@@ -20,22 +66,29 @@ export default function Perfil(props) {
             <div className="w-full h-full " >
                 <div id="section1" className="bg-verde-claro-3 h-[70vh] pt-10 pl-32 pr-32 flex flex-col">
                     <div id="crumbs" className="">
-                        <span className="text-2xl"> <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">Página Inicial </span><span onClick={() => { navigate("/prestadores") }} className="text-cinza-claro-3 cursor-pointer">/ Prestadores</span> / <span className="text-verde-escuro-1 text"><b>João Gomes</b></span></span>
+                        <span className="text-2xl"> <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">Página Inicial </span><span onClick={() => { navigate("/prestadores") }} className="text-cinza-claro-3 cursor-pointer">/ Prestadores</span> / <span className="text-verde-escuro-1 text font-bold">{prestador.nome}</span></span>
                     </div>
-                    <div id="tags" className="ml-36 mt-10 w-full space-x-6 ">
-                        <button onClick={getInfoPrestador} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">Eletricista</button>
-                        <button onClick={() => console.log(console.log(props.location.state.id))} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">São Paulo</button>
-                        <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">Serviço</button>
+                    <div id="tags" className="ml-36 mr-36 mt-10  space-x-4 ">
+                        <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.area}</button>
+                        <button onClick={() => console.log(prestador.avaliacoes)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.cidade}</button>
+                        <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.prestaAula ? "Serviço + Aula" : "Serviço"}</button>
                     </div>
                     <div id="content" className="flex justify-between pt-5 pl-36 pr-36 ">
-                        <div id="texto" className="max-w-[50%] text-xl ">
-                            Olá, eu sou o Mário, um eletricista com 20 anos de experiência na área. Durante todo esse tempo, venho prestando serviços de qualidade para meus clientes, garantindo soluções elétricas eficientes e seguras. Minha vasta experiência me permite identificar rapidamente os problemas e oferecer as melhores soluções para cada situação.
+                        <div id="texto" className="max-w-[50%] text-xl">
+                            <span>{prestador.descricao}</span>
                         </div>
-                        
+
                         <div id="conteinerCard">
-                            <div id="card" className="z-40 fixed flex flex-col p-5 bg-white w-84 h-120 top-[11.75rem] right-72 rounded-3xl drop-shadow-all">
-                                <img src="https://i.imgur.com/KLKeel7.png" id="foto" className="bg-cover bg-no-repeat h-48 w-48 rounded-3xl ml-auto mr-auto"></img>
-                                <span className="mt-2 font-bold ml-auto mr-auto text-3xl">João Gomes</span>
+                            <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500 z-40 flex flex-col p-5 bg-white w-84 h-120  rounded-3xl drop-shadow-all`}>
+                                <img src={prestador.pfp} id="foto" className="bg-cover bg-no-repeat h-48 w-48 rounded-3xl ml-auto mr-auto"></img>
+                                <span className="mt-4 font-bold ml-auto mr-auto text-3xl">{prestador.nome}</span>
+                                <div className="flex flex-row mr-auto ml-auto mt-2">
+                                    {estrelas}<span className="ml-2 text-lg">{media.toFixed(1)}</span>
+                                </div>
+                                <span className="ml-auto mr-auto text-cinza-claro-3">(100 avaliações)</span>
+                                <span>Faixa de preço</span>
+                                <span>Estado</span>
+                                <button>Contratar</button>
 
                             </div>
                         </div>

@@ -48,6 +48,7 @@ export default function Home(props) {
     const getPrestadores = () => {
         axios.get("/usuario/prestadores")
             .then((res) => {
+                console.log(res.data)
                 setPrestadores(res.data)
             })
     }

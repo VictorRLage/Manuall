@@ -163,6 +163,7 @@ export default function Prestadores(props) {
                             prestadores.map((data, i) => (
                                 <Card
                                     key={i}
+                                    id={data.id}
                                     nome={data.nome}
                                     cidade={data.cidade}
                                     foto={data.anexoPfp}

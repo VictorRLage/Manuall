@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import slugify from "slugify";
 import Skeleton from "react-loading-skeleton";
 import ModalNaoLogado from "@/components/main/ModalNaoLogado";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
@@ -31,7 +32,9 @@ export default function Card(props) {
             localStorage.PRESTADOR_INTERESSE = props.id
             setModalNaoLogado(true)
         } else {
-            navigate("/prestadores/perfil", { state: { id: props.id } })
+            const slug = slugify(props.nome, { lower: true });
+            console.log(props.id)
+            navigate(`/prestadores/${slug}`, { state: { id: props.id } })
         }
     }
 
