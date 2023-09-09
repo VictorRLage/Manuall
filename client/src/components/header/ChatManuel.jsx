@@ -11,15 +11,6 @@ export default function ChatManuel({ chat, scrollDown }) {
 
     const [msgsFlow, setMsgsFlow] = useState(chat.msgsFlow)
 
-    // const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
-
-    const todosOsParametrosDoUsuarioMock = {
-        tipoUsuario: 2,
-        nome: "João",
-        ultimaDataContratado: new Date("2021-08-01T00:00:00.000Z"),
-        plano: 1,
-    }
-
     const getFrom = () => {
 
         const newMensagens = []
@@ -27,7 +18,7 @@ export default function ChatManuel({ chat, scrollDown }) {
         for (let i = 0; i < msgsFlow.length; i++) {
             const msgAtual = FalasManuelENUM.find(v => v.id == msgsFlow[i])
 
-            const proximaMsg = FalasManuelENUM.find(v => v.id == msgAtual.getProximo(todosOsParametrosDoUsuarioMock))
+            const proximaMsg = FalasManuelENUM.find(v => v.id == msgAtual.getProximo(chat.dadosUsuarioCrm))
 
             if (msgsFlow.length === i + 1) {
                 if (proximaMsg) {
@@ -41,7 +32,7 @@ export default function ChatManuel({ chat, scrollDown }) {
             }
 
             newMensagens.push(
-                ...msgAtual.getMensagens(todosOsParametrosDoUsuarioMock).map((v, i) => ({
+                ...msgAtual.getMensagens(chat.dadosUsuarioCrm).map((v, i) => ({
                     id: String(msgAtual.id) + i,
                     texto: v,
                     msgType: msgAtual.msgsType,

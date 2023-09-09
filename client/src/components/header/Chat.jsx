@@ -9,12 +9,15 @@ import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function Chat() {
 
+    const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
+
     const btnFecharConversa = useRef(null)
     const imgBtnFecharConversa = useRef(null)
     const scrollingDiv = useRef(null)
 
     const [isOpen, setIsOpen] = useState(false)
     const [manuelMsgs, setManuelMsgs] = useState()
+    const [dadosUsuarioCrm, setDadosUsuarioCrm] = useState()
     const [conversas, setConversas] = useState()
     // const [mensagens, setMensagens] = useState()
     const [chatAtual, setChatAtual] = useState()
@@ -65,7 +68,8 @@ export default function Chat() {
                 name: "Manuel",
                 isManuel: true,
                 mensagens: [],
-                msgsFlow: manuelMsgs
+                msgsFlow: manuelMsgs,
+                dadosUsuarioCrm,
             })
 
             scrollDown()
@@ -88,6 +92,18 @@ export default function Chat() {
             .catch((err) => {
                 setManuelMsgs(true)
                 console.log(err)
+            })
+    }
+
+    const getDadosUsuarioCrm = () => {
+        if (tipoUsuario)
+        axios.get(`/crm/dados/${tipoUsuario}`)
+            .then(({ data }) => {
+                setDadosUsuarioCrm(data)
+            })
+            .catch((err) => {
+                console.log(err)
+                setDadosUsuarioCrm(true)
             })
     }
 
@@ -120,6 +136,7 @@ export default function Chat() {
         }])
         
         getDadosCrm()
+        getDadosUsuarioCrm()
     }, [])
 
     return (
@@ -148,7 +165,6 @@ export default function Chat() {
                         {chatAtual.isManuel
                             ? <ChatManuel
                                 chat={chatAtual}
-                                setChat={setChatAtual}
                                 scrollDown={scrollDown}
                             />
                             : <>
@@ -166,9 +182,9 @@ export default function Chat() {
                     {!chatAtual.isManuel && <div className="bg-gray-500 h-[40px] flex" />}
                 </>
                 : <>
-                    {conversas && manuelMsgs !== undefined
+                    {conversas && manuelMsgs && dadosUsuarioCrm
                         ? <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
-                            {typeof manuelMsgs !== "boolean" && <div
+                            {typeof manuelMsgs !== "boolean" && typeof dadosUsuarioCrm !== "boolean" && <div
                                 onClick={() => { selecionarChat(undefined, true) }}
                                 className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
                             >

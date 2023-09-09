@@ -1,3 +1,5 @@
+import PlanosENUM from "@/enum/PlanosENUM.js"
+
 export default [{
     // começo do fluxo contratante
     id: 20458,
@@ -69,11 +71,11 @@ export default [{
     getMensagens() {
         return [{
             nextId: 92078,
-            msg: "Jardineiro",
+            msg: "Jardineiro(a)",
             atualizarCampo: { column: "area", value: 1 }
         }, {
             nextId: 23569,
-            msg: "Pintor",
+            msg: "Pintor(a)",
             atualizarCampo: { column: "area", value: 2 }
         }, {
             nextId: 31704,
@@ -81,19 +83,19 @@ export default [{
             atualizarCampo: { column: "area", value: 3 }
         }, {
             nextId: 42865,
-            msg: "Encanador",
+            msg: "Encanador(a)",
             atualizarCampo: { column: "area", value: 4 }
         }, {
             nextId: 53910,
-            msg: "Marceneiro",
+            msg: "Marceneiro(a)",
             atualizarCampo: { column: "area", value: 5 }
         }, {
             nextId: 65421,
-            msg: "Montador",
+            msg: "Montador(a)",
             atualizarCampo: { column: "area", value: 6 }
         }, {
             nextId: 76829,
-            msg: "Gesseiro",
+            msg: "Gesseiro(a)",
             atualizarCampo: { column: "area", value: 7 }
         }]
     },
@@ -102,13 +104,13 @@ export default [{
 {
     id: 92078,
     msgsType: "COSTUMER",
-    getMensagens: () => ["Jardineiro"],
+    getMensagens: () => ["Jardineiro(a)"],
     getProximo: () => 14567
 },
 {
     id: 23569,
     msgsType: "COSTUMER",
-    getMensagens: () => ["Pintor"],
+    getMensagens: () => ["Pintor(a)"],
     getProximo: () => 14567
 },
 {
@@ -120,25 +122,25 @@ export default [{
 {
     id: 42865,
     msgsType: "COSTUMER",
-    getMensagens: () => ["Encanador"],
+    getMensagens: () => ["Encanador(a)"],
     getProximo: () => 14567
 },
 {
     id: 53910,
     msgsType: "COSTUMER",
-    getMensagens: () => ["Marceneiro"],
+    getMensagens: () => ["Marceneiro(a)"],
     getProximo: () => 14567
 },
 {
     id: 65421,
     msgsType: "COSTUMER",
-    getMensagens: () => ["Montador"],
+    getMensagens: () => ["Montador(a)"],
     getProximo: () => 14567
 },
 {
     id: 76829,
     msgsType: "COSTUMER",
-    getMensagens: () => ["Gesseiro"],
+    getMensagens: () => ["Gesseiro(a)"],
     getProximo: () => 14567
 },
 {
@@ -280,6 +282,7 @@ export default [{
     id: 10428,
     msgsType: "CHATBOT",
     getMensagens({ nome, plano }) {
+        plano = PlanosENUM.fromIdToName(plano)?.toLowerCase()
         const dataAtual = new Date().getHours();
         return [
             `${dataAtual >= 4 && dataAtual <= 12
@@ -323,6 +326,7 @@ export default [{
     id: 13697,
     msgsType: "CHATBOT",
     getMensagens({ plano }) {
+        plano = PlanosENUM.fromIdToName(plano + 1)?.toLowerCase()
         return [
             `Eu gostaria de te oferecer 10% de desconto se assinar o plano ${plano}, o que acha? Com ele vem vários benefícios!`,
         ]
