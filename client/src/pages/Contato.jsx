@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Header from "@/components/header/Header";
 import fundoContato from "@/assets/svg/Rectangle269.svg";
 import Skeleton from "react-loading-skeleton";
+import imagemTelemarketing from "@/assets/img/image 34.png";
+import iconeTelefone from "@/assets/img/image 37.png";
+import iconeMapa from "@/assets/img/image 38.png";
+import iconeRelogio from "@/assets/img/image 39.png";
 
 export default function Contato() {
 
@@ -44,7 +48,7 @@ export default function Contato() {
 							<div className="w-[100%]">
 								{imgIsLoading && <Skeleton width={"100%"} height={"266.55px"} />}
 								<img
-									src="https://i.imgur.com/a0UHTH3.png"
+									src={imagemTelemarketing}
 									style={{ display: imgIsLoading ? "none" : "block" }}
 									onLoad={() => { setImgIsLoading(false) }}
 									className="rounded-t-md"
@@ -52,15 +56,15 @@ export default function Contato() {
 							</div>
 							<ul className="bg-verde-escuro-1 h-[100%] rounded-b-md flex flex-col px-4">
 								<li className="flex items-center py-4 gap-2">
-									<img className="h-[20px]" src="https://i.imgur.com/WOyvxEK.png" />
+									<img className="h-[20px]" src={iconeTelefone} />
 									<span className="text-white">11 92345-6978</span>
 								</li>
 								<li className="flex items-center py-4 gap-2">
-									<img className="h-[20px]" src="https://i.imgur.com/iO24zKz.png" />
+									<img className="h-[20px]" src={iconeMapa} />
 									<span className="text-white">Rua Haddock Lobo, 595 São Paulo - SP</span>
 								</li>
 								<li className="flex items-center py-4 gap-2">
-									<img className="h-[20px]" src="https://i.imgur.com/fFBzUVk.png" />
+									<img className="h-[20px]" src={iconeRelogio} />
 									<span className="text-white">Segunda à sexta - 8h às 17h</span>
 								</li>
 							</ul>
