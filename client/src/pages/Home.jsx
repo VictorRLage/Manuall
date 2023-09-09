@@ -123,7 +123,7 @@ export default function Home(props) {
                         <div className='flex justify-center'>
                             <div className='z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
                                 {Array(3).fill().map((_, i) => (
-                                    <div key={i} onClick={() => goToSlide(i)} style={{ backgroundColor: currentIndex === i ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full"></div>
+                                    <div key={i} onClick={() => goToSlide(i)} style={{ backgroundColor: currentIndex === i ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full" />
                                 ))}
                             </div>
                         </div>
@@ -205,7 +205,9 @@ export default function Home(props) {
                     </div>
                 </div>
                 <div id="container_ensinar" className=" w-full flex px-32 flex-col">
-                    <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">ensinar?</span></div>
+                    <div className="w-full text-6xl font-semibold text-center">
+                        Como <span className="text-verde-padrao">ensinar?</span>
+                    </div>
                     <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
                         <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
                             <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
