@@ -29,6 +29,8 @@ export default function Card(props) {
 
     const verificarLogin = () => {
         if (localStorage.getItem("TOKEN") === null) {
+            const slug = slugify(props.nome, { lower: true });
+            localStorage.PRESTADOR_SLUG = slug
             localStorage.PRESTADOR_INTERESSE = props.id
             setModalNaoLogado(true)
         } else {

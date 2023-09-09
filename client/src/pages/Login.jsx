@@ -108,7 +108,11 @@ export default function Login() {
                     localStorage.TOKEN = res.data
                     localStorage.TIPO_USUARIO = tipoUsuario
                     if (tipoUsuario === 1) {
-                        navigate("/prestadores")
+                        if(localStorage.PRESTADOR_INTERESSE !== undefined){
+                            navigate(`/prestadores/${localStorage.PRESTADOR_SLUG}`, { state: { id: localStorage.PRESTADOR_INTERESSE } })
+                        } else{
+                            navigate("/prestadores")
+                        }
                     }
                     if (tipoUsuario === 2) {
                         if (res.status === 200) {
