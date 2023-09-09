@@ -438,6 +438,7 @@ export default [{
             msg: "Não, eu prefiro perder essa oportunidade",
         }]
     },
+    getProximo: () => undefined
 },
 {
     id: 43752,

@@ -9,6 +9,7 @@ import Prestadores from "@/pages/Prestadores";
 import Contato from "@/pages/Contato";
 import AdmAprovacao from "@/pages/AdmAprovacao";
 import AdmDashboard from "@/pages/AdmDashboard";
+import AdmApiStatus from "@/pages/AdmApiStatus";
 import Perfil from "@/pages/Perfil";
 
 import Erro from "@/pages/Erro";
@@ -28,6 +29,7 @@ export default function App(props) {
 					<Route path="/contato" element={<Contato />} />
 					<Route path="/adm/aprovacao" element={<AdmAprovacao />} />
 					<Route path="/adm/dashboard" element={<AdmDashboard />} />
+					<Route path="/adm/api" element={<AdmApiStatus />} />
 					<Route path="/development" element={<UnderConstruction />} />
 					<Route path="/*" element={<Erro />} />
 				</Routes>

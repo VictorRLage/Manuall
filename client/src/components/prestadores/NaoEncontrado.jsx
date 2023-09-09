@@ -1,5 +1,5 @@
 import React from "react";
-import imagemNotFound from "@/assets/svg/Not Found.svg";
+import imagemNotFound from "@/assets/svg/Not_Found.svg";
 
 const NenhumPrestadorEncontrado = () => {
     const imagemStyle = {
@@ -15,7 +15,7 @@ const NenhumPrestadorEncontrado = () => {
                 alt="Imagem de não encontrado"
                 style={imagemStyle}
             />
-            <p className="font-bold text-green-500 text-xl md:text-2xl lg:text-3xl xl:text-4xl text-center">
+            <p className="font-bold text-green-500 text-xl md:text-2xl lg:text-3xl text-center">
                 Desculpe, parece que não temos prestadores com esses filtros!
             </p>
         </div>

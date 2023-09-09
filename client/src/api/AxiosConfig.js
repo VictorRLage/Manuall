@@ -1,7 +1,7 @@
 import axios from "axios";
 import { logoff } from "@/utils/functions";
 
-const apiUrl = "http://192.168.15.85:8080";
+const apiUrl = "http://localhost:8080";
 
 export const defaultApiInstance = axios.create({
     baseURL: apiUrl,
@@ -28,6 +28,11 @@ authenticatedApiInstance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
+
+export const rotinaApi = axios.create({
+    baseURL: "http://localhost:8081",
+    timeout: 10000,
+});
 
 export const viaCep = axios.create({
     baseURL: "https://viacep.com.br/ws",

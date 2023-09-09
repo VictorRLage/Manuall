@@ -122,7 +122,7 @@ export default function Login() {
                         }
                     }
                     if (tipoUsuario === 3) {
-                        navigate("/adm/dashboard") // vai pra aprovar
+                        navigate("/adm/aprovacao")
                     }
                 }
             })
