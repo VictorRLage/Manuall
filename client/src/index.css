@@ -126,11 +126,11 @@ code {
 
 .breadCrumbs {
   margin-left: 115px;
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .breadcrumbAnterior {
-  color: gray;
+  color: #808080;
 }
 
 .breadcrumbAtual {

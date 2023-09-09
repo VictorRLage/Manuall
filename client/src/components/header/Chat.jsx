@@ -167,7 +167,7 @@ export default function Chat() {
                 </>
                 : <>
                     {conversas && manuelMsgs !== undefined
-                        ? <div className="bg-white h-[400px] flex flex-col overflow-y-auto">
+                        ? <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
                             {typeof manuelMsgs !== "boolean" && <div
                                 onClick={() => { selecionarChat(undefined, true) }}
                                 className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"

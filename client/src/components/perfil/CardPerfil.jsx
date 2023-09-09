@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
-import slugify from "slugify";
 import Skeleton from "react-loading-skeleton";
 import ModalNaoLogado from "@/components/main/ModalNaoLogado";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
@@ -28,13 +27,9 @@ export default function Card(props) {
     });
 
     const verificarLogin = () => {
-        if (localStorage.getItem("TOKEN") === null) {
+        if (localStorage.getItem("token") === null) {
             localStorage.PRESTADOR_INTERESSE = props.id
             setModalNaoLogado(true)
-        } else {
-            const slug = slugify(props.nome, { lower: true });
-            console.log(props.id)
-            navigate(`/prestadores/${slug}`, { state: { id: props.id } })
         }
     }
 
@@ -77,7 +72,7 @@ export default function Card(props) {
                             {props.aula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
-                    <div id='avaliação' className='flex mt-2'>
+                    <div id='avaliação' className='flex mt-3'>
                         {estrelas}
                         <span className='text-sm ml-2 font-medium'>
                             {props.mediaNota?.toFixed(1)}

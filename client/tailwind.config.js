@@ -15,6 +15,7 @@ module.exports = {
         'cinza': '#D9D9D9',
         'cinza-claro-1': '#A7A5A5',
         'cinza-claro-2': '#f8f8f8',
+        'cinza-claro-3': '#808080',
         'verde-padrao': '#00CC69',
         'verde-claro-1': '#00FF85',
         'verde-claro-2': '#4DFFA9',
