@@ -119,7 +119,7 @@ export default function Perfil(props) {
                     </div>
                     <div id="tags" className="ml-36 mr-36 mt-10 space-x-4 ">
                         <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.area}</button>
-                        <button onClick={() => console.log(avaliacoesData)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.prestaAula ? "Serviço + Aula" : "Serviço"}</button>
+                        <button onClick={() => console.log(prestador)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.prestaAula ? "Serviço + Aula" : "Serviço"}</button>
                     </div>
                     <div id="content" className="flex justify-between pt-5 pl-36 pr-36 z-10">
                         <div id="texto" className="max-w-[50%] text-xl z-10">

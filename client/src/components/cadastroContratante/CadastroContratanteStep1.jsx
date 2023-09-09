@@ -309,7 +309,7 @@ export default function CadastroStep1(props) {
 					<p className='2xl:text-4xl xl:text-2xl  font-bold text-white w-full text-center self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8'>Cadastro de <br /> Contratante</p>
 					<p className='2xl:text-2xl xl:text-xl  font-semibold text-white w-full text-center self-center 2xl:leading-relaxed mt-32'>Já possui uma conta?</p>
 					<button className='2xl:text-2xl xl:text-xl font-bold text-white w-full underline' onClick={() => { navigate("/login") }}>Entre aqui</button>
-					<button className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
+					<button onClick={() => { navigate("/") }} className='2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center'> <ChevronDoubleLeftIcon className='2xl:h-10 2xl:w-10 xl:h-8 xl:w-8' /> Voltar à Tela inicial</button>
 				</div>
 			</div>
 		</div>
