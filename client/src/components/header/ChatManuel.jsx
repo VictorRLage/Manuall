@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import cidades from "@/enum/CrmCidadesENUM";
-import aaaaaaaaaa from "@/enum/aaaaaaaaaa"
+import FalasManuelENUM from "@/enum/FalasManuelENUM"
 import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
-export default function ChatManuel({ chat, setChat, scrollDown }) {
+export default function ChatManuel({ chat, scrollDown }) {
 
     const navigate = useNavigate()
 
@@ -16,99 +15,107 @@ export default function ChatManuel({ chat, setChat, scrollDown }) {
 
     const todosOsParametrosDoUsuarioMock = {
         tipoUsuario: 2,
-        cidades,
         nome: "João",
-        area: 59081,
         ultimaDataContratado: new Date("2021-08-01T00:00:00.000Z"),
         plano: 1,
     }
 
-    const getFrom = (msgAtual, todasAsMsgs = [], todosOsIds = []) => {
+    const getFrom = () => {
 
-        if (!msgAtual) msgAtual = aaaaaaaaaa.find(v => v.id == msgsFlow[0])
+        const newMensagens = []
 
-        todasAsMsgs.push(
-            ...msgAtual.getMensagens(todosOsParametrosDoUsuarioMock).map((v, i) => ({
-                id: String(msgAtual.id) + i,
-                texto: v,
-                msgType: msgAtual.msgsType,
-                firstMsgOfChunk: i === 0
-            }))
-        )
+        for (let i = 0; i < msgsFlow.length; i++) {
+            const msgAtual = FalasManuelENUM.find(v => v.id == msgsFlow[i])
 
-        todosOsIds.push(msgAtual.id)
+            const proximaMsg = FalasManuelENUM.find(v => v.id == msgAtual.getProximo(todosOsParametrosDoUsuarioMock))
 
-        const proximaMsg = aaaaaaaaaa.find(v => v.id == msgAtual.getProximo(todosOsParametrosDoUsuarioMock))
-        if (!proximaMsg) {
-            setMensagens(todasAsMsgs)
+            if (msgsFlow.length === i + 1) {
+                if (proximaMsg) {
+                    setMsgsFlow([...msgsFlow, proximaMsg.id])
+                    axios.post("/crm", msgsFlow)
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                    return
+                }
+            }
 
-            // Comparar com o msgsFlow mais pra frente
-            console.log(todosOsIds)
-            return
+            newMensagens.push(
+                ...msgAtual.getMensagens(todosOsParametrosDoUsuarioMock).map((v, i) => ({
+                    id: String(msgAtual.id) + i,
+                    texto: v,
+                    msgType: msgAtual.msgsType,
+                    firstMsgOfChunk: i === 0
+                }))
+            )
         }
-        getFrom(proximaMsg, todasAsMsgs, todosOsIds)
+
+        setMensagens(newMensagens)
+        scrollDown()
+    }
+
+    const responderManuel = (texto) => {
+        if (texto.atualizarCampo) {
+            console.log("atualizando campo " + texto.atualizarCampo.column + " para valor " + texto.atualizarCampo.value)
+        }
+        if (texto.redirecionar) {
+            navigate(texto.redirecionar)
+        }
+        setMsgsFlow(
+            msgsFlow.slice(0, msgsFlow.length - 1).concat(texto.nextId)
+        )
     }
 
     useEffect(() => {
         getFrom()
-    }, [])
+    }, [msgsFlow])
 
-    return (
-        <>
-            {mensagens?.map(({ id, texto, msgType, firstMsgOfChunk }, i) => (
-                <div
-                    key={id}
-                    className={`w-full px-3 pb-0.5 flex
+    return <>
+        {mensagens?.map(({ id, texto, msgType, firstMsgOfChunk }) => (
+            <div
+                key={id}
+                className={`w-full px-3 pb-0.5 flex
                         ${msgType === "COSTUMER"
-                            ? "justify-end"
-                            : "justify-start"
-                        }
-                        ${firstMsgOfChunk && "pt-2"}`
+                        ? "justify-end"
+                        : "justify-start"
                     }
-                >
-                    {msgType === "CHATBOT" && firstMsgOfChunk &&
-                        <div
-                            className="w-2 h-3 bg-[#c0e8c0]"
-                            style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
-                        />}
+                        ${firstMsgOfChunk && "pt-2"}`
+                }
+            >
+                {msgType === "CHATBOT" && firstMsgOfChunk &&
                     <div
-                        className={`max-w-[80%] p-2 rounded-lg
+                        className="w-2 h-3 bg-[#c0e8c0]"
+                        style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
+                    />}
+                <div
+                    className={`max-w-[80%] p-2 rounded-lg
                             ${msgType === "COSTUMER" &&
-                            "bg-[#5faf88] rounded-tr-none"
-                            }
+                        "bg-[#5faf88] rounded-tr-none"
+                        }
                             ${msgType === "CHATBOT" &&
-                            `bg-[#c0e8c0]
+                        `bg-[#c0e8c0]
                                     ${firstMsgOfChunk
-                                ? "rounded-tl-none"
-                                : "ml-2"}
+                            ? "rounded-tl-none"
+                            : "ml-2"}
                             `}
+                            ${msgType === "ANSWER" &&
+                        "ml-2 border-[#5faf88] border-2 cursor-pointer hover:bg-[#5faf88] transition-all"}
                         `}
-                    >
-                        {texto}
-                    </div>
-                    {msgType === "COSTUMER" &&
-                        <div
-                            className="w-2 h-3 bg-[#5faf88]"
-                            style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
-                        />}
+                    onClick={() => {
+                        msgType === "ANSWER" &&
+                            responderManuel(texto)
+                    }}
+                >
+                    {msgType === "ANSWER"
+                        ? texto.msg
+                        : texto}
                 </div>
-            ))}
-            {/* {chat?.mensagens.map((msg, i) => (
-                <div key={i} className={`w-full px-3 py-1 flex ${msg.selfsender ? "justify-end" : "justify-start"}`}>
-                    {!msg.selfsender && <div className="w-2 h-3 bg-[#c0e8c0]" style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}></div>}
-                    <div className={`max-w-[80%] p-2 rounded-lg ${msg.selfsender ? "bg-[#5faf88] rounded-tr-none" : "bg-[#c0e8c0] rounded-tl-none"}`}>
-                        {msg.texto}
-                    </div>
-                    {msg.selfsender && <div className="w-2 h-3 bg-[#5faf88]" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}></div>}
-                </div>
-            ))}
-            {chat?.respostas?.map((msg, i) => (
-                <div key={i} className="w-full pl-5 pr-3 py-[1px] flex justify-start">
-                    <div onClick={() => { sendMsg(msg.id) }} className="max-w-[80%] p-2 rounded-lg border-[#246344] border-2 cursor-pointer">
-                        {msg.texto}
-                    </div>
-                </div>
-            ))} */}
-        </>
-    )
+                {msgType === "COSTUMER" &&
+                    <div
+                        className="w-2 h-3 bg-[#5faf88]"
+                        style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
+                    />}
+            </div>
+        ))}
+    </>
 }

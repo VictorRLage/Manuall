@@ -267,9 +267,9 @@ export default function CadastroStep1(props) {
 			<div id="container" className="2xl:bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
 				<div id="container_esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col">
 					<div id="container_steps" className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
-						<div id="step_1" className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10"></div>
+						<div id="step_1" className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
 						<div id="linha" className="bg-black h-1 2xl:w-14 xl:w-10"></div>
-						<div onClick={props.mudarStep} id="step_2" className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10"></div>
+						<div onClick={props.mudarStep} id="step_2" className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
 					</div>
 					<div id="container-inputs" className="2xl:w-112  xl:w-96 rounded-lg  self-center  2xl:justify-center grid 2xl:grid-cols-13.5x13.5 xl:grid-cols-11.5x11.5 2xl:gap-8 xl:gap-6 2xl:gap-x-4 xl:gap-x-4 2xl:mt-10 xl:mt-6">
 						<div className="relative col-span-2">
