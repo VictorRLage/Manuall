@@ -10,8 +10,8 @@ import Contato from "@/pages/Contato";
 import AdmAprovacao from "@/pages/AdmAprovacao";
 import AdmDashboard from "@/pages/AdmDashboard";
 import AdmApiStatus from "@/pages/AdmApiStatus";
-import Perfil from "@/pages/Perfil";
-
+import PerfilVisaoContratanate from "@/pages/PerfilVisaoContratanate";
+import PerfilVisaoPrestador from "@/pages/PerfilVisaoPrestador";
 import Erro from "@/pages/Erro";
 import UnderConstruction from "@/pages/UnderConstruction";
 
@@ -25,7 +25,8 @@ export default function App(props) {
 					<Route path="/cadastroPrestador" element={<CadastroPrestador />} />
 					<Route path="/cadastroContratante" element={<CasdastroContratante />} />
 					<Route path="/prestadores" element={<Prestadores />} />
-					<Route path="/prestadores/*" element={<Perfil />} />
+					<Route path="/prestadores/*" element={<PerfilVisaoContratanate />} />
+					<Route path="/prestadores/eu/editar" element={<PerfilVisaoPrestador />} />
 					<Route path="/contato" element={<Contato />} />
 					<Route path="/adm/aprovacao" element={<AdmAprovacao />} />
 					<Route path="/adm/dashboard" element={<AdmDashboard />} />

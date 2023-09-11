@@ -115,10 +115,12 @@ export default function Login() {
                         }
                     }
                     if (tipoUsuario === 2) {
+                        const idUsuario = 8
+                        localStorage.IDUSUARIO = idUsuario
                         if (res.status === 200) {
                             navigate("/prestadores")
                         } else {
-                            navigate("/notfound")
+                            navigate(`/prestadores/eu/editar`, { state: { id: idUsuario } })
                         }
                     }
                     if (tipoUsuario === 3) {

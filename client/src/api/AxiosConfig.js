@@ -1,7 +1,7 @@
 import axios from "axios";
 import { logoff } from "@/utils/functions";
 
-const apiUrl = "http://localhost:8080";
+const apiUrl = "http://192.168.15.85:8080";
 
 export const defaultApiInstance = axios.create({
     baseURL: apiUrl,
