@@ -54,7 +54,10 @@ export default function Card(props) {
                         </span>
                         <span className='text-xl font-thin'>
                             {props.area
-                                ? <>{props.area}</>
+                                ? <>
+                                    {props.area}
+                                    {props.area[props.area.length - 1] !== "a" && "(a)"}
+                                </>
                                 : <Skeleton />}
                         </span>
                         <span className='text-lg font-normal mt-1'>

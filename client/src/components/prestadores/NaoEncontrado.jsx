@@ -1,7 +1,7 @@
 import React from "react";
 import imagemNotFound from "@/assets/svg/Not_Found.svg";
 
-const NenhumPrestadorEncontrado = () => {
+const NenhumPrestadorEncontrado = ({ home }) => {
     const imagemStyle = {
         width: "400px", // Ajuste o tamanho da imagem como desejado
         height: "auto", // Isso manterá a proporção da imagem
@@ -16,7 +16,9 @@ const NenhumPrestadorEncontrado = () => {
                 style={imagemStyle}
             />
             <p className="font-bold text-green-500 text-xl md:text-2xl lg:text-3xl text-center">
-                Desculpe, parece que não temos prestadores com esses filtros!
+                {home
+                    ? "Desculpe, parece que nenhum prestador foi encontrado!"
+                    : "Desculpe, parece que não temos prestadores com esses filtros!"}
             </p>
         </div>
     );

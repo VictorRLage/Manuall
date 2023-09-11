@@ -6,8 +6,9 @@ import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ModaisSolicitacao from "@/components/solicitacao/ModaisSolicitacaoServico";
+import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 
-export default function Home(props) {
+export default function Home() {
     const slides = [
         { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
         { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
@@ -34,33 +35,23 @@ export default function Home(props) {
         setCurrentIndex(newIndex);
     };
 
-    const goToSlide = (slideIndex) => {
-        setCurrentIndex(slideIndex);
-    };
-
     const getAreas = () => {
-        axios.get("/usuario/areas", {
-        }).then((res) => {
-            setAreas(res.data)
-        })
-    }
-
-    const getPrestadores = () => {
-        axios.get("/usuario/prestadores")
-            .then((res) => {
-                console.log(res.data)
-                setPrestadores(res.data)
-            })
+        axios.get("/usuario/areas")
+            .then(({ data }) => setAreas(data))
     }
 
     const changeAreaAtiva = (idArea) => {
+        setPrestadores()
         if (areaAtiva === idArea) {
-            getPrestadores()
-            setAreaAtiva(0)
+            axios.get("/usuario/prestadores")
+                .then(({ data }) => {
+                    setPrestadores(data)
+                    setAreaAtiva(0)
+                })
         } else {
             axios.get(`/usuario/prestadores/${idArea}`)
-                .then((res) => {
-                    setPrestadores(res.data)
+                .then(({ data }) => {
+                    setPrestadores(data)
                     setAreaAtiva(idArea)
                 })
         }
@@ -68,7 +59,7 @@ export default function Home(props) {
 
     useEffect(() => {
         getAreas()
-        getPrestadores()
+        changeAreaAtiva(0)
     }, [])
 
     return (
@@ -123,7 +114,7 @@ export default function Home(props) {
                         <div className='flex justify-center'>
                             <div className='z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
                                 {Array(3).fill().map((_, i) => (
-                                    <div key={i} onClick={() => goToSlide(i)} style={{ backgroundColor: currentIndex === i ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full" />
+                                    <div key={i} onClick={() => setCurrentIndex(i)} style={{ backgroundColor: currentIndex === i ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full" />
                                 ))}
                             </div>
                         </div>
@@ -138,8 +129,8 @@ export default function Home(props) {
                                     onClick={() => { changeAreaAtiva(data.id) }}
                                     key={i}
                                     className={
-                                        `${areaAtiva === data.id ? 'bg-verde-padrao text-white' : 'bg-white text-verde-padrao'}
-                                    w-32 h-10 rounded-full text-xl font-semibold border-verde-padrao border-2 p-6 flex justify-center items-center m-3`}
+                                        `${areaAtiva === data.id ? 'bg-verde-padrao text-white' : 'bg-white hover:bg-[#eefff3] text-verde-padrao'}
+                                    transition-all w-32 h-10 rounded-full text-xl font-semibold border-verde-padrao border-2 p-6 flex justify-center items-center m-3`}
                                 >
                                     {data.nome}
                                 </button>
@@ -153,7 +144,10 @@ export default function Home(props) {
                             </>}
                     </div>
                     <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
-                        {prestadores ? prestadores.slice(0, 6).map((data, i) => (
+                        {prestadores
+                            ? prestadores.length === 0
+                                ? <NenhumPrestadorEncontrado home={true} />
+                                : prestadores.slice(0, 6).map((data, i) => (
                             <Card
                                 key={i}
                                 id={data.id}
