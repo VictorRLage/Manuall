@@ -58,8 +58,7 @@ export default function Prestadores(props) {
 
         let areaId = areaAtiva;
         if (areaAtiva === "todas") {
-            // Se "Todas as categorias" está selecionada, envie null ou outro valor especial para o backend
-            areaId = 0; // Ou outro valor que represente todas as áreas
+            areaId = 0;
         }
 
         axios.get(`/usuario/prestadores/${areaId}/${filtroSelecionado}/${ordemSelecionada}`)
@@ -93,7 +92,6 @@ export default function Prestadores(props) {
     }, [])
 
     useEffect(() => {
-        // Use este efeito para observar as mudanças nas variáveis de filtro e ordem
         getPrestadoresFiltrados();
     }, [areaAtiva, filtroSelecionado, ordemSelecionada]);
 
@@ -126,7 +124,7 @@ export default function Prestadores(props) {
             <div className='w-full h-full'>
                 <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
-                    
+
                     <select className="dropdownCategoria" name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
                         <option value="todas">Todas as categorias</option>
                         {areas &&
@@ -146,7 +144,7 @@ export default function Prestadores(props) {
                         <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
                         <option value="Servico">Filtrar por Serviços</option>
                         <option value="ServicoAula">Filtrar por Serviços e Aulas</option>
-                        {/* Adicione outras opções de filtro aqui */}
+                        { }
                     </select>
 
                     <select className="dropdownOrdem" name="dropdownOrdem" id="dropdownOrdem" value={ordemSelecionada ? "asc" : "desc"} onChange={handleOrdemChange}>
@@ -158,7 +156,7 @@ export default function Prestadores(props) {
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
                         {showNoPrestadorMessage ? (
-                            <NenhumPrestadorEncontrado /> // Exibe a mensagem quando não há prestadores
+                            <NenhumPrestadorEncontrado />
                         ) : (
                             prestadores.map((data, i) => (
                                 <Card

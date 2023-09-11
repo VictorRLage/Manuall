@@ -20,14 +20,11 @@ export default function Contato() {
 			<Header />
 			<div className="w-full h-full">
 				<div className="flex flex-row justify-center items-end h-20 relative">
-					<div className="absolute left-0 ml-60">
-						<span onClick={() => { navigate("/") }} className="text-[gray] mr-[2px] cursor-pointer">
-							Página Inicial
-						</span>
-						/
-						<span className="font-extrabold text-verde-escuro-1">
-							Contato
-						</span>
+					<div className="absolute left-0 ml-20">
+					<span className="breadCrumbs">
+						<span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">Página Inicial </span>
+						/<span className="breadcrumbAtual"> Prestadores</span>
+					</span>
 					</div>
 					<div className="text-4xl font-semibold text-center">
 						Contato
