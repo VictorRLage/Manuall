@@ -149,7 +149,7 @@ export default function PerfilVisaoPrestador(props) {
                                     <div onClick={() => setModalLinkPFP(true)} id="foto" className="cursor-pointer bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto p-8 border-verde-padrao border-4"><PlusIcon className='text-verde-padrao ' /></div>
                                     :
                                     <div className="flex">
-                                        <img src={prestador.pfp} id="foto" className="bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto"></img>
+                                        <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto"></img>
                                         <div>
                                             <button onClick={() => setModalLinkPFP(true)} className="text-verde-padrao bg-verde-padrao text-center w-8 absolute h-8 rounded-full right-[5.5rem] top-[1.5rem]"><PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto"></PencilSquareIcon></button>
                                         </div>

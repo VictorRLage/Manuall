@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { ChevronRightIcon, ChevronLeftIcon, XCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import ModalCustom from "@/components/main/ModalCustom";
 import WaitingBro from "@/assets/svg/Waiting_bro.svg"
@@ -14,14 +14,11 @@ export default function ModaisSolicitacaoServico(props) {
     const [modalVisible2, setModalVisible2] = useState(false)
     const [modalVisible3, setModalVisible3] = useState(false)
     const [modalVisible4, setModalVisible4] = useState(false)
-    // solictacao etapa2 select
-    const [servicos, setServicos] = useState([])
     // solicitacao etapa2 tamanho e medida
     const servico_input = useRef(null)
     const tamanho_input = useRef(null)
     const medida_input = useRef(null)
     const descricao_input = useRef(null)
-    const anexo = useRef(null)
 
     const [selecionadoooo, setSelecionadoooo] = useState()
 
@@ -36,26 +33,23 @@ export default function ModaisSolicitacaoServico(props) {
     };
 
     const terminar = () => {
-        const servico = servico_input?.current?.value
         const tamanho = tamanho_input?.current?.value
         const medida = medida_input?.current?.value
         const descricao = descricao_input?.current?.value
-        // const anexo = anexo?.current?.value
 
-        console.log(servico)
-        console.log(tamanho)
-        console.log(medida)
-        console.log(descricao)
-        // console.log(anexo)
         axios.post("/solicitacao", {
-            idPrestador: 1,
-            servico: servico,
-            tamanho: tamanho,
-            medida: medida,
-            descricao: descricao,
+            idPrestador: props.idPrestador,
+            idServico: selecionadoooo,
+            tamanho,
+            medida,
+            descricao,
+            incluiAula: props.querAula,
             anexo: []
         })
-        setModalVisible4(true); setModalVisible3(false)
+        .then((res) => {
+            setModalVisible4(true); setModalVisible3(false)
+        })
+        .catch((err) => console.log(err))
     }
 
     // // integracao geral -> tamanho e medida
@@ -186,11 +180,11 @@ export default function ModaisSolicitacaoServico(props) {
                             </div>
                             <div className=" shadow-xl flex flex-row p-[50px] w-[275px] mt-[20px] rounded-lg border-verde-escuro-1 border-2 justify-center items-center text-black text-2xl font-base text-center gap-2">
                                 <input placeholder="Tamanho" type="text" className="w-[95px] text-lg" ref={tamanho_input} />
-                                <select className="cursor-pointer flex items-center w-[180px] text-xl font-bold h-14 bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" name="" id="">
-                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="">Unidade</option>
-                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="">m²</option>
-                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="">m</option>
-                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="">cm</option>
+                                <select className="cursor-pointer flex items-center w-[180px] text-xl font-bold h-14 bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline"  name="" ref={medida_input}>
+                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="Unidade">Unidade</option>
+                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="m²">m²</option>
+                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="m">m</option>
+                                    <option className="z-50 absolute w-full bg-white border hover:border-gray-500 rounded shadow leading-tight focus:outline-none focus:shadow-outline" value="cm">cm</option>
                                 </select>
                             </div>
                             <img src={SentMessage} alt="Ícone de rapaz enviando arquivo" className="w-[200px] absolute bottom-0 left-0 ml-[75px] mb-[55px]" />
@@ -226,15 +220,13 @@ export default function ModaisSolicitacaoServico(props) {
                             <div className="w-full flex justify-center items-center text-black text-2xl font-extrabold mt-3">
                                 Algo mais a acrescentar? (Opcional)
                             </div>
-                            <div className="flex flex-col mt-[20px] w-[422px] h-[92px] rounded-lg border-verde-escuro-1 border-2 justify-center text-black text-2xl">
+                            <div className="flex flex-col mt-[20px] w-[422px] h-[192px] rounded-lg border-verde-escuro-1 border-2 justify-center text-black text-2xl">
                                 <input ref={descricao_input} placeholder="Descreva mais sobre o serviço/aula desejado" type="text" className="flex w-full h-full text-lg rounded-lg px-[10px]" />
-
                             </div>
-                            <div className="shadow-xl flex flex-col mt-[20px] w-[90px] h-[100px] px-2 rounded-lg border-verde-escuro-1 border-2 justify-center items-center text-black text-xs text-center">
+                            {/* <div className="shadow-xl flex flex-col mt-[20px] w-[90px] h-[100px] px-2 rounded-lg border-verde-escuro-1 border-2 justify-center items-center text-black text-xs text-center">
                                 <PhotoIcon className="w-[50px] h-[50px] text-verde-escuro-1" />
                                 Insira aqui sua mídia
-
-                            </div>
+                            </div> */}
                             <div id="botoes" className="flex flex-row mt-[30px] space-x-8" >
                                 <div className="flex justify-center items-center rounded-full border-2  border-verde-padrao w-[120px]">
                                     <ChevronLeftIcon className="text-verde-padrao w-[25px] h-[25px]" />
