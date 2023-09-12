@@ -5,7 +5,7 @@ import axios from "@/api/AxiosConfig";
 import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import ModaisSolicitacao from "@/components/solicitacao/ModaisSolicitacaoServico";
+
 import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
     const [areaAtiva, setAreaAtiva] = useState(0);
-    const [modaisSolicitacao, setModaisSolicitacao] = useState(false)
+   
 
     const prevSlide = () => {
         const isFirstSlide = currentIndex === 0;
@@ -64,7 +64,6 @@ export default function Home() {
 
     return (
         <>
-            <ModaisSolicitacao modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
             <Header />
             <div className='w-full h-full'>
                 <div id='container_carousel' className="group">
@@ -74,7 +73,8 @@ export default function Home() {
                                 <div className="absolute ml-20 mt-20 text-white text-6xl">
                                     Encontre <br /> prestadores de <br /> serviço <span className="font-bold">excelentes</span> <br /> prontos para te <br /> <span className="font-bold">ensinar!</span>
                                 </div>
-                                <button onClick={() => { setModaisSolicitacao(true) }} className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring">Encontrar
+                                <button className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring" onClick={() => {
+                        navigate("/login");}}>Encontrar
                                 </button>
 
                                 <svg width="100%" height="480" viewBox="0 0 883 631" fill="none" xmlns="http://www.w3.org/2000/svg">

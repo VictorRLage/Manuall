@@ -31,6 +31,16 @@ export default function ModaisSolicitacaoServico(props) {
     const descricao_input = useRef(null)
     const anexo = useRef(null)
 
+    const openModal2 = () => {
+        props.modalSettr(false);
+        setModalVisible2(true);
+    };
+
+    const openModal3 = () => {
+        setModalVisible2(false);
+        setModalVisible3(true);
+    };
+
     const closeModal = () => {
         if (props.canClose) {
             // props.modalSettr(false)
@@ -123,7 +133,7 @@ export default function ModaisSolicitacaoServico(props) {
     return (
         <>
             <ModalCustom modalGettr={modalVisible1} modalSettr={props.modalSolicitacao} canClose={true} w={'1000px'} h={'500px'}>
-                <div className="relative w-full h-full flex flex-col justify-center items-center">
+                <div className="relative w-full h-full flex flex-col justify-center items-center ">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
                     <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
@@ -154,7 +164,7 @@ export default function ModaisSolicitacaoServico(props) {
                                     </button>
                                 </div>
                                 <div className="bg-verde-padrao flex justify-center items-center rounded-full border-2 border-verde-padrao w-[120px]">
-                                    <button className="text-white text-lg ml-[5px]" onClick={() => { setModalVisible2(true) }}>
+                                    <button className="text-white text-lg ml-[5px]" onClick={openModal2}>
                                         Próximo
                                     </button>
                                     <ChevronRightIcon className="text-white w-[25px] h-[25px]  " />
@@ -196,7 +206,7 @@ export default function ModaisSolicitacaoServico(props) {
                                     </button>
                                 </div>
                                 <div className="bg-verde-padrao flex justify-center items-center rounded-full border-2 border-verde-padrao w-[120px]">
-                                    <button className="text-white text-lg ml-[5px]" onClick={() => { setModalVisible2(false); setModalVisible3(true) }}>
+                                    <button className="text-white text-lg ml-[5px]" onClick={openModal3}>
                                         Próximo
                                     </button>
                                     <ChevronRightIcon className="text-white w-[25px] h-[25px]  " />

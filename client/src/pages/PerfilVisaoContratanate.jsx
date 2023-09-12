@@ -5,6 +5,7 @@ import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
 import axios from "@/api/AxiosConfig";
+import ModaisSolicitacao from "@/components/solicitacao/ModaisSolicitacaoServico";
 
 // 2. Define the component function
 export default function PerfilVisaoContratanate(props) {
@@ -15,7 +16,7 @@ export default function PerfilVisaoContratanate(props) {
     const [imagens, setImagens] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const [modaisSolicitacao, setModaisSolicitacao] = useState(false)
 
     const getInfoPrestador = () => {
         if (localStorage.getItem("TOKEN") === null) {
@@ -94,6 +95,7 @@ export default function PerfilVisaoContratanate(props) {
 
     return (
         <>
+        <ModaisSolicitacao modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
             <svg className="absolute top-0 z-[0]" viewBox="0 0 1921 805" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M102.552 12.7864C450.19 12.7862 1778.3 146.35 2102.68 12.7863C2427.06 -120.777 2086.94 923.41 2102.68 731.758C2118.42 540.107 509.889 966.19 102.551 731.758C-304.786 497.327 -245.086 12.7866 102.552 12.7864Z" fill="#11AD0E" fill-opacity="0.25" />
             </svg>
@@ -134,7 +136,7 @@ export default function PerfilVisaoContratanate(props) {
                         </div>
 
                         <div id="conteinerCard">
-                            <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500 z-40 flex flex-col p-5 bg-white w-84 h-120  rounded-3xl drop-shadow-all`}>
+                            <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500  flex flex-col p-5 bg-white w-84 h-120  rounded-3xl drop-shadow-all`}>
                                 <img src={prestador.pfp} id="foto" className="bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto"></img>
                                 <span className="mt-2 font-bold ml-auto mr-auto text-3xl">{prestador.nome}</span>
                                 <div className="flex flex-row mr-auto ml-auto mt-2">
@@ -149,7 +151,7 @@ export default function PerfilVisaoContratanate(props) {
                                     <span>Estado</span>
                                     <span>{prestador.estado}</span>
                                 </div>
-                                <button className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full">Contratar</button>
+                                <button className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true) }}>Contratar</button>
 
                             </div>
                         </div>
