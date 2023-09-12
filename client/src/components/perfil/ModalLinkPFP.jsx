@@ -1,17 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import axios from "axios";
+import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
 
 export default function ModalLink(props) {
 
     const [urlImagem, setUrlImagem] = useState('');
 
     const alterarFtPerfil = () => {
-       axios.patch(`/perfil/alterar/fotoPerfil`, {profile: urlImagem})
+        console.log("a")
+       axios.patch("/perfil/alterar/fotoPerfil", {
+        novaUrl: urlImagem
+       })
         .then((res) => {
             console.log(res)
-        });
+        })
+        .catch((err) => {
+            console.log(err) 
+        })
     }
 
     return (
@@ -22,11 +28,10 @@ export default function ModalLink(props) {
                 </div>
                 <span className='text-3xl font-semibold text-center'>Insira o URL da imagem.</span>
                 <div className=' flex  items-center gap-4'>
-                    <div class="mb-6">
-                        <label htmlFor="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Default input</label>
-                        <input type="text" id="inputUrlImg" onChange={(e) => setUrlImagem(e.target.value)} className="bg-gray-50  border-cinza-claro-3 border-2 text-gray-900 text-sm rounded-lg  block w-full p-2.5 " />
+                    <div className="mb-6">
+                        <input type="text" id="inputUrlImg" onChange={(e) => setUrlImagem(e.target.value)} className="bg-gray-50 mt-6  border-cinza-claro-3 border-2 text-gray-900 text-sm rounded-lg  block w-full p-2.5 " />
                     </div>
-                    <button onClick={alterarFtPerfil()} className='w-24 h-10 text-xl bg-verde-padrao rounded-full text-white'>Enviar</button>
+                    <button onClick={alterarFtPerfil} className='w-24 h-10 text-xl bg-verde-padrao rounded-full text-white'>Enviar</button>
                 </div>
             </div>
         </div>
