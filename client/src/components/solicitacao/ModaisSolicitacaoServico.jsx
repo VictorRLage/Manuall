@@ -261,7 +261,7 @@ export default function ModaisSolicitacaoServico(props) {
                             <div className="flex justify-center items-center text-black text-lg font-base text-center">
                                 Aguarde o retorno do prestador!
                             </div>
-                            <img src={WaitingBro} alt="Ícone de Rapaz esperando" className="w-[450px] " />
+                            <img src={WaitingBro} alt="Ícone de Rapaz esperando" className="w-[450px] mb-6" />
                         </div>
                     </div>
                 </div>

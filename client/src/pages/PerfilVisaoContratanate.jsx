@@ -151,12 +151,18 @@ export default function PerfilVisaoContratanate(props) {
                                     <span>Estado</span>
                                     <span>{prestador.estado}</span>
                                 </div>
-                                <button className="bg-verde-padrao text-white w-56 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(true) }}>
-                                    Contratar com aula
-                                </button>
-                                <button className="text-verde-padrao w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(false) }}>
-                                    Apenas contratar
-                                </button>
+                                {prestador?.prestaAula
+                                    ? <>
+                                    <button className="bg-verde-padrao text-white w-56 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(true) }}>
+                                        Contratar com aula
+                                    </button>
+                                    <button className="text-verde-padrao w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(false) }}>
+                                        Apenas contratar
+                                    </button>
+                                    </>
+                                    : <button className="bg-verde-padrao text-white w-56 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(false) }}>
+                                        Contratar
+                                    </button>}
                             </div>
                         </div>
                     </div>
