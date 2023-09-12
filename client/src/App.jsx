@@ -15,7 +15,7 @@ import PerfilVisaoPrestador from "@/pages/PerfilVisaoPrestador";
 import Erro from "@/pages/Erro";
 import UnderConstruction from "@/pages/UnderConstruction";
 
-export default function App(props) {
+export default function App() {
 	return (
 		<div className="overflow-x-hidden">
 			<Router>

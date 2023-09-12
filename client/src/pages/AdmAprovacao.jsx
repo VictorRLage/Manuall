@@ -10,6 +10,17 @@ export default function AdmAprovacao() {
 
     const aprovar = (idPrestador, aprovar) => {
         axios.get(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`)
+            .then(() => {
+                axios.get("/usuario/aprovacoesPendentes")
+                .then((res) => {
+                    if (res.status === 200) {
+                        setPrestadores(res.data)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+            })
             .catch((err) => {
                 console.log(err)
             })

@@ -15,16 +15,9 @@ export default function ModaisSolicitacaoServico(props) {
     const [modalVisible2, setModalVisible2] = useState(false)
     const [modalVisible3, setModalVisible3] = useState(false)
     const [modalVisible4, setModalVisible4] = useState(false)
-    const navigate = useNavigate()
     // solictacao etapa2 select
-    const [validacaoServico, setValidacaoServico] = useState(0);
-    const [dropDown, setdropDown] = useState(false)
-    const [mapServico, setMapServico] = useState(false)
     const [servicos, setServicos] = useState([])
     // solicitacao etapa2 tamanho e medida
-    const [solicitacao, setSolicitacao] = useState(0);
-    const [validacaoTamanho, setValidacaoTamanho] = useState(0);
-    const [validacaoMedida, setValidacaoMedida] = useState(0);
     const servico_input = useRef(null)
     const tamanho_input = useRef(null)
     const medida_input = useRef(null)
@@ -58,6 +51,10 @@ export default function ModaisSolicitacaoServico(props) {
         s[index].checked = check
 
         setServicos(s)
+    }
+
+    const terminar = () => {
+        setModalVisible4(true); setModalVisible3(false)
     }
 
     // integracao geral -> tamanho e medida
@@ -237,7 +234,7 @@ export default function ModaisSolicitacaoServico(props) {
                                     </button>
                                 </div>
                                 <div className="bg-verde-padrao flex justify-center items-center rounded-full border-2 border-verde-padrao w-[120px]">
-                                    <button className="text-white text-lg ml-[5px]" onClick={() => { setModalVisible4(true); setModalVisible3(false) }}>
+                                    <button className="text-white text-lg ml-[5px]" onClick={() => { terminar() }}>
                                         Enviar
                                     </button>
                                     <ChevronRightIcon className="text-white w-[25px] h-[25px]  " />

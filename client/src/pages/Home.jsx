@@ -5,7 +5,7 @@ import axios from "@/api/AxiosConfig";
 import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import ModaisSolicitacao from "@/components/solicitacao/ModaisSolicitacaoServico";
+import ModaisSolicitacaoServico from "@/components/solicitacao/ModaisSolicitacaoServico";
 import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 
 export default function Home() {
@@ -24,15 +24,19 @@ export default function Home() {
     const [modaisSolicitacao, setModaisSolicitacao] = useState(false)
 
     const prevSlide = () => {
-        const isFirstSlide = currentIndex === 0;
-        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-        setCurrentIndex(newIndex);
+        setCurrentIndex(
+            currentIndex === 0
+                ? slides.length - 1
+                : currentIndex - 1
+        );
     };
 
     const nextSlide = () => {
-        const isLastSlide = currentIndex === slides.length - 1;
-        const newIndex = isLastSlide ? 0 : currentIndex + 1;
-        setCurrentIndex(newIndex);
+        setCurrentIndex(
+            currentIndex === slides.length - 1
+                ? 0
+                : currentIndex + 1
+        );
     };
 
     const getAreas = () => {
@@ -64,7 +68,7 @@ export default function Home() {
 
     return (
         <>
-            <ModaisSolicitacao modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
+            <ModaisSolicitacaoServico modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
             <Header />
             <div className='w-full h-full'>
                 <div id='container_carousel' className="group">
