@@ -158,7 +158,7 @@ export default function PerfilVisaoContratanate(props) {
                     </div>
                 </div>
 
-                <svg className="absolute top-[-210px]" width="360" height="1029" viewBox="0 0 360 1029" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="absolute top-[-250px]" width="360" height="1029" viewBox="0 0 360 1029" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g filter="url(#filter0_d_8_431)">
                         <path d="M-136.729 328.407C-197.545 664.774 110.518 788.917 322 814.5C445.999 829.5 200.301 892.156 59.4595 947C-466.541 1151.83 -510.128 875.754 -505.653 742.173C-501.179 608.591 -815.971 752.265 -617.241 332.526C-418.511 -87.2117 -53.674 -130.96 -136.729 328.407Z" fill="#008042" />
                     </g>

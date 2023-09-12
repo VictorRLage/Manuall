@@ -118,7 +118,7 @@ export default function Login() {
                         const idUsuario = 30
                         localStorage.IDUSUARIO = idUsuario
                         if (res.status === 200) {
-                            navigate("/prestadores")
+                            navigate(`/prestadores/eu/editar`, { state: { id: idUsuario } })
                         } else {
                             navigate(`/prestadores/eu/editar`, { state: { id: idUsuario } })
                         }
