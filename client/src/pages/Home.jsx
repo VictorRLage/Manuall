@@ -5,7 +5,7 @@ import axios from "@/api/AxiosConfig";
 import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import ModaisSolicitacaoServico from "@/components/solicitacao/ModaisSolicitacaoServico";
+
 import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
     const [areaAtiva, setAreaAtiva] = useState(0);
-    const [modaisSolicitacao, setModaisSolicitacao] = useState(false)
+   
 
     const prevSlide = () => {
         setCurrentIndex(
@@ -68,7 +68,6 @@ export default function Home() {
 
     return (
         <>
-            <ModaisSolicitacaoServico modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
             <Header />
             <div className='w-full h-full'>
                 <div id='container_carousel' className="group">
@@ -78,9 +77,9 @@ export default function Home() {
                                 <div className="absolute ml-20 mt-20 text-white text-6xl">
                                     Encontre <br /> prestadores de <br /> serviço <span className="font-bold">excelentes</span> <br /> prontos para te <br /> <span className="font-bold">ensinar!</span>
                                 </div>
-                                <button onClick={() => { setModaisSolicitacao(true) }} className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring">Encontrar
+                                <button onClick={() => { navigate("/login") }} className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring">
+                                    Encontrar
                                 </button>
-
                                 <svg width="100%" height="480" viewBox="0 0 883 631" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M883 292.237C883 678.017 842.268 628.986 355.217 628.986C-988.334 628.986 -45.5207 664.039 -45.5207 391.338C-45.5207 118.638 -207.46 0.595234 109.373 0.595234C426.205 0.595234 883 -26.9222 883 292.237Z" fill="#008042" />
                                 </svg>

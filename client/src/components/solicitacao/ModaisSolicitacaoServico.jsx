@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { ChevronRightIcon, ChevronLeftIcon, XCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import ModalCustom from "@/components/main/ModalCustom";
 import WaitingBro from "@/assets/svg/Waiting_bro.svg"
@@ -23,6 +22,16 @@ export default function ModaisSolicitacaoServico(props) {
     const medida_input = useRef(null)
     const descricao_input = useRef(null)
     const anexo = useRef(null)
+
+    const openModal2 = () => {
+        props.modalSettr(false);
+        setModalVisible2(true);
+    };
+
+    const openModal3 = () => {
+        setModalVisible2(false);
+        setModalVisible3(true);
+    };
 
     const closeModal = () => {
         if (props.canClose) {
@@ -54,7 +63,13 @@ export default function ModaisSolicitacaoServico(props) {
     }
 
     const terminar = () => {
-        setModalVisible4(true); setModalVisible3(false)
+        const idPrestador = 1 //atualizar quando tela de perfil estiver pronta
+        const servico = servico_input.current.value
+        const tamanho = tamanho_input.current.value
+        const medida = medida_input.current.value
+        const descricao = descricao_input.current.value
+        const anexo = anexo.current.value
+        // setModalVisible4(true); setModalVisible3(false)
     }
 
     // integracao geral -> tamanho e medida
@@ -120,7 +135,7 @@ export default function ModaisSolicitacaoServico(props) {
     return (
         <>
             <ModalCustom modalGettr={modalVisible1} modalSettr={props.modalSolicitacao} canClose={true} w={'1000px'} h={'500px'}>
-                <div className="relative w-full h-full flex flex-col justify-center items-center">
+                <div className="relative w-full h-full flex flex-col justify-center items-center ">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
                     <div className="bg-white flex flex-col rounded-lg bg-cover bg-center " >
@@ -133,14 +148,15 @@ export default function ModaisSolicitacaoServico(props) {
                                 Qual serviço você necessita?
                             </div>
                             <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center gap-2">
-                                {/* para integrar rota */}
-                            {servicos.map((data, index) => (
-                                <div key={index} className="block min-h-6">
-                                    <label className='flex items-center'>
-                                        <input ref={servico_input} className="bg-verde-escuro-1 w-[60px]" onChange={(e) => { alterarChecked(index, e.target.checked) }} id={data.item.id} type="checkbox" />
-                                        <label htmlFor={data.item.id} className="cursor-pointer select-none text-slate-700 mx-2 text-xl">{data.item.nome}</label>
-                                    </label>
-                                </div>
+                                {servicos?.map((data, index) => (
+                                    <div key={index} className="block min-h-6">
+                                        <label className='flex items-center'>
+                                            <input ref={servico_input} className="bg-verde-escuro-1 w-[60px]" onChange={(e) => { alterarChecked(index, e.target.checked) }} id={data.item.id} type="checkbox" />
+                                            <label htmlFor={data.item.id} className="cursor-pointer select-none text-slate-700 mx-2 text-xl">
+                                                {data.item.nome}
+                                            </label>
+                                        </label>
+                                    </div>
                                 ))}
                             </div>
                             <div id="botoes" className="flex flex-row mt-[15px] space-x-8" >
@@ -151,7 +167,7 @@ export default function ModaisSolicitacaoServico(props) {
                                     </button>
                                 </div>
                                 <div className="bg-verde-padrao flex justify-center items-center rounded-full border-2 border-verde-padrao w-[120px]">
-                                    <button className="text-white text-lg ml-[5px]" onClick={() => { setModalVisible2(true) }}>
+                                    <button className="text-white text-lg ml-[5px]" onClick={openModal2}>
                                         Próximo
                                     </button>
                                     <ChevronRightIcon className="text-white w-[25px] h-[25px]  " />
@@ -193,7 +209,7 @@ export default function ModaisSolicitacaoServico(props) {
                                     </button>
                                 </div>
                                 <div className="bg-verde-padrao flex justify-center items-center rounded-full border-2 border-verde-padrao w-[120px]">
-                                    <button className="text-white text-lg ml-[5px]" onClick={() => { setModalVisible2(false); setModalVisible3(true) }}>
+                                    <button className="text-white text-lg ml-[5px]" onClick={openModal3}>
                                         Próximo
                                     </button>
                                     <ChevronRightIcon className="text-white w-[25px] h-[25px]  " />
