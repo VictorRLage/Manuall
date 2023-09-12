@@ -158,7 +158,7 @@ export default function Prestadores(props) {
                         {showNoPrestadorMessage ? (
                             <NenhumPrestadorEncontrado />
                         ) : (
-                            prestadores.map((data, i) => (
+                            prestadores.slice(0,9).map((data, i) => (
                                 <Card
                                     key={i}
                                     id={data.id}
