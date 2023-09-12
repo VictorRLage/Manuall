@@ -12,7 +12,7 @@ export default function Prestadores(props) {
     const [areas, setAreas] = useState([]);
     const [prestadores, setPrestadores] = useState([]);
     const [showNoPrestadorMessage, setShowNoPrestadorMessage] = useState(false);
-    const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
+    const [filtroSelecionado, setFiltroSelecionado] = useState("Alfabetica");
     const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
     const changeAreaAtiva = (e) => {
@@ -138,10 +138,10 @@ export default function Prestadores(props) {
 
 
                     <select className="dropdownFiltro" name="dropdownFiltro" id="dropdownFiltro" value={filtroSelecionado} onChange={handleFiltroChange}>
+                        <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
                         <option value="Nota">Filtrar por Nota</option>
                         <option value="PrecoMax">Filtrar por Maior Preço</option>
                         <option value="PrecoMin">Filtrar por Menor Preço</option>
-                        <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
                         <option value="Servico">Filtrar por Serviços</option>
                         <option value="ServicoAula">Filtrar por Serviços e Aulas</option>
                         { }

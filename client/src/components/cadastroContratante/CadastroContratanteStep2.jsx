@@ -327,7 +327,7 @@ export default function CadastroContratanteStep2(props) {
                         </div>
                     </div>
                     <div id="container_finalizar" className="w-full h-10 flex justify-end ">
-                        <button onClick={avancar} className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-16 2xl:mt-9 xl:mt-9 font-semibold text-white ">Finalizar</button>
+                        <button onClick={avancar} className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-16 2xl:mt-9 xl:mt-3 font-semibold text-white ">Finalizar</button>
                     </div>
                 </div>
             </div>
