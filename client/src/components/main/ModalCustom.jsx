@@ -26,7 +26,7 @@ export default function ModalCustom(props) {
     }
 
     return (
-        <div onClick={closeModal} style={{display: props.modalGettr ? "flex" : "none"}} className="fixed justify-center items-center h-screen w-screen bg-blur z-10">
+        <div onClick={closeModal} style={{display: props.modalGettr ? "flex" : "none"}} className="fixed justify-center items-center h-screen w-screen bg-blur z-50">
             <div className="bg-white flex flex-col justify-around items-center rounded-xl" style={{width: props.w, height: props.h}}>
                 {props.children}
             </div>
