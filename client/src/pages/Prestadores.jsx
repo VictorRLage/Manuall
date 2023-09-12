@@ -109,14 +109,8 @@ export default function Prestadores(props) {
     }, []);
 
     const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            teste();
-        }
+        if (event.key === "Enter") {}
     };
-
-    function teste() {
-        alert(areaAtiva);
-    }
 
     return (
         <div>

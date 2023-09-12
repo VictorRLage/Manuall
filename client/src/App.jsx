@@ -15,26 +15,21 @@ import PerfilVisaoPrestador from "@/pages/PerfilVisaoPrestador";
 import Erro from "@/pages/Erro";
 import UnderConstruction from "@/pages/UnderConstruction";
 
-export default function App() {
-	return (
-		<div className="overflow-x-hidden">
-			<Router>
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="/cadastroPrestador" element={<CadastroPrestador />} />
-					<Route path="/cadastroContratante" element={<CasdastroContratante />} />
-					<Route path="/prestadores" element={<Prestadores />} />
-					<Route path="/prestadores/*" element={<PerfilVisaoContratanate />} />
-					<Route path="/prestadores/eu/editar" element={<PerfilVisaoPrestador />} />
-					<Route path="/contato" element={<Contato />} />
-					<Route path="/adm/aprovacao" element={<AdmAprovacao />} />
-					<Route path="/adm/dashboard" element={<AdmDashboard />} />
-					<Route path="/adm/api" element={<AdmApiStatus />} />
-					<Route path="/development" element={<UnderConstruction />} />
-					<Route path="/*" element={<Erro />} />
-				</Routes>
-			</Router>
-		</div>
-	);
-}
+export default () =>
+	<Router>
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/cadastroPrestador" element={<CadastroPrestador />} />
+			<Route path="/cadastroContratante" element={<CasdastroContratante />} />
+			<Route path="/prestadores" element={<Prestadores />} />
+			<Route path="/prestadores/*" element={<PerfilVisaoContratanate />} />
+			<Route path="/prestadores/eu/editar" element={<PerfilVisaoPrestador />} />
+			<Route path="/contato" element={<Contato />} />
+			<Route path="/adm/aprovacao" element={<AdmAprovacao />} />
+			<Route path="/adm/dashboard" element={<AdmDashboard />} />
+			<Route path="/adm/api" element={<AdmApiStatus />} />
+			<Route path="/development" element={<UnderConstruction />} />
+			<Route path="/*" element={<Erro />} />
+		</Routes>
+	</Router>
