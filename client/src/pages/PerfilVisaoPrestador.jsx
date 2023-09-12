@@ -7,7 +7,8 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
 import ModalLinkPFP from "../components/perfil/ModalLinkPFP";
-import axios from "@/api/AxiosConfig";
+import { authenticatedApiInstance as axiosComToken, defaultApiInstance as axios } from "@/api/AxiosConfig";
+import slugify from "slugify";
 
 // 2. Define the component function
 export default function PerfilVisaoPrestador(props) {
@@ -36,13 +37,18 @@ export default function PerfilVisaoPrestador(props) {
     }
 
     const alterarDesc = () => {
-        axios.patch(`/perfil/alterar/desc`, {descricao: descricao})
-         .then((res) => {
-             console.log(res)
-         });
-     }
-
-    
+        const slug = slugify(prestador.nome, { lower: true });
+        axiosComToken.patch("/perfil/alterar/desc", {
+        descricao: descricao
+       })
+        .then((res) => {
+            console.log(res)
+            navigate(`/prestadores`)
+        })
+        .catch((err) => {
+            console.log(err) 
+        })
+    }
 
     useEffect(() => {
         getInfoPrestador();
@@ -162,7 +168,7 @@ export default function PerfilVisaoPrestador(props) {
                                     <span>Estado</span>
                                     <span>{prestador.estado}</span>
                                 </div>
-                                <button onClick={alterarDesc()} className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full">Salvar</button>
+                                <button onClick={alterarDesc} className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full">Salvar</button>
 
                             </div>
                         </div>
@@ -210,30 +216,6 @@ export default function PerfilVisaoPrestador(props) {
                     </div>
                 </div>
 
-                <div id="section4" className="bg-white z-10 h-72 pt-10 pl-32 pr-32 flex flex-col">
-                    <span className="ml-36 mr-36 text-3xl font-bold">Avaliações</span>
-                    <div className="relative mt-10 ml-52 mr-36">
-                        {avaliacoesData.map((avaliacao, index) => (
-                            <div
-                                key={index}
-                                className={`absolute top-0 transition-opacity duration-300 ${currentIndex === index ? 'opacity-100' : 'opacity-0'}`}
-                            >
-                                <div className="p-4 bg-verde-claro-3 w-96 h-32 shadow-md rounded-md">
-                                    <h2 className="text-xl font-bold">{avaliacao.nome}</h2>
-                                    <span className="flex"><Estrelas media={avaliacao.nota} tamanho={5} /><span className="ml-1 font-semibold">{avaliacao.nota}</span></span>
-                                    <p className="">{avaliacao.descricao}</p>
-                                </div>
-                            </div>
-                        ))}
-
-                        <button onClick={prevSlide} className="absolute left-[-4.5rem] top-[4rem] transform -translate-y-1/2 p-2  focus:outline-none">
-                            <ChevronLeftIcon className="text-verde-padrao w-16 h-16" />
-                        </button>
-                        <button onClick={nextSlide} className="absolute left-[23.5rem] top-[4rem] transform -translate-y-1/2 p-2 focus:outline-none">
-                            <ChevronRightIcon className="text-verde-padrao w-16 h-16" />
-                        </button>
-                    </div>
-                </div>
             </div>
         </>
     );

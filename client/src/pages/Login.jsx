@@ -115,7 +115,7 @@ export default function Login() {
                         }
                     }
                     if (tipoUsuario === 2) {
-                        const idUsuario = 8
+                        const idUsuario = 30
                         localStorage.IDUSUARIO = idUsuario
                         if (res.status === 200) {
                             navigate("/prestadores")
