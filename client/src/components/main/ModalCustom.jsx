@@ -11,7 +11,7 @@ export default function ModalCustom(props) {
 
             setLastTimeout(
                 setTimeout(() => {
-                    props.modalSettr(false)
+                    props.modalSettr?.(false)
                 }, props.tempo)
             )
         }
@@ -21,7 +21,7 @@ export default function ModalCustom(props) {
     const closeModal = () => {
         if (props.canClose) {
             clearTimeout(lastTimeout)
-            props.modalSettr(false)
+            props.modalSettr?.(false)
         }
     }
 

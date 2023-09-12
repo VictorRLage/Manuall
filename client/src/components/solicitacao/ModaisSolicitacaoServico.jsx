@@ -23,6 +23,8 @@ export default function ModaisSolicitacaoServico(props) {
     const descricao_input = useRef(null)
     const anexo = useRef(null)
 
+    const [selecionadoooo, setSelecionadoooo] = useState()
+
     const openModal2 = () => {
         props.modalSettr(false);
         setModalVisible2(true);
@@ -33,108 +35,91 @@ export default function ModaisSolicitacaoServico(props) {
         setModalVisible3(true);
     };
 
-    const closeModal = () => {
-        if (props.canClose) {
-            // props.modalSettr(false)
-            console.log(props)
-        }
-    }
-    
-
-    useEffect(() => {
-        axios.get(`solicitacao/servicos/1`) // pegar a info dinâmica do ID do prestador, é o ID Cadastratante mesmo
-            .then((response) => {
-                let servicosPrestador = []
-                for (let i = 0; i < response.data.length; i++) {
-                    servicosPrestador.push({
-                        item: response.data[i]
-                    })
-                }
-                setServicos(servicosPrestador)
-            })
-    }, [])
-
-    const alterarChecked = (index, check) => {
-        const s = [...servicos]
-
-        s[index].checked = check
-
-        setServicos(s)
-    }
-
     const terminar = () => {
-        const idPrestador = 1 //atualizar quando tela de perfil estiver pronta
-        const servico = servico_input.current.value
-        const tamanho = tamanho_input.current.value
-        const medida = medida_input.current.value
-        const descricao = descricao_input.current.value
-        const anexo = anexo.current.value
-        // setModalVisible4(true); setModalVisible3(false)
-    }
+        const servico = servico_input?.current?.value
+        const tamanho = tamanho_input?.current?.value
+        const medida = medida_input?.current?.value
+        const descricao = descricao_input?.current?.value
+        // const anexo = anexo?.current?.value
 
-    // integracao geral -> tamanho e medida
-    const avancar = () => {
-        const idPrestador = 1 //atualizar quando tela de perfil estiver pronta
-        const servico = servico_input.current.value
-        const tamanho = tamanho_input.current.value
-        const medida = medida_input.current.value
-        const descricao = descricao_input.current.value
-        const anexo = anexo.current.value
-        
-        // if (
-        //     validacaoNome !== 2 &&
-        //     validacaoEmail !== 2 &&
-        // ) {
-        //     setMoldaAviso(true)
-        //     setAvisoTitulo('Campos inválidos')
-        //     setAvisoDescricao('Preencha todos os campos')
-        //     return
-        // }
-
+        console.log(servico)
+        console.log(tamanho)
+        console.log(medida)
+        console.log(descricao)
+        // console.log(anexo)
         axios.post("/solicitacao", {
-            idPrestador: 1, // atualizar quando tela de perfil estiver pronta
+            idPrestador: 1,
             servico: servico,
             tamanho: tamanho,
             medida: medida,
             descricao: descricao,
-            anexo: null
+            anexo: []
         })
-            // .then((res) => {
-            //     if (res.status === 201) {
-            //         localStorage.setItem("ID_CADASTRANTE", res.data)
-            //         props.passarStep()
-            //     } else {
-            //         setMoldaAviso(true)
-            //         setAvisoTitulo('Erro interno')
-            //         setAvisoDescricao('Por favor tente novamente mais tarde')
-            //     }
-            // })
-            // .catch((err) => {
-            //     console.log(err)
-            //     if (err.response.status === 400) {
-            //         for (let i = 0; i < err.response.data.errors.length; i++) {
-			// 			const stringOriginal = err.response.data.errors[i].field
-			// 			const stringMaiuscula = stringOriginal.toUpperCase();
-			// 			setMoldaAviso(true)
-			// 			setAvisoTitulo(`${stringMaiuscula} inválido`)
-			// 			setAvisoDescricao(err.response.data.errors[i].defaultMessage)
-            //         }
-            //     } else if (err.response.status === 409) {
-            //         setMoldaAviso(true)
-            //         setAvisoTitulo('Email já cadastrado')
-            //         setAvisoDescricao('Tente acessar sua conta')
-            //     } else {
-            //         setMoldaAviso(true)
-            //         setAvisoTitulo('Erro interno')
-            //         setAvisoDescricao('Por favor tente novamente mais tarde')
-            //     }
-            // })
+        setModalVisible4(true); setModalVisible3(false)
     }
+
+    // // integracao geral -> tamanho e medida
+    // const avancar = () => {
+    //     const servico = servico_input?.current?.value
+    //     const tamanho = tamanho_input?.current?.value
+    //     const medida = medida_input?.current?.value
+    //     const descricao = descricao_input?.current?.value
+    //     const anexo = anexo?.current?.value
+        
+    //     // if (
+    //     //     validacaoNome !== 2 &&
+    //     //     validacaoEmail !== 2 &&
+    //     // ) {
+    //     //     setMoldaAviso(true)
+    //     //     setAvisoTitulo('Campos inválidos')
+    //     //     setAvisoDescricao('Preencha todos os campos')
+    //     //     return
+    //     // }
+
+    //     axios.post("/solicitacao", {
+    //         idPrestador: 1,
+    //         servico,
+    //         tamanho,
+    //         medida,
+    //         descricao,
+    //         anexo: []
+    //     })
+    //         // .then((res) => {
+    //         //     if (res.status === 201) {
+    //         //         localStorage.setItem("ID_CADASTRANTE", res.data)
+    //         //         props.passarStep()
+    //         //     } else {
+    //         //         setMoldaAviso(true)
+    //         //         setAvisoTitulo('Erro interno')
+    //         //         setAvisoDescricao('Por favor tente novamente mais tarde')
+    //         //     }
+    //         // })
+    //         // .catch((err) => {
+    //         //     console.log(err)
+    //         //     if (err.response.status === 400) {
+    //         //         for (let i = 0; i < err.response.data.errors.length; i++) {
+	// 		// 			const stringOriginal = err.response.data.errors[i].field
+	// 		// 			const stringMaiuscula = stringOriginal.toUpperCase();
+	// 		// 			setMoldaAviso(true)
+	// 		// 			setAvisoTitulo(`${stringMaiuscula} inválido`)
+	// 		// 			setAvisoDescricao(err.response.data.errors[i].defaultMessage)
+    //         //         }
+    //         //     } else if (err.response.status === 409) {
+    //         //         setMoldaAviso(true)
+    //         //         setAvisoTitulo('Email já cadastrado')
+    //         //         setAvisoDescricao('Tente acessar sua conta')
+    //         //     } else {
+    //         //         setMoldaAviso(true)
+    //         //         setAvisoTitulo('Erro interno')
+    //         //         setAvisoDescricao('Por favor tente novamente mais tarde')
+    //         //     }
+    //         // })
+    // }
 
 
     return (
         <>
-            <ModalCustom modalGettr={modalVisible1} modalSettr={props.modalSolicitacao} canClose={true} w={'1000px'} h={'500px'}>
+            <ModalCustom modalGettr={modalVisible1} canClose={true} w={'1000px'} h={'500px'}>
                 <div className="relative w-full h-full flex flex-col justify-center items-center ">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
@@ -148,13 +133,21 @@ export default function ModaisSolicitacaoServico(props) {
                                 Qual serviço você necessita?
                             </div>
                             <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center gap-2">
-                                {servicos?.map((data, index) => (
+                                {props?.servicos?.map((data, index) => (
                                     <div key={index} className="block min-h-6">
                                         <label className='flex items-center'>
-                                            <input ref={servico_input} className="bg-verde-escuro-1 w-[60px]" onChange={(e) => { alterarChecked(index, e.target.checked) }} id={data.item.id} type="checkbox" />
-                                            <label htmlFor={data.item.id} className="cursor-pointer select-none text-slate-700 mx-2 text-xl">
-                                                {data.item.nome}
-                                            </label>
+                                            <input
+                                                ref={servico_input}
+                                                className="bg-verde-escuro-1 w-[60px]"
+                                                type="radio"
+                                                name="selecionadoooo"
+                                                value={data.id}
+                                                checked={selecionadoooo == data.id}
+                                                onChange={(e) => { setSelecionadoooo(e.target.value) }}
+                                            />
+                                            <div className="cursor-pointer select-none text-slate-700 mx-2 text-xl">
+                                                {data.nome}
+                                            </div>
                                         </label>
                                     </div>
                                 ))}

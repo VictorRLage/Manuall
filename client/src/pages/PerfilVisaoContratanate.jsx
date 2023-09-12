@@ -25,18 +25,17 @@ export default function PerfilVisaoContratanate(props) {
 
         const receivedId = location.state?.id;
         if (!receivedId) {
-            navigate("/*")
+            navigate("/")
         } else {
             axios.get(`/perfil/${receivedId}`)
                 .then((res) => {
                     setPrestador(res.data);
+                    console.log(res.data)
                     setServicos(res.data.servicos);
                     setAvaliacoesData(res.data.avaliacoes);
                     setImagens(res.data.imagens)
                 });
         }
-
-
     }
 
     // const verificarPrestador = () = >{
@@ -95,7 +94,7 @@ export default function PerfilVisaoContratanate(props) {
 
     return (
         <>
-        <ModaisSolicitacaoServico modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
+            <ModaisSolicitacaoServico servicos={servicos} modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
             <svg className="absolute top-0 z-[0]" viewBox="0 0 1921 805" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M102.552 12.7864C450.19 12.7862 1778.3 146.35 2102.68 12.7863C2427.06 -120.777 2086.94 923.41 2102.68 731.758C2118.42 540.107 509.889 966.19 102.551 731.758C-304.786 497.327 -245.086 12.7866 102.552 12.7864Z" fill="#11AD0E" fill-opacity="0.25" />
             </svg>
@@ -194,7 +193,7 @@ export default function PerfilVisaoContratanate(props) {
                         <span className=" text-3xl font-bold z-10 ">Serviços oferecidos</span>
                         <div className="z-10 mt-2 text-lg flex flex-col">
                             {servicos.map((data, i) => (
-                                <span className="" key={i}>{data}</span>
+                                <span key={i}>{data.nome}</span>
                             ))}
                         </div>
                     </div>
