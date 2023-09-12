@@ -14,6 +14,7 @@ export default function ModalLink(props) {
        })
         .then((res) => {
             console.log(res)
+            window.location.reload()
         })
         .catch((err) => {
             console.log(err) 

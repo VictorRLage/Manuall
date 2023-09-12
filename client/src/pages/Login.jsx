@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ChevronDoubleLeftIcon, EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import logo_extensa from "@/assets/img/logo_manuall_extensa_branca.png";
-import axios from "@/api/AxiosConfig";
+import { authenticatedApiInstance as axiosComToken, defaultApiInstance as axios } from "@/api/AxiosConfig";
 import EntrarTrue from "@/components/login/EntrarTrue";
 import EntrarFalse from "@/components/login/EntrarFalse";
 import LoadingEmail from "@/components/login/LoadingEmail";
@@ -108,20 +108,24 @@ export default function Login() {
                     localStorage.TOKEN = res.data
                     localStorage.TIPO_USUARIO = tipoUsuario
                     if (tipoUsuario === 1) {
-                        if(localStorage.PRESTADOR_INTERESSE !== undefined){
+                        if (localStorage.PRESTADOR_INTERESSE !== undefined) {
                             navigate(`/prestadores/${localStorage.PRESTADOR_SLUG}`, { state: { id: localStorage.PRESTADOR_INTERESSE } })
-                        } else{
+                        } else {
                             navigate("/prestadores")
                         }
                     }
                     if (tipoUsuario === 2) {
-                        const idUsuario = 30
-                        localStorage.IDUSUARIO = idUsuario
-                        if (res.status === 200) {
-                            navigate(`/prestadores/eu/editar`, { state: { id: idUsuario } })
-                        } else {
-                            navigate(`/prestadores/eu/editar`, { state: { id: idUsuario } })
-                        }
+                        axiosComToken.get("/usuario/id")
+                            .then((res) => {
+                                console.log(res)
+                                const idUsuario = res.data
+                                localStorage.IDUSUARIO = idUsuario
+                                navigate(`/prestadores/eu/editar`, { state: { id: idUsuario } })
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+
                     }
                     if (tipoUsuario === 3) {
                         navigate("/adm/aprovacao")
@@ -139,12 +143,12 @@ export default function Login() {
                         setAvisoTitulo(err.response.data)
                         setAvisoDescricao('Irei redirecionar você para tela de cadastro para finaliza-lo')
                     }
-                    if (err.response.data  === "Aprovação negada") { //modal aprovação negada
+                    if (err.response.data === "Aprovação negada") { //modal aprovação negada
                         setMoldaAviso(true)
                         setAvisoTitulo(err.response.data)
                         setAvisoDescricao('Infelizmente sua aprovação foi negada')
                     }
-                    if (err.response.data  === "Aprovação pendente") { //modal Aprovação pendente
+                    if (err.response.data === "Aprovação pendente") { //modal Aprovação pendente
                         setMoldaAviso(true)
                         setAvisoTitulo(err.response.data)
                         setAvisoDescricao('Por favor aguarde a sua conta ser aprovada')
