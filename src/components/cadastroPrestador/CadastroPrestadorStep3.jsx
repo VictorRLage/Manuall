@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactSlider from "react-slider";
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
-import axios from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
 import ModalCustom from "@/components/main/ModalCustom";
 import bgmodal from "@/assets/img/bg-modal.png";

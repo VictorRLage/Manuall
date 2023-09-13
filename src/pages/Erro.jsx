@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import ErrorIcon from "@/assets/svg/404.svg"
 
-export default function Erro(props) {
+export default function Erro() {
 
     const navigate = useNavigate()
 

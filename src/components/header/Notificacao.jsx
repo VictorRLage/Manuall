@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BellIcon, UserIcon } from "@heroicons/react/24/solid";
 import { Oval } from "react-loader-spinner";
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 
 export default function Notificacoes(props) {
 

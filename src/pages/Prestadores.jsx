@@ -2,7 +2,7 @@ import Header from "@/components/header/Header";
 import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import Card from "@/components/main/Card";
 import Skeleton from "react-loading-skeleton";
 import FooterWave from "@/assets/svg/FooterWave"

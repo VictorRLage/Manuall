@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { XCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 
 export default function ModalLink(props) {
 

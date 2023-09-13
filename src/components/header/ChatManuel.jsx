@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import FalasManuelENUM from "@/enum/FalasManuelENUM"
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 
 export default function ChatManuel({ chat, scrollDown }) {
 

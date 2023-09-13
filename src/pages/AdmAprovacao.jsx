@@ -1,7 +1,7 @@
 import Sidebar from "@/components/adm/Sidebar";
 import { Oval } from "react-loader-spinner";
 import { useEffect, useState } from "react";
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import done from "@/assets/svg/Done-rafiki.svg";
 
 export default function AdmAprovacao() {

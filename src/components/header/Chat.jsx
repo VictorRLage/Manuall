@@ -5,7 +5,7 @@ import Arrow from "@/assets/svg/lineless_arrow.svg";
 import Manuel from "@/assets/img/manuel_pfp.png";
 import ChatManuel from "@/components/header/ChatManuel";
 import BotCertification from "@/assets/svg/bot_certification.svg";
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 
 export default function Chat() {
 

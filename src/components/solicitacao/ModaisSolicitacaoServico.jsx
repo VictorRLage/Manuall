@@ -5,7 +5,7 @@ import WaitingBro from "@/assets/svg/Waiting_bro.svg"
 import SentMessage from "@/assets/svg/SentMessage.svg"
 import CantoEsquerdo from "@/assets/svg/CantoEsquerdo.svg"
 import CantoDireito from "@/assets/svg/CantoDireito.svg"
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 
 export default function ModaisSolicitacaoServico(props) {
 

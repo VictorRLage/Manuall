@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/adm/Sidebar";
-import { authenticatedApiInstance as axios, rotinaApi } from "@/api/AxiosConfig";
+import axios, { routineApiInstance } from "@/api/axios";
 import { Oval } from "react-loader-spinner";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 
@@ -10,7 +10,7 @@ export default function AdmApiStatus() {
     const [statusApiCrm, setStatusApiCrm] = useState()
 
     const alterarApiPipefy = (ativar) => {
-        rotinaApi.post(`/pipefy/${ativar ? "ligar" : "desligar"}`)
+        routineApiInstance.post(`/pipefy/${ativar ? "ligar" : "desligar"}`)
             .then(checarApis)
             .catch((err) => {
                 console.log(err)
@@ -18,7 +18,7 @@ export default function AdmApiStatus() {
     }
 
     const alterarApiCrm = (ativar) => {
-        rotinaApi.post(`/crm/${ativar ? "ligar" : "desligar"}`)
+        routineApiInstance.post(`/crm/${ativar ? "ligar" : "desligar"}`)
             .then(checarApis)
             .catch((err) => {
                 console.log(err)
@@ -26,11 +26,11 @@ export default function AdmApiStatus() {
     }
 
     const checarApis = () => {
-        rotinaApi.get("/pipefy/checar")
+        routineApiInstance.get("/pipefy/checar")
             .then(({ data }) => {
                 setStatusApiPipefy(data)
             })
-        rotinaApi.get("/crm/checar")
+        routineApiInstance.get("/crm/checar")
             .then(({ data }) => {
                 setStatusApiCrm(data)
             })

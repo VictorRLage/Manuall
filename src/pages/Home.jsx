@@ -1,7 +1,7 @@
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
 import { useEffect, useState } from "react";
-import axios from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";

@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIcon, EnvelopeIcon, IdentificationIcon, LockClosedIcon, ChevronDoubleRightIcon, ChevronDoubleLeftIcon, PhoneIcon } from "@heroicons/react/24/solid";
 import logo_extensa from "@/assets/img/logo_manuall_extensa_branca.png";
-import axios from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
 
 export default function CadastroPrestadorStep1(props) {

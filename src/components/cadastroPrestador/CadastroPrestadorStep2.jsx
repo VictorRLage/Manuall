@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDoubleRightIcon, MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon, ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
 import logo_extensa from "@/assets/img/logo_manuall_extensa_branca.png";
-import axios from "@/api/AxiosConfig";
-import { viaCep } from "@/api/AxiosConfig";
+import axios, { viaCepInstance } from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
 
 export default function CadastroPrestadorStep2(props) {
@@ -215,7 +214,7 @@ export default function CadastroPrestadorStep2(props) {
         if (cep_input.current.value === "") {
             return
         }
-        viaCep.get(`/${cep_input.current.value}/json/`)
+        viaCepInstance.get(`/${cep_input.current.value}/json/`)
             .then((res) => {
                 const e = res.data
                 console.log(e)

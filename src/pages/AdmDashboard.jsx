@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Sidebar from "@/components/adm/Sidebar";
-import { authenticatedApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 
 export default function AdmDashboard(props) {
 

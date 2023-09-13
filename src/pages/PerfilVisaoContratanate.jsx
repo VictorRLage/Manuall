@@ -4,7 +4,7 @@ import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
-import axios from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import ModaisSolicitacaoServico from "@/components/solicitacao/ModaisSolicitacaoServico";
 
 // 2. Define the component function

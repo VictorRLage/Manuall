@@ -7,7 +7,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
 import ModalLinkPFP from "../components/perfil/ModalLinkPFP";
-import { authenticatedApiInstance as axiosComToken, defaultApiInstance as axios } from "@/api/AxiosConfig";
+import axios from "@/api/axios";
 import slugify from "slugify";
 
 // 2. Define the component function
@@ -38,7 +38,7 @@ export default function PerfilVisaoPrestador(props) {
 
     const alterarDesc = () => {
         const slug = slugify(prestador.nome, { lower: true });
-        axiosComToken.patch("/perfil/alterar/desc", {
+        axios.patch("/perfil/alterar/desc", {
         descricao: descricao
        })
         .then((res) => {
