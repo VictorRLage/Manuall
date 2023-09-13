@@ -1,5 +1,5 @@
 import React from "react";
-import imagemNotFound from "@/assets/svg/Not_Found.svg";
+import imagemNotFound from "@/assets/storyset/Not_Found.svg";
 
 const NenhumPrestadorEncontrado = ({ home }) => {
     const imagemStyle = {

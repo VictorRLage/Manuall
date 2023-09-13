@@ -8,7 +8,7 @@ import axios from "@/api/axios";
 import ModaisSolicitacaoServico from "@/components/solicitacao/ModaisSolicitacaoServico";
 
 // 2. Define the component function
-export default function PerfilVisaoContratanate(props) {
+export default function PerfilVisaoContratanate() {
 
     const [prestador, setPrestador] = useState({});
     const [servicos, setServicos] = useState([]);
@@ -55,9 +55,9 @@ export default function PerfilVisaoContratanate(props) {
             setScrollY(window.scrollY);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener("scroll", handleScroll);
         };
 
     }, []);
@@ -124,7 +124,18 @@ export default function PerfilVisaoContratanate(props) {
 
                 <div id="section1" className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
                     <div id="crumbs" className="z-10">
-                        <span className="text-2xl"> <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">Página Inicial </span><span onClick={() => { navigate("/prestadores") }} className="text-cinza-claro-3 cursor-pointer">/ Prestadores</span> / <span className="text-verde-escuro-1 text font-bold">{prestador.nome}</span></span>
+                        <span className="text-2xl">
+                            <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">
+                                Página Inicial{" "}
+                            </span>
+                            <span onClick={() => { navigate("/prestadores") }} className="text-cinza-claro-3 cursor-pointer">
+                                / Prestadores
+                            </span>
+                            {" / "}
+                            <span className="text-verde-escuro-1 text font-bold">
+                                {prestador.nome}
+                            </span>
+                        </span>
                     </div>
                     <div id="tags" className="ml-36 mr-36 mt-10 space-x-4 ">
                         <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.area}</button>
@@ -137,7 +148,7 @@ export default function PerfilVisaoContratanate(props) {
 
                         <div id="conteinerCard">
                             <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500  flex flex-col p-5 bg-white w-84 h-130  rounded-3xl drop-shadow-all`}>
-                                <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto"></img>
+                                <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto" />
                                 <span className="mt-2 font-bold ml-auto mr-auto text-3xl">{prestador.nome}</span>
                                 <div className="flex flex-row mr-auto ml-auto mt-2">
                                     <Estrelas media={media} tamanho={6} /><span className="ml-2 text-lg">{media.toFixed(1)}</span>
@@ -215,12 +226,17 @@ export default function PerfilVisaoContratanate(props) {
                         {avaliacoesData.map((avaliacao, index) => (
                             <div
                                 key={index}
-                                className={`absolute top-0 transition-opacity duration-300 ${currentIndex === index ? 'opacity-100' : 'opacity-0'}`}
+                                className={`absolute top-0 transition-opacity duration-300 ${currentIndex === index ? "opacity-100" : "opacity-0"}`}
                             >
                                 <div className="p-4 bg-verde-claro-3 w-96 h-32 shadow-md rounded-md">
                                     <h2 className="text-xl font-bold">{avaliacao.nome}</h2>
-                                    <span className="flex"><Estrelas media={avaliacao.nota} tamanho={5} /><span className="ml-1 font-semibold">{avaliacao.nota}</span></span>
-                                    <p className="">{avaliacao.descricao}</p>
+                                    <span className="flex">
+                                        <Estrelas media={avaliacao.nota} tamanho={5} />
+                                        <span className="ml-1 font-semibold">
+                                            {avaliacao.nota}
+                                        </span>
+                                    </span>
+                                    <p>{avaliacao.descricao}</p>
                                 </div>
                             </div>
                         ))}

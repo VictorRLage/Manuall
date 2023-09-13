@@ -2,12 +2,13 @@ import Header from "@/components/header/Header";
 import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import lupaIcon from "@/assets/icons/lupa.png"
 import axios from "@/api/axios";
 import Card from "@/components/main/Card";
 import Skeleton from "react-loading-skeleton";
-import FooterWave from "@/assets/svg/FooterWave"
+import FooterWave from "@/assets/shapes/FooterWave"
 
-export default function Prestadores(props) {
+export default function Prestadores() {
     const navigate = useNavigate();
     const [areaAtiva, setAreaAtiva] = useState(0);
     const [areas, setAreas] = useState([]);
@@ -110,15 +111,16 @@ export default function Prestadores(props) {
     }, []);
 
     const handleKeyPress = (event) => {
-        if (event.key === "Enter") {}
+        if (event.key === "Enter") { }
     };
 
     return (
         <div>
             <Header />
-            <div className='w-full h-full'>
-                <div className="menuSuperior"><input id="i_pesquisa" type="text" placeholder="Buscar" />
-                    <img className="imgLupa" alt="" src="https://img.freepik.com/icones-gratis/lupa_318-654446.jpg" />
+            <div className="w-full h-full">
+                <div className="menuSuperior">
+                    <input id="i_pesquisa" type="text" placeholder="Buscar" />
+                    <img className="imgLupa" alt="" src={lupaIcon} />
 
                     <select className="dropdownCategoria" name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
                         <option value="todas">Todas as categorias</option>
@@ -147,27 +149,35 @@ export default function Prestadores(props) {
                         <option value="desc">Decrescente</option>
                     </select>
                 </div>
-                <span className="breadCrumbs"><span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">Página Inicial </span>/<span className="breadcrumbAtual"> Prestadores</span></span>
+                <span className="breadCrumbs">
+                    <span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">
+                        Página Inicial
+                    </span>
+                    {" / "}
+                    <span className="breadcrumbAtual">
+                        Prestadores
+                    </span>
+                </span>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
                     <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
-                        {showNoPrestadorMessage ? (
-                            <NenhumPrestadorEncontrado />
-                        ) : (
-                            prestadores.slice(0,9).map((data, i) => (
-                                <Card
-                                    key={i}
-                                    id={data.id}
-                                    nome={data.nome}
-                                    cidade={data.cidade}
-                                    foto={data.anexoPfp}
-                                    area={areas?.find(area => area.id === data.idArea)?.nome}
-                                    min={data.orcamentoMin}
-                                    max={data.orcamentoMax}
-                                    aula={data.prestaAula}
-                                    mediaNota={data.mediaAvaliacoes}
-                                />
-                            ))
-                        )}
+                        {showNoPrestadorMessage
+                            ? <NenhumPrestadorEncontrado />
+                            : (
+                                prestadores.slice(0, 9).map((data) => (
+                                    <Card
+                                        key={data.id}
+                                        id={data.id}
+                                        nome={data.nome}
+                                        cidade={data.cidade}
+                                        foto={data.anexoPfp}
+                                        area={areas?.find(area => area.id === data.idArea)?.nome}
+                                        min={data.orcamentoMin}
+                                        max={data.orcamentoMax}
+                                        aula={data.prestaAula}
+                                        mediaNota={data.mediaAvaliacoes}
+                                    />
+                                ))
+                            )}
                     </div>
                 </div>
             </div>

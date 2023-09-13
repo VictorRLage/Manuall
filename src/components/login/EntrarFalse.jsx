@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function EntrarFalse(props) {
+export default function EntrarFalse() {
 
     const [showTooltip, setShowTooltip] = useState(false);
 

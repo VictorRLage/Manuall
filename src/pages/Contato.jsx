@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/header/Header";
-import fundoContato from "@/assets/svg/Rectangle269.svg";
+import fundoContato from "@/assets/shapes/MainBg.svg";
 import Skeleton from "react-loading-skeleton";
-import imagemTelemarketing from "@/assets/img/image 34.png";
-import iconeTelefone from "@/assets/img/image 37.png";
-import iconeMapa from "@/assets/img/image 38.png";
-import iconeRelogio from "@/assets/img/image 39.png";
+import imagemTelemarketing from "@/assets/demo/telemarketing.png";
+import iconeTelefone from "@/assets/icons/phone.png";
+import iconeMapa from "@/assets/icons/gps.png";
+import iconeRelogio from "@/assets/icons/clock.png";
 
 export default function Contato() {
 
@@ -21,10 +21,15 @@ export default function Contato() {
 			<div className="w-full h-full">
 				<div className="flex flex-row justify-center items-end h-20 relative">
 					<div className="absolute left-0 ml-20">
-					<span className="breadCrumbs">
-						<span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">Página Inicial </span>
-						/<span className="breadcrumbAtual"> Prestadores</span>
-					</span>
+						<span className="breadCrumbs">
+							<span onClick={() => { navigate("/") }} className="breadcrumbAnterior cursor-pointer">
+								Página Inicial{" "}
+							</span>
+							/
+							<span className="breadcrumbAtual">
+							{" "}Prestadores
+							</span>
+						</span>
 					</div>
 					<div className="text-4xl font-semibold text-center">
 						Contato

@@ -11,13 +11,13 @@ import axios from "@/api/axios";
 import slugify from "slugify";
 
 // 2. Define the component function
-export default function PerfilVisaoPrestador(props) {
+export default function PerfilVisaoPrestador() {
 
     const [prestador, setPrestador] = useState({});
     const [servicos, setServicos] = useState([]);
     const [avaliacoesData, setAvaliacoesData] = useState([]);
     const [modalLinkPFP, setModalLinkPFP] = useState(false);
-    const [descricao, setDescricao] = useState('');
+    const [descricao, setDescricao] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -62,9 +62,9 @@ export default function PerfilVisaoPrestador(props) {
             setScrollY(window.scrollY);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
 
@@ -130,7 +130,18 @@ export default function PerfilVisaoPrestador(props) {
 
                 <div id="section1" className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
                     <div id="crumbs" className="z-10">
-                        <span className="text-2xl"> <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">Página Inicial </span><span onClick={() => { navigate("/prestadores") }} className="text-cinza-claro-3 cursor-pointer">/ Prestadores</span> / <span className="text-verde-escuro-1 text font-bold">{prestador.nome}</span></span>
+                        <span className="text-2xl">
+                            <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">
+                                Página Inicial{" "}
+                            </span>
+                            <span onClick={() => { navigate("/prestadores") }} className="text-cinza-claro-3 cursor-pointer">
+                                / Prestadores
+                            </span>
+                            {" / "}
+                            <span className="text-verde-escuro-1 text font-bold">
+                                {prestador.nome}
+                            </span>
+                        </span>
                     </div>
                     <div id="tags" className="ml-36 mr-36 mt-10 space-x-4 ">
                         <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.area}</button>
@@ -140,18 +151,21 @@ export default function PerfilVisaoPrestador(props) {
                         <div id="texto" className="min-w-[50%] text-xl z-10">
 
                             <label htmlFor="message" className="block mb-2 text-xl font-medium text-black">Escreva sua descrição!</label>
-                            <textarea onChange={(e) => setDescricao(e.target.value)} id="message" rows="4" className="block p-2.5 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 h-64" placeholder="Escreva seua descrição aqui..."></textarea>
+                            <textarea onChange={(e) => setDescricao(e.target.value)} id="message" rows="4" className="block p-2.5 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 h-64" placeholder="Escreva seua descrição aqui..." />
                         </div>
 
                         <div id="conteinerCard">
                             <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500 z-40 flex flex-col p-5 bg-white w-84 h-120  rounded-3xl drop-shadow-all`}>
-                                {prestador.pfp === "" ?
-                                    <div onClick={() => setModalLinkPFP(true)} id="foto" className="cursor-pointer bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto p-8 border-verde-padrao border-4"><PlusIcon className='text-verde-padrao ' /></div>
-                                    :
-                                    <div className="flex">
-                                        <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto"></img>
+                                {prestador.pfp === ""
+                                    ? <div onClick={() => setModalLinkPFP(true)} id="foto" className="cursor-pointer bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto p-8 border-verde-padrao border-4">
+                                        <PlusIcon className="text-verde-padrao" />
+                                    </div>
+                                    : <div className="flex">
+                                        <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto" />
                                         <div>
-                                            <button onClick={() => setModalLinkPFP(true)} className="text-verde-padrao bg-verde-padrao text-center w-8 absolute h-8 rounded-full right-[5.5rem] top-[1.5rem]"><PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto"></PencilSquareIcon></button>
+                                            <button onClick={() => setModalLinkPFP(true)} className="text-verde-padrao bg-verde-padrao text-center w-8 absolute h-8 rounded-full right-[5.5rem] top-[1.5rem]">
+                                                <PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto" />
+                                            </button>
                                         </div>
                                     </div>
                                 }

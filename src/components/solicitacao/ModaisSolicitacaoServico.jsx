@@ -1,16 +1,16 @@
 import { useState, useRef } from "react";
 import { ChevronRightIcon, ChevronLeftIcon, XCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import ModalCustom from "@/components/main/ModalCustom";
-import WaitingBro from "@/assets/svg/Waiting_bro.svg"
-import SentMessage from "@/assets/svg/SentMessage.svg"
-import CantoEsquerdo from "@/assets/svg/CantoEsquerdo.svg"
-import CantoDireito from "@/assets/svg/CantoDireito.svg"
+import WaitingBro from "@/assets/shapes/Waiting_bro.svg"
+import SentMessage from "@/assets/storyset/SentMessage.svg"
+import CantoEsquerdo from "@/assets/shapes/ModalBottomRightWave.svg"
+import CantoDireito from "@/assets/shapes/ModalTopLeftWave.svg"
 import axios from "@/api/axios";
 
-export default function ModaisSolicitacaoServico(props) {
+export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr, idPrestador, querAula }) {
 
     // solicitacao
-    const modalVisible1 = props.modalSolicitacao
+    const modalVisible1 = modalSolicitacao
     const [modalVisible2, setModalVisible2] = useState(false)
     const [modalVisible3, setModalVisible3] = useState(false)
     const [modalVisible4, setModalVisible4] = useState(false)
@@ -20,10 +20,10 @@ export default function ModaisSolicitacaoServico(props) {
     const medida_input = useRef(null)
     const descricao_input = useRef(null)
 
-    const [selecionadoooo, setSelecionadoooo] = useState()
+    const [idServico, setIdServico] = useState()
 
     const openModal2 = () => {
-        props.modalSettr(false);
+        modalSettr(false);
         setModalVisible2(true);
     };
 
@@ -38,82 +38,23 @@ export default function ModaisSolicitacaoServico(props) {
         const descricao = descricao_input?.current?.value
 
         axios.post("/solicitacao", {
-            idPrestador: props.idPrestador,
-            idServico: selecionadoooo,
+            idPrestador,
+            idServico,
             tamanho,
             medida,
             descricao,
-            incluiAula: props.querAula,
+            incluiAula: querAula,
             anexo: []
         })
-        .then((res) => {
-            setModalVisible4(true); setModalVisible3(false)
+        .then(() => {
+            setModalVisible3(false)
+            setModalVisible4(true)
         })
         .catch((err) => console.log(err))
     }
 
-    // // integracao geral -> tamanho e medida
-    // const avancar = () => {
-    //     const servico = servico_input?.current?.value
-    //     const tamanho = tamanho_input?.current?.value
-    //     const medida = medida_input?.current?.value
-    //     const descricao = descricao_input?.current?.value
-    //     const anexo = anexo?.current?.value
-        
-    //     // if (
-    //     //     validacaoNome !== 2 &&
-    //     //     validacaoEmail !== 2 &&
-    //     // ) {
-    //     //     setMoldaAviso(true)
-    //     //     setAvisoTitulo('Campos inválidos')
-    //     //     setAvisoDescricao('Preencha todos os campos')
-    //     //     return
-    //     // }
-
-    //     axios.post("/solicitacao", {
-    //         idPrestador: 1,
-    //         servico,
-    //         tamanho,
-    //         medida,
-    //         descricao,
-    //         anexo: []
-    //     })
-    //         // .then((res) => {
-    //         //     if (res.status === 201) {
-    //         //         localStorage.setItem("ID_CADASTRANTE", res.data)
-    //         //         props.passarStep()
-    //         //     } else {
-    //         //         setMoldaAviso(true)
-    //         //         setAvisoTitulo('Erro interno')
-    //         //         setAvisoDescricao('Por favor tente novamente mais tarde')
-    //         //     }
-    //         // })
-    //         // .catch((err) => {
-    //         //     console.log(err)
-    //         //     if (err.response.status === 400) {
-    //         //         for (let i = 0; i < err.response.data.errors.length; i++) {
-	// 		// 			const stringOriginal = err.response.data.errors[i].field
-	// 		// 			const stringMaiuscula = stringOriginal.toUpperCase();
-	// 		// 			setMoldaAviso(true)
-	// 		// 			setAvisoTitulo(`${stringMaiuscula} inválido`)
-	// 		// 			setAvisoDescricao(err.response.data.errors[i].defaultMessage)
-    //         //         }
-    //         //     } else if (err.response.status === 409) {
-    //         //         setMoldaAviso(true)
-    //         //         setAvisoTitulo('Email já cadastrado')
-    //         //         setAvisoDescricao('Tente acessar sua conta')
-    //         //     } else {
-    //         //         setMoldaAviso(true)
-    //         //         setAvisoTitulo('Erro interno')
-    //         //         setAvisoDescricao('Por favor tente novamente mais tarde')
-    //         //     }
-    //         // })
-    // }
-
-
-    return (
-        <>
-            <ModalCustom modalGettr={modalVisible1} canClose={true} w={'1000px'} h={'500px'}>
+    return <>
+            <ModalCustom modalGettr={modalVisible1} canClose={true} w={"1000px"} h={"500px"}>
                 <div className="relative w-full h-full flex flex-col justify-center items-center ">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
@@ -129,15 +70,15 @@ export default function ModaisSolicitacaoServico(props) {
                             <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center gap-2">
                                 {props?.servicos?.map((data, index) => (
                                     <div key={index} className="block min-h-6">
-                                        <label className='flex items-center'>
+                                        <label className="flex items-center">
                                             <input
                                                 ref={servico_input}
                                                 className="bg-verde-escuro-1 w-[60px]"
                                                 type="radio"
-                                                name="selecionadoooo"
+                                                name="idServico"
                                                 value={data.id}
-                                                checked={selecionadoooo == data.id}
-                                                onChange={(e) => { setSelecionadoooo(e.target.value) }}
+                                                checked={idServico == data.id}
+                                                onChange={(e) => { setIdServico(e.target.value) }}
                                             />
                                             <div className="cursor-pointer select-none text-slate-700 mx-2 text-xl">
                                                 {data.nome}
@@ -149,7 +90,7 @@ export default function ModaisSolicitacaoServico(props) {
                             <div id="botoes" className="flex flex-row mt-[15px] space-x-8" >
                                 <div className="flex justify-center items-center rounded-full border-2  border-verde-padrao w-[120px]">
                                     <ChevronLeftIcon className="text-verde-padrao w-[25px] h-[25px]" />
-                                    <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { props.modalSettr(false) }}>
+                                    <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { modalSettr(false) }}>
                                         Voltar
                                     </button>
                                 </div>
@@ -165,7 +106,7 @@ export default function ModaisSolicitacaoServico(props) {
                 </div>
 
             </ModalCustom>
-            <ModalCustom modalGettr={modalVisible2} modalSettr={setModalVisible2} canClose={false} w={'1000px'} h={'500px'}>
+            <ModalCustom modalGettr={modalVisible2} modalSettr={setModalVisible2} canClose={false} w={"1000px"} h={"500px"}>
                 <div className="relative w-full h-full flex flex-col justify-center items-center">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
@@ -207,7 +148,7 @@ export default function ModaisSolicitacaoServico(props) {
                 </div>
 
             </ModalCustom>
-            <ModalCustom modalGettr={modalVisible3} modalSettr={setModalVisible3} canClose={false} w={'1000px'} h={'500px'}>
+            <ModalCustom modalGettr={modalVisible3} modalSettr={setModalVisible3} canClose={false} w={"1000px"} h={"500px"}>
                 <div className="relative w-full h-full flex flex-col justify-center items-center">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
@@ -244,16 +185,15 @@ export default function ModaisSolicitacaoServico(props) {
                         </div>
                     </div>
                 </div>
-
             </ModalCustom>
-            <ModalCustom modalGettr={modalVisible4} modalSettr={setModalVisible4} canClose={true} w={'1000px'} h={'500px'}>
+            <ModalCustom modalGettr={modalVisible4} modalSettr={setModalVisible4} canClose={true} w={"1000px"} h={"500px"}>
                 <div className="relative w-full h-full flex flex-col justify-center items-center">
                     <img src={CantoEsquerdo} alt="" className="absolute top-0 left-0 w-[170px]" />
                     <img src={CantoDireito} alt="" className="absolute bottom-0 right-0 w-[150px]" />
                     <div className="bg-white flex flex-col justify-center items-center rounded-lg bg-cover bg-center" >
                         <div className="flex flex-col justify-center items-center border-[30px] rounded-lg w-[900px] h-[450px]">
-                            <div onClick={() => { props.modalSettr(false) }} className="absolute top-0 right-0 mr-[15px] mt-[10px]">
-                                <XCircleIcon className="w-[35px] h-[35px] mr-[75px] mt-[60px] text-verde-escuro-1 " ></XCircleIcon>
+                            <div onClick={() => { modalSettr(false) }} className="absolute top-0 right-0 mr-[15px] mt-[10px]">
+                                <XCircleIcon className="w-[35px] h-[35px] mr-[75px] mt-[60px] text-verde-escuro-1" />
                             </div>
                             <div className="w-full mt-[40px] flex justify-center items-center text-verde-escuro-1 text-2xl font-extrabold">
                                 SUA SOLICITAÇÃO FOI REALIZADA COM SUCESSO!
@@ -265,10 +205,6 @@ export default function ModaisSolicitacaoServico(props) {
                         </div>
                     </div>
                 </div>
-
             </ModalCustom>
-
         </>
-
-    )
 }

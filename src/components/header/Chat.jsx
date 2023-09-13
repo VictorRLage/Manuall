@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Oval } from "react-loader-spinner";
-import LinedArrow from "@/assets/svg/arrow-icon.svg";
-import Arrow from "@/assets/svg/lineless_arrow.svg";
-import Manuel from "@/assets/img/manuel_pfp.png";
+import Arrow from "@/assets/icons/arrow.svg";
+import ArrowHead from "@/assets/icons/arrowhead.svg";
+import Manuel from "@/assets/manuall/manuel_pfp.png";
 import ChatManuel from "@/components/header/ChatManuel";
-import BotCertification from "@/assets/svg/bot_certification.svg";
+import BotCertification from "@/assets/icons/checkmark_bot.svg";
 import axios from "@/api/axios";
 
 export default function Chat() {
@@ -149,14 +149,14 @@ export default function Chat() {
                             onClick={() => { setChatAtual(undefined); getDadosCrm() }}
                             className="w-8 h-8 p-1 flex justify-center items-center rotate-180 hover:bg-verde-escuro-1 transition-all rounded-full"
                         >
-                            <img ref={imgBtnFecharConversa} className="transition-all" src={LinedArrow} alt="" />
+                            <img ref={imgBtnFecharConversa} className="transition-all" src={Arrow} alt="" />
                         </button>}
                     <span className="text-white font-bold text-xl" style={{ paddingLeft: chatAtual ? "4px" : "0" }}>
                         {(chatAtual && chatAtual.name) || "Conversas"}
                     </span>
                 </div>
                 <div className="w-8 h-8 p-1 flex justify-center items-center">
-                    <img className="transition-all" style={{ rotate: isOpen ? "180deg" : "360deg" }} src={Arrow} alt="" />
+                    <img className="transition-all" style={{ rotate: isOpen ? "180deg" : "360deg" }} src={ArrowHead} alt="" />
                 </div>
             </div>
             {chatAtual
@@ -174,7 +174,7 @@ export default function Chat() {
                                         <div className={`max-w-[80%] p-2 rounded-lg ${msg.selfsender ? "bg-[#5faf88] rounded-tr-none" : "bg-[#c0e8c0] rounded-tl-none"}`}>
                                             {msg.texto}
                                         </div>
-                                        {msg.selfsender && <div className="w-2 h-3 bg-[#5faf88]" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}></div>}
+                                        {msg.selfsender && <div className="w-2 h-3 bg-[#5faf88]" style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }} />}
                                     </div>
                                 ))}
                             </>}

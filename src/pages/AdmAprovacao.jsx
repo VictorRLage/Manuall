@@ -2,7 +2,7 @@ import Sidebar from "@/components/adm/Sidebar";
 import { Oval } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
-import done from "@/assets/svg/Done-rafiki.svg";
+import done from "@/assets/storyset/Done-rafiki.svg";
 
 export default function AdmAprovacao() {
 
@@ -70,9 +70,15 @@ export default function AdmAprovacao() {
                                             <div className="w-full break-words"><b>Complemento:</b> {prestador.dados.complemento}</div>
                                         </div>
                                         <div className="h-full w-[50%] p-1">
-                                            <div className="w-full break-words font-bold">Serviço</div>
-                                            <div className="w-full break-words"><b>Área:</b> {prestador.dados.area}</div>
-                                            <div className="w-full break-words"><b>Serviços:</b></div>
+                                            <div className="w-full break-words font-bold">
+                                                Serviço
+                                            </div>
+                                            <div className="w-full break-words">
+                                                <b>Área:</b> {prestador.dados.area}
+                                            </div>
+                                            <div className="w-full break-words">
+                                                <b>Serviços:</b>
+                                            </div>
                                             {prestador.servicos.map((servico, index2) => (
                                                 <div className="w-full break-words" key={index2}>● {servico};</div>
                                             ))}

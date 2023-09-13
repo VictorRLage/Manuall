@@ -65,7 +65,7 @@ export default function AdmApiStatus() {
                                     wrapperStyle={{}}
                                     wrapperClass=""
                                     visible={true}
-                                    ariaLabel='oval-loading'
+                                    ariaLabel="oval-loading"
                                     secondaryColor="#00cc69"
                                     strokeWidth={3}
                                     strokeWidthSecondary={4}
@@ -110,7 +110,7 @@ export default function AdmApiStatus() {
                                     wrapperStyle={{}}
                                     wrapperClass=""
                                     visible={true}
-                                    ariaLabel='oval-loading'
+                                    ariaLabel="oval-loading"
                                     secondaryColor="#00cc69"
                                     strokeWidth={3}
                                     strokeWidthSecondary={4}

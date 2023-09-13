@@ -5,15 +5,22 @@ import axios from "@/api/axios";
 import Card from "@/components/main/Card";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import FooterWave from "@/assets/svg/FooterWave"
+import FooterWave from "@/assets/shapes/FooterWave";
+import homeBg from "@/assets/demo/home_bg.jpeg";
+import comoContratar1 from "@/assets/storyset/como_contratar_1.png";
+import comoContratar2 from "@/assets/storyset/como_contratar_2.png";
+import comoContratar3 from "@/assets/storyset/como_contratar_3.png";
+import comoEnsinar1 from "@/assets/storyset/como_ensinar_1.png";
+import comoEnsinar2 from "@/assets/storyset/como_ensinar_2.png";
+import comoEnsinar3 from "@/assets/storyset/como_ensinar_3.png";
 
 import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
 
 export default function Home() {
     const slides = [
-        { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
-        { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
-        { url: 'https://i.imgur.com/BQlaUcO.jpeg' },
+        { url: homeBg },
+        { url: homeBg },
+        { url: homeBg },
     ];
 
     const navigate = useNavigate();
@@ -70,9 +77,9 @@ export default function Home() {
     return (
         <>
             <Header />
-            <div className='w-full h-full'>
-                <div id='container_carousel' className="group">
-                    <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className='w-full h-120 bg-center bg-cover duration-500'>
+            <div className="w-full h-full">
+                <div id="container_carousel" className="group">
+                    <div style={{ backgroundImage: `url(${slides[currentIndex].url})` }} className="w-full h-120 bg-center bg-cover duration-500">
                         {currentIndex === 0 ?
                             <div className="absolute">
                                 <div className="absolute ml-20 mt-20 text-white text-6xl">
@@ -107,15 +114,15 @@ export default function Home() {
                                     </div>
                         }
                         <div className="flex flex-row justify-between">
-                            <div onClick={prevSlide} id='seta_direita' className="z-30 mt-48 cursor-pointer hidden group-hover:block ">
+                            <div onClick={prevSlide} id="seta_direita" className="z-30 mt-48 cursor-pointer hidden group-hover:block ">
                                 <ChevronLeftIcon className="text-white w-16 h-16" />
                             </div>
-                            <div onClick={nextSlide} id='seta_esquerda' className="z-30 mt-48 right-0 cursor-pointer hidden group-hover:block ">
+                            <div onClick={nextSlide} id="seta_esquerda" className="z-30 mt-48 right-0 cursor-pointer hidden group-hover:block ">
                                 <ChevronRightIcon className="text-white w-16 h-16" />
                             </div>
                         </div>
-                        <div className='flex justify-center'>
-                            <div className='z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between '>
+                        <div className="flex justify-center">
+                            <div className="z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between ">
                                 {Array(3).fill().map((_, i) => (
                                     <div key={i} onClick={() => setCurrentIndex(i)} style={{ backgroundColor: currentIndex === i ? "#268054" : "white" }} className="w-6 h-6 bg-white border-2 border-verde-escuro-2 rounded-full" />
                                 ))}
@@ -124,7 +131,9 @@ export default function Home() {
                     </div>
                 </div>
                 <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
-                    <div id="titulo" className="p-12 text-5xl font-semibold text-center">O que você <span className="text-verde-padrao">precisa?</span></div>
+                    <div id="titulo" className="p-12 text-5xl font-semibold text-center">
+                        O que você <span className="text-verde-padrao">precisa?</span>
+                    </div>
                     <div className="w-full px-16 flex justify-center flex-wrap">
                         {areas
                             ? areas.slice(0).map((data, i) => (
@@ -132,7 +141,7 @@ export default function Home() {
                                     onClick={() => { changeAreaAtiva(data.id) }}
                                     key={i}
                                     className={
-                                        `${areaAtiva === data.id ? 'bg-verde-padrao text-white' : 'bg-white hover:bg-[#eefff3] text-verde-padrao'}
+                                        `${areaAtiva === data.id ? "bg-verde-padrao text-white" : "bg-white hover:bg-[#eefff3] text-verde-padrao"}
                                     transition-all w-32 h-10 rounded-full text-xl font-semibold border-verde-padrao border-2 p-6 flex justify-center items-center m-3`}
                                 >
                                     {data.nome}
@@ -173,30 +182,34 @@ export default function Home() {
                     </div>
                 </div>
                 <div id="container_contratar" className="w-full flex p-32  flex-col">
-                    <div className="w-full text-6xl font-semibold text-center">Como <span className="text-verde-padrao">contratar?</span></div>
+                    <div className="w-full text-6xl font-semibold text-center">
+                        Como <span className="text-verde-padrao">contratar?</span>
+                    </div>
                     <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/tLVE79n.png' alt="" />
+                        <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+                            <div className="h-[60%] w-full rounded-t-3xl bg-white py-12">
+                                <img src={comoContratar1} alt="" />
                             </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Cadastre-se e <span className="text-verde-padrao font-semibold">pesquise</span> pelo prestador que <span className="text-verde-padrao font-semibold">você precisa!</span></span>
-                            </div>
-                        </div>
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/cOE0Z8a.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Faça <span className="text-verde-padrao font-semibold">a sua escolha</span> e solicite o serviço (+ aula, se você quiser) em apenas 3 etapas!</span>
+                            <div className="h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center">
+                                <span className="text-2xl font-medium">
+                                    Cadastre-se e <span className="text-verde-padrao font-semibold">pesquise</span> pelo prestador que <span className="text-verde-padrao font-semibold">você precisa!</span>
+                                </span>
                             </div>
                         </div>
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/vAR85g2.png' alt="" />
+                        <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+                            <div className="h-[60%] w-full rounded-t-3xl bg-white py-12">
+                                <img src={comoContratar2} alt="" />
                             </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Termine de negociar pelo chat e pronto! Seu <span className="text-verde-padrao font-semibold">prestador (e professor)</span> irá até você!</span>
+                            <div className="h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center">
+                                <span className="text-2xl font-medium">Faça <span className="text-verde-padrao font-semibold">a sua escolha</span> e solicite o serviço (+ aula, se você quiser) em apenas 3 etapas!</span>
+                            </div>
+                        </div>
+                        <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+                            <div className="h-[60%] w-full rounded-t-3xl bg-white py-12">
+                                <img src={comoContratar3} alt="" />
+                            </div>
+                            <div className="h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center">
+                                <span className="text-2xl font-medium">Termine de negociar pelo chat e pronto! Seu <span className="text-verde-padrao font-semibold">prestador (e professor)</span> irá até você!</span>
                             </div>
                         </div>
                     </div>
@@ -206,28 +219,30 @@ export default function Home() {
                         Como <span className="text-verde-padrao">ensinar?</span>
                     </div>
                     <div id="conteiner_contratar" className=" mt-12 grid grid-cols-3 grid-rows-1 gap-20 self-center">
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/23p0hm6.png' alt="" />
+                        <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+                            <div className="h-[60%] w-full rounded-t-3xl bg-white py-12">
+                                <img src={comoEnsinar1} alt="" />
                             </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Cadastre-se e converse conosco para sua <span className="text-verde-padrao font-semibold">aprovação!</span></span>
-                            </div>
-                        </div>
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/bHeWCih.png' alt="" />
-                            </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Compre seu <span className="text-verde-padrao font-semibold">plano </span> e monte seu perfil!</span>
+                            <div className="h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center">
+                                <span className="text-2xl font-medium">
+                                    Cadastre-se e converse conosco para sua <span className="text-verde-padrao font-semibold">aprovação!</span>
+                                </span>
                             </div>
                         </div>
-                        <div className='w-80 h-120 rounded-3xl drop-shadow-all'>
-                            <div className='h-[60%] w-full rounded-t-3xl bg-white py-12'>
-                                <img src='https://i.imgur.com/up9fCD3.png' alt="" />
+                        <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+                            <div className="h-[60%] w-full rounded-t-3xl bg-white py-12">
+                                <img src={comoEnsinar2} alt="" />
                             </div>
-                            <div className='h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center'>
-                                <span className='text-2xl font-medium'>Receba solicitações de <span className="text-verde-padrao font-semibold">serviço (e ensino)</span>  e negocie pelo chat!</span>
+                            <div className="h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center">
+                                <span className="text-2xl font-medium">Compre seu <span className="text-verde-padrao font-semibold">plano </span> e monte seu perfil!</span>
+                            </div>
+                        </div>
+                        <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+                            <div className="h-[60%] w-full rounded-t-3xl bg-white py-12">
+                                <img src={comoEnsinar3} alt="" />
+                            </div>
+                            <div className="h-[40%] w-full rounded-b-3xl bg-white py-14 px-6 text-center">
+                                <span className="text-2xl font-medium">Receba solicitações de <span className="text-verde-padrao font-semibold">serviço (e ensino)</span>  e negocie pelo chat!</span>
                             </div>
                         </div>
                     </div>

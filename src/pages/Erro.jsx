@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ErrorIcon from "@/assets/svg/404.svg"
+import ErrorIcon from "@/assets/storyset/404.svg"
 
 export default function Erro() {
 

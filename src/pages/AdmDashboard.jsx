@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Sidebar from "@/components/adm/Sidebar";
 import axios from "@/api/axios";
 
-export default function AdmDashboard(props) {
+export default function AdmDashboard() {
 
     useEffect(() => {
         axios.get("/usuario/login/checar/validade")

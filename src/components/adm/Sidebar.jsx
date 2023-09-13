@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import logo from "@/assets/img/logo_manuall_extensa_verde_branca.png";
-import image from "@/assets/img/image_1.png";
-import image2 from "@/assets/img/image_2.png";
-import image3 from "@/assets/img/image_3.png";
+import logo from "@/assets/manuall/logo_green_white.png";
+import image from "@/assets/icons/checkmark.png";
+import image2 from "@/assets/icons/graphbars.png";
+import image3 from "@/assets/icons/gear.png";
 
 export default function Sidebar() {
 

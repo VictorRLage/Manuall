@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo_extensa from "@/assets/img/logo_manuall_extensa_verde.png";
+import logo_extensa from "@/assets/manuall/logo_green_black.png";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Notificacao from "@/components/header/Notificacao";
 import Chat from "@/components/header/Chat";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 import { logoff } from "@/utils/functions";
 
-export default function Header(props) {
+export default function Header() {
     /*  validações :
         1 - em qual pagina você esta?
         2 - logado?
@@ -28,7 +28,7 @@ export default function Header(props) {
                     onClick={() => { navigate("/") }}
                     src={logo_extensa}
                     alt="Logo da Manuall por extensa"
-                    className='w-[200px] cursor-pointer'
+                    className="w-[200px] cursor-pointer"
                 />
                 <nav className="flex items-center gap-4">
                     <button
@@ -98,7 +98,7 @@ export default function Header(props) {
                                 onClick={logoff}
                                 className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"
                             >
-                                <UserIcon className='w-7 text-verde-padrao' />
+                                <UserIcon className="w-7 text-verde-padrao" />
                             </button>
                         </>}
                 </nav>

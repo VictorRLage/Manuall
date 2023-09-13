@@ -3,12 +3,12 @@ import CadastroPrestadorStep1 from "@/components/cadastroPrestador/CadastroPrest
 import CadastroPrestadorStep2 from "@/components/cadastroPrestador/CadastroPrestadorStep2";
 import CadastroPrestadorStep3 from "@/components/cadastroPrestador/CadastroPrestadorStep3";
 
-export default function CadastroPrestador(props) {
+export default function CadastroPrestador() {
 
     // Botão para mudar de step
     const [step, setStep] = useState(1);
     function passarStep() {
-        console.log('passou')
+        console.log("passou")
         setStep(step + 1)
     }
 

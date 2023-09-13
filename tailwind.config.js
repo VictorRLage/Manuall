@@ -9,7 +9,7 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        'bg-fundoContato': "url('/src/assets/svg/Rectangle269.svg')",
+        'bg-fundoContato': "url('/src/assets/shapes/MainBg')",
       },
       colors: {
         'cinza': '#D9D9D9',
