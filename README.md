@@ -1,2 +1,2 @@
-# Manuall-Platforma-FronteEnd
-Projeto de PI 2023 - Manuall - Plataforma - FrontEnd - SPTECH
+# manuall-client
+Projeto de PI SPTECH 2023 - Manuall Plataforma FrontEnd
