@@ -54,7 +54,7 @@ export default function Contato() {
 							<ul className="bg-verde-escuro-1 h-[100%] rounded-b-md flex flex-col px-4">
 								<li className="flex items-center py-4 gap-2">
 									<img className="h-[20px]" src={iconeTelefone} />
-									<span className="text-white">11 92345-6978</span>
+									<span className="text-white">0800 773 3838</span>
 								</li>
 								<li className="flex items-center py-4 gap-2">
 									<img className="h-[20px]" src={iconeMapa} />
