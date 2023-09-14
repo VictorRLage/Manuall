@@ -110,7 +110,7 @@ export default function PerfilVisaoPrestador() {
                     <path d="M423.719 502.664C423.719 35.6634 -220.544 194.088 88.5878 -79.1472C397.72 -352.383 705.725 -75.4086 725.945 58.8419C746.165 193.092 1042.95 24.2691 916.719 460.664C790.491 897.059 423.719 969.664 423.719 502.664Z" fill="#008042" />
                 </g>
                 <defs>
-                    <filter id="filter0_d_8_430" x="0.65332" y="-195.278" width="951.221" height="1025.07" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                    <filter x="0.65332" y="-195.278" width="951.221" height="1025.07" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                         <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <feOffset dy="4" />
@@ -128,8 +128,8 @@ export default function PerfilVisaoPrestador() {
             <div className="w-full h-full z-10 " >
 
 
-                <div id="section1" className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
-                    <div id="crumbs" className="z-10">
+                <div className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
+                    <div className="z-10">
                         <span className="text-2xl">
                             <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">
                                 Página Inicial{" "}
@@ -143,25 +143,25 @@ export default function PerfilVisaoPrestador() {
                             </span>
                         </span>
                     </div>
-                    <div id="tags" className="ml-36 mr-36 mt-10 space-x-4 ">
+                    <div className="ml-36 mr-36 mt-10 space-x-4 ">
                         <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.area}</button>
                         <button onClick={() => console.log(prestador)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.prestaAula ? "Serviço + Aula" : "Serviço"}</button>
                     </div>
-                    <div id="content" className="flex justify-between pt-5 pl-36 pr-36 z-10">
-                        <div id="texto" className="min-w-[50%] text-xl z-10">
+                    <div className="flex justify-between pt-5 pl-36 pr-36 z-10">
+                        <div className="min-w-[50%] text-xl z-10">
 
                             <label htmlFor="message" className="block mb-2 text-xl font-medium text-black">Escreva sua descrição!</label>
-                            <textarea onChange={(e) => setDescricao(e.target.value)} id="message" rows="4" className="block p-2.5 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 h-64" placeholder="Escreva seua descrição aqui..." />
+                            <textarea onChange={(e) => setDescricao(e.target.value)} rows="4" className="block p-2.5 w-full text-base text-gray-900 bg-white rounded-lg border border-gray-300 h-64" placeholder="Escreva seua descrição aqui..." />
                         </div>
 
-                        <div id="conteinerCard">
-                            <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500 z-40 flex flex-col p-5 bg-white w-84 h-120  rounded-3xl drop-shadow-all`}>
+                        <div>
+                            <div style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500 z-40 flex flex-col p-5 bg-white w-84 h-120  rounded-3xl drop-shadow-all`}>
                                 {prestador.pfp === ""
-                                    ? <div onClick={() => setModalLinkPFP(true)} id="foto" className="cursor-pointer bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto p-8 border-verde-padrao border-4">
+                                    ? <div onClick={() => setModalLinkPFP(true)} className="cursor-pointer bg-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto p-8 border-verde-padrao border-4">
                                         <PlusIcon className="text-verde-padrao" />
                                     </div>
                                     : <div className="flex">
-                                        <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto" />
+                                        <img src={prestador.pfp} className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto" />
                                         <div>
                                             <button onClick={() => setModalLinkPFP(true)} className="text-verde-padrao bg-verde-padrao text-center w-8 absolute h-8 rounded-full right-[5.5rem] top-[1.5rem]">
                                                 <PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto" />
@@ -194,7 +194,7 @@ export default function PerfilVisaoPrestador() {
                         <path d="M-136.729 328.407C-197.545 664.774 110.518 788.917 322 814.5C445.999 829.5 200.301 892.156 59.4595 947C-466.541 1151.83 -510.128 875.754 -505.653 742.173C-501.179 608.591 -815.971 752.265 -617.241 332.526C-418.511 -87.2117 -53.674 -130.96 -136.729 328.407Z" fill="#008042" />
                     </g>
                     <defs>
-                        <filter id="filter0_d_8_431" x="-687.103" y="0.55835" width="1047" height="1027.66" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                        <filter x="-687.103" y="0.55835" width="1047" height="1027.66" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
                             <feFlood floodOpacity="0" result="BackgroundImageFix" />
                             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                             <feOffset dy="4" />
@@ -207,9 +207,9 @@ export default function PerfilVisaoPrestador() {
                     </defs>
                 </svg>
 
-                <div id="section2" className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
+                <div className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="mt-14 ml-36 mr-36 text-3xl font-bold">Galeria de imagens</span>
-                    <div id="containerImgs" className="mt-10 grid grid-cols-2 h-120 w-[38%] ml-36 mr-36 gap-x-2 gap-y-2">
+                    <div className="mt-10 grid grid-cols-2 h-120 w-[38%] ml-36 mr-36 gap-x-2 gap-y-2">
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm rounded-tl-3xl" />
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm rounded-tr-3xl" />
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm" />
@@ -218,7 +218,7 @@ export default function PerfilVisaoPrestador() {
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm rounded-br-3xl" />
                     </div>
                 </div>
-                <div id="section3" className="z-10 min-h-[18rem] bg-verde-escuro-2 pt-10 pl-36 pr-32 flex flex-col">
+                <div className="z-10 min-h-[18rem] bg-verde-escuro-2 pt-10 pl-36 pr-32 flex flex-col">
 
                     <div className="bg-white rounded-3xl min-h-48 w-[40%] ml-32 mr-32 p-10 drop-shadow-all">
                         <span className=" text-3xl font-bold z-10 ">Serviços oferecidos</span>

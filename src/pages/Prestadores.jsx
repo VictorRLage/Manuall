@@ -9,142 +9,77 @@ import Skeleton from "react-loading-skeleton";
 import FooterWave from "@/assets/shapes/FooterWave"
 
 export default function Prestadores() {
+
     const navigate = useNavigate();
+
+    const [areas, setAreas] = useState();
+    const [prestadores, setPrestadores] = useState();
     const [areaAtiva, setAreaAtiva] = useState(0);
-    const [areas, setAreas] = useState([]);
-    const [prestadores, setPrestadores] = useState([]);
-    const [showNoPrestadorMessage, setShowNoPrestadorMessage] = useState(false);
     const [filtroSelecionado, setFiltroSelecionado] = useState("Alfabetica");
     const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
-    const changeAreaAtiva = (e) => {
-        const idArea = e.target.value;
-        if (areaAtiva === idArea || idArea === "todas") {
-            getPrestadores();
-            setAreaAtiva("todas");
-        } else {
-            axios.get(`/usuario/prestadores/${idArea}`)
-                .then((res) => {
-                    const data = res.data;
-                    if (data.length === 0) {
-                        setShowNoPrestadorMessage(true);
-                    } else {
-                        setShowNoPrestadorMessage(false);
-                    }
-                    setPrestadores(data);
-                    setAreaAtiva(idArea);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    }
-
-    const getAreas = () => {
-        axios.get("/usuario/areas")
-            .then((res) => {
-                setAreas(res.data)
-            });
-    }
-
-    const getPrestadores = () => {
-        axios.get("/usuario/prestadores")
-            .then((res) => {
-                setPrestadores(res.data)
-                console.log(res.data);
-                setShowNoPrestadorMessage(false);
-            });
+    const handleKeyPress = (event) => {
+        if (event.key === "Enter") {}
     }
 
     const getPrestadoresFiltrados = () => {
-
-        let areaId = areaAtiva;
-        if (areaAtiva === "todas") {
-            areaId = 0;
-        }
-
-        axios.get(`/usuario/prestadores/${areaId}/${filtroSelecionado}/${ordemSelecionada}`)
-            .then((res) => {
-                setPrestadores(res.data);
-                console.log(areaId);
-                console.log(filtroSelecionado);
-                console.log(ordemSelecionada);
+        setPrestadores()
+        axios.get(`/usuario/prestadores/${areaAtiva}/${filtroSelecionado}/${ordemSelecionada}`)
+            .then(({ data }) => {
+                setPrestadores(data)
             })
-            .catch((error) => {
-                console.error(error);
-                console.log(areaId);
-                console.log(filtroSelecionado);
-                console.log(ordemSelecionada);
-            });
-    }
-
-    const handleFiltroChange = (e) => {
-        const novoFiltro = e.target.value;
-        setFiltroSelecionado(novoFiltro);
-    }
-
-    const handleOrdemChange = (e) => {
-        const novaOrdem = e.target.value === "asc";
-        setOrdemSelecionada(novaOrdem);
+            .catch((err) => console.log(err))
     }
 
     useEffect(() => {
-        getAreas()
-        getPrestadores()
+        axios.get("/usuario/areas")
+            .then(({ data }) => setAreas(data))
+            .catch((err) => console.log(err))
+        axios.get("/usuario/prestadores")
+            .then(({ data }) => setPrestadores(data))
+            .catch((err) => console.log(err))
     }, [])
 
-    useEffect(() => {
-        getPrestadoresFiltrados();
-    }, [areaAtiva, filtroSelecionado, ordemSelecionada]);
-
-    useEffect(() => {
-        const inputElement = document.getElementById("i_pesquisa");
-        if (inputElement) {
-            inputElement.addEventListener("keypress", handleKeyPress);
-        }
-
-        return () => {
-            if (inputElement) {
-                inputElement.removeEventListener("keypress", handleKeyPress);
-            }
-        };
-    }, []);
-
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") { }
-    };
+    useEffect(getPrestadoresFiltrados, [areaAtiva, filtroSelecionado, ordemSelecionada])
 
     return (
         <div>
             <Header />
             <div className="w-full h-full">
                 <div className="menuSuperior">
-                    <input id="i_pesquisa" type="text" placeholder="Buscar" />
+                    <input onKeyDown={handleKeyPress} type="text" placeholder="Buscar" />
                     <img className="imgLupa" alt="" src={lupaIcon} />
-
-                    <select className="dropdownCategoria" name="dropdownCategoria" id="dropdownCategoria" value={areaAtiva} onChange={changeAreaAtiva}>
-                        <option value="todas">Todas as categorias</option>
-                        {areas &&
-                            areas.map(area => (
-                                <option key={area.id} value={area.id}>
-                                    {area.nome}
-                                </option>
-                            ))
-                        }
+                    <select
+                        className="dropdownCategoria"
+                        name="dropdownCategoria"
+                        value={areaAtiva}
+                        onChange={({ target }) => { setAreaAtiva(target.value) }}>
+                        <option value={0}>Todas as categorias</option>
+                        {areas?.map(({ id, nome }) =>
+                            <option key={id} value={id}>
+                                {nome}
+                            </option>
+                        )}
                     </select>
-
-
-                    <select className="dropdownFiltro" name="dropdownFiltro" id="dropdownFiltro" value={filtroSelecionado} onChange={handleFiltroChange}>
+                    <select
+                        className="dropdownFiltro"
+                        name="dropdownFiltro"
+                        value={filtroSelecionado}
+                        onChange={({ target }) => { setFiltroSelecionado(target.value) }}
+                    >
                         <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
                         <option value="Nota">Filtrar por Nota</option>
                         <option value="PrecoMax">Filtrar por Maior Preço</option>
                         <option value="PrecoMin">Filtrar por Menor Preço</option>
                         <option value="Servico">Filtrar por Serviços</option>
                         <option value="ServicoAula">Filtrar por Serviços e Aulas</option>
-                        { }
                     </select>
-
-                    <select className="dropdownOrdem" name="dropdownOrdem" id="dropdownOrdem" value={ordemSelecionada ? "asc" : "desc"} onChange={handleOrdemChange}>
+                    <select
+                        className="dropdownOrdem"
+                        name="dropdownOrdem"
+                        value={ordemSelecionada ? "asc" : "desc"}
+                        onChange={({ target }) => { setOrdemSelecionada(target.value === "asc") }}
+                    >
                         <option value="asc">Crescente</option>
                         <option value="desc">Decrescente</option>
                     </select>
@@ -158,14 +93,14 @@ export default function Prestadores() {
                         Prestadores
                     </span>
                 </span>
-                <div id="container_filtro_cards" className="flex justify-center flex-col w-full">
-                    <div id="cards" className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
-                        {showNoPrestadorMessage
-                            ? <NenhumPrestadorEncontrado />
-                            : (
-                                prestadores.slice(0, 9).map((data) => (
+                <div className="flex justify-center flex-col w-full">
+                    <div className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
+                        {prestadores
+                            ? prestadores.length === 0
+                                ? <NenhumPrestadorEncontrado />
+                                : prestadores.slice(0, 6).map((data, i) => (
                                     <Card
-                                        key={data.id}
+                                        key={i}
                                         id={data.id}
                                         nome={data.nome}
                                         cidade={data.cidade}
@@ -176,8 +111,12 @@ export default function Prestadores() {
                                         aula={data.prestaAula}
                                         mediaNota={data.mediaAvaliacoes}
                                     />
+                                )) : Array(6).fill().map((_, i) => (
+                                    <div key={i}>
+                                        <Skeleton width={"320px"} height={"480px"} borderRadius={"1.5rem"} />
+                                    </div>
                                 ))
-                            )}
+                        }
                     </div>
                 </div>
             </div>

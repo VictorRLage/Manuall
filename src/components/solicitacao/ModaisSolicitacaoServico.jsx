@@ -7,7 +7,7 @@ import CantoEsquerdo from "@/assets/shapes/ModalBottomRightWave.svg"
 import CantoDireito from "@/assets/shapes/ModalTopLeftWave.svg"
 import axios from "@/api/axios";
 
-export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr, idPrestador, querAula }) {
+export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr, idPrestador, querAula, servicos }) {
 
     // solicitacao
     const modalVisible1 = modalSolicitacao
@@ -68,7 +68,7 @@ export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr,
                                 Qual serviço você necessita?
                             </div>
                             <div className="flex flex-col m-5 justify-center items-center text-black text-2xl font-base text-center gap-2">
-                                {props?.servicos?.map((data, index) => (
+                                {servicos?.map((data, index) => (
                                     <div key={index} className="block min-h-6">
                                         <label className="flex items-center">
                                             <input
@@ -87,7 +87,7 @@ export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr,
                                     </div>
                                 ))}
                             </div>
-                            <div id="botoes" className="flex flex-row mt-[15px] space-x-8" >
+                            <div className="flex flex-row mt-[15px] space-x-8" >
                                 <div className="flex justify-center items-center rounded-full border-2  border-verde-padrao w-[120px]">
                                     <ChevronLeftIcon className="text-verde-padrao w-[25px] h-[25px]" />
                                     <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { modalSettr(false) }}>
@@ -129,7 +129,7 @@ export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr,
                                 </select>
                             </div>
                             <img src={SentMessage} alt="Ícone de rapaz enviando arquivo" className="w-[200px] absolute bottom-0 left-0 ml-[75px] mb-[55px]" />
-                            <div id="botoes" className="flex flex-row mt-[30px] space-x-8" >
+                            <div className="flex flex-row mt-[30px] space-x-8" >
                                 <div className="flex justify-center items-center rounded-full border-2  border-verde-padrao w-[120px]">
                                     <ChevronLeftIcon className="text-verde-padrao w-[25px] h-[25px]" />
                                     <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { setModalVisible2(false) }}>
@@ -168,7 +168,7 @@ export default function ModaisSolicitacaoServico({ modalSolicitacao, modalSettr,
                                 <PhotoIcon className="w-[50px] h-[50px] text-verde-escuro-1" />
                                 Insira aqui sua mídia
                             </div> */}
-                            <div id="botoes" className="flex flex-row mt-[30px] space-x-8" >
+                            <div className="flex flex-row mt-[30px] space-x-8" >
                                 <div className="flex justify-center items-center rounded-full border-2  border-verde-padrao w-[120px]">
                                     <ChevronLeftIcon className="text-verde-padrao w-[25px] h-[25px]" />
                                     <button className="white text-verde-padrao text-lg mr-[5px] " onClick={() => { setModalVisible2(true); setModalVisible3(false) }}>

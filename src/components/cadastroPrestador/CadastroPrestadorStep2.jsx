@@ -306,61 +306,61 @@ export default function CadastroPrestadorStep2({ passarStep }) {
     return (
         <div className="flex justify-center h-screen">
             {modalAviso ? <ModalAviso titulo={avisoTitulo} descricao={avisoDescricao} tempo={10000} modal={setMoldaAviso} /> : null}
-            <div id="container" className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
-                <div id="container_esquerda" className="bg-verde-padrao h-full w-30per rounded-l-lg flex flex-col ">
+            <div className="bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
+                <div className="bg-verde-padrao h-full w-30per rounded-l-lg flex flex-col ">
                     <img src={logo_extensa} alt="Logo da Manuall por extensa" className="2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center" />
                     <p className="2xl:text-4xl xl:text-2xl  font-bold text-white w-full self-center 2xl:leading-relaxed text-center 2xl:mt-10 xl:mt-8">Cadastro de <br /> Prestador</p>
                     <p className="2xl:text-2xl xl:text-xl  font-semibold text-white w-full self-center 2xl:leading-relaxed text-center mt-32">Já possui uma conta?</p>
                     <button className="2xl:text-2xl xl:text-xl font-bold text-white w-full text-center underline" onClick={() => { navigate("/login") }}>Entre aqui</button>
                     <button onClick={() => { navigate("/") }} className="2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-13 xl:mt-12.5 flex items-center"> <ChevronDoubleLeftIcon className="2xl:h-10 2xl:w-10 xl:h-8 xl:w-8" /> Voltar à Tela inicial</button>
                 </div>
-                <div id="container_direita" className="bg-white h-full w-70per rounded-r-lg flex flex-col">
-                    <div id="container_steps" className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
-                        <div id="step_1" className="bg-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
-                        <div id="linha" className="bg-verde-padrao h-1 2xl:w-14 xl:w-10" />
-                        <div id="step_2" className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10 " />
-                        <div id="linha" className="bg-black h-1 2xl:w-14 xl:w-10" />
-                        <div id="step_3" onClick={passarStep} className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
+                <div className="bg-white h-full w-70per rounded-r-lg flex flex-col">
+                    <div className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
+                        <div className="bg-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
+                        <div className="bg-verde-padrao h-1 2xl:w-14 xl:w-10" />
+                        <div className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10 " />
+                        <div className="bg-black h-1 2xl:w-14 xl:w-10" />
+                        <div onClick={passarStep} className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
                     </div>
-                    <div id="container-inputs" className="rounded-lg  self-center grid 2xl:grid-cols-16x16 xl:grid-cols-16x16  items-center 2xl:gap-10 xl:gap-8 2xl:mt-8 xl:mt-6">
+                    <div className="rounded-lg  self-center grid 2xl:grid-cols-16x16 xl:grid-cols-16x16  items-center 2xl:gap-10 xl:gap-8 2xl:mt-8 xl:mt-6">
                         <div className="relative">
-                            <input onBlur={() => { buscarPorCep(); validarCep() }} ref={cep_input} type="text" id="cep_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCep === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input onBlur={() => { buscarPorCep(); validarCep() }} ref={cep_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCep === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="cep_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><MapPinIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />CEP</label>
                             {validacaoCep !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
                         </div>
                         <div className="relative">
-                            <input onBlur={() => { validarCidade() }} ref={cidade_input} type="text" id="cidade_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCidade === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input onBlur={() => { validarCidade() }} ref={cidade_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCidade === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="cidade_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><BuildingLibraryIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Estado </label>
                             {validacaoCidade !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
                         </div>
                         <div className="relative">
-                            <input onBlur={() => { validarEstado() }} ref={estado_input} type="text" id="estado_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoEstado === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input onBlur={() => { validarEstado() }} ref={estado_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoEstado === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="estado_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><BuildingOffice2Icon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Cidade</label>
                             {validacaoEstado !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
                         </div>
                         <div className="relative">
-                            <input onBlur={() => { validarBairro() }} ref={bairro_input} type="text" id="bairro_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoBairro === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input onBlur={() => { validarBairro() }} ref={bairro_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoBairro === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="bairro_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HomeModernIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Bairro</label>
                             {validacaoBairro !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 
                         </div>
                         <div className="relative col-span-2">
-                            <input onBlur={() => { validarRua() }} ref={rua_input} type="text" id="rua_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoRua === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input onBlur={() => { validarRua() }} ref={rua_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoRua === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="rua_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><MapIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Rua</label>
                             {validacaoRua !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 
                         </div>
                         <div className="relative">
-                            <input onBlur={() => { validarNumero() }} ref={numero_input} type="text" id="numero_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoNumero === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+                            <input onBlur={() => { validarNumero() }} ref={numero_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoNumero === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
                             <label htmlFor="numero_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HomeIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Número</label>
                             {validacaoNumero !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
                         </div>
                         <div className="relative">
-                            <input ref={complemento_input} type="text" id="complemento_inp" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
+                            <input ref={complemento_input} type="text" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
                             <label htmlFor="complemento_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HashtagIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Complemento</label>
                         </div>
                     </div>
-                    <div id="container_proximo" className="w-full h-10 flex justify-end">
+                    <div className="w-full h-10 flex justify-end">
 						<button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-16 xl:mt-6 font-bold text-verde-padrao flex items-center" onClick={avancar}>
                             Próximo <ChevronDoubleRightIcon className="2xl:h-10 2xl:w-10 xl:h-8 xl:w-8" />
                         </button>

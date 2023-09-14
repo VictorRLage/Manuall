@@ -95,7 +95,13 @@ export default function PerfilVisaoContratanate() {
 
     return (
         <>
-            <ModaisSolicitacaoServico idPrestador={location.state?.id} querAula={querAula} servicos={servicos} modalSolicitacao={modaisSolicitacao} modalSettr={setModaisSolicitacao} />
+            <ModaisSolicitacaoServico
+                idPrestador={location.state?.id}
+                querAula={querAula}
+                servicos={servicos}
+                modalSolicitacao={modaisSolicitacao}
+                modalSettr={setModaisSolicitacao}
+            />
             <svg className="absolute top-0 z-[0]" viewBox="0 0 1921 805" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M102.552 12.7864C450.19 12.7862 1778.3 146.35 2102.68 12.7863C2427.06 -120.777 2086.94 923.41 2102.68 731.758C2118.42 540.107 509.889 966.19 102.551 731.758C-304.786 497.327 -245.086 12.7866 102.552 12.7864Z" fill="#11AD0E" fill-opacity="0.25" />
             </svg>
@@ -104,7 +110,7 @@ export default function PerfilVisaoContratanate() {
                     <path d="M423.719 502.664C423.719 35.6634 -220.544 194.088 88.5878 -79.1472C397.72 -352.383 705.725 -75.4086 725.945 58.8419C746.165 193.092 1042.95 24.2691 916.719 460.664C790.491 897.059 423.719 969.664 423.719 502.664Z" fill="#008042" />
                 </g>
                 <defs>
-                    <filter id="filter0_d_8_430" x="0.65332" y="-195.278" width="951.221" height="1025.07" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <filter x="0.65332" y="-195.278" width="951.221" height="1025.07" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                         <feFlood flood-opacity="0" result="BackgroundImageFix" />
                         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                         <feOffset dy="4" />
@@ -122,8 +128,8 @@ export default function PerfilVisaoContratanate() {
             <div className="w-full h-full z-10 " >
 
 
-                <div id="section1" className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
-                    <div id="crumbs" className="z-10">
+                <div className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
+                    <div className="z-10">
                         <span className="text-2xl">
                             <span onClick={() => { navigate("/") }} className="text-cinza-claro-3 cursor-pointer">
                                 Página Inicial{" "}
@@ -137,18 +143,18 @@ export default function PerfilVisaoContratanate() {
                             </span>
                         </span>
                     </div>
-                    <div id="tags" className="ml-36 mr-36 mt-10 space-x-4 ">
+                    <div className="ml-36 mr-36 mt-10 space-x-4 ">
                         <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.area}</button>
                         <button onClick={() => console.log(prestador)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">{prestador.prestaAula ? "Serviço + Aula" : "Serviço"}</button>
                     </div>
-                    <div id="content" className="flex justify-between pt-5 pl-36 pr-36 z-10">
-                        <div id="texto" className="max-w-[50%] text-xl z-10">
+                    <div className="flex justify-between pt-5 pl-36 pr-36 z-10">
+                        <div className="max-w-[50%] text-xl z-10">
                             <span>{prestador.descricao}</span>
                         </div>
 
-                        <div id="conteinerCard">
-                            <div id="card" style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500  flex flex-col p-5 bg-white w-84 h-130  rounded-3xl drop-shadow-all`}>
-                                <img src={prestador.pfp} id="foto" className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto" />
+                        <div>
+                            <div style={{ transform: `translateY(${translateYValue}px)` }} className={`fixed  top-18 right-72 transition-transform duration-500  flex flex-col p-5 bg-white w-84 h-130  rounded-3xl drop-shadow-all`}>
+                                <img src={prestador.pfp} className="object-cover bg-no-repeat h-42 w-42 rounded-3xl ml-auto mr-auto" />
                                 <span className="mt-2 font-bold ml-auto mr-auto text-3xl">{prestador.nome}</span>
                                 <div className="flex flex-row mr-auto ml-auto mt-2">
                                     <Estrelas media={media} tamanho={6} /><span className="ml-2 text-lg">{media.toFixed(1)}</span>
@@ -164,12 +170,12 @@ export default function PerfilVisaoContratanate() {
                                 </div>
                                 {prestador?.prestaAula
                                     ? <>
-                                    <button className="bg-verde-padrao text-white w-56 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(true) }}>
-                                        Contratar com aula
-                                    </button>
-                                    <button className="text-verde-padrao w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(false) }}>
-                                        Apenas contratar
-                                    </button>
+                                        <button className="bg-verde-padrao text-white w-56 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(true) }}>
+                                            Contratar com aula
+                                        </button>
+                                        <button className="text-verde-padrao w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(false) }}>
+                                            Apenas contratar
+                                        </button>
                                     </>
                                     : <button className="bg-verde-padrao text-white w-56 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full" onClick={() => { setModaisSolicitacao(true); setQuerAula(false) }}>
                                         Contratar
@@ -184,7 +190,7 @@ export default function PerfilVisaoContratanate() {
                         <path d="M-136.729 328.407C-197.545 664.774 110.518 788.917 322 814.5C445.999 829.5 200.301 892.156 59.4595 947C-466.541 1151.83 -510.128 875.754 -505.653 742.173C-501.179 608.591 -815.971 752.265 -617.241 332.526C-418.511 -87.2117 -53.674 -130.96 -136.729 328.407Z" fill="#008042" />
                     </g>
                     <defs>
-                        <filter id="filter0_d_8_431" x="-687.103" y="0.55835" width="1047" height="1027.66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <filter x="-687.103" y="0.55835" width="1047" height="1027.66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                             <feFlood flood-opacity="0" result="BackgroundImageFix" />
                             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                             <feOffset dy="4" />
@@ -197,9 +203,9 @@ export default function PerfilVisaoContratanate() {
                     </defs>
                 </svg>
 
-                <div id="section2" className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
+                <div className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="mt-14 ml-36 mr-36 text-3xl font-bold">Galeria de imagens</span>
-                    <div id="containerImgs" className="mt-10 grid grid-cols-2 h-120 w-[38%] ml-36 mr-36 gap-x-2 gap-y-2">
+                    <div className="mt-10 grid grid-cols-2 h-120 w-[38%] ml-36 mr-36 gap-x-2 gap-y-2">
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm rounded-tl-3xl" />
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm rounded-tr-3xl" />
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm" />
@@ -208,7 +214,7 @@ export default function PerfilVisaoContratanate() {
                         <img src="" alt="" className="bg-cinza-claro-1 blur-sm rounded-br-3xl" />
                     </div>
                 </div>
-                <div id="section3" className="z-10 min-h-[18rem] bg-verde-escuro-2 pt-10 pl-36 pr-32 flex flex-col">
+                <div className="z-10 min-h-[18rem] bg-verde-escuro-2 pt-10 pl-36 pr-32 flex flex-col">
 
                     <div className="bg-white rounded-3xl min-h-48 w-[40%] ml-32 mr-32 p-10 drop-shadow-all">
                         <span className=" text-3xl font-bold z-10 ">Serviços oferecidos</span>
@@ -220,7 +226,7 @@ export default function PerfilVisaoContratanate() {
                     </div>
                 </div>
 
-                <div id="section4" className="bg-white z-10 h-72 pt-10 pl-32 pr-32 flex flex-col">
+                <div className="bg-white z-10 h-72 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="ml-36 mr-36 text-3xl font-bold">Avaliações</span>
                     <div className="relative mt-10 ml-52 mr-36">
                         {avaliacoesData.map((avaliacao, index) => (

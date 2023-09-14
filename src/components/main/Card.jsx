@@ -74,7 +74,7 @@ export default function Card({ mediaNota, nome, id, foto, area, min, max, cidade
                             {aula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
-                    <div id="avaliação" className="flex mt-2">
+                    <div className="flex mt-2">
                         {estrelas}
                         <span className="text-sm ml-2 font-medium">
                             {mediaNota?.toFixed(1)}

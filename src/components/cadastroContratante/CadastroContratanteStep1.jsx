@@ -23,7 +23,6 @@ export default function CadastroStep1({ mudarStep }) {
 	const [nomeFormatado, setNomeFormatado] = useState("");
 	const [label, setLabel] = useState("");
 
-
 	const nome_input = useRef(null)
 	const email_input = useRef(null)
 	const cpf_input = useRef(null)
@@ -264,49 +263,49 @@ export default function CadastroStep1({ mudarStep }) {
 	return (
 		<div className="flex justify-center h-screen">
 			{modalAviso ? <ModalAviso titulo={avisoTitulo} descricao={avisoDescricao} tempo={10000} modal={setMoldaAviso} /> : null}
-			<div id="container" className="2xl:bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
-				<div id="container_esquerda" className="bg-white h-full w-70per rounded-l-lg flex flex-col">
-					<div id="container_steps" className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
-						<div id="step_1" className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
-						<div id="linha" className="bg-black h-1 2xl:w-14 xl:w-10" />
-						<div onClick={mudarStep} id="step_2" className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
+			<div className="2xl:bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
+				<div className="bg-white h-full w-70per rounded-l-lg flex flex-col">
+					<div className="flex 2xl:h-16 xl:h-14 w-full justify-center items-center 2xl:mt-8 xl:mt-6">
+						<div className="bg-white border-4 border-verde-padrao rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
+						<div className="bg-black h-1 2xl:w-14 xl:w-10" />
+						<div onClick={mudarStep} className="bg-white border-2 border-black rounded-full 2xl:h-12 2xl:w-12 xl:h-10 xl:w-10" />
 					</div>
-					<div id="container-inputs" className="2xl:w-112  xl:w-96 rounded-lg  self-center  2xl:justify-center grid 2xl:grid-cols-13.5x13.5 xl:grid-cols-11.5x11.5 2xl:gap-8 xl:gap-6 2xl:gap-x-4 xl:gap-x-4 2xl:mt-10 xl:mt-6">
+					<div className="2xl:w-112  xl:w-96 rounded-lg  self-center  2xl:justify-center grid 2xl:grid-cols-13.5x13.5 xl:grid-cols-11.5x11.5 2xl:gap-8 xl:gap-6 2xl:gap-x-4 xl:gap-x-4 2xl:mt-10 xl:mt-6">
 						<div className="relative col-span-2">
-							<input onBlur={() => { validarNome() }} ref={nome_input} type="text" id="nome_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoNome === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+							<input onBlur={() => { validarNome() }} ref={nome_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoNome === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
 							<label htmlFor="nome_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><UserIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Nome completo</label>
 							{validacaoNome !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 
 						</div>
 						<div className="relative col-span-2">
-							<input onBlur={() => { validarEmail() }} onChange={pegarDadosPipefy} ref={email_input} type="email" id="email_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoEmail === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+							<input onBlur={() => { validarEmail() }} onChange={pegarDadosPipefy} ref={email_input} type="email" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoEmail === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
 							<label htmlFor="email_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><EnvelopeIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Endereço de email</label>
 							{validacaoEmail !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 						</div>
 						<div className="relative ">
-							<input onBlur={() => { validarCpf() }} ref={cpf_input} type="text" id="cpf_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCpf === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+							<input onBlur={() => { validarCpf() }} ref={cpf_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCpf === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
 							<label htmlFor="cpf_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><IdentificationIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />CPF</label>
 							{validacaoCpf !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 						</div>
 						<div className="relative">
-							<input onBlur={() => { validarTelefone() }} ref={telefone_input} type="text" id="numero_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoTelefone === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+							<input onBlur={() => { validarTelefone() }} ref={telefone_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoTelefone === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
 							<label htmlFor="numero_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><PhoneIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Telefone</label>
 							{validacaoTelefone !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 
 						</div>
 						<div className="relative col-span-2">
-							<input onBlur={() => { validarSenha() }} ref={senha_input} type="password" id="senha_inp" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoSenha === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
+							<input onBlur={() => { validarSenha() }} ref={senha_input} type="password" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoSenha === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
 							<label htmlFor="senha_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><LockClosedIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Senha</label>
 							{validacaoSenha !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
 						</div>
 					</div>
-					<div id="container_proximo" className="w-full h-10 flex justify-end">
+					<div className="w-full h-10 flex justify-end">
 						<button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-20 xl:mt-12 font-bold text-verde-padrao flex items-center" onClick={avancar}>
 							Próximo <ChevronDoubleRightIcon className="2xl:h-10 2xl:w-10 xl:h-8 xl:w-8" />
 						</button>
 					</div>
 				</div>
-				<div id="container_direita" className="bg-verde-padrao h-full w-30per rounded-r-lg flex flex-col">
+				<div className="bg-verde-padrao h-full w-30per rounded-r-lg flex flex-col">
 					<img src={logo_extensa} alt="Logo da Manuall por extensa" className="2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center" />
 					<p className="2xl:text-4xl xl:text-2xl  font-bold text-white w-full text-center self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8">Cadastro de <br /> Contratante</p>
 					<p className="2xl:text-2xl xl:text-xl  font-semibold text-white w-full text-center self-center 2xl:leading-relaxed mt-32">Já possui uma conta?</p>
