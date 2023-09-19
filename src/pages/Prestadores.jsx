@@ -19,7 +19,13 @@ export default function Prestadores() {
     const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
     const handleKeyPress = (event) => {
-        if (event.key === "Enter") {}
+        if (event.key === "Enter") {
+            teste();
+        }
+    };
+
+    function teste() {
+        alert("Teste");
     }
 
     const getPrestadoresFiltrados = () => {
@@ -69,8 +75,8 @@ export default function Prestadores() {
                     >
                         <option value="Alfabetica">Filtrar por Ordem Alfabética</option>
                         <option value="Nota">Filtrar por Nota</option>
-                        <option value="PrecoMax">Filtrar por Maior Preço</option>
-                        <option value="PrecoMin">Filtrar por Menor Preço</option>
+                        <option value="PrecoMax">Filtrar por Maior Orçamento</option>
+                        <option value="PrecoMin">Filtrar por Menor Orçamento</option>
                         <option value="Servico">Filtrar por Serviços</option>
                         <option value="ServicoAula">Filtrar por Serviços e Aulas</option>
                     </select>
@@ -98,7 +104,7 @@ export default function Prestadores() {
                         {prestadores
                             ? prestadores.length === 0
                                 ? <NenhumPrestadorEncontrado />
-                                : prestadores.slice(0, 6).map((data, i) => (
+                                : prestadores.map((data, i) => (
                                     <Card
                                         key={i}
                                         id={data.id}
