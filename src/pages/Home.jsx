@@ -55,7 +55,7 @@ export default function Home() {
 
     return (
         <>
-            <Header />
+            <Header/>
             <div className="w-full h-full">
                 <div className="group">
                     <div style={{ backgroundImage: `url(${slides[modalCurrentIndex].url})` }} className="w-full h-120 bg-center bg-cover duration-500">

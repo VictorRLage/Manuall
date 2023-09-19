@@ -10,7 +10,7 @@ export default [
     },
     {
         title: "Dashboard",
-        url: "/development",
+        url: "/adm/dashboard",
         icon: GraphbarIcon
     },
     {
