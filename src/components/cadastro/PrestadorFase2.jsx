@@ -5,7 +5,7 @@ import logo_extensa from "@/assets/manuall/logo_black_white.png";
 import axios, { viaCepInstance } from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
 
-export default function CadastroPrestadorStep2({ passarStep }) {
+export default function PrestadorFase2({ passarStep }) {
 
     const [modalAviso, setMoldaAviso] = useState(false)
     const [avisoTitulo, setAvisoTitulo] = useState("")
@@ -296,7 +296,7 @@ export default function CadastroPrestadorStep2({ passarStep }) {
 
     useEffect(() => {
         if (localStorage.getItem("ID_CADASTRANTE") === null) {
-            navigate("/cadastroPrestador")
+            navigate("/cadastro/prestador")
         }
         if (sessionStorage.getItem("optCidade") !== undefined) {
             rua_input.current.value = sessionStorage.getItem("optCidade")

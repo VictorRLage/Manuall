@@ -23,8 +23,8 @@ export default () =>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
-				<Route path="/cadastroPrestador" element={<CadastroPrestador />} />
-				<Route path="/cadastroContratante" element={<CasdastroContratante />} />
+				<Route path="/cadastro/prestador" element={<CadastroPrestador />} />
+				<Route path="/cadastro/contratante" element={<CasdastroContratante />} />
 				<Route path="/prestadores" element={<Prestadores />} />
 				<Route path="/prestadores/*" element={<PerfilVisaoContratanate />} />
 				<Route path="/prestadores/eu/editar" element={<PerfilVisaoPrestador />} />

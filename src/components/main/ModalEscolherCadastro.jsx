@@ -13,8 +13,8 @@ export default function ModalEscolherCadastro({ modal }) {
                 </div>
                 <span className="text-3xl font-semibold text-center">Deseja realizar <br />o cadastro como?</span>
                 <div className=" flex flex-col items-center py-4 gap-4">
-                    <button onClick={() => { navigate("/cadastroContratante") }} className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white">Contratante</button>
-                    <button onClick={() => { navigate("/cadastroPrestador") }} className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white">Prestador</button>
+                    <button onClick={() => { navigate("/cadastro/contratante") }} className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white">Contratante</button>
+                    <button onClick={() => { navigate("/cadastro/prestador") }} className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white">Prestador</button>
                 </div>
             </div>
         </div>

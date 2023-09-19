@@ -61,7 +61,7 @@ export default function Header() {
                     {!tipoUsuario || tipoUsuario === 3 ?
                         <>
                             <button
-                                onClick={() => { navigate("/cadastroPrestador") }}
+                                onClick={() => { navigate("/cadastro/prestador") }}
                                 className="text-xl"
                             >
                                 Quero ensinar

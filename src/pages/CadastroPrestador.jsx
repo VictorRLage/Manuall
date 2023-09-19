@@ -1,7 +1,7 @@
 import { useState } from "react";
-import CadastroPrestadorStep1 from "@/components/cadastroPrestador/CadastroPrestadorStep1";
-import CadastroPrestadorStep2 from "@/components/cadastroPrestador/CadastroPrestadorStep2";
-import CadastroPrestadorStep3 from "@/components/cadastroPrestador/CadastroPrestadorStep3";
+import PrestadorFase1 from "@/components/cadastro/PrestadorFase1";
+import PrestadorFase2 from "@/components/cadastro/PrestadorFase2";
+import PrestadorFase3 from "@/components/cadastro/PrestadorFase3";
 
 export default function CadastroPrestador() {
 
@@ -15,9 +15,9 @@ export default function CadastroPrestador() {
     return (
         <div className="flex justify-center h-screen font-mukta">
             {step === 1
-                ? <CadastroPrestadorStep1 passarStep={passarStep} />
-                : step === 2 ? <CadastroPrestadorStep2 passarStep={passarStep} />
-                    : step === 3 ? <CadastroPrestadorStep3 passarStep={passarStep} />
+                ? <PrestadorFase1 passarStep={passarStep} />
+                : step === 2 ? <PrestadorFase2 passarStep={passarStep} />
+                    : step === 3 ? <PrestadorFase3 passarStep={passarStep} />
                         : null}
         </div>
     );

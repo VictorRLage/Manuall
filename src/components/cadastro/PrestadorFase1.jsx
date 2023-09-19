@@ -5,7 +5,7 @@ import logo_extensa from "@/assets/manuall/logo_black_white.png";
 import axios from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
 
-export default function CadastroPrestadorStep1({ passarStep }) {
+export default function PrestadorFase1({ passarStep }) {
 
     const [modalAviso, setMoldaAviso] = useState(false)
     const [avisoTitulo, setAvisoTitulo] = useState("")
@@ -261,7 +261,7 @@ export default function CadastroPrestadorStep1({ passarStep }) {
     }
 
     return (
-        <div className="flex justify-center h-screen">
+        <div className="flex justify-center h-full">
             {modalAviso ? <ModalAviso titulo={avisoTitulo} descricao={avisoDescricao} tempo={10000} modal={setMoldaAviso} /> : null}
             <div className="2xl:bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
                 <div className="bg-white h-full w-70per rounded-l-lg flex flex-col">

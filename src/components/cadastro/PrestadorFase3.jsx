@@ -7,7 +7,7 @@ import ModalAviso from "@/components/main/ModalAviso";
 import ModalCustom from "@/components/main/ModalCustom";
 import bgmodal from "@/assets/shapes/ModalBg.png";
 
-export default function CadastroPrestadorStep3() {
+export default function PrestadorFase3() {
 
     const [modalAviso, setMoldaAviso] = useState(false)
     const [avisoTitulo, setAvisoTitulo] = useState("")
@@ -189,7 +189,7 @@ export default function CadastroPrestadorStep3() {
 
     useEffect(() => {
         if (localStorage.getItem("ID_CADASTRANTE") === null) {
-            navigate("/cadastroPrestador")
+            navigate("/cadastro/prestador")
         }
         if (sessionStorage.getItem("optEnsinar") !== null) {
             ensinar_input.current.value = JSON.parse(sessionStorage.getItem("optEnsinar")) ? "1" : "2"
@@ -220,7 +220,7 @@ export default function CadastroPrestadorStep3() {
 
     useEffect(() => {
         if (localStorage.getItem("ID_CADASTRANTE") === null) {
-            navigate("/cadastroPrestador")
+            navigate("/cadastro/prestador")
         }
         if (sessionStorage.getItem("optArea") !== null) {
             area_input.current.value = Number(sessionStorage.getItem("optArea"))
