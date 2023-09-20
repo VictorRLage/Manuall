@@ -150,7 +150,7 @@ export default function ContratanteFase2() {
 
     return (
         <div className="bg-white h-full min-w-[70%] flex flex-col">
-            <CadastroProgress fase={2} fases={2} />
+            <CadastroProgress fase={2} fases={2} flagIsAtLeft={false} />
             <div className="rounded-lg self-center grid grid-cols-16x16 items-center gap-8 mt-6">
                 <div className="relative">
                     <input onBlur={() => { buscarPorCep(); validarCep() }} ref={cep_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCep === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />

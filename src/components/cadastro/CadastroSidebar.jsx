@@ -16,25 +16,25 @@ export default function CadastroSidebar() {
                     Cadastro de Contratante
                 </p>
             </div>
-            <div className="h-[50%] w-full flex items-center justify-center flex-col pt-[20%]">
-            <div className="flex flex-col justify-center items-center">
-                <p className="text-xl font-semibold text-white text-center">
-                    Já possui uma conta?
-                </p>
-                <a
-                    className="text-xl font-bold text-white text-center underline cursor-pointer"
-                    onClick={() => { navigate("/login") }}
+            <div className="h-[50%] w-full flex items-center justify-evenly flex-col pt-[20%]">
+                <div className="flex flex-col justify-center items-center">
+                    <p className="text-xl font-semibold text-white text-center">
+                        Já possui uma conta?
+                    </p>
+                    <a
+                        className="text-xl font-bold text-white text-center underline cursor-pointer"
+                        onClick={() => { navigate("/login") }}
+                    >
+                        Entre aqui
+                    </a>
+                </div>
+                <button
+                    onClick={() => { navigate("/") }}
+                    className="text-xl font-bold text-white leading-relaxed flex items-center"
                 >
-                    Entre aqui
-                </a>
-            </div>
-            <button
-                onClick={() => { navigate("/") }}
-                className="text-xl font-bold text-white leading-relaxed mt-12.5 flex items-center"
-            >
-                <ChevronDoubleLeftIcon className="h-8 w-8" />
-                Voltar à Tela inicial
-            </button>
+                    <ChevronDoubleLeftIcon className="h-8 w-8" />
+                    Voltar à Tela inicial
+                </button>
             </div>
         </div>
     )

@@ -136,9 +136,9 @@ export default function CadastroStep1({ mudarStep }) {
 
 	return (
 		<div className="bg-white h-full min-w-[70%] flex flex-col items-center">
-			<CadastroProgress fase={1} fases={2} />
-			<div className="w-96 rounded-lg self-center grid grid-cols-11.5x11.5 gap-6 gap-x-4 mt-6">
-				<div className="relative col-span-2">
+			<CadastroProgress fase={1} fases={2} mudarStep={mudarStep} flagIsAtLeft={true} />
+			<div className="w-full h-[65%] flex flex-col items-center justify-evenly">
+				<div className="w-[60%] relative">
 					<input
 						onBlur={validarNome}
 						ref={nome_input}
@@ -163,7 +163,7 @@ export default function CadastroStep1({ mudarStep }) {
 							Campo inválido
 						</label>}
 				</div>
-				<div className="relative col-span-2">
+				<div className="w-[60%] relative">
 					<input
 						onBlur={validarEmail}
 						onChange={pegarDadosPipefy}
@@ -189,55 +189,57 @@ export default function CadastroStep1({ mudarStep }) {
 							Campo inválido
 						</label>}
 				</div>
-				<div className="relative col-span-1">
-					<input
-						onBlur={validarCpf}
-						ref={cpf_input}
-						type="text"
-						id="cpf_inp"
-						placeholder=" "
-						className={`
+				<div className="w-full flex items-center justify-center gap-[2%]">
+					<div className="w-[29%] relative">
+						<input
+							onBlur={validarCpf}
+							ref={cpf_input}
+							type="text"
+							id="cpf_inp"
+							placeholder=" "
+							className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
 							${validacaoCpf === 1 ? "border-red-500" : "border-cinza-claro-1"}
 						`}
-					/>
-					<label
-						htmlFor="cpf_inp"
-						className="absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
-						<IdentificationIcon className="h-5 w-5 mr-1" />
-						CPF
-					</label>
-					{validacaoCpf === 1 &&
-						<label className="absolute ml-1 text-red-500 font-medium">
-							Campo inválido
-						</label>}
-				</div>
-				<div className="relative col-span-1">
-					<input
-						onBlur={validarTelefone}
-						ref={telefone_input}
-						type="text"
-						id="telefone_inp"
-						placeholder=" "
-						className={`
+						/>
+						<label
+							htmlFor="cpf_inp"
+							className="absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+							<IdentificationIcon className="h-5 w-5 mr-1" />
+							CPF
+						</label>
+						{validacaoCpf === 1 &&
+							<label className="absolute ml-1 text-red-500 font-medium">
+								Campo inválido
+							</label>}
+					</div>
+					<div className="w-[29%] relative">
+						<input
+							onBlur={validarTelefone}
+							ref={telefone_input}
+							type="text"
+							id="telefone_inp"
+							placeholder=" "
+							className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
 							${validacaoTelefone === 1 ? "border-red-500" : "border-cinza-claro-1"}
 						`}
-					/>
-					<label
-						htmlFor="telefone_inp"
-						className="absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
-						<PhoneIcon className="h-5 w-5 mr-1" />
-						Telefone
-					</label>
-					{validacaoTelefone === 1 &&
-						<label className="absolute ml-1 text-red-500 font-medium">
-							Campo inválido
-						</label>}
+						/>
+						<label
+							htmlFor="telefone_inp"
+							className="absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+							<PhoneIcon className="h-5 w-5 mr-1" />
+							Telefone
+						</label>
+						{validacaoTelefone === 1 &&
+							<label className="absolute ml-1 text-red-500 font-medium">
+								Campo inválido
+							</label>}
+					</div>
 				</div>
-				<div className="relative col-span-2">
+				<div className="w-[60%] relative">
 					<input
 						onBlur={validarSenha}
 						ref={senha_input}
@@ -262,9 +264,9 @@ export default function CadastroStep1({ mudarStep }) {
 						</label>}
 				</div>
 			</div>
-			<div className="w-full h-10 flex justify-end">
-				<button className="2xl:text-2xl xl:text-xl 2xl:mr-12 xl:mr-11 2xl:mt-20 xl:mt-12 font-bold text-verde-padrao flex items-center" onClick={avancar}>
-					Próximo <ChevronDoubleRightIcon className="2xl:h-10 2xl:w-10 xl:h-8 xl:w-8" />
+			<div className="w-full h-[20%] flex justify-end">
+				<button className="text-xl mr-11 font-bold text-verde-padrao flex items-center" onClick={avancar}>
+					Próximo <ChevronDoubleRightIcon className="h-8 w-8" />
 				</button>
 			</div>
 		</div>
