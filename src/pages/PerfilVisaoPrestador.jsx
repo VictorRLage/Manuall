@@ -6,7 +6,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
-import ModalLinkPFP from "../components/perfil/ModalLinkPFP";
+import ModalLinkPFP from "@/components/perfil/ModalLinkPFP";
 import axios from "@/api/axios";
 import slugify from "slugify";
 
@@ -39,15 +39,15 @@ export default function PerfilVisaoPrestador() {
     const alterarDesc = () => {
         const slug = slugify(prestador.nome, { lower: true });
         axios.patch("/perfil/alterar/desc", {
-        descricao: descricao
-       })
-        .then((res) => {
-            console.log(res)
-            navigate(`/prestadores`)
+            descricao: descricao
         })
-        .catch((err) => {
-            console.log(err) 
-        })
+            .then((res) => {
+                console.log(res)
+                navigate(`/prestadores`)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     useEffect(() => {

@@ -2,72 +2,66 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon } from "@heroicons/react/24/solid";
 import axios, { viaCepInstance } from "@/api/axios";
-import Regex from "../../enum/Regex";
+import Regex from "@/enum/RegexENUM";
 import CadastroProgress from "@/components/cadastro/CadastroProgress"
+import InputMask from "react-input-mask";
 
-export default function ContratanteFase2() {
+export default function ContratanteFase2({ mudarStep }) {
 
     const navigate = useNavigate()
 
-    const [validacaoCep, setValidacaoCep] = useState(0);
-    const [validacaoEstado, setValidacaoEstado] = useState(0);
-    const [validacaoCidade, setValidacaoCidade] = useState(0);
-    const [validacaoBairro, setValidacaoBairro] = useState(0);
-    const [validacaoRua, setValidacaoRua] = useState(0);
-    const [validacaoNumero, setValidacaoNumero] = useState(0);
-    // const [validacaoComplento, setValidacaoComplento] = useState(0);
-    // 0  não mexeu ainda | 1 mexeu e não validou | 2 mexeu e validou
+    const [isCepValidado, setIsCepValidado] = useState();
+    const [isEstadoValidado, setIsEstadoValidado] = useState();
+    const [isCidadeValidado, setIsCidadeValidado] = useState();
+    const [isBairroValidado, setIsBairroValidado] = useState();
+    const [isRuaValidado, setIsRuaValidado] = useState();
+    const [isNumeroValidado, setIsNumeroValidado] = useState();
+    const [isComplementoValidado, setIsComplementoValidado] = useState();
 
-    const [label, setLabel] = useState("");
+    const cep_input = useRef(null);
+    const estado_input = useRef(null);
+    const cidade_input = useRef(null);
+    const bairro_input = useRef(null);
+    const rua_input = useRef(null);
+    const numero_input = useRef(null);
+    const complemento_input = useRef(null);
 
-    const cep_input = useRef(null)
-    const estado_input = useRef(null)
-    const cidade_input = useRef(null)
-    const bairro_input = useRef(null)
-    const rua_input = useRef(null)
-    const numero_input = useRef(null)
-    const complemento_input = useRef(null)
-
-
-    const validarCep = () => {
-
-        const cep = cep_input.current.value
-
-        if (!cep || !Regex.CEP.test(cep) || !Regex.NUMBER.test(cep)) {
-            setLabel("Campo inválido")
-            setValidacaoCep(1)
-        } else {
-            setValidacaoCep(2)
-        }
-    }
-
-    const validarCidade = () => setValidacaoCidade(2)
-
-    const validarEstado = () => setValidacaoEstado(2)
-
-    const validarBairro = () => setValidacaoBairro(2)
-
-    const validarRua = () => setValidacaoRua(2)
-
-    const validarNumero = () => {
-        const numero = numero_input.current.value
-
-        if (!numero || !numero <= 0 || !Regex.NUMBER.test(numero)) {
-            setLabel("Campo inválido")
-            setValidacaoNumero(1)
-        } else {
-            setValidacaoNumero(2)
-        }
+    const validar = {
+        cep() {
+            const cep = cep_input.current.value.replace(/[^0-9]/g, "")
+            setIsCepValidado(Regex.CEP.test(cep))
+        },
+        estado() {
+            const estado = estado_input.current.value
+            setIsEstadoValidado(Regex.TEXT_SPACE.test(estado))
+        },
+        cidade() {
+            const cidade = cidade_input.current.value
+            setIsCidadeValidado(Regex.TEXT_SPACE.test(cidade))
+        },
+        bairro() {
+            const bairro = bairro_input.current.value
+            setIsBairroValidado(Regex.TEXT_SPACE.test(bairro))
+        },
+        rua() {
+            const rua = rua_input.current.value
+            setIsRuaValidado(Regex.TEXT_SPACE.test(rua))
+        },
+        numero() {
+            const numero = numero_input.current.value
+            setIsNumeroValidado(Regex.NUMBER.test(numero))
+        },
+        complemento: () => setIsComplementoValidado(true),
     }
 
     const buscarPorCep = () => {
+
         if (cep_input.current.value === "") {
             return
         }
         viaCepInstance.get(`/${cep_input.current.value}/json/`)
             .then(({ data }) => {
                 if (data.erro) {
-                    setLabel("CEP inexistente")
                     setValidacaoCep(1)
                 } else {
                     estado_input.current.value = data.localidade
@@ -89,20 +83,14 @@ export default function ContratanteFase2() {
         const numero = numero_input.current.value
         const complemento = complemento_input.current.value
 
-        const validacoes = [
-            validacaoCep,
-            validacaoEstado,
-            validacaoCidade,
-            validacaoBairro,
-            validacaoRua,
-            validacaoNumero
-        ];
-        if (validacoes.every(validacao => validacao !== 2)) {
-            setMoldaAviso(true);
-            setAvisoTitulo("Campos inválidos");
-            setAvisoDescricao("Preencha todos os campos");
-            return;
-        }
+
+
+        // if () {
+        //     setMoldaAviso(true);
+        //     setAvisoTitulo("Campos inválidos");
+        //     setAvisoDescricao("Preencha todos os campos");
+        //     return;
+        // }
 
         axios.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
             cep,
@@ -144,53 +132,200 @@ export default function ContratanteFase2() {
             navigate("/cadastro/prestador")
         }
         if (sessionStorage.getItem("optCidade") !== undefined) {
-            rua_input.current.value = sessionStorage.getItem("optCidade")
+            // rua_input.current.value = sessionStorage.getItem("optCidade")
         }
     }, []) // eslint-disable-line
 
     return (
-        <div className="bg-white h-full min-w-[70%] flex flex-col">
-            <CadastroProgress fase={2} fases={2} flagIsAtLeft={false} />
-            <div className="rounded-lg self-center grid grid-cols-16x16 items-center gap-8 mt-6">
-                <div className="relative">
-                    <input onBlur={() => { buscarPorCep(); validarCep() }} ref={cep_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCep === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
-                    <label htmlFor="cep_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><MapPinIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />CEP</label>
-                    {validacaoCep !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
+        <div className="bg-white h-full min-w-[70%] flex flex-col items-center">
+            <CadastroProgress fase={2} fases={2} mudarStep={mudarStep} flagIsAtLeft={false} />
+            <div className="w-full h-[70%] flex flex-col items-center justify-evenly">
+                <div className="w-full flex items-center justify-center gap-[2%]">
+                    <div className="w-[29%] relative">
+                        <InputMask
+                            mask="99999-999"
+                            onBlur={() => { buscarPorCep(); validar.cep() }}
+                            ref={cep_input}
+                            onChange={({ target: { value } }) => {
+                                cep_input.current.value = value
+                            }}
+                            type="text"
+                            id="cep"
+                            placeholder=" "
+                            className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isCepValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                        />
+                        <label
+                            htmlFor="cep"
+                            className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                            <MapPinIcon className="h-5 w-5 mr-1" />
+                            CEP
+                        </label>
+                        {isCepValidado === false &&
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                Campo inválido
+                            </label>}
+                    </div>
+                    <div className="w-[29%] relative">
+                        <input
+                            onBlur={validar.estado}
+                            ref={estado_input}
+                            type="text"
+                            id="estado"
+                            placeholder=" "
+                            className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isEstadoValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                        />
+                        <label
+                            htmlFor="estado"
+                            className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                            <BuildingLibraryIcon className="h-5 w-5 mr-1" />
+                            Estado
+                        </label>
+                        {isEstadoValidado === false &&
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                Campo inválido
+                            </label>}
+                    </div>
                 </div>
-                <div className="relative">
-                    <input onBlur={() => { validarCidade() }} ref={cidade_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoCidade === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
-                    <label htmlFor="cidade_inp" className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><BuildingLibraryIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Estado </label>
-                    {validacaoCidade !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
+                <div className="w-full flex items-center justify-center gap-[2%]">
+                    <div className="w-[29%] relative">
+                        <input
+                            onBlur={validar.cidade}
+                            ref={cidade_input}
+                            type="text"
+                            id="cidade"
+                            placeholder=" "
+                            className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isCidadeValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                        />
+                        <label
+                            htmlFor="cidade"
+                            className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                            <BuildingOffice2Icon className="h-5 w-5 mr-1" />
+                            Cidade
+                        </label>
+                        {isCidadeValidado === false &&
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                Campo inválido
+                            </label>}
+                    </div>
+                    <div className="w-[29%] relative">
+                        <input
+                            onBlur={validar.bairro}
+                            ref={bairro_input}
+                            type="text"
+                            id="bairro"
+                            placeholder=" "
+                            className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isBairroValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                        />
+                        <label
+                            htmlFor="bairro"
+                            className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                            <HomeModernIcon className="h-5 w-5 mr-1" />
+                            Bairro
+                        </label>
+                        {isBairroValidado === false &&
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                Campo inválido
+                            </label>}
+                    </div>
                 </div>
-                <div className="relative">
-                    <input onBlur={() => { validarEstado() }} ref={estado_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoEstado === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
-                    <label htmlFor="estado_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><BuildingOffice2Icon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Cidade</label>
-                    {validacaoEstado !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
+                <div className="w-[60%] relative">
+                    <input
+                        onBlur={validar.rua}
+                        ref={rua_input}
+                        type="text"
+                        id="rua"
+                        placeholder=" "
+                        className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isRuaValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                    />
+                    <label
+                        htmlFor="rua"
+                        className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                        <MapIcon className="h-5 w-5 mr-1" />
+                        Rua
+                    </label>
+                    {isRuaValidado === false &&
+                        <label className="absolute ml-1 text-red-500 font-medium">
+                            Campo inválido
+                        </label>}
                 </div>
-                <div className="relative">
-                    <input onBlur={() => { validarBairro() }} ref={bairro_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoBairro === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
-                    <label htmlFor="bairro_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HomeModernIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Bairro</label>
-                    {validacaoBairro !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
-
-                </div>
-                <div className="relative col-span-2">
-                    <input onBlur={() => { validarRua() }} ref={rua_input} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoRua === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
-                    <label htmlFor="rua_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><MapIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Rua</label>
-                    {validacaoRua !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
-
-                </div>
-                <div className="relative">
-                    <input onBlur={() => { validarNumero() }} ref={numero_input} maxLength={9} type="text" className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2  ${validacaoNumero === 1 ? `border-red-500` : `border-cinza-claro-1`}  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`} placeholder=" " />
-                    <label htmlFor="numero_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HomeIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Número</label>
-                    {validacaoNumero !== 1 ? null : <label className="absolute ml-1 text-red-500 font-medium">{label}</label>}
-                </div>
-                <div className="relative">
-                    <input ref={complemento_input} type="text" className="block px-2.5 pb-2.5 pt-4 w-full 2xl:text-sm xl:text-xs text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer" placeholder=" " />
-                    <label htmlFor="complemento_inp" className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"><HashtagIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />Complemento</label>
+                <div className="w-full flex items-center justify-center gap-[2%]">
+                    <div className="w-[29%] relative">
+                        <input
+                            onBlur={validar.numero}
+                            ref={numero_input}
+                            type="text"
+                            id="numero"
+                            placeholder=" "
+                            className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isNumeroValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                        />
+                        <label
+                            htmlFor="numero"
+                            className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                            <HomeIcon className="h-5 w-5 mr-1" />
+                            Número
+                        </label>
+                        {isNumeroValidado === false &&
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                Campo inválido
+                            </label>}
+                    </div>
+                    <div className="w-[29%] relative">
+                        <input
+                            onBlur={validar.complemento}
+                            ref={complemento_input}
+                            type="text"
+                            id="complemento"
+                            placeholder=" "
+                            className={`
+                                block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                ${isComplementoValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+                            `}
+                        />
+                        <label
+                            htmlFor="complemento"
+                            className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center">
+                            <HashtagIcon className="h-5 w-5 mr-1" />
+                            Complemento
+                        </label>
+                        {isComplementoValidado === false &&
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                Campo inválido
+                            </label>}
+                    </div>
                 </div>
             </div>
-            <div className="w-full h-10 flex justify-end ">
-                <button onClick={avancar} className="bg-verde-escuro-2 2xl:w-40 2xl:h-12 xl:w-32 xl:h-10 rounded-full 2xl:text-2xl xl:text-xl 2xl:mr-16 xl:mr-16 2xl:mt-9 xl:mt-3 font-semibold text-white ">Finalizar</button>
+            <div className="w-full h-[15%] flex justify-end items-center">
+                <button
+                    onClick={avancar}
+                    className="bg-verde-escuro-2 w-32 h-10 rounded-full text-xl mb-8 mr-16 font-semibold text-white"
+                >
+                    Finalizar
+                </button>
             </div>
         </div>
     );
