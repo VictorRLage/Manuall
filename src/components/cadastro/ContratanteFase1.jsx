@@ -4,8 +4,9 @@ import axios from "@/api/axios";
 import CadastroProgress from "@/components/cadastro/CadastroProgress"
 import Regex from "@/enum/RegexENUM";
 import InputMask from "react-input-mask";
+import { Oval } from "react-loader-spinner";
 
-export default function CadastroStep1({ mudarStep, passarFase }) {
+export default function CadastroStep1({ mudarStep, passarFase, isNextLoading }) {
 
 	const [isNomeValidado, setIsNomeValidado] = useState();
 	const [isEmailValidado, setIsEmailValidado] = useState();
@@ -29,11 +30,11 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 			setIsEmailValidado(Regex.EMAIL.test(email))
 		},
 		cpf() {
-			const cpf = cpf_input.current.value.replace(/[^0-9]/g, "")
+			const cpf = cpf_input.current.value.replace(Regex.NUMBER_REPLACEABLE, "")
 			setIsCpfValidado(Regex.CPF.test(cpf))
 		},
 		telefone() {
-			const telefone = String(telefone_input.current.value.replace(/[^0-9]/g, "")).substring(2)
+			const telefone = String(telefone_input.current.value.replace(Regex.NUMBER_REPLACEABLE, "")).substring(2)
 			setIsTelefoneValidado(Regex.PHONE.test(telefone))
 		},
 		senha() {
@@ -42,7 +43,19 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 		}
 	}
 
+	const isEveryThingValidated = () => {
+		return (
+			isNomeValidado &&
+			isEmailValidado &&
+			isCpfValidado &&
+			isTelefoneValidado &&
+			isSenhaValidado
+		)
+	}
+
 	const avancar = () => {
+
+		if (isNextLoading) return;
 
 		validar.nome()
 		validar.email()
@@ -51,18 +64,12 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 		validar.senha()
 
 		passarFase(
-			(
-				isNomeValidado &&
-				isEmailValidado &&
-				isCpfValidado &&
-				isTelefoneValidado &&
-				isSenhaValidado
-			),
+			isEveryThingValidated(),
 			{
 				nome: nome_input.current.value,
 				email: email_input.current.value,
-				cpf: cpf_input.current.value.replace(/[^0-9]/g, ''),
-				telefone: String(telefone_input.current.value.replace(/[^0-9]/g, '')).substring(2),
+				cpf: cpf_input.current.value.replace(Regex.NUMBER_REPLACEABLE, ''),
+				telefone: String(telefone_input.current.value.replace(Regex.NUMBER_REPLACEABLE, '')).substring(2),
 				senha: senha_input.current.value,
 			}
 		)
@@ -101,6 +108,9 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 					<input
 						onBlur={validar.nome}
 						ref={nome_input}
+						onChange={({ target }) => {
+							target.value = target.value.replace(Regex.TEXT_SPACE_REPLACEABLE, "")
+						}}
 						maxLength={60}
 						type="text"
 						id="nome"
@@ -124,8 +134,10 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 				</div>
 				<div className="w-[60%] relative">
 					<input
-						onBlur={validar.email}
-						onChange={pegarDadosPipefy}
+						onBlur={() => { validar.email(); pegarDadosPipefy() }}
+						onChange={({ target }) => {
+							target.value = target.value.replace(Regex.EMAIL_REPLACEABLE, "")
+						}}
 						ref={email_input}
 						maxLength={256}
 						type="email"
@@ -210,6 +222,11 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 					<input
 						onBlur={validar.senha}
 						ref={senha_input}
+						onKeyDown={({ key }) => {
+							if (key !== "Enter") return;
+							validar.senha()
+							isEveryThingValidated() && avancar()
+						}}
 						maxLength={24}
 						type="password"
 						id="senha"
@@ -234,10 +251,20 @@ export default function CadastroStep1({ mudarStep, passarFase }) {
 			</div>
 			<div className="w-full h-[15%] flex justify-end items-center">
 				<button
-					onClick={avancar}
-					className="text-xl mb-8 mr-11 font-bold text-verde-padrao flex justify-center items-center h-[40px]"
+					onClick={() => { isEveryThingValidated() && avancar() }}
+					className={`${isEveryThingValidated() ? "text-verde-padrao cursor-pointer" : "text-gray-400 cursor-default"} text-xl mb-8 mr-11 font-bold flex justify-center items-center h-[40px]`}
 				>
-					Próximo <ChevronDoubleRightIcon className="h-8 w-8" />
+					{isNextLoading
+						? <Oval
+							height={40}
+							color="#4fa94d"
+							secondaryColor="#4fa94d"
+							strokeWidth={4}
+							strokeWidthSecondary={4}
+						/>
+						: <>
+							Próximo <ChevronDoubleRightIcon className="h-8 w-8" />
+						</>}
 				</button>
 			</div>
 		</div>

@@ -4,8 +4,12 @@ import ContratanteFase1 from "@/components/cadastro/ContratanteFase1";
 import ContratanteFase2 from "@/components/cadastro/ContratanteFase2";
 import ModalAviso from "@/components/main/ModalAviso";
 import CadastroBg from "@/assets/shapes/CadastroBg.svg"
+import axios from "@/api/axios";
+import { useNavigate } from "react-router-dom";
 
 export default function CadastroContratante() {
+
+    const navigate = useNavigate();
 
     const scrollingDiv = useRef(null);
 
@@ -13,21 +17,20 @@ export default function CadastroContratante() {
     const [avisoTitulo, setAvisoTitulo] = useState("")
     const [avisoDescricao, setAvisoDescricao] = useState("")
 
-    useEffect(() => { scrollingDiv.current.scrollLeft = 0 }, [])
-    const mudarStep = () => scrollingDiv.current.scrollLeft = 2000;
+    const [fase1FinalLoading, setFase1FinalLoading] = useState(false)
+    const [fase2FinalLoading, setFase2FinalLoading] = useState(false)
 
     const validarStep1 = (validado, { nome, email, cpf, telefone, senha }) => {
 
-        console.log(validado)
         if (!validado) {
             setMoldaAviso(true)
             setAvisoTitulo("Campos inválidos")
             setAvisoDescricao("Preencha todos os campos")
             return
-        } else {
-            console.log("tudo validado")
-            return;
         }
+
+        setFase1FinalLoading(true)
+
         axios.post("/cadastrar/1", {
             nome,
             email,
@@ -50,11 +53,10 @@ export default function CadastroContratante() {
                 console.log(err)
                 if (err.response.status === 400) {
                     for (let i = 0; i < err.response.data.errors.length; i++) {
-                        const stringOriginal = err.response.data.errors[i].field
-                        const stringMaiuscula = stringOriginal.toUpperCase();
                         setMoldaAviso(true)
-                        setAvisoTitulo(`${stringMaiuscula} inválido`)
-                        setAvisoDescricao(err.response.data.errors[i].defaultMessage)
+                        setAvisoTitulo(`${err.response.data.errors[i]?.field.toUpperCase()
+                            } inválido`)
+                        setAvisoDescricao(err.response.data.errors[i]?.defaultMessage)
                     }
 
                 } else if (err.response.status === 409) {
@@ -67,9 +69,12 @@ export default function CadastroContratante() {
                     setAvisoDescricao("Por favor tente novamente mais tarde")
                 }
             })
+            .finally(() => {
+                setFase1FinalLoading(false)
+            })
     }
 
-    const validarStep2 = (validado) => {
+    const validarStep2 = (validado, { cep, estado, cidade, bairro, rua, numero, complemento }) => {
 
         if (!validado) {
             setMoldaAviso(true);
@@ -78,6 +83,7 @@ export default function CadastroContratante() {
             return;
         }
 
+        setFase2FinalLoading(true)
 
         axios.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
             cep,
@@ -86,7 +92,7 @@ export default function CadastroContratante() {
             bairro,
             rua,
             numero,
-            complemento: complemento === "" ? null : complemento,
+            complemento: !complemento ? null : complemento,
         })
             .then((res) => {
                 if (res.status === 201) {
@@ -98,6 +104,7 @@ export default function CadastroContratante() {
                 }
             })
             .catch((err) => {
+                console.log(err)
                 if (err.response.status === 404) {
                     setMoldaAviso(true)
                     setAvisoTitulo("Você ainda não chegou nessa fase")
@@ -112,8 +119,13 @@ export default function CadastroContratante() {
                     setAvisoDescricao("Por favor tente novamente mais tarde")
                 }
             })
-
+            .finally(() => {
+                setFase2FinalLoading(false)
+            })
     }
+
+    useEffect(() => { scrollingDiv.current.scrollLeft = 0 }, [])
+    const mudarStep = () => scrollingDiv.current.scrollLeft = 2000;
 
     return (
         <div className="flex justify-center items-center h-screen bg-no-repeat bg-center" style={{
@@ -121,9 +133,9 @@ export default function CadastroContratante() {
         }}>
             {modalAviso && <ModalAviso titulo={avisoTitulo} descricao={avisoDescricao} tempo={10000} modal={setMoldaAviso} />}
             <div className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth" ref={scrollingDiv}>
-                <ContratanteFase1 mudarStep={mudarStep} passarFase={validarStep1} />
+                <ContratanteFase1 mudarStep={mudarStep} passarFase={validarStep1} isNextLoading={fase1FinalLoading} />
                 <CadastroSidebar />
-                <ContratanteFase2 passarFase={validarStep2} />
+                <ContratanteFase2 passarFase={validarStep2} isNextLoading={fase2FinalLoading} />
             </div>
         </div>
     );

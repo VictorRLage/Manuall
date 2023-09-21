@@ -5,8 +5,9 @@ import { viaCepInstance } from "@/api/axios";
 import Regex from "@/enum/RegexENUM";
 import CadastroProgress from "@/components/cadastro/CadastroProgress"
 import InputMask from "react-input-mask";
+import { ThreeDots } from "react-loader-spinner";
 
-export default function ContratanteFase2({ passarFase }) {
+export default function ContratanteFase2({ passarFase, isNextLoading }) {
 
     const navigate = useNavigate()
 
@@ -16,7 +17,7 @@ export default function ContratanteFase2({ passarFase }) {
     const [isBairroValidado, setIsBairroValidado] = useState();
     const [isRuaValidado, setIsRuaValidado] = useState();
     const [isNumeroValidado, setIsNumeroValidado] = useState();
-    const [isComplementoValidado, setIsComplementoValidado] = useState();
+    const [isComplementoValidado, setIsComplementoValidado] = useState(true);
 
     const cep_input = useRef(null);
     const estado_input = useRef(null);
@@ -33,19 +34,19 @@ export default function ContratanteFase2({ passarFase }) {
         },
         estado() {
             const estado = estado_input.current.value
-            setIsEstadoValidado(Regex.TEXT_SPACE.test(estado))
+            setIsEstadoValidado(estado?.length > 0)
         },
         cidade() {
             const cidade = cidade_input.current.value
-            setIsCidadeValidado(Regex.TEXT_SPACE.test(cidade))
+            setIsCidadeValidado(cidade?.length > 0)
         },
         bairro() {
             const bairro = bairro_input.current.value
-            setIsBairroValidado(Regex.TEXT_SPACE.test(bairro))
+            setIsBairroValidado(bairro?.length > 0)
         },
         rua() {
             const rua = rua_input.current.value
-            setIsRuaValidado(Regex.TEXT_SPACE.test(rua))
+            setIsRuaValidado(rua?.length > 0)
         },
         numero() {
             const numero = numero_input.current.value
@@ -54,7 +55,21 @@ export default function ContratanteFase2({ passarFase }) {
         complemento: () => setIsComplementoValidado(true),
     }
 
+    const isEveryThingValidated = () => {
+        return (
+            isCepValidado &&
+            isEstadoValidado &&
+            isCidadeValidado &&
+            isBairroValidado &&
+            isRuaValidado &&
+            isNumeroValidado &&
+            isComplementoValidado
+        )
+    }
+
     const avancar = () => {
+
+        if (isNextLoading) return;
 
         validar.cep()
         validar.estado()
@@ -65,15 +80,7 @@ export default function ContratanteFase2({ passarFase }) {
         validar.complemento()
 
         passarFase(
-            (
-                isCepValidado &&
-                isEstadoValidado &&
-                isCidadeValidado &&
-                isBairroValidado &&
-                isRuaValidado &&
-                isNumeroValidado &&
-                isComplementoValidado
-            ),
+            isEveryThingValidated(),
             {
                 cep: cep_input.current.value.replace(/[^0-9]/g, ""),
                 estado: estado_input.current.value,
@@ -106,6 +113,11 @@ export default function ContratanteFase2({ passarFase }) {
                     cidade_input.current.value = data.uf
                     bairro_input.current.value = data.bairro
                     rua_input.current.value = data.logradouro
+
+                    validar.estado()
+                    validar.cidade()
+                    validar.bairro()
+                    validar.rua()
 
                     if (numero_input.current.value === "") numero_input.current.focus()
                 }
@@ -149,6 +161,7 @@ export default function ContratanteFase2({ passarFase }) {
                         <input
                             onBlur={validar.estado}
                             ref={estado_input}
+                            maxLength={25}
                             type="text"
                             id="estado"
                             placeholder=" "
@@ -175,6 +188,7 @@ export default function ContratanteFase2({ passarFase }) {
                         <input
                             onBlur={validar.cidade}
                             ref={cidade_input}
+                            maxLength={35}
                             type="text"
                             id="cidade"
                             placeholder=" "
@@ -198,6 +212,7 @@ export default function ContratanteFase2({ passarFase }) {
                     <div className="w-[29%] relative">
                         <input
                             onBlur={validar.bairro}
+                            maxLength={35}
                             ref={bairro_input}
                             type="text"
                             id="bairro"
@@ -223,6 +238,7 @@ export default function ContratanteFase2({ passarFase }) {
                 <div className="w-[60%] relative">
                     <input
                         onBlur={validar.rua}
+                        maxLength={45}
                         ref={rua_input}
                         type="text"
                         id="rua"
@@ -248,6 +264,9 @@ export default function ContratanteFase2({ passarFase }) {
                     <div className="w-[29%] relative">
                         <input
                             onBlur={validar.numero}
+                            onChange={({ target }) => {
+                                target.value = target.value.replace(Regex.NUMBER_REPLACEABLE, "")
+                            }}
                             ref={numero_input}
                             type="text"
                             id="numero"
@@ -273,6 +292,11 @@ export default function ContratanteFase2({ passarFase }) {
                         <input
                             onBlur={validar.complemento}
                             ref={complemento_input}
+                            onKeyDown={({ key }) => {
+                                if (key !== "Enter") return;
+                                isEveryThingValidated() && avancar()
+                            }}
+                            maxLength={25}
                             type="text"
                             id="complemento"
                             placeholder=" "
@@ -297,10 +321,15 @@ export default function ContratanteFase2({ passarFase }) {
             </div>
             <div className="w-full h-[15%] flex justify-end items-center">
                 <button
-                    onClick={avancar}
-                    className="bg-verde-escuro-2 w-32 h-10 rounded-full text-xl mb-8 mr-16 font-semibold text-white"
+                    onClick={() => { isEveryThingValidated() && avancar() }}
+                    className={`${isEveryThingValidated() ? "bg-verde-escuro-2 cursor-pointer" : "bg-gray-400 cursor-default"} w-32 h-10 rounded-full text-xl mb-8 mr-16 font-semibold text-white flex items-center justify-center`}
                 >
-                    Finalizar
+                    {isNextLoading
+                        ? <ThreeDots
+                            height="20"
+                            color="#fff"
+                        />
+                        : "Avançar"}
                 </button>
             </div>
         </div>
