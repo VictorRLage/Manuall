@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapIcon, MapPinIcon, BuildingOffice2Icon, HomeIcon, HomeModernIcon, BuildingLibraryIcon, HashtagIcon } from "@heroicons/react/24/solid";
-import axios, { viaCepInstance } from "@/api/axios";
+import { viaCepInstance } from "@/api/axios";
 import Regex from "@/enum/RegexENUM";
 import CadastroProgress from "@/components/cadastro/CadastroProgress"
 import InputMask from "react-input-mask";
 
-export default function ContratanteFase2({ mudarStep }) {
+export default function ContratanteFase2({ passarFase }) {
 
     const navigate = useNavigate()
 
@@ -54,11 +54,49 @@ export default function ContratanteFase2({ mudarStep }) {
         complemento: () => setIsComplementoValidado(true),
     }
 
-    const buscarPorCep = () => {
+    const avancar = () => {
 
-        if (cep_input.current.value === "") {
-            return
+        validar.cep()
+        validar.estado()
+        validar.cidade()
+        validar.bairro()
+        validar.rua()
+        validar.numero()
+        validar.complemento()
+
+        passarFase(
+            (
+                isCepValidado &&
+                isEstadoValidado &&
+                isCidadeValidado &&
+                isBairroValidado &&
+                isRuaValidado &&
+                isNumeroValidado &&
+                isComplementoValidado
+            ),
+            {
+                cep: cep_input.current.value.replace(/[^0-9]/g, ""),
+                estado: estado_input.current.value,
+                cidade: cidade_input.current.value,
+                bairro: bairro_input.current.value,
+                rua: rua_input.current.value,
+                complemento: complemento_input.current.value
+            }
+        )
+    }
+
+    useEffect(() => {
+        if (!localStorage.getItem("ID_CADASTRANTE")) {
+            navigate("/cadastro/prestador")
         }
+        if (sessionStorage.getItem("optCidade")) {
+            rua_input.current.value = sessionStorage.getItem("optCidade")
+        }
+    }, []) // eslint-disable-line
+
+    useEffect(() => {
+        if (!isCepValidado) return;
+
         viaCepInstance.get(`/${cep_input.current.value}/json/`)
             .then(({ data }) => {
                 if (data.erro) {
@@ -72,79 +110,17 @@ export default function ContratanteFase2({ mudarStep }) {
                     if (numero_input.current.value === "") numero_input.current.focus()
                 }
             })
-    }
-
-    const avancar = () => {
-        const cep = cep_input.current.value
-        const estado = estado_input.current.value
-        const cidade = cidade_input.current.value
-        const bairro = bairro_input.current.value
-        const rua = rua_input.current.value
-        const numero = numero_input.current.value
-        const complemento = complemento_input.current.value
-
-
-
-        // if () {
-        //     setMoldaAviso(true);
-        //     setAvisoTitulo("Campos inválidos");
-        //     setAvisoDescricao("Preencha todos os campos");
-        //     return;
-        // }
-
-        axios.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
-            cep,
-            estado,
-            cidade,
-            bairro,
-            rua,
-            numero,
-            complemento: complemento === "" ? null : complemento,
-        })
-            .then((res) => {
-                if (res.status === 201) {
-                    navigate("/login")
-                } else {
-                    setMoldaAviso(true)
-                    setAvisoTitulo("Erro interno")
-                    setAvisoDescricao("Por favor tente novamente mais tarde")
-                }
-            })
-            .catch((err) => {
-                if (err.response.status === 404) {
-                    setMoldaAviso(true)
-                    setAvisoTitulo("Você ainda não chegou nessa fase")
-                    setAvisoDescricao("Por favor tente novamente mais tarde")
-                } else if (err.response.status === 409) {
-                    setMoldaAviso(true)
-                    setAvisoTitulo("Você já passou dessa fase")
-                    setAvisoDescricao("Por favor tente novamente mais tarde")
-                } else {
-                    setMoldaAviso(true)
-                    setAvisoTitulo("Erro interno")
-                    setAvisoDescricao("Por favor tente novamente mais tarde")
-                }
-            })
-    }
-
-    useEffect(() => {
-        if (localStorage.getItem("ID_CADASTRANTE") === null) {
-            navigate("/cadastro/prestador")
-        }
-        if (sessionStorage.getItem("optCidade") !== undefined) {
-            // rua_input.current.value = sessionStorage.getItem("optCidade")
-        }
-    }, []) // eslint-disable-line
+    }, [isCepValidado])
 
     return (
         <div className="bg-white h-full min-w-[70%] flex flex-col items-center">
-            <CadastroProgress fase={2} fases={2} mudarStep={mudarStep} flagIsAtLeft={false} />
+            <CadastroProgress fase={2} fases={2} flagIsAtLeft={false} />
             <div className="w-full h-[70%] flex flex-col items-center justify-evenly">
                 <div className="w-full flex items-center justify-center gap-[2%]">
                     <div className="w-[29%] relative">
                         <InputMask
                             mask="99999-999"
-                            onBlur={() => { buscarPorCep(); validar.cep() }}
+                            onBlur={validar.cep}
                             ref={cep_input}
                             onChange={({ target: { value } }) => {
                                 cep_input.current.value = value

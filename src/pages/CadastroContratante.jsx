@@ -69,6 +69,52 @@ export default function CadastroContratante() {
             })
     }
 
+    const validarStep2 = (validado) => {
+
+        if (!validado) {
+            setMoldaAviso(true);
+            setAvisoTitulo("Campos inválidos");
+            setAvisoDescricao("Preencha todos os campos");
+            return;
+        }
+
+
+        axios.put(`/cadastrar/2/${localStorage.getItem("ID_CADASTRANTE")}`, {
+            cep,
+            estado,
+            cidade,
+            bairro,
+            rua,
+            numero,
+            complemento: complemento === "" ? null : complemento,
+        })
+            .then((res) => {
+                if (res.status === 201) {
+                    navigate("/login")
+                } else {
+                    setMoldaAviso(true)
+                    setAvisoTitulo("Erro interno")
+                    setAvisoDescricao("Por favor tente novamente mais tarde")
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 404) {
+                    setMoldaAviso(true)
+                    setAvisoTitulo("Você ainda não chegou nessa fase")
+                    setAvisoDescricao("Por favor tente novamente mais tarde")
+                } else if (err.response.status === 409) {
+                    setMoldaAviso(true)
+                    setAvisoTitulo("Você já passou dessa fase")
+                    setAvisoDescricao("Por favor tente novamente mais tarde")
+                } else {
+                    setMoldaAviso(true)
+                    setAvisoTitulo("Erro interno")
+                    setAvisoDescricao("Por favor tente novamente mais tarde")
+                }
+            })
+
+    }
+
     return (
         <div className="flex justify-center items-center h-screen bg-no-repeat bg-center" style={{
             backgroundImage: `url(${CadastroBg})`, backgroundSize: "100%",
@@ -77,7 +123,7 @@ export default function CadastroContratante() {
             <div className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth" ref={scrollingDiv}>
                 <ContratanteFase1 mudarStep={mudarStep} passarFase={validarStep1} />
                 <CadastroSidebar />
-                <ContratanteFase2 mudarStep={mudarStep} passarFase={validarStep1} />
+                <ContratanteFase2 passarFase={validarStep2} />
             </div>
         </div>
     );
