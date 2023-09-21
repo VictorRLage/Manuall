@@ -2,7 +2,7 @@ import { ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
 import logo_extensa from "@/assets/manuall/logo_black_white.png";
 import { useNavigate } from "react-router-dom";
 
-export default function CadastroSidebar() {
+export default function CadastroSidebar({ mainText }) {
 
     const navigate = useNavigate()
 
@@ -12,8 +12,8 @@ export default function CadastroSidebar() {
                 <img src={logo_extensa} alt="Logo da Manuall por extensa" className="w-52 mt-10" />
             </div>
             <div className="h-[40%] w-full flex items-center justify-center">
-                <p className="text-4xl space-x-2 leading-[50px] font-bold text-white w-[60%] text-center mt-8 flex items-center justify-center flex-wrap">
-                    Cadastro de Contratante
+                <p className="text-4xl leading-[50px] font-bold text-white text-center mt-8 flex items-center justify-center flex-wrap">
+                    {mainText}
                 </p>
             </div>
             <div className="h-[50%] w-full flex items-center justify-evenly flex-col pt-[20%]">

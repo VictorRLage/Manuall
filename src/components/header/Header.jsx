@@ -4,8 +4,8 @@ import logo_extensa from "@/assets/manuall/logo_green_black.png";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Notificacao from "@/components/header/Notificacao";
 import Chat from "@/components/header/Chat";
-import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 import { logoff } from "@/utils/functions";
+import ModalCustom from "@/components/main/ModalCustom";
 
 export default function Header() {
     /*  validações :
@@ -14,25 +14,59 @@ export default function Header() {
         3 - se esta logado como como contratante tem CHAT e NOTIFICAÇOES e
         4 - se esta logado como como contratante tem CHAT, NOTIFICAÇOES, CONFIGURAÇÃO e link na navibar para Dashboard
     */
-    const navigate = useNavigate()
-    const { pathname } = useLocation()
 
-    const tipoUsuario = localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO)
-    const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const tipoUsuario =
+        localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO);
+    const [modalEscolherCadastro, setModalEscolherCadastro] = useState();
 
     return (
         <>
-            {modalEscolherCadastro && <ModalEscolherCadastro modal={setModalEscolherCadastro} />}
+            <ModalCustom
+                modalGettr={modalEscolherCadastro}
+                modalSettr={setModalEscolherCadastro}
+                canClose={true}
+            >
+                <div className="w-full h-full flex flex-col items-center py-8 gap-10 px-16">
+                    <span className="text-3xl font-semibold text-center max-w-[300px] flex items-center justify-center flex-wrap">
+                        Como deseja realizar o cadastro?
+                    </span>
+                    <div className=" flex items-center gap-4">
+                        <button
+                            onClick={() => {
+                                navigate("/cadastro/contratante");
+                            }}
+                            className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white"
+                        >
+                            Contratante
+                        </button>
+                        <button
+                            onClick={() => {
+                                navigate("/cadastro/prestador");
+                            }}
+                            className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white"
+                        >
+                            Prestador
+                        </button>
+                    </div>
+                </div>
+            </ModalCustom>
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between items-center">
                 <img
-                    onClick={() => { navigate("/") }}
+                    onClick={() => {
+                        navigate("/");
+                    }}
                     src={logo_extensa}
                     alt="Logo da Manuall por extensa"
                     className="w-[200px] cursor-pointer"
                 />
                 <nav className="flex items-center gap-4">
                     <button
-                        onClick={() => { navigate("/") }}
+                        onClick={() => {
+                            navigate("/");
+                        }}
                         style={{
                             color: pathname === "/" ? "#00CC69" : "black",
                         }}
@@ -41,58 +75,79 @@ export default function Header() {
                         Início
                     </button>
                     <button
-                        onClick={() => { navigate("/prestadores") }}
+                        onClick={() => {
+                            navigate("/prestadores");
+                        }}
                         style={{
-                            color: pathname === "/prestadores" ? "#00CC69" : "black",
+                            color:
+                                pathname === "/prestadores"
+                                    ? "#00CC69"
+                                    : "black",
                         }}
                         className="text-xl"
                     >
                         Prestadores
                     </button>
                     <button
-                        onClick={() => { navigate("/contato") }}
+                        onClick={() => {
+                            navigate("/contato");
+                        }}
                         style={{
-                            color: pathname === "/contato" ? "#00CC69" : "black",
+                            color:
+                                pathname === "/contato" ? "#00CC69" : "black",
                         }}
                         className="text-xl"
                     >
                         Contato
                     </button>
-                    {!tipoUsuario || tipoUsuario === 3 ?
+                    {!tipoUsuario || tipoUsuario === 3 ? (
                         <>
                             <button
-                                onClick={() => { navigate("/cadastro/prestador") }}
+                                onClick={() => {
+                                    navigate("/cadastro/prestador");
+                                }}
                                 className="text-xl"
                             >
                                 Quero ensinar
                             </button>
                             <button
-                                onClick={() => { navigate("/login") }}
+                                onClick={() => {
+                                    navigate("/login");
+                                }}
                                 className="text-xl border-2 w-28 h-11 border-verde-padrao rounded-full text-verde-padrao font-bold"
                             >
                                 Fazer login
                             </button>
                             <button
-                                onClick={() => { setModalEscolherCadastro(true) }}
+                                onClick={() => {
+                                    setModalEscolherCadastro(true);
+                                }}
                                 className="text-xl w-28 h-11 bg-verde-padrao rounded-full text-white font-bold"
                             >
                                 Cadastre-se
                             </button>
                         </>
-                        : <>
-                            {tipoUsuario === 1
-                                ? <button
-                                    onClick={() => { navigate("/development") }}
+                    ) : (
+                        <>
+                            {tipoUsuario === 1 ? (
+                                <button
+                                    onClick={() => {
+                                        navigate("/development");
+                                    }}
                                     className="text-xl"
                                 >
                                     Histórico
                                 </button>
-                                : <button
-                                    onClick={() => { navigate("/development") }}
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        navigate("/development");
+                                    }}
                                     className="text-xl"
                                 >
                                     Dashboard
-                                </button>}
+                                </button>
+                            )}
                             <Notificacao tipoUsuario={tipoUsuario} />
                             <button
                                 onClick={logoff}
@@ -100,7 +155,8 @@ export default function Header() {
                             >
                                 <UserIcon className="w-7 text-verde-padrao" />
                             </button>
-                        </>}
+                        </>
+                    )}
                 </nav>
             </header>
             {tipoUsuario && [1, 2].includes(tipoUsuario) && <Chat />}
