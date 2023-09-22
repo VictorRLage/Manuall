@@ -34,13 +34,13 @@ export default function CadastroProgress({
                                 ? "bg-verde-padrao"
                                 : i + 1 == fase
                                 ? "bg-white border-4 border-verde-padrao"
-                                : "bg-white border-2 border-black"
+                                : "bg-white border-2 border-gray-500"
                         } rounded-full h-10 w-10`}
                     />
-                    {i + 2 == fases && (
+                    {i + 1 !== fases && (
                         <div
                             className={`${
-                                i + 1 < fase ? "bg-verde-padrao" : "bg-black"
+                                i + 1 < fase ? "bg-verde-padrao" : "bg-gray-500"
                             } h-1 w-10`}
                         />
                     )}

@@ -89,7 +89,7 @@ export default function Header() {
                                 onClick={() => {
                                     navigate("/login");
                                 }}
-                                className="text-xl border-2 w-28 h-11 border-verde-padrao rounded-full text-verde-padrao font-bold"
+                                className="text-xl px-3 border-2 h-11 border-verde-padrao rounded-full text-verde-padrao font-bold"
                             >
                                 Fazer login
                             </button>
@@ -97,7 +97,7 @@ export default function Header() {
                                 onClick={() => {
                                     setModalEscolherCadastro(true);
                                 }}
-                                className="text-xl w-28 h-11 bg-verde-padrao rounded-full text-white font-bold"
+                                className="text-xl px-3 h-11 bg-verde-padrao rounded-full text-white font-bold"
                             >
                                 Cadastre-se
                             </button>
