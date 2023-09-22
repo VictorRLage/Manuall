@@ -1,27 +1,49 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
+import ModalCustom from "./ModalCustom";
+import { useEffect } from "react";
 
-export default function ModalAviso({ modal, tempo, titulo, descricao }) {
-
-    const [lastTimeout, setLastTimeout] = useState(0)
+export default function ModalAviso({
+    modalGettr,
+    modalSettr,
+    tempo,
+    titulo,
+    descricao,
+}) {
+    const transition_bar = useRef(null);
 
     useEffect(() => {
-
-        clearTimeout(lastTimeout)
-
-        setLastTimeout(
+        if (!transition_bar?.current) return;
+        if (modalGettr) {
+            transition_bar.current.style.transition = "0s";
+            transition_bar.current.style.width = "100%";
             setTimeout(() => {
-                modal(false)
-            }, tempo)
-        )
-
-    }, []) // eslint-disable-line
-
+                transition_bar.current.style.transition = tempo + "ms";
+                transition_bar.current.style.width = "0%";
+            }, 1)
+        }
+    }, [modalGettr])
     return (
-        <div onClick={() => { clearTimeout(lastTimeout); modal(false) }} className="z-50 fixed h-screen w-screen bg-blur flex justify-center items-center">
-            <div className="h-46 w-144 bg-white rounded-lg flex flex-col items-center p-10 gap-6">
-                <span className="text-5xl font-medium">{titulo}</span>
-                <span className="text-xl font-medium ">{descricao}</span>
+        <ModalCustom
+            modalGettr={modalGettr}
+            modalSettr={modalSettr}
+            tempo={tempo}
+            canClose={true}
+        >
+            <div className="w-full h-1 relative rounded-t-xl">
+                <div className="absolute w-full h-1 bg-verde-claro-3 rounded-t-xl" />
+                <div
+                    className="absolute h-1 bg-verde-padrao rounded-t-xl"
+                    ref={transition_bar}
+                />
             </div>
-        </div>
-    )
+            <div className="w-144 bg-white rounded-lg flex flex-col items-center p-10 gap-6">
+                <span className="text-5xl font-medium text-center">
+                    {titulo}
+                </span>
+                <span className="text-xl font-medium text-center">
+                    {descricao}
+                </span>
+            </div>
+        </ModalCustom>
+    );
 }

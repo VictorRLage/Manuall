@@ -10,23 +10,9 @@ import { useNavigate } from "react-router-dom";
 export default function CadastroContratante() {
     const navigate = useNavigate();
 
-    // const { refetch, error, isLoading, whenCompleted } = await "http://localhost:8080/".post({
-    //     body: {},
-    //     headers: {},
-    //     apiOptions: {
-    //         refetchTimeout: 15000,
-    //         refetchOnWindowFocus: false,
-    //     }
-    // }, {
-    //     onFinish: (promise) => {},
-    //     onSuccess: (data) => {
-
-    //     },
-    // })
-
     const scrollingDiv = useRef(null);
 
-    const [modalAviso, setMoldaAviso] = useState(false);
+    const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
     const [avisoDescricao, setAvisoDescricao] = useState("");
 
@@ -35,7 +21,7 @@ export default function CadastroContratante() {
 
     const validarStep1 = (validado, { nome, email, cpf, telefone, senha }) => {
         if (!validado) {
-            setMoldaAviso(true);
+            setModalAviso(true);
             setAvisoTitulo("Campos inválidos");
             setAvisoDescricao("Preencha todos os campos");
             return;
@@ -57,7 +43,7 @@ export default function CadastroContratante() {
                     localStorage.setItem("ID_CADASTRANTE", res.data);
                     mudarStep();
                 } else {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
@@ -66,22 +52,22 @@ export default function CadastroContratante() {
                 console.log(err);
                 if (err.response.status === 400) {
                     for (let i = 0; i < err.response.data.errors.length; i++) {
-                        setMoldaAviso(true);
+                        setModalAviso(true);
                         setAvisoTitulo(
                             `${err.response.data.errors[
                                 i
-                            ]?.field.toUpperCase()} inválido`
+                            ]?.field.toUpperCase()} inválido`,
                         );
                         setAvisoDescricao(
-                            err.response.data.errors[i]?.defaultMessage
+                            err.response.data.errors[i]?.defaultMessage,
                         );
                     }
                 } else if (err.response.status === 409) {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Email já cadastrado");
                     setAvisoDescricao("Tente acessar sua conta");
                 } else {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
@@ -93,10 +79,10 @@ export default function CadastroContratante() {
 
     const validarStep2 = (
         validado,
-        { cep, estado, cidade, bairro, rua, numero, complemento }
+        { cep, estado, cidade, bairro, rua, numero, complemento },
     ) => {
         if (!validado) {
-            setMoldaAviso(true);
+            setModalAviso(true);
             setAvisoTitulo("Campos inválidos");
             setAvisoDescricao("Preencha todos os campos");
             return;
@@ -118,7 +104,7 @@ export default function CadastroContratante() {
                 if (res.status === 201) {
                     navigate("/login");
                 } else {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
@@ -126,15 +112,15 @@ export default function CadastroContratante() {
             .catch((err) => {
                 console.log(err);
                 if (err.response.status === 404) {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Você ainda não chegou nessa fase");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 } else if (err.response.status === 409) {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Você já passou dessa fase");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 } else {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
@@ -157,14 +143,13 @@ export default function CadastroContratante() {
                 backgroundSize: "100%",
             }}
         >
-            {modalAviso && (
-                <ModalAviso
-                    titulo={avisoTitulo}
-                    descricao={avisoDescricao}
-                    tempo={10000}
-                    modal={setMoldaAviso}
-                />
-            )}
+            <ModalAviso
+                modalGettr={modalAviso}
+                modalSettr={setModalAviso}
+                tempo={5000}
+                titulo={avisoTitulo}
+                descricao={avisoDescricao}
+            />
             <div
                 className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth"
                 ref={scrollingDiv}
