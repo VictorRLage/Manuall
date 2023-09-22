@@ -38,7 +38,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
         cpf() {
             const cpf = cpf_input.current.value.replace(
                 Regex.NUMBER_REPLACEABLE,
-                ""
+                "",
             );
             setIsCpfValidado(Regex.CPF.test(cpf));
         },
@@ -46,8 +46,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
             const telefone = String(
                 telefone_input.current.value.replace(
                     Regex.NUMBER_REPLACEABLE,
-                    ""
-                )
+                    "",
+                ),
             ).substring(2);
             setIsTelefoneValidado(Regex.PHONE.test(telefone));
         },
@@ -83,8 +83,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
             telefone: String(
                 telefone_input.current.value.replace(
                     Regex.NUMBER_REPLACEABLE,
-                    ""
-                )
+                    "",
+                ),
             ).substring(2),
             senha: senha_input.current.value,
         });
@@ -96,7 +96,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                 email: email_input.current.value,
                 tipoUsuario: 1,
             })
-            .then((res) => {
+            .then(res => {
                 if (res.status === 200) {
                     if (nome_input.current.value === "") {
                         nome_input.current.value = res.data.nome;
@@ -104,8 +104,9 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                     }
                     if (telefone_input.current.value === "") {
                         if (res.data.telefone.length > 11) {
-                            telefone_input.current.value =
-                                res.data.telefone.substring(2);
+                            telefone_input.current.value = res.data.telefone.substring(
+                                2,
+                            );
                         } else {
                             telefone_input.current.value = res.data.telefone;
                         }
@@ -133,7 +134,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         onChange={({ target }) => {
                             target.value = target.value.replace(
                                 Regex.TEXT_SPACE_REPLACEABLE,
-                                ""
+                                "",
                             );
                         }}
                         maxLength={60}
@@ -168,7 +169,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         onChange={({ target }) => {
                             target.value = target.value.replace(
                                 Regex.EMAIL_REPLACEABLE,
-                                ""
+                                "",
                             );
                         }}
                         ref={email_input}

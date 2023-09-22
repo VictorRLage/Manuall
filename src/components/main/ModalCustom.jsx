@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function ModalCustom({
     canClose = false,
@@ -10,69 +10,66 @@ export default function ModalCustom({
     h,
     children,
 }) {
+    const modal_custom = useRef(null);
+    const modal_custom_bg = useRef(null);
+
     const [lastTimeout, setLastTimeout] = useState(0);
 
     useEffect(() => {
         if (canClose && tempo) clearTimeout(lastTimeout);
 
         if (modalGettr) {
-            const modalCustom = document.getElementById("modalCustom");
-            const modalCustomBg = document.getElementById("modalCustomBg");
-
             setTimeout(() => {
-                modalCustom.style.transform = "scale(1)";
-                modalCustomBg.style.opacity = "0.4";
+                modal_custom.current.style.transform = "scale(1)";
+                modal_custom_bg.current.style.opacity = "0.4";
             }, 1);
             if (canClose && tempo) {
                 setLastTimeout(
                     setTimeout(() => {
                         modalSettr?.(false);
-                    }, tempo)
+                    }, tempo),
                 );
             }
         }
     }, [modalGettr]); // eslint-disable-line
 
     const closeModal = ({ target }) => {
-        if (!canCloseOnItselfClick && target.id !== "modalCustom") return;
+        if (!canCloseOnItselfClick && target !== modal_custom.current) return;
 
         if (canClose) {
-            const modalCustom = document.getElementById("modalCustom");
-            const modalCustomBg = document.getElementById("modalCustomBg");
-
-            modalCustomBg.style.opacity = "0";
+            modal_custom_bg.current.style.opacity = "0";
             clearTimeout(lastTimeout);
 
-            setTimeout(() => {
-                modalCustom.style.transform = "scale(0.97)";
-                modalSettr?.(false);
-            }, 150);
+            modal_custom.current.style.transform = "scale(0.97)";
+            modalSettr?.(false);
         }
     };
 
     return (
         <>
-            <div
-                className="fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all"
-                style={{
-                    display: modalGettr ? "block" : "none",
-                    opacity: "0",
-                }}
-                id="modalCustomBg"
-            />
-            <div
-                onClick={closeModal}
-                className="fixed justify-center items-center h-screen w-screen z-50"
-                style={{ display: modalGettr ? "flex" : "none" }}
-                id="modalCustom"
-            >
-                <div
-                    className="bg-white flex flex-col justify-around items-center rounded-xl"
-                    style={{ width: w, height: h }}
-                >
-                    {children}
-                </div>
-            </div>
+            {modalGettr && (
+                <>
+                    <div
+                        className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all"
+                        style={{
+                            opacity: "0",
+                        }}
+                        ref={modal_custom_bg}
+                    />
+                    <div
+                        onClick={closeModal}
+                        className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-50 flex"
+                        ref={modal_custom}
+                    >
+                        <div
+                            className="bg-white flex flex-col justify-around items-center rounded-xl"
+                            style={{ width: w, height: h }}
+                        >
+                            {children}
+                        </div>
+                    </div>
+                </>
+            )}
         </>
     );
 }

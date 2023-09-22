@@ -134,14 +134,14 @@ export default function Fase3() {
                 orcamentoMin: minn,
                 orcamentoMax: maxx,
             })
-            .then((res) => {
+            .then(res => {
                 if (res.status === 201) {
                     setModalVisible(true);
                 } else {
                     alert("Erro interno");
                 }
             })
-            .catch((err) => {
+            .catch(err => {
                 if (err.response.status === 403) {
                     setMoldaAviso(true);
                     setAvisoTitulo("Tipo usuário inválido");
@@ -176,7 +176,7 @@ export default function Fase3() {
         }
         if (sessionStorage.getItem("optEnsinar") !== null) {
             ensinar_input.current.value = JSON.parse(
-                sessionStorage.getItem("optEnsinar")
+                sessionStorage.getItem("optEnsinar"),
             )
                 ? "1"
                 : "2";
@@ -190,14 +190,14 @@ export default function Fase3() {
                 Number(sessionStorage.getItem("optMax")),
             ]);
         }
-        axios.get("/usuario/areas").then((res1) => {
+        axios.get("/usuario/areas").then(res1 => {
             setAreas(res1.data);
             setMapArea(true);
         });
     }, []); // eslint-disable-line
 
     useEffect(() => {
-        axios.get(`/usuario/servico/${selectedArea}`).then((res2) => {
+        axios.get(`/usuario/servico/${selectedArea}`).then(res2 => {
             let newArray = [];
             for (let i = 0; i < res2.data.length; i++) {
                 newArray.push({
@@ -215,7 +215,7 @@ export default function Fase3() {
         }
         if (sessionStorage.getItem("optArea") !== null) {
             area_input.current.value = Number(
-                sessionStorage.getItem("optArea")
+                sessionStorage.getItem("optArea"),
             );
             setSelectedArea(Number(sessionStorage.getItem("optArea")));
         }
@@ -250,7 +250,7 @@ export default function Fase3() {
                                         onBlur={() => {
                                             validarArea();
                                         }}
-                                        onChange={(e) => {
+                                        onChange={e => {
                                             setSelectedArea(e.target.value);
                                         }}
                                         className={`cursor-pointer block appearance-none w-full text-xl font-bold h-14 bg-white border ${
@@ -347,13 +347,11 @@ export default function Fase3() {
                                                                 defaultChecked={
                                                                     data.checked
                                                                 }
-                                                                onChange={(
-                                                                    e
-                                                                ) => {
+                                                                onChange={e => {
                                                                     alterarChecked(
                                                                         index,
                                                                         e.target
-                                                                            .checked
+                                                                            .checked,
                                                                     );
                                                                 }}
                                                                 id={
@@ -471,12 +469,12 @@ export default function Fase3() {
                                 min={0}
                                 max={5000}
                                 ariaLabel={["Lower thumb", "Upper thumb"]}
-                                ariaValuetext={(state) =>
+                                ariaValuetext={state =>
                                     `Thumb value ${state.valueNow}`
                                 }
                                 pearling
                                 minDistance={50}
-                                onChange={(value) => setRange(value)}
+                                onChange={value => setRange(value)}
                             />
                             <span className="text-2xl font-medium text-verde-padrao ml-2 mr-2">
                                 Max
@@ -515,7 +513,7 @@ export default function Fase3() {
                                     onClick={() => {
                                         navigate("/");
                                     }}
-                                    className=" 2xl:text-2xl xl:text-xl 2xl:ml-12 xl:ml-11 2xl:mt-22 xl:mt-7 font-bold text-verde-padrao flex items-center"
+                                    className="text-xl ml-11 mt-7 font-bold text-verde-padrao flex items-center"
                                 >
                                     <ChevronDoubleLeftIcon className="2xl:h-10 2xl:w-10 xl:h-8 xl:w-8" />{" "}
                                     Voltar à Tela inicial

@@ -5,7 +5,7 @@ import { UserIcon } from "@heroicons/react/24/solid";
 import Notificacao from "@/components/header/Notificacao";
 import Chat from "@/components/header/Chat";
 import { logoff } from "@/utils/functions";
-import ModalCustom from "@/components/main/ModalCustom";
+import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 
 export default function Header() {
     /*  validações :
@@ -24,35 +24,10 @@ export default function Header() {
 
     return (
         <>
-            <ModalCustom
+            <ModalEscolherCadastro
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
-                canClose={true}
-            >
-                <div className="w-full h-full flex flex-col items-center py-8 gap-10 px-16">
-                    <span className="text-3xl font-semibold text-center max-w-[300px] flex items-center justify-center flex-wrap">
-                        Como deseja realizar o cadastro?
-                    </span>
-                    <div className=" flex items-center gap-4">
-                        <button
-                            onClick={() => {
-                                navigate("/cadastro/contratante");
-                            }}
-                            className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white"
-                        >
-                            Contratante
-                        </button>
-                        <button
-                            onClick={() => {
-                                navigate("/cadastro/prestador");
-                            }}
-                            className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white"
-                        >
-                            Prestador
-                        </button>
-                    </div>
-                </div>
-            </ModalCustom>
+            />
             <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between items-center">
                 <img
                     onClick={() => {
