@@ -6,6 +6,7 @@ import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
 import ReactSlider from "react-slider";
 import { ThreeDots } from "react-loader-spinner";
+import Regex from "@/enum/RegexENUM";
 
 export default function Fase3({
     stepInfo,
@@ -13,6 +14,13 @@ export default function Fase3({
     voltarFase,
     isNextLoading,
 }) {
+    const [isAreaSelecionadaValidado, setIsAreaSelecionadaValidado] =
+        useState();
+    const [isServicosSelecionadosValidado, setIsServicosSelecionadosValidado] =
+        useState();
+    const [isPrestaAulaValidado, setIsPrestaAulaValidado] = useState();
+    const [isOrcamentoValidado, setIsOrcamentoValidado] = useState(true);
+
     const [areas, setAreas] = useState([]);
     const [servicos, setServicos] = useState([]);
 
@@ -21,26 +29,60 @@ export default function Fase3({
     const [prestaAula, setPrestaAula] = useState(null);
     const [orcamento, setOrcamento] = useState([1500, 3500]);
 
+    const validar = {
+        areaSelecionada: (areaSelecionadaValue = areaSelecionada) => {
+            setIsAreaSelecionadaValidado(areaSelecionadaValue !== null);
+        },
+        servicosSelecionados: (
+            servicosSelecionadosValue = servicosSelecionados,
+        ) => {
+            setIsServicosSelecionadosValidado(
+                servicosSelecionadosValue.length > 0,
+            );
+        },
+        prestaAula: (prestaAulaValue = prestaAula) => {
+            setIsPrestaAulaValidado(prestaAulaValue !== null);
+        },
+        orcamento: () => {
+            setIsOrcamentoValidado(
+                orcamento[0] !== null && orcamento[1] !== null,
+            );
+        },
+    };
+
     const isEveryThingValidated = () => {
-        return true;
+        return (
+            isAreaSelecionadaValidado &&
+            isServicosSelecionadosValidado &&
+            isPrestaAulaValidado &&
+            isOrcamentoValidado
+        );
     };
 
     const avancar = () => {
         if (isNextLoading) return;
 
+        validar.areaSelecionada();
+        validar.servicosSelecionados();
+        validar.prestaAula();
+        validar.orcamento();
+
         passarFase(
-            isEveryThingValidated(),
-            /* --- */
+            isEveryThingValidated(), {
+                area: areaSelecionada,
+                servicos: servicosSelecionados,
+                prestaAula: prestaAula === "1",
+                orcamentoMin: orcamento[0],
+                orcamentoMax: orcamento[1],
+            }
         );
     };
 
     useEffect(() => {
         if (sessionStorage.getItem("optEnsinar")) {
-            ensinar_input.current.value = JSON.parse(
-                sessionStorage.getItem("optEnsinar"),
-            )
-                ? 1
-                : 2;
+            setPrestaAula(
+                JSON.parse(sessionStorage.getItem("optEnsinar")) ? 1 : 2,
+            );
         }
         if (
             sessionStorage.getItem("optMin") &&
@@ -79,7 +121,10 @@ export default function Fase3({
                     <div className="w-[40%] h-full flex flex-col justify-center items-center p-5 gap-5">
                         <Dropdown
                             value={areaSelecionada}
-                            onChange={({ value }) => setAreaSelecionada(value)}
+                            onChange={({ value }) => {
+                                setAreaSelecionada(value);
+                                validar.areaSelecionada(value);
+                            }}
                             options={areas}
                             optionValue="id"
                             optionLabel="nome"
@@ -95,9 +140,10 @@ export default function Fase3({
                         />
                         <MultiSelect
                             value={servicosSelecionados}
-                            onChange={({ value }) =>
-                                setServicosSelecionados(value)
-                            }
+                            onChange={({ value }) => {
+                                setServicosSelecionados(value);
+                                validar.servicosSelecionados(value);
+                            }}
                             options={servicos}
                             disabled={!areaSelecionada}
                             optionValue="id"
@@ -137,9 +183,12 @@ export default function Fase3({
                                     type="radio"
                                     name="prestaAula"
                                     className="accent-verde-escuro-1"
-                                    onChange={({ target }) =>
-                                        setPrestaAula(target.value)
-                                    }
+                                    onChange={({ target }) => {
+                                        setPrestaAula(target.value);
+                                        setTimeout(() => {
+                                            validar.prestaAula(target.value);
+                                        }, 1);
+                                    }}
                                 />
                                 <span className="ml-2">
                                     Sim, também quero ensinar
@@ -162,9 +211,10 @@ export default function Fase3({
                                     type="radio"
                                     name="prestaAula"
                                     className="accent-verde-escuro-1"
-                                    onChange={({ target }) =>
-                                        setPrestaAula(target.value)
-                                    }
+                                    onChange={({ target }) => {
+                                        setPrestaAula(target.value);
+                                        validar.prestaAula(target.value);
+                                    }}
                                 />
                                 <span className="ml-2">
                                     Não, apenas presto os serviços
@@ -183,14 +233,19 @@ export default function Fase3({
                             <input
                                 type="text"
                                 value={orcamento[0]}
-                                onChange={({ target }) =>
+                                onChange={({ target }) => {
                                     setOrcamento([
-                                        target.value,
+                                        Number(
+                                            target.value.replace(
+                                                Regex.NUMBER_REPLACEABLE,
+                                                "",
+                                            ),
+                                        ),
                                         orcamento[1] > target.value
                                             ? orcamento[1]
-                                            : target.value + 1,
-                                    ])
-                                }
+                                            : Number(target.value) + 1,
+                                    ]);
+                                }}
                                 className="border-2 border-cinza-claro-1 rounded-lg w-[70%] px-2 hover:border-green-300 transition-all outline-none focus:border-green-600"
                             />
                         </div>
@@ -216,8 +271,13 @@ export default function Fase3({
                                             ? orcamento[0]
                                             : target.value - 1 >= 0
                                             ? target.value - 1
-                                            : target.value,
-                                        target.value,
+                                            : target.value || 0,
+                                        Number(
+                                            target.value.replace(
+                                                Regex.NUMBER_REPLACEABLE,
+                                                "",
+                                            ),
+                                        ),
                                     ]);
                                 }}
                                 className="border-2 border-cinza-claro-1 rounded-lg w-[70%] px-2 hover:border-green-300 transition-all outline-none focus:border-green-600"
@@ -234,7 +294,7 @@ export default function Fase3({
                             isEveryThingValidated()
                                 ? "bg-verde-escuro-2 cursor-pointer"
                                 : "bg-gray-400 cursor-default"
-                        } w-32 h-10 rounded-full text-xl mr-16 font-semibold text-white flex items-center justify-center`}
+                        } w-32 h-10 rounded-full text-xl mb-4 mr-16 font-semibold text-white flex items-center justify-center`}
                     >
                         {isNextLoading ? (
                             <ThreeDots height="20" color="#fff" />
