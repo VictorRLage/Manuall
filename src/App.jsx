@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
 
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";

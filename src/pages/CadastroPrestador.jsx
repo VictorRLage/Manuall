@@ -6,12 +6,9 @@ import Fase3 from "@/components/cadastro/Fase3";
 import ModalAviso from "@/components/main/ModalAviso";
 import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import axios from "@/api/axios";
-import { useNavigate } from "react-router-dom";
 import ModalConclusaoCadastroPrestador from "@/components/cadastro/ModalConclusaoCadastroPrestador";
 
 export default function CadastroPrestador() {
-    const navigate = useNavigate();
-
     const scrollingDiv = useRef(null);
 
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
@@ -110,7 +107,7 @@ export default function CadastroPrestador() {
             })
             .then((res) => {
                 if (res.status === 201) {
-                    navigate("/login");
+                    setStepAtual(3);
                 } else {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
@@ -138,8 +135,58 @@ export default function CadastroPrestador() {
             });
     };
 
-    const validarStep3 = (validado, { descricao, foto }) => {
-        console.log("validando step 3 placeholder");
+    const validarStep3 = (
+        validado,
+        { area, servicos, prestaAula, orcamentoMin, orcamentoMax },
+    ) => {
+        if (!validado) {
+            setModalAviso(true);
+            setAvisoTitulo("Campos inválidos");
+            setAvisoDescricao("Preencha todos os campos");
+            return;
+        }
+
+        setFase3FinalLoading(true);
+
+        axios
+            .put(`/cadastrar/3/${localStorage.getItem("ID_CADASTRANTE")}`, {
+                area,
+                servico: servicos,
+                prestaAula,
+                orcamentoMin,
+                orcamentoMax,
+            })
+            .then((res) => {
+                if (res.status === 201) {
+                    setModalConclusaoCadastro(true);
+                } else {
+                    setModalAviso(true);
+                    setAvisoTitulo("Erro interno");
+                    setAvisoDescricao("Por favor tente novamente mais tarde");
+                }
+            })
+            .catch((err) => {
+                if (err.response.status === 403) {
+                    setModalAviso(true);
+                    setAvisoTitulo("Tipo usuário inválido");
+                    setAvisoDescricao("Por favor tente novamente mais tarde");
+                } else if (err.response.status === 404) {
+                    setModalAviso(true);
+                    setAvisoTitulo("Você ainda não chegou nessa fase");
+                    setAvisoDescricao("Por favor tente novamente mais tarde");
+                } else if (err.response.status === 409) {
+                    setModalAviso(true);
+                    setAvisoTitulo("Você já passou dessa fase");
+                    setAvisoDescricao("Por favor tente novamente mais tarde");
+                } else {
+                    setModalAviso(true);
+                    setAvisoTitulo("Erro interno");
+                    setAvisoDescricao("Por favor tente novamente mais tarde");
+                }
+            })
+            .finally(() => {
+                setFase3FinalLoading(false);
+            });
     };
 
     useEffect(() => {

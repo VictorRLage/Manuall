@@ -143,8 +143,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         placeholder=" "
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
-							${isNomeValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+							${isNomeValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
 						`}
                     />
                     <label
@@ -179,8 +179,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         placeholder=" "
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
-							${isEmailValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+							${isEmailValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
 						`}
                     />
                     <label
@@ -210,8 +210,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
-								${isCpfValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+								${isCpfValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
 							`}
                         />
                         <label
@@ -240,8 +240,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
-								${isTelefoneValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+								${isTelefoneValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
 							`}
                         />
                         <label
@@ -273,8 +273,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         placeholder=" "
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
-							${isSenhaValidado === false ? "border-red-500" : "border-cinza-claro-1"}
+							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+							${isSenhaValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
 						`}
                     />
                     <label

@@ -97,7 +97,7 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
         if (sessionStorage.getItem("optCidade")) {
             rua_input.current.value = sessionStorage.getItem("optCidade");
         }
-    }, []); // eslint-disable-line
+    }, []);
 
     useEffect(() => {
         if (!isCepValidado) return;
@@ -147,11 +147,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isCepValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                         />
@@ -178,11 +178,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isEstadoValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                         />
@@ -211,11 +211,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isCidadeValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                         />
@@ -242,11 +242,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isBairroValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                         />
@@ -274,11 +274,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                         placeholder=" "
                         className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isRuaValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                     />
@@ -305,11 +305,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isNumeroValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                         />
@@ -340,11 +340,11 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             placeholder=" "
                             className={`
                                 block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer
+                                appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
                                 ${
                                     isComplementoValidado === false
                                         ? "border-red-500"
-                                        : "border-cinza-claro-1"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
                         />

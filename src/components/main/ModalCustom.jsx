@@ -31,7 +31,7 @@ export default function ModalCustom({
                 );
             }
         }
-    }, [modalGettr]); // eslint-disable-line
+    }, [modalGettr]);
 
     const closeModal = ({ target }) => {
         if (!canCloseOnItselfClick && target !== modal_custom.current) return;
