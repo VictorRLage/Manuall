@@ -7,11 +7,14 @@ import ModalAviso from "@/components/main/ModalAviso";
 import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import axios from "@/api/axios";
 import { useNavigate } from "react-router-dom";
+import ModalConclusaoCadastroPrestador from "@/components/cadastro/ModalConclusaoCadastroPrestador";
 
 export default function CadastroPrestador() {
     const navigate = useNavigate();
 
     const scrollingDiv = useRef(null);
+
+    const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
 
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
@@ -22,6 +25,7 @@ export default function CadastroPrestador() {
 
     const [fase1FinalLoading, setFase1FinalLoading] = useState(false);
     const [fase2FinalLoading, setFase2FinalLoading] = useState(false);
+    const [fase3FinalLoading, setFase3FinalLoading] = useState(false);
 
     const validarStep1 = (validado, { nome, email, cpf, telefone, senha }) => {
         if (!validado) {
@@ -134,6 +138,10 @@ export default function CadastroPrestador() {
             });
     };
 
+    const validarStep3 = (validado, { descricao, foto }) => {
+        console.log("validando step 3 placeholder");
+    };
+
     useEffect(() => {
         scrollingDiv.current.style.scrollBehavior = "auto";
         scrollingDiv.current.scrollLeft = 2000;
@@ -144,8 +152,8 @@ export default function CadastroPrestador() {
         scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
 
         setTimeout(() => {
-            setDelayedStepAtual(stepAtual)
-        }, 150)
+            setDelayedStepAtual(stepAtual);
+        }, 150);
     }, [stepAtual]);
 
     return (
@@ -162,6 +170,10 @@ export default function CadastroPrestador() {
                 tempo={5000}
                 titulo={avisoTitulo}
                 descricao={avisoDescricao}
+            />
+            <ModalConclusaoCadastroPrestador
+                modalGettr={modalConclusaoCadastro}
+                modalSettr={setModalConclusaoCadastro}
             />
             <div
                 className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden"
@@ -191,8 +203,9 @@ export default function CadastroPrestador() {
                             passarFaseAtalho: () => setStepAtual(4),
                             fases: 3,
                         }}
-                        passarFase={validarStep1}
-                        isNextLoading={fase1FinalLoading}
+                        passarFase={validarStep3}
+                        voltarFase={() => setStepAtual(2)}
+                        isNextLoading={fase3FinalLoading}
                     />
                 )}
             </div>

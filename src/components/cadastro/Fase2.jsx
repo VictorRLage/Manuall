@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
     MapIcon,
     MapPinIcon,
@@ -8,16 +7,15 @@ import {
     HomeModernIcon,
     BuildingLibraryIcon,
     HashtagIcon,
+    ChevronDoubleRightIcon,
 } from "@heroicons/react/24/solid";
 import { viaCepInstance } from "@/api/axios";
 import Regex from "@/enum/RegexENUM";
 import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import InputMask from "react-input-mask";
-import { ThreeDots } from "react-loader-spinner";
+import { ThreeDots, Oval } from "react-loader-spinner";
 
 export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
-    const navigate = useNavigate();
-
     const [isCepValidado, setIsCepValidado] = useState();
     const [isEstadoValidado, setIsEstadoValidado] = useState();
     const [isCidadeValidado, setIsCidadeValidado] = useState();
@@ -366,22 +364,50 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                 </div>
             </div>
             <div className="w-full h-[15%] flex justify-end items-center">
-                <button
-                    onClick={() => {
-                        isEveryThingValidated() && avancar();
-                    }}
-                    className={`${
-                        isEveryThingValidated()
-                            ? "bg-verde-escuro-2 cursor-pointer"
-                            : "bg-gray-400 cursor-default"
-                    } w-32 h-10 rounded-full text-xl mb-8 mr-16 font-semibold text-white flex items-center justify-center`}
-                >
-                    {isNextLoading ? (
-                        <ThreeDots height="20" color="#fff" />
-                    ) : (
-                        "Avançar"
-                    )}
-                </button>
+                {stepInfo.fases <= 2 ? (
+                    <button
+                        onClick={() => {
+                            isEveryThingValidated() && avancar();
+                        }}
+                        className={`${
+                            isEveryThingValidated()
+                                ? "bg-verde-escuro-2 cursor-pointer"
+                                : "bg-gray-400 cursor-default"
+                        } w-32 h-10 rounded-full text-xl mb-8 mr-16 font-semibold text-white flex items-center justify-center`}
+                    >
+                        {isNextLoading ? (
+                            <ThreeDots height="20" color="#fff" />
+                        ) : (
+                            "Finalizar"
+                        )}
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => {
+                            isEveryThingValidated() && avancar();
+                        }}
+                        className={`${
+                            isEveryThingValidated()
+                                ? "text-verde-padrao cursor-pointer"
+                                : "text-gray-400 cursor-default"
+                        } text-xl mb-8 mr-11 font-bold flex justify-center items-center h-[40px]`}
+                    >
+                        {isNextLoading ? (
+                            <Oval
+                                height={40}
+                                color="#4fa94d"
+                                secondaryColor="#4fa94d"
+                                strokeWidth={4}
+                                strokeWidthSecondary={4}
+                            />
+                        ) : (
+                            <>
+                                Próximo{" "}
+                                <ChevronDoubleRightIcon className="h-8 w-8" />
+                            </>
+                        )}
+                    </button>
+                )}
             </div>
         </div>
     );

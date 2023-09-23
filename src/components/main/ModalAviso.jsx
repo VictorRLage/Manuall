@@ -14,14 +14,15 @@ export default function ModalAviso({
     useEffect(() => {
         if (!transition_bar?.current) return;
         if (modalGettr) {
-            transition_bar.current.style.transition = "0s";
+            transition_bar.current.style.transition = "0s linear";
             transition_bar.current.style.width = "100%";
             setTimeout(() => {
-                transition_bar.current.style.transition = tempo + "ms";
+                transition_bar.current.style.transition = tempo + "ms linear";
                 transition_bar.current.style.width = "0%";
-            }, 1)
+            }, 1);
         }
-    }, [modalGettr])
+    }, [modalGettr]);
+
     return (
         <ModalCustom
             modalGettr={modalGettr}
@@ -29,20 +30,22 @@ export default function ModalAviso({
             tempo={tempo}
             canClose={true}
         >
-            <div className="w-full h-1 relative rounded-t-xl">
-                <div className="absolute w-full h-1 bg-verde-claro-3 rounded-t-xl" />
-                <div
-                    className="absolute h-1 bg-verde-padrao rounded-t-xl"
-                    ref={transition_bar}
-                />
-            </div>
-            <div className="w-144 bg-white rounded-lg flex flex-col items-center p-10 gap-6">
-                <span className="text-5xl font-medium text-center">
-                    {titulo}
-                </span>
-                <span className="text-xl font-medium text-center">
-                    {descricao}
-                </span>
+            <div className="w-144 bg-white rounded-lg">
+                <div className="w-full h-1 relative">
+                    <div className="absolute w-full h-1 bg-verde-claro-3" />
+                    <div
+                        className="absolute h-1 bg-verde-padrao"
+                        ref={transition_bar}
+                    />
+                </div>
+                <div className="w-full rounded-b-lg bg-white flex flex-col items-center p-10 gap-6">
+                    <span className="text-5xl font-medium text-center">
+                        {titulo}
+                    </span>
+                    <span className="text-xl font-medium text-center">
+                        {descricao}
+                    </span>
+                </div>
             </div>
         </ModalCustom>
     );

@@ -5,12 +5,12 @@ import Fase2 from "@/components/cadastro/Fase2";
 import ModalAviso from "@/components/main/ModalAviso";
 import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import axios from "@/api/axios";
-import { useNavigate } from "react-router-dom";
+import ModalConclusaoCadastroContratante from "@/components/cadastro/ModalConclusaoCadastroContratante";
 
 export default function CadastroContratante() {
-    const navigate = useNavigate();
-
     const scrollingDiv = useRef(null);
+
+    const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
 
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
@@ -102,7 +102,7 @@ export default function CadastroContratante() {
             })
             .then((res) => {
                 if (res.status === 201) {
-                    navigate("/login");
+                    setModalConclusaoCadastro(true);
                 } else {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
@@ -133,7 +133,9 @@ export default function CadastroContratante() {
     useEffect(() => {
         scrollingDiv.current.scrollLeft = 0;
     }, []);
-    const mudarStep = () => (scrollingDiv.current.scrollLeft = 2000);
+    const mudarStep = () => {
+        scrollingDiv.current.scrollLeft = 2000;
+    };
 
     return (
         <div
@@ -149,6 +151,10 @@ export default function CadastroContratante() {
                 tempo={5000}
                 titulo={avisoTitulo}
                 descricao={avisoDescricao}
+            />
+            <ModalConclusaoCadastroContratante
+                modalGettr={modalConclusaoCadastro}
+                modalSettr={setModalConclusaoCadastro}
             />
             <div
                 className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth"

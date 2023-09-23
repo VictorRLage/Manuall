@@ -50,7 +50,7 @@ export default function ModalCustom({
             {modalGettr && (
                 <>
                     <div
-                        className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all"
+                        className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all duration-300"
                         style={{
                             opacity: "0",
                         }}
