@@ -10,7 +10,7 @@ export default function CadastroProgress({
     fase,
     fases,
     mudarStep,
-    isFlagAtLeft
+    isFlagAtLeft,
 }) {
     return (
         <div className="h-[15%] w-full relative flex justify-center items-center">

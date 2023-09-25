@@ -8,7 +8,6 @@ import { logoff } from "@/utils/functions";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 
 export default function Header() {
-
     const navigate = useNavigate();
     const { pathname } = useLocation();
 

@@ -6,8 +6,8 @@ export default function modalConclusaoCadastroPrestador({
     modalGettr,
     modalSettr,
 }) {
-    const navigate = useNavigate()
-    
+    const navigate = useNavigate();
+
     return (
         <ModalCustom
             modalGettr={modalGettr}

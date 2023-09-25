@@ -8,7 +8,11 @@ export default function CadastroFlag({ isFlagAtLeft }) {
                     isFlagAtLeft ? "left-8" : "right-8"
                 } top-0 h-16 w-1h-16`}
             >
-                <img src={CadastroFlagSvg} className="w-full h-full" alt="Bandeira verde decorativa" />
+                <img
+                    src={CadastroFlagSvg}
+                    className="w-full h-full"
+                    alt="Bandeira verde decorativa"
+                />
             </div>
         )
     );
