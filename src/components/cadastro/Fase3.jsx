@@ -67,15 +67,13 @@ export default function Fase3({
         validar.prestaAula();
         validar.orcamento();
 
-        passarFase(
-            isEveryThingValidated(), {
-                area: areaSelecionada,
-                servicos: servicosSelecionados,
-                prestaAula: prestaAula === "1",
-                orcamentoMin: orcamento[0],
-                orcamentoMax: orcamento[1],
-            }
-        );
+        passarFase(isEveryThingValidated(), {
+            area: areaSelecionada,
+            servicos: servicosSelecionados,
+            prestaAula: prestaAula === "1",
+            orcamentoMin: orcamento[0],
+            orcamentoMax: orcamento[1],
+        });
     };
 
     useEffect(() => {
@@ -114,7 +112,7 @@ export default function Fase3({
                 fase={3}
                 fases={stepInfo.fases}
                 mudarStep={stepInfo.passarFaseAtalho}
-                flagIsAtLeft={stepInfo.fases % 2 === 0}
+                isFlagAtLeft={stepInfo.fases % 2 === 0}
             />
             <div className="w-full h-[85%] flex flex-col items-center justify-center">
                 <div className="w-full h-[50%] flex justify-center items-center">

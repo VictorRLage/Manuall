@@ -14,7 +14,7 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
                 <span className="text-3xl font-semibold text-center max-w-[300px] flex items-center justify-center flex-wrap">
                     Como deseja realizar o cadastro?
                 </span>
-                <div className=" flex items-center gap-4">
+                <div className="flex items-center gap-4">
                     <button
                         onClick={() => {
                             navigate("/cadastro/contratante");

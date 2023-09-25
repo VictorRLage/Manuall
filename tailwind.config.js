@@ -5,12 +5,9 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'mukta': ['Mukta', 'sans-serif']
+      'mukta': ['Mukta', 'arial']
     },
     extend: {
-      backgroundImage: {
-        'bg-fundoContato': "url('/src/assets/shapes/MainBg')",
-      },
       colors: {
         'cinza': '#D9D9D9',
         'cinza-claro-1': '#A7A5A5',

@@ -130,7 +130,7 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                 fase={2}
                 fases={stepInfo.fases}
                 mudarStep={stepInfo.passarFaseAtalho}
-                flagIsAtLeft={stepInfo.fases % 2 !== 0}
+                isFlagAtLeft={stepInfo.fases % 2 !== 0}
             />
             <div className="w-full h-[70%] flex flex-col items-center justify-evenly">
                 <div className="w-full flex items-center justify-center gap-[2%]">

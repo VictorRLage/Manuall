@@ -1,28 +1,20 @@
 import React from "react";
-import CadastroFlag from "@/assets/shapes/CadastroFlag.svg";
+import CadastroFlag from "@/components/cadastro/CadastroFlag";
 
 /**
  * @param {{
- * flagIsAtLeft: boolean
+ * isFlagAtLeft: boolean
  * }}
  */
 export default function CadastroProgress({
     fase,
     fases,
     mudarStep,
-    flagIsAtLeft
+    isFlagAtLeft
 }) {
     return (
         <div className="h-[15%] w-full relative flex justify-center items-center">
-            {flagIsAtLeft !== undefined && (
-                <div
-                    className={`absolute ${
-                        flagIsAtLeft ? "left-8" : "right-8"
-                    } top-0 h-16 w-1h-16`}
-                >
-                    <img src={CadastroFlag} className="w-full h-full" alt="" />
-                </div>
-            )}
+            <CadastroFlag isFlagAtLeft={isFlagAtLeft} />
             {Array.from({ length: fases }, (_, i) => (
                 <React.Fragment key={i}>
                     <div

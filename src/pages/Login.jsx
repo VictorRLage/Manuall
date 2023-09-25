@@ -1,120 +1,83 @@
 import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import {
-    ChevronDoubleLeftIcon,
-    EnvelopeIcon,
-    LockClosedIcon,
-} from "@heroicons/react/24/solid";
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
-import logo_extensa from "@/assets/manuall/logo_black_white.png";
+import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+import CheckCircleIcon from "@/assets/icons/check_circle.svg";
+import XCircleIcon from "@/assets/icons/x_circle.svg";
+import LoadingGif from "@/assets/icons/loading.gif";
 import axios from "@/api/axios";
-import EntrarTrue from "@/components/login/EntrarTrue";
-import EntrarFalse from "@/components/login/EntrarFalse";
-import LoadingEmail from "@/components/login/LoadingEmail";
-import ModalEscolherConta from "@/components/login/ModalEscolherConta";
+import ModalEscolherLogin from "@/components/login/ModalEscolherLogin";
 import ModalAviso from "@/components/main/ModalAviso";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
+import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
+import CadastroBg from "@/assets/shapes/CadastroBg.svg";
+import CadastroFlag from "@/components/cadastro/CadastroFlag";
+import Regex from "@/enum/RegexENUM";
 
 export default function Login() {
-    /*
-    Validações:
-    Logar - Botão fica indiponivel até o email ser validado
-    Email - Apartir do momento que começou a digitar inicia requisição pro back letra por letra (bolinha fica 
-        girando), caso seja encontrado 2 email no banco aparece modal perguntando como ele quer se logar, se
-        só tiver 1 email libera o botão de login (aparece um check no lugar da bolinha)
-    Senha - normal (pode digitar em qualquer momento)
-    Botão -  so libera depois de verificar o email
-    */
-
     const navigate = useNavigate();
 
+    const [isEmailValidado, setIsEmailValidado] = useState();
+    /* 1: Loading, 2: True, 3: False */
+    const [isSenhaValidado, setIsSenhaValidado] = useState();
+
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
-    const [modalEscolherConta, setModalEscolherConta] = useState(false);
-    const [modalAviso, setMoldaAviso] = useState(false);
+    const [modalEscolherLogin, setModalEscolherLogin] = useState(false);
+    const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
     const [avisoDescricao, setAvisoDescricao] = useState("");
 
-    const [tipoUsuario, setTipoUsuario] = useState(0);
-    const [entrar, setEntrar] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [check, setCheck] = useState(false);
-    const [notCheck, setNotCheck] = useState(false);
-    const [validacaoEmail, setValidacaoEmail] = useState(true);
-    const [label, setLabel] = useState("");
+    const [tipoUsuario, setTipoUsuario] = useState();
 
     const email_input = useRef(null);
     const senha_input = useRef(null);
 
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            entrarLogin();
-        }
+    const validar = {
+        email({ target }) {
+            setIsEmailValidado(1);
+            axios
+                .post("/usuario/login/checar", {
+                    email: target.value,
+                })
+                .then(({ status, data }) => {
+                    if (status === 200) {
+                        setTipoUsuario(data);
+                        setIsEmailValidado(2);
+                    } else if (status === 204) {
+                        setIsEmailValidado(3);
+                    }
+                })
+                .catch(({ response }) => {
+                    if (response.status === 400) {
+                        setIsEmailValidado(3);
+                    } else if (response.status === 409) {
+                        setIsEmailValidado(undefined);
+                        setModalEscolherLogin(true);
+                    } else {
+                        setIsEmailValidado(3);
+                        setModalAviso(true);
+                        setAvisoTitulo("Erro inesperado");
+                        setAvisoDescricao(
+                            "Por favor tente novamente mais tarde",
+                        );
+                    }
+                });
+        },
+        senha() {
+            const senha = senha_input.current.value;
+            setIsSenhaValidado(Regex.BETWEEN_8_AND_24.test(senha));
+        },
     };
 
-    const checarEmail = (e) => {
-        const email = email_input.current.value;
-
-        if (
-            email === "" ||
-            email.indexOf("@") === -1 ||
-            email.indexOf("@") === 0 ||
-            email.indexOf("@") === email.length - 1 ||
-            email.indexOf(" ") !== -1 ||
-            email.length >= 256 ||
-            email.indexOf("$") !== -1
-        ) {
-            setLabel("Campo inválido");
-            setValidacaoEmail(false);
-            setLoading(false);
-            setCheck(false);
-            return;
-        } else {
-            setValidacaoEmail(true);
-        }
-
-        axios
-            .post("/usuario/login/checar", {
-                email: e.target.value,
-            })
-            .then((res) => {
-                if (res.status === 200) {
-                    setTipoUsuario(res.data);
-                    setEntrar(true);
-                    setCheck(true);
-                    setNotCheck(false);
-                    setLoading(!loading);
-                } else if (res.status === 204) {
-                    setLabel("Usuario não existe");
-                    setValidacaoEmail(false);
-                    setEntrar(false);
-                    setNotCheck(true);
-                    setLoading(!loading);
-                }
-            })
-            .catch((err) => {
-                if (err.response.status === 409) {
-                    setModalEscolherConta(true);
-                    setEntrar(false);
-                    setNotCheck(true);
-                    setLoading(!loading);
-                } else {
-                    setMoldaAviso(true);
-                    setAvisoTitulo("Erro inesperado");
-                    setAvisoDescricao("Por favor tente novamente mais tarde");
-                }
-            });
-    };
-
-    const entrarLogin = () => {
+    const login = () => {
         axios
             .post("/usuario/login/efetuar", {
                 email: email_input.current.value,
                 senha: senha_input.current.value,
                 tipoUsuario: tipoUsuario,
             })
-            .then((res) => {
-                if (res.status === 200 || res.status === 206) {
-                    localStorage.TOKEN = res.data;
+            .then(({ status, data }) => {
+                if (status === 200 || status === 206) {
+                    localStorage.TOKEN = data;
                     localStorage.TIPO_USUARIO = tipoUsuario;
                     if (tipoUsuario === 1) {
                         if (localStorage.PRESTADOR_INTERESSE !== undefined) {
@@ -129,30 +92,26 @@ export default function Login() {
                         } else {
                             navigate("/prestadores");
                         }
-                    }
-                    if (tipoUsuario === 2) {
+                    } else if (tipoUsuario === 2) {
                         axios
                             .get("/usuario/id")
-                            .then((res) => {
-                                console.log(res);
-                                const idUsuario = res.data;
-                                localStorage.IDUSUARIO = idUsuario;
-                                navigate(`/prestadores/eu/editar`, {
-                                    state: { id: idUsuario },
+                            .then(({ data }) => {
+                                localStorage.IDUSUARIO = data;
+                                navigate("/prestadores/eu/editar", {
+                                    state: { id: data },
                                 });
                             })
                             .catch((err) => {
                                 console.log(err);
                             });
-                    }
-                    if (tipoUsuario === 3) {
+                    } else if (tipoUsuario === 3) {
                         navigate("/adm/aprovacao");
                     }
                 }
             })
             .catch((err) => {
                 if (err.response.status === 401) {
-                    setMoldaAviso(true);
+                    setModalAviso(true);
                     setAvisoTitulo("Credenciais inválidas");
                     setAvisoDescricao("Por favor tente novamente");
                 } else if (err.response.status === 403) {
@@ -160,7 +119,7 @@ export default function Login() {
                         err.response.data === "Usuário não finalizou o cadastro"
                     ) {
                         //modal usuário não finalizou o cadastro
-                        setMoldaAviso(true);
+                        setModalAviso(true);
                         setAvisoTitulo(err.response.data);
                         setAvisoDescricao(
                             "Irei redirecionar você para tela de cadastro para finaliza-lo",
@@ -168,7 +127,7 @@ export default function Login() {
                     }
                     if (err.response.data === "Aprovação negada") {
                         //modal aprovação negada
-                        setMoldaAviso(true);
+                        setModalAviso(true);
                         setAvisoTitulo(err.response.data);
                         setAvisoDescricao(
                             "Infelizmente sua aprovação foi negada",
@@ -176,7 +135,7 @@ export default function Login() {
                     }
                     if (err.response.data === "Aprovação pendente") {
                         //modal Aprovação pendente
-                        setMoldaAviso(true);
+                        setModalAviso(true);
                         setAvisoTitulo(err.response.data);
                         setAvisoDescricao(
                             "Por favor aguarde a sua conta ser aprovada",
@@ -187,145 +146,159 @@ export default function Login() {
     };
 
     return (
-        <div className="flex justify-center h-screen font-mukta">
-            {modalEscolherConta ? (
-                <ModalEscolherConta
-                    setarUsuario={setTipoUsuario}
-                    modal={setModalEscolherConta}
-                    entrar={setEntrar}
-                    check={setCheck}
-                    notCheck={setNotCheck}
-                />
-            ) : null}
-            {modalAviso ? (
-                <ModalAviso
-                    titulo={avisoTitulo}
-                    descricao={avisoDescricao}
-                    tempo={10000}
-                    modal={setMoldaAviso}
-                />
-            ) : null}
+        <div
+            className="flex justify-center items-center h-screen bg-no-repeat bg-center"
+            style={{
+                backgroundImage: `url(${CadastroBg})`,
+                backgroundSize: "100%",
+            }}
+        >
+            <ModalEscolherLogin
+                modalGettr={modalEscolherLogin}
+                modalSettr={setModalEscolherLogin}
+                setarUsuario={setTipoUsuario}
+            />
+            <ModalAviso
+                modalGettr={modalAviso}
+                modalSettr={setModalAviso}
+                tempo={5000}
+                titulo={avisoTitulo}
+                descricao={avisoDescricao}
+            />
             <ModalEscolherCadastro
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
-            <div className=" bg-white 2xl:h-144 2xl:w-288 xl:h-120 xl:w-240 self-center rounded-lg drop-shadow-all flex flex-row">
-                <div className=" bg-verde-padrao h-full w-30per rounded-l-lg flex flex-col ">
-                    <img
-                        onClick={() => {
-                            navigate("/");
-                        }}
-                        src={logo_extensa}
-                        alt="Logo da Manuall por extensa"
-                        className="cursor-pointer 2xl:w-60 xl:w-52 2xl:mt-12 xl:mt-10 self-center"
-                    />
-                    <p className="2xl:text-4xl xl:text-2xl  font-bold text-white w-full text-start 2xl:pl-10 xl:pl-14 self-center 2xl:leading-relaxed 2xl:mt-10 xl:mt-8">
-                        Ainda não possui
-                        <br />
-                        uma conta?
-                    </p>
-                    <p className="2xl:text-2xl xl:text-xl   text-white w-full text-start 2xl:pl-10 xl:pl-14 self-center 2xl:leading-relaxed 2xl:mt-0 xl:mt-3">
-                        Cadastre-se por aqui.
-                    </p>
-                    <button
-                        onClick={() => {
-                            setModalEscolherCadastro(true);
-                        }}
-                        className="bg-white font-normal text-verde-escuro-1 2xl:text-2xl xl:text-xl self-center 2xl:w-64 2xl:h-14 xl:w-48 xl:h-12 rounded-full xl:mt-28"
-                    >
-                        Cadastre-se
-                    </button>
-                    <button
-                        onClick={() => {
-                            navigate("/");
-                        }}
-                        className="2xl:text-2xl xl:text-xl font-bold text-white self-center leading-relaxed 2xl:mt-11 xl:mt-9 flex items-center"
-                    >
-                        {" "}
-                        <ChevronDoubleLeftIcon className="2xl:h-10 2xl:w-10 xl:h-8 xl:w-8" />{" "}
-                        Voltar à Tela inicial
-                    </button>
-                </div>
-                <div className="bg-white h-full w-70per rounded-r-lg flex flex-col">
-                    <div className="w-full flex flex-col text-center">
-                        <p className="text-verde-padrao font-extrabold text-6xl mt-14">
+            <div className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all">
+                <CadastroSidebar
+                    isLogin
+                    setModalEscolherCadastro={setModalEscolherCadastro}
+                />
+                <div className="w-full h-full flex flex-col items-center justify-evenly">
+                    <CadastroFlag isFlagAtLeft={false} />
+                    <div className="w-full flex flex-col text-center gap-2">
+                        <p className="text-verde-padrao font-extrabold text-5xl">
                             Bem-vindo de volta!
                         </p>
-                        <p className="text-verde-padrao font-extrabold text-2xl mt-2">
+                        <p className="text-verde-padrao font-normal text-2xl">
                             Acesse a sua conta agora mesmo.
                         </p>
                     </div>
-                    <div className="2xl:w-96  xl:w-80 rounded-lg  self-center flex flex-col 2xl:gap-10 xl:gap-8 2xl:mt-20 xl:mt-10 ">
-                        <div className="relative">
-                            <input
-                                ref={email_input}
-                                onBlur={(e) => {
-                                    checarEmail(e);
-                                }}
-                                onFocus={() => {
-                                    setLoading(!loading);
-                                    setCheck(false);
-                                    setNotCheck(false);
-                                }}
-                                type="text"
-                                className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 ${
-                                    validacaoEmail
-                                        ? `border-cinza-claro-1`
-                                        : `border-red-500`
-                                }  appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`}
-                                placeholder=" "
-                            />
-                            <label
-                                htmlFor="email_inp"
-                                className="absolute xl:text-lg 2xl:text-xl text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"
-                            >
-                                <EnvelopeIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />
-                                Endereço de email
-                            </label>
-                            {validacaoEmail ? null : (
-                                <label className="absolute ml-1 text-red-500 font-medium">
-                                    {label}
+                    <div className="flex flex-col justify-center items-center w-full gap-10">
+                        <div className="flex flex-col justify-center items-center w-full gap-8">
+                            <div className="w-[50%] relative">
+                                <input
+                                    onBlur={validar.email}
+                                    onFocus={() => {
+                                        setIsEmailValidado(undefined);
+                                    }}
+                                    onChange={({ target }) => {
+                                        target.value = target.value.replace(
+                                            Regex.EMAIL_REPLACEABLE,
+                                            "",
+                                        );
+                                    }}
+                                    ref={email_input}
+                                    maxLength={256}
+                                    type="email"
+                                    id="email"
+                                    placeholder=" "
+                                    className={`
+                                        block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                        appearance-none bg-no-repeat focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+                                        ${
+                                            isEmailValidado === 3
+                                                ? "border-red-500"
+                                                : "border-cinza-claro-1 hover:border-green-300"
+                                        }
+                                    `}
+                                    style={{
+                                        backgroundImage: `url(${
+                                            isEmailValidado === 1
+                                                ? LoadingGif
+                                                : isEmailValidado === 2
+                                                ? CheckCircleIcon
+                                                : isEmailValidado === 3 &&
+                                                  XCircleIcon
+                                        })`,
+                                        backgroundPosition:
+                                            "right 0.7rem top 50%",
+                                        backgroundSize: "30px",
+                                    }}
+                                />
+                                <label
+                                    htmlFor="email"
+                                    className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"
+                                >
+                                    <EnvelopeIcon className="h-5 w-5 mr-1" />
+                                    Endereço de email
                                 </label>
-                            )}
-                            {loading ? <LoadingEmail /> : null}
-                            {check ? (
-                                <CheckCircleIcon className="text-verde-padrao absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1" />
-                            ) : null}
-                            {notCheck ? (
-                                <XCircleIcon className="text-red-500 absolute 2xl:h-10 2xl:w-10 xl:h-10 xl:w-10 2xl:left-96 xl:left-80 top-2 ml-1" />
-                            ) : null}
+                                {isEmailValidado === 3 && (
+                                    <label className="absolute ml-1 text-red-500 font-medium">
+                                        Campo inválido
+                                    </label>
+                                )}
+                            </div>
+                            <div className="w-[50%] relative">
+                                <input
+                                    onBlur={validar.senha}
+                                    ref={senha_input}
+                                    onKeyDown={({ key }) => {
+                                        if (key !== "Enter") return;
+                                        isEmailValidado === 2 && login();
+                                    }}
+                                    maxLength={24}
+                                    type="password"
+                                    id="senha"
+                                    placeholder=" "
+                                    className={`
+                                        block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+                                        appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+                                        ${
+                                            isSenhaValidado === false
+                                                ? "border-red-500"
+                                                : "border-cinza-claro-1 hover:border-green-300"
+                                        }
+                                    `}
+                                />
+                                <label
+                                    htmlFor="senha"
+                                    className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"
+                                >
+                                    <LockClosedIcon className="h-5 w-5 mr-1" />
+                                    Senha
+                                </label>
+                                {isSenhaValidado === false && (
+                                    <label className="absolute ml-1 text-red-500 font-medium">
+                                        Campo inválido
+                                    </label>
+                                )}
+                            </div>
                         </div>
-                        <div className="relative">
-                            <input
-                                ref={senha_input}
-                                type="password"
-                                className={`block px-2.5 pb-2.5 pt-4 w-full 2xl:text-lg xl:text-base text-gray-900 bg-transparent rounded-lg border-2 border-cinza-claro-1 appearance-none  focus:outline-none focus:ring-0 focus:border-verde-padrao peer`}
-                                placeholder=" "
-                                onKeyDown={handleKeyPress}
-                            />
-                            <label
-                                htmlFor="senha_inp"
-                                className="absolute xl:text-lg 2xl:text-xl  text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"
-                            >
-                                <LockClosedIcon className="2xl:h-6 2xl:w-6 xl:h-5 xl:w-5 mr-1" />
-                                Senha
-                            </label>
+                        <div className="flex flex-col items-center justify-center gap-2">
+                            <div className="flex justify-center mt-3">
+                                <button
+                                    onClick={() => {
+                                        isEmailValidado === 2 && login();
+                                    }}
+                                    className={`rounded-full text-2xl font-semibold text-white px-16 py-2 ${
+                                        isEmailValidado === 2
+                                            ? "bg-verde-padrao"
+                                            : "bg-cinza-claro-1 cursor-default"
+                                    }`}
+                                >
+                                    Entrar
+                                </button>
+                            </div>
+                            <div className="w-full flex justify-center">
+                                <Link
+                                    to={"/development"}
+                                    className="text-center text-verde-padrao font-medium underline text-base"
+                                >
+                                    Esqueci minha senha
+                                </Link>
+                            </div>
                         </div>
-                    </div>
-                    <div className="w-full flex justify-center">
-                        <Link
-                            to={""}
-                            className="text-center text-verde-padrao font-medium underline 2xl:text-lg xl:text-base"
-                        >
-                            Esqueci minha senha
-                        </Link>
-                    </div>
-                    <div className="w-full flex justify-center 2xl:mt-8.5 xl:mt-3">
-                        {entrar ? (
-                            <EntrarTrue entrarLogin={entrarLogin} />
-                        ) : (
-                            <EntrarFalse />
-                        )}
                     </div>
                 </div>
             </div>

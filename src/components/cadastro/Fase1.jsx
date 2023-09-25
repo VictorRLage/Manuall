@@ -96,7 +96,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                 email: email_input.current.value,
                 tipoUsuario: 1,
             })
-            .then(res => {
+            .then((res) => {
                 if (res.status === 200) {
                     if (nome_input.current.value === "") {
                         nome_input.current.value = res.data.nome;
@@ -104,9 +104,8 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                     }
                     if (telefone_input.current.value === "") {
                         if (res.data.telefone.length > 11) {
-                            telefone_input.current.value = res.data.telefone.substring(
-                                2,
-                            );
+                            telefone_input.current.value =
+                                res.data.telefone.substring(2);
                         } else {
                             telefone_input.current.value = res.data.telefone;
                         }
@@ -124,7 +123,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                 fase={1}
                 fases={stepInfo.fases}
                 mudarStep={stepInfo.passarFaseAtalho}
-                flagIsAtLeft={stepInfo.fases % 2 === 0}
+                isFlagAtLeft={stepInfo.fases % 2 === 0}
             />
             <div className="w-full h-[70%] flex flex-col items-center justify-evenly">
                 <div className="w-[60%] relative">
@@ -144,7 +143,11 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${isNomeValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
+							${
+                                isNomeValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
+                            }
 						`}
                     />
                     <label
@@ -180,7 +183,11 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${isEmailValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
+							${
+                                isEmailValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
+                            }
 						`}
                     />
                     <label
@@ -211,7 +218,11 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-								${isCpfValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
+								${
+                                    isCpfValidado === false
+                                        ? "border-red-500"
+                                        : "border-cinza-claro-1 hover:border-green-300"
+                                }
 							`}
                         />
                         <label
@@ -241,7 +252,11 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-								${isTelefoneValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
+								${
+                                    isTelefoneValidado === false
+                                        ? "border-red-500"
+                                        : "border-cinza-claro-1 hover:border-green-300"
+                                }
 							`}
                         />
                         <label
@@ -274,7 +289,11 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${isSenhaValidado === false ? "border-red-500" : "border-cinza-claro-1 hover:border-green-300"}
+							${
+                                isSenhaValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
+                            }
 						`}
                     />
                     <label
