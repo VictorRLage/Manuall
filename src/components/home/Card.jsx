@@ -8,15 +8,17 @@ import ModalNaoLogado from "@/components/main/ModalNaoLogado";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 
 export default function Card({
-    mediaNota,
-    nome,
-    id,
-    foto,
+    prestador: {
+        mediaAvaliacoes,
+        nome,
+        id,
+        anexoPfp,
+        orcamentoMin,
+        orcamentoMax,
+        cidade,
+        prestaAula,
+    },
     area,
-    min,
-    max,
-    cidade,
-    aula,
 }) {
     const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ export default function Card({
 
     const estrelas = Array.from({ length: 5 }, (_, i) => {
         const estrela = i + 1;
-        return mediaNota >= estrela ? (
+        return mediaAvaliacoes >= estrela ? (
             <StarIconCheio key={estrela} className="w-4 h-4 text-yellow-500" />
         ) : (
             <StarIconVazio key={estrela} className="w-4 h-4 text-yellow-500" />
@@ -52,7 +54,7 @@ export default function Card({
             <div className="w-80 h-120 rounded-3xl drop-shadow-all">
                 <img
                     onError={({ target }) => (target.src = defaultPfp)}
-                    src={foto}
+                    src={anexoPfp}
                     alt=""
                     className="object-cover h-[55%] w-full rounded-t-3xl bg-verde-padrao bg-cover bg-center"
                 />
@@ -70,7 +72,7 @@ export default function Card({
                             )}
                         </span>
                         <span className="text-lg font-normal mt-1">
-                            R${min} - R${max}
+                            R${orcamentoMin} - R${orcamentoMax}
                         </span>
                     </div>
                     <div className="flex w-full justify-between mt-1">
@@ -78,13 +80,13 @@ export default function Card({
                             {cidade}
                         </div>
                         <div className="w-[45%] bg-verde-padrao rounded-full text-white text-center">
-                            {aula ? "Serviço + Aula" : "Serviço"}
+                            {prestaAula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
                     <div className="flex mt-2">
                         {estrelas}
                         <span className="text-sm ml-2 font-medium">
-                            {mediaNota?.toFixed(1)}
+                            {mediaAvaliacoes?.toFixed(1)}
                         </span>
                     </div>
                     <div className="flex mt-1 justify-center">
