@@ -73,7 +73,11 @@ export default function Home() {
                               </div>
                           ))}
                 </div>
-                <Cards areas={areas} prestadores={prestadores?.slice(0, 6)} />
+                <Cards
+                    areas={areas}
+                    prestadores={prestadores?.slice(0, 6)}
+                    isHome
+                />
             </div>
             <div className="w-full flex p-32  flex-col">
                 <div className="w-full text-6xl font-semibold text-center">

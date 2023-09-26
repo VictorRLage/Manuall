@@ -213,116 +213,108 @@ export default function Chat() {
                                 scrollDown={scrollDown}
                             />
                         ) : (
-                            <>
-                                {chatAtual.mensagens.map((msg, i) => (
+                            chatAtual.mensagens.map((msg, i) => (
+                                <div
+                                    key={i}
+                                    className={`w-full px-3 py-1 flex ${
+                                        msg.selfsender
+                                            ? "justify-end"
+                                            : "justify-start"
+                                    }`}
+                                >
+                                    {!msg.selfsender && (
+                                        <div
+                                            className="w-2 h-3 bg-[#c0e8c0]"
+                                            style={{
+                                                clipPath:
+                                                    "polygon(100% 0, 0 0, 100% 100%)",
+                                            }}
+                                        />
+                                    )}
                                     <div
-                                        key={i}
-                                        className={`w-full px-3 py-1 flex ${
+                                        className={`max-w-[80%] p-2 rounded-lg ${
                                             msg.selfsender
-                                                ? "justify-end"
-                                                : "justify-start"
+                                                ? "bg-[#5faf88] rounded-tr-none"
+                                                : "bg-[#c0e8c0] rounded-tl-none"
                                         }`}
                                     >
-                                        {!msg.selfsender && (
-                                            <div
-                                                className="w-2 h-3 bg-[#c0e8c0]"
-                                                style={{
-                                                    clipPath:
-                                                        "polygon(100% 0, 0 0, 100% 100%)",
-                                                }}
-                                            />
-                                        )}
-                                        <div
-                                            className={`max-w-[80%] p-2 rounded-lg ${
-                                                msg.selfsender
-                                                    ? "bg-[#5faf88] rounded-tr-none"
-                                                    : "bg-[#c0e8c0] rounded-tl-none"
-                                            }`}
-                                        >
-                                            {msg.texto}
-                                        </div>
-                                        {msg.selfsender && (
-                                            <div
-                                                className="w-2 h-3 bg-[#5faf88]"
-                                                style={{
-                                                    clipPath:
-                                                        "polygon(0 0, 100% 0, 0 100%)",
-                                                }}
-                                            />
-                                        )}
+                                        {msg.texto}
                                     </div>
-                                ))}
-                            </>
+                                    {msg.selfsender && (
+                                        <div
+                                            className="w-2 h-3 bg-[#5faf88]"
+                                            style={{
+                                                clipPath:
+                                                    "polygon(0 0, 100% 0, 0 100%)",
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            ))
                         )}
                     </div>
                     {!chatAtual.isManuel && (
                         <div className="bg-gray-500 h-[40px] flex" />
                     )}
                 </>
-            ) : (
-                <>
-                    {conversas && manuelMsgs && dadosUsuarioCrm ? (
-                        <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
-                            {typeof manuelMsgs !== "boolean" &&
-                                typeof dadosUsuarioCrm !== "boolean" && (
-                                    <div
-                                        onClick={() => {
-                                            selecionarChat(undefined, true);
-                                        }}
-                                        className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                                    >
-                                        <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                                            <img
-                                                src={Manuel}
-                                                className="w-10 rounded-full"
-                                                alt=""
-                                            />
-                                            <span className="p-2">Manuel</span>
-                                            <img
-                                                src={BotCertification}
-                                                className="w-5"
-                                                alt=""
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-                            {conversas?.map((cvs, i) => (
-                                <div
-                                    onClick={() => {
-                                        selecionarChat(cvs.solicitacaoId);
-                                    }}
-                                    className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                                    key={cvs.usuarioId}
-                                >
-                                    <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                                        <img
-                                            src={cvs.usuarioPfp}
-                                            className="w-10 h-10 rounded-full object-cover"
-                                            alt=""
-                                        />
-                                        <span className="p-2">
-                                            {cvs.usuarioNome}
-                                        </span>
-                                    </div>
+            ) : conversas && manuelMsgs && dadosUsuarioCrm ? (
+                <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
+                    {typeof manuelMsgs !== "boolean" &&
+                        typeof dadosUsuarioCrm !== "boolean" && (
+                            <div
+                                onClick={() => {
+                                    selecionarChat(undefined, true);
+                                }}
+                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                            >
+                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                    <img
+                                        src={Manuel}
+                                        className="w-10 rounded-full"
+                                        alt=""
+                                    />
+                                    <span className="p-2">Manuel</span>
+                                    <img
+                                        src={BotCertification}
+                                        className="w-5"
+                                        alt=""
+                                    />
                                 </div>
-                            ))}
+                            </div>
+                        )}
+                    {conversas?.map(({ solicitacaoId, usuarioId, usuarioPfp, usuarioNome }) => (
+                        <div
+                            onClick={() => {
+                                selecionarChat(solicitacaoId);
+                            }}
+                            className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                            key={usuarioId}
+                        >
+                            <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                <img
+                                    src={usuarioPfp}
+                                    className="w-10 h-10 rounded-full object-cover"
+                                    alt=""
+                                />
+                                <span className="p-2">{usuarioNome}</span>
+                            </div>
                         </div>
-                    ) : (
-                        <div className="bg-white h-[400px] flex justify-center items-center">
-                            <Oval
-                                height={50}
-                                color="#00cc69"
-                                wrapperStyle={{}}
-                                wrapperClass=""
-                                visible={true}
-                                ariaLabel="oval-loading"
-                                secondaryColor="#00cc69"
-                                strokeWidth={1}
-                                strokeWidthSecondary={4}
-                            />
-                        </div>
-                    )}
-                </>
+                    ))}
+                </div>
+            ) : (
+                <div className="bg-white h-[400px] flex justify-center items-center">
+                    <Oval
+                        height={50}
+                        color="#00cc69"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="#00cc69"
+                        strokeWidth={1}
+                        strokeWidthSecondary={4}
+                    />
+                </div>
             )}
         </div>
     );

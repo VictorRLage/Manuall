@@ -1,4 +1,3 @@
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import ChevronArrow from "@/assets/icons/ChevronArrow.svg";
 import homeBg from "@/assets/demo/home_bg.jpeg";
 import HomeBg1 from "@/assets/shapes/home_bg_1.svg?react";
@@ -26,9 +25,15 @@ export default function Carousel() {
         );
     }, [carouselIndex]);
 
+    const slides = [
+        <div className="min-w-full h-full bg-red-950" />,
+        <div className="min-w-full h-full bg-blue-950" />,
+        <div className="min-w-full h-full bg-green-950" />,
+    ]
+
     return (
         <div
-            className="w-full h-120 bg-center bg-cover group flex justify-center"
+            className="w-full h-120 bg-center bg-cover group flex justify-center relative overflow-x-hidden"
             style={{
                 backgroundImage: `url(${homeBg})`,
             }}
@@ -55,7 +60,7 @@ export default function Carousel() {
                     backgroundPosition: "1px 5px",
                 }}
             />
-            <div className="self-end">
+            <div className="self-end absolute">
                 <div className="flex gap-1">
                     {Array.from({ length: 3 }).map((_, i) => (
                         <div
@@ -77,6 +82,7 @@ export default function Carousel() {
                     ))}
                 </div>
             </div>
+            Array
             {/* {carouselIndex === 0 ? (
                 <div className="absolute">
                     <div className="absolute ml-20 mt-20 text-white text-6xl">

@@ -46,30 +46,28 @@ export default function ModalCustom({
     };
 
     return (
-        <>
-            {modalGettr && (
-                <>
+        modalGettr && (
+            <>
+                <div
+                    className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all duration-300"
+                    style={{
+                        opacity: "0",
+                    }}
+                    ref={modal_custom_bg}
+                />
+                <div
+                    onClick={closeModal}
+                    className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-50 flex"
+                    ref={modal_custom}
+                >
                     <div
-                        className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all duration-300"
-                        style={{
-                            opacity: "0",
-                        }}
-                        ref={modal_custom_bg}
-                    />
-                    <div
-                        onClick={closeModal}
-                        className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-50 flex"
-                        ref={modal_custom}
+                        className="bg-white flex flex-col justify-around items-center rounded-xl"
+                        style={{ width: w, height: h }}
                     >
-                        <div
-                            className="bg-white flex flex-col justify-around items-center rounded-xl"
-                            style={{ width: w, height: h }}
-                        >
-                            {children}
-                        </div>
+                        {children}
                     </div>
-                </>
-            )}
-        </>
+                </div>
+            </>
+        )
     );
 }

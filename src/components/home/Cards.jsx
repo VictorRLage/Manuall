@@ -1,13 +1,13 @@
 import Card from "@/components/home/Card";
-import NenhumPrestadorEncontrado from "@/components/prestadores/NaoEncontrado";
+import NaoEncontrado from "@/components/prestadores/NaoEncontrado";
 import Skeleton from "react-loading-skeleton";
 
-export default function Cards({ areas, prestadores }) {
+export default function Cards({ areas, prestadores, isHome }) {
     return (
         <div className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
             {prestadores ? (
                 prestadores.length === 0 ? (
-                    <NenhumPrestadorEncontrado home={true} />
+                    <NaoEncontrado isHome={isHome} />
                 ) : (
                     prestadores.map((data, i) => (
                         <Card

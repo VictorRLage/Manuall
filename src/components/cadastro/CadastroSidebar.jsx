@@ -37,16 +37,14 @@ export default function CadastroSidebar({
                 </div>
                 <div className="h-[50%] w-full flex items-center justify-evenly flex-col pt-[20%]">
                     {isLogin ? (
-                        <>
-                            <button
-                                onClick={() => {
-                                    setModalEscolherCadastro(true);
-                                }}
-                                className="text-2xl text-verde-escuro-1 bg-white shadow-md py-2 px-12 rounded-full font-semibold"
-                            >
-                                Cadastre-se
-                            </button>
-                        </>
+                        <button
+                            onClick={() => {
+                                setModalEscolherCadastro(true);
+                            }}
+                            className="text-2xl text-verde-escuro-1 bg-white shadow-md py-2 px-12 rounded-full font-semibold"
+                        >
+                            Cadastre-se
+                        </button>
                     ) : (
                         <div className="flex flex-col justify-center items-center">
                             <p className="text-xl font-semibold text-white text-center">

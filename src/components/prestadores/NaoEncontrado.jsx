@@ -1,7 +1,7 @@
 import React from "react";
 import imagemNotFound from "@/assets/storyset/Not_Found.svg";
 
-const NenhumPrestadorEncontrado = ({ home }) => {
+const NenhumPrestadorEncontrado = ({ isHome }) => {
     const imagemStyle = {
         width: "400px", // Ajuste o tamanho da imagem como desejado
         height: "auto", // Isso manterá a proporção da imagem
@@ -16,7 +16,7 @@ const NenhumPrestadorEncontrado = ({ home }) => {
                 style={imagemStyle}
             />
             <p className="font-bold text-green-500 text-xl md:text-2xl lg:text-3xl text-center">
-                {home
+                {isHome
                     ? "Desculpe, parece que nenhum prestador foi encontrado!"
                     : "Desculpe, parece que não temos prestadores com esses filtros!"}
             </p>
