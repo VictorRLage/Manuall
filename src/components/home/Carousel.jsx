@@ -1,24 +1,83 @@
 import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
+import ChevronArrow from "@/assets/icons/ChevronArrow.svg";
 import homeBg from "@/assets/demo/home_bg.jpeg";
 import HomeBg1 from "@/assets/shapes/home_bg_1.svg?react";
 import HomeBg2 from "@/assets/shapes/home_bg_2.svg?react";
 import HomeBg3 from "@/assets/shapes/home_bg_3.svg?react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Carousel() {
     const navigate = useNavigate();
 
+    const size = 3;
+
     const [carouselIndex, setCarouselIndex] = useState(0);
+    const [carouselAutoChangingTimeout, setCarouselAutoChangingTimeout] =
+        useState(0);
+
+    useEffect(() => {
+        clearTimeout(carouselAutoChangingTimeout);
+
+        setCarouselAutoChangingTimeout(
+            setTimeout(() => {
+                setCarouselIndex((carouselIndex + 1) % 3);
+            }, 5000),
+        );
+    }, [carouselIndex]);
 
     return (
         <div
-            className="w-full h-120 bg-center bg-cover duration-500 group"
+            className="w-full h-120 bg-center bg-cover group flex justify-center"
             style={{
                 backgroundImage: `url(${homeBg})`,
             }}
         >
-            {carouselIndex === 0 ? (
+            <div
+                onClick={() => {
+                    setCarouselIndex((carouselIndex + size - 1) % size);
+                }}
+                className="w-12 h-12 bg-no-repeat z-30 absolute left-[-56px] self-center cursor-pointer flex group-hover:left-4 bg-gray-100 hover:bg-gray-200 transition-all rounded-full items-center justify-center"
+                style={{
+                    backgroundImage: `url(${ChevronArrow})`,
+                    backgroundSize: "80%",
+                    backgroundPosition: "1px 5px",
+                }}
+            />
+            <div
+                onClick={() => {
+                    setCarouselIndex((carouselIndex + 1) % 3);
+                }}
+                className="rotate-180 w-12 h-12 bg-no-repeat z-30 absolute right-[-56px] self-center cursor-pointer flex group-hover:right-4 bg-gray-100 hover:bg-gray-200 transition-all rounded-full items-center justify-center"
+                style={{
+                    backgroundImage: `url(${ChevronArrow})`,
+                    backgroundSize: "80%",
+                    backgroundPosition: "1px 5px",
+                }}
+            />
+            <div className="self-end">
+                <div className="flex gap-1">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                        <div
+                            className="w-6 h-2 bg-gray-400 cursor-pointer"
+                            onClick={() => {
+                                setCarouselIndex(i);
+                            }}
+                        >
+                            <div
+                                className="h-full w-0 bg-verde-escuro-1"
+                                style={{
+                                    width: carouselIndex > i ? "100%" : "0%",
+                                    animation:
+                                        carouselIndex === i &&
+                                        "preenchimento 5000ms linear forwards",
+                                }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+            {/* {carouselIndex === 0 ? (
                 <div className="absolute">
                     <div className="absolute ml-20 mt-20 text-white text-6xl">
                         Encontre <br /> prestadores de <br /> serviço{" "}
@@ -77,38 +136,7 @@ export default function Carousel() {
                         <HomeBg3 className="ml-52 mt-3" />
                     </div>
                 )
-            )}
-            <div className="flex flex-row justify-between">
-                <div
-                    onClick={() => {
-                        setCarouselIndex((carouselIndex + 3 - 1) % 3);
-                    }}
-                    className="z-30 mt-48 cursor-pointer hidden group-hover:block"
-                >
-                    <ChevronLeftIcon className="text-white w-16 h-16" />
-                </div>
-                <div
-                    onClick={() => {
-                        setCarouselIndex((carouselIndex + 1) % 3);
-                    }}
-                    className="z-30 mt-48 right-0 cursor-pointer hidden group-hover:block"
-                >
-                    <ChevronRightIcon className="text-white w-16 h-16" />
-                </div>
-            </div>
-            <div className="flex justify-center">
-                <div className="z-30 hidden group-hover:flex cursor-pointer w-24 mt-48 justify-between ">
-                    {Array.from({ length: 3 }).map((_, i) => (
-                        <div
-                            key={i}
-                            onClick={() => setCarouselIndex(i)}
-                            className={`w-6 h-6 border-2 border-verde-escuro-2 rounded-full ${
-                                carouselIndex === i ? "bg-#268054" : "bg-white"
-                            }`}
-                        />
-                    ))}
-                </div>
-            </div>
+            )} */}
         </div>
     );
 }

@@ -18,7 +18,7 @@ export default function AdmDashboard() {
                 height="789.25"
                 src="https://app.powerbi.com/reportEmbed?reportId=ac360cf5-0190-478d-8afd-5d9d476335ce&autoAuth=true&ctid=fd50b457-84e0-400c-80f2-460f28eb41a6"
                 allowFullScreen="true"
-            ></iframe>
+            />
         </div>
     );
 }

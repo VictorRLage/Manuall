@@ -44,6 +44,19 @@ body {
   background: var(--green-700);
 }
 
+.enabled {
+  top: 55% !important;
+}
+
+@keyframes preenchimento {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
