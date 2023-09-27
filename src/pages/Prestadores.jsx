@@ -60,7 +60,7 @@ export default function Prestadores() {
                         ]}
                     />
                 </div>
-                <div className="w-full pt-8 px-32 gap-4 flex items-center">
+                <div className="w-full pt-8 px-32 gap-4 flex items-center justify-center flex-wrap">
                     <input
                         type="text"
                         placeholder="Buscar"
@@ -84,7 +84,7 @@ export default function Prestadores() {
                             setAreaSelecionada(target.value);
                         }}
                     >
-                        <option value={null}>Todas as categorias</option>
+                        <option value={0}>Todas as categorias</option>
                         {areas?.map(({ id, nome }) => (
                             <option key={id} value={id}>
                                 {nome}
