@@ -52,7 +52,7 @@ export default function Notificacoes({ tipoUsuario }) {
                         className="cursor-auto z-30 fixed h-screen w-screen top-0 left-0"
                     />
                     <div className="absolute">
-                        <div className="z-50 absolute mt-1 border-triangulo-cima rounded-sm" />
+                        <div className="z-50 absolute mt-1 w-0 h-0 border-solid border-b-[20px] border-b-[#f8f8f8] border-x-[20px] rounded-sm" />
                         <div className="z-40 absolute ml-[-20rem] mt-5 w-96 bg-cinza-claro-2 border  rounded shadow leading-tight focus:outline-none focus:shadow-outline">
                             <div>
                                 <div className="text-center text-2xl py-2 text-verde-padrao font-bold">

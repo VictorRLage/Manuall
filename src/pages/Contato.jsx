@@ -7,6 +7,7 @@ import imagemTelemarketing from "@/assets/demo/telemarketing.png";
 import iconeTelefone from "@/assets/icons/phone.png";
 import iconeMapa from "@/assets/icons/gps.png";
 import iconeRelogio from "@/assets/icons/clock.png";
+import Breadcrumb from "@/components/main/Breadcrumb";
 
 export default function Contato() {
     const navigate = useNavigate();
@@ -19,24 +20,15 @@ export default function Contato() {
             <Header />
             <div className="w-full h-full">
                 <div className="flex flex-row justify-center items-end h-20 relative">
-                    <div className="absolute left-0 ml-20">
-                        <span className="breadCrumbs">
-                            <span
-                                onClick={() => {
-                                    navigate("/");
-                                }}
-                                className="breadcrumbAnterior cursor-pointer"
-                            >
-                                Página Inicial{" "}
-                            </span>
-                            /
-                            <span className="breadcrumbAtual">
-                                {" "}
-                                Prestadores
-                            </span>
-                        </span>
+                    <div className="absolute left-52">
+                        <Breadcrumb
+                            items={[
+                                { to: "/", desc: "Página Inicial" },
+                                { to: null, desc: "Contato" },
+                            ]}
+                        />
                     </div>
-                    <div className="text-4xl font-semibold text-center">
+                    <div className="text-4xl font-semibold text-center text-gray-900">
                         Contato
                     </div>
                 </div>

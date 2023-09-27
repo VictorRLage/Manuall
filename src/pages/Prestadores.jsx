@@ -5,31 +5,25 @@ import lupaIcon from "@/assets/icons/lupa.png";
 import axios from "@/api/axios";
 import FooterWave from "@/assets/shapes/FooterWave.svg?react";
 import Cards from "@/components/home/Cards";
+import FiltragemENUM from "@/enum/FiltragemENUM";
+import Breadcrumb from "@/components/main/Breadcrumb";
+import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
 
 export default function Prestadores() {
     const navigate = useNavigate();
 
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
-    const [activeArea, setActiveArea] = useState(0);
-    const [filtroSelecionado, setFiltroSelecionado] = useState("Alfabetica");
+
+    const [areaSelecionada, setAreaSelecionada] = useState(null);
+    const [filtroSelecionado, setFiltroSelecionado] = useState(null);
     const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
-    const handleKeyPress = (event) => {
-        if (event.key === "Enter") {
-            teste();
-        }
-    };
-
-    function teste() {
-        alert("Teste");
-    }
-
-    const getPrestadoresFiltrados = () => {
+    const getPrestadores = () => {
         setPrestadores();
         axios
             .get(
-                `/usuario/prestadores/${activeArea}/${filtroSelecionado}/${ordemSelecionada}`,
+                `/usuario/prestadores/${areaSelecionada}/${filtroSelecionado}/${ordemSelecionada}`,
             )
             .then(({ data }) => {
                 setPrestadores(data);
@@ -48,8 +42,8 @@ export default function Prestadores() {
             .catch((err) => console.log(err));
     }, []);
 
-    useEffect(getPrestadoresFiltrados, [
-        activeArea,
+    useEffect(getPrestadores, [
+        areaSelecionada,
         filtroSelecionado,
         ordemSelecionada,
     ]);
@@ -58,22 +52,39 @@ export default function Prestadores() {
         <div>
             <Header />
             <div className="w-full h-full">
-                <div className="menuSuperior">
+                <div className="px-32 pt-8">
+                    <Breadcrumb
+                        items={[
+                            { to: "/", desc: "Página Inicial" },
+                            { to: null, desc: "Prestadores" },
+                        ]}
+                    />
+                </div>
+                <div className="w-full pt-8 px-32 gap-4 flex items-center">
                     <input
-                        onKeyDown={handleKeyPress}
                         type="text"
                         placeholder="Buscar"
+                        className="grow bg-no-repeat h-[50px] px-4 rounded-lg border-[1px] border-gray-600"
+                        style={{
+                            backgroundImage: `url(${lupaIcon})`,
+                            backgroundPosition: "right 16px top 50%",
+                            backgroundSize: "20px",
+                        }}
                     />
-                    <img className="imgLupa" alt="" src={lupaIcon} />
                     <select
-                        className="dropdownCategoria"
-                        name="dropdownCategoria"
-                        value={activeArea}
+                        name="area"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none"
+                        style={{
+                            backgroundImage: `url(${SelectArrowIcon})`,
+                            backgroundPosition: "right 16px top 50%",
+                            backgroundSize: "20px",
+                        }}
+                        value={areaSelecionada}
                         onChange={({ target }) => {
-                            setActiveArea(target.value);
+                            setAreaSelecionada(target.value);
                         }}
                     >
-                        <option value={0}>Todas as categorias</option>
+                        <option value={null}>Todas as categorias</option>
                         {areas?.map(({ id, nome }) => (
                             <option key={id} value={id}>
                                 {nome}
@@ -81,52 +92,41 @@ export default function Prestadores() {
                         ))}
                     </select>
                     <select
-                        className="dropdownFiltro"
-                        name="dropdownFiltro"
+                        name="filtro"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none"
+                        style={{
+                            backgroundImage: `url(${SelectArrowIcon})`,
+                            backgroundPosition: "right 16px top 50%",
+                            backgroundSize: "20px",
+                        }}
                         value={filtroSelecionado}
                         onChange={({ target }) => {
                             setFiltroSelecionado(target.value);
                         }}
                     >
-                        <option value="Alfabetica">
-                            Filtrar por Ordem Alfabética
-                        </option>
-                        <option value="Nota">Filtrar por Nota</option>
-                        <option value="PrecoMax">
-                            Filtrar por Maior Orçamento
-                        </option>
-                        <option value="PrecoMin">
-                            Filtrar por Menor Orçamento
-                        </option>
-                        <option value="Servico">Filtrar por Serviços</option>
-                        <option value="ServicoAula">
-                            Filtrar por Serviços e Aulas
-                        </option>
+                        {FiltragemENUM.map(({ id, desc }) => (
+                            <option key={id} value={id}>
+                                Filtrar por {desc}
+                            </option>
+                        ))}
                     </select>
                     <select
-                        className="dropdownOrdem"
-                        name="dropdownOrdem"
-                        value={ordemSelecionada ? "asc" : "desc"}
+                        name="ordem"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none"
+                        style={{
+                            backgroundImage: `url(${SelectArrowIcon})`,
+                            backgroundPosition: "right 16px top 50%",
+                            backgroundSize: "20px",
+                        }}
+                        value={ordemSelecionada}
                         onChange={({ target }) => {
-                            setOrdemSelecionada(target.value === "asc");
+                            setOrdemSelecionada(target.value);
                         }}
                     >
-                        <option value="asc">Crescente</option>
-                        <option value="desc">Decrescente</option>
+                        <option value={true}>Crescente</option>
+                        <option value={false}>Decrescente</option>
                     </select>
                 </div>
-                <span className="breadCrumbs">
-                    <span
-                        onClick={() => {
-                            navigate("/");
-                        }}
-                        className="breadcrumbAnterior cursor-pointer"
-                    >
-                        Página Inicial
-                    </span>
-                    {" / "}
-                    <span className="breadcrumbAtual">Prestadores</span>
-                </span>
                 <div className="flex justify-center flex-col w-full">
                     <Cards areas={areas} prestadores={prestadores} />
                 </div>

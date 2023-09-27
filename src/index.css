@@ -57,11 +57,6 @@ body {
   }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .min-max-inputs::-webkit-inner-spin-button,
 .min-max-inputs::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -73,94 +68,4 @@ code {
     padding-top: auto;
     padding-bottom: auto;
   }
-}
-
-.border-triangulo-cima{
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 20px 20px 20px;
-  border-color: transparent transparent #f8f8f8 transparent;
-}
-
-.menuSuperior {
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  max-height: 54.78px;
-  width: 100%;
-  max-width: 400px;
-  margin: 40px;
-  margin-left: 114.5px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-}
-
-.menuSuperior input[type="text"] {
-  flex: 1;
-  min-width: 388px;
-  border: none;
-  padding: 5px;
-  outline: none;
-}
-
-.menuSuperior .imgLupa {
-  transform: scale(0.06);
-  margin-left: -227px;
-  margin-right: -143px;
-}
-
-.dropdownCategoria{
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  height: 54.78px;
-  min-width: 240px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-}
-
-.dropdownFiltro {
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  height: 54.78px;
-  min-width: 240px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-}
-
-.breadCrumbs {
-  margin-left: 115px;
-  font-size: 24px;
-}
-
-.breadcrumbAnterior {
-  color: #808080;
-}
-
-.breadcrumbAtual {
-  font-weight: bolder;
-  color: #008042;
-}
-
-.dropdownOrdem {
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 5px 10px;
-  height: 54.78px;
-  min-width: 158.3px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
 }
