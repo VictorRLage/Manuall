@@ -1,0 +1,56 @@
+import { XCircleIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import axios from "@/api/axios";
+
+export default function ModalLink({ modal }) {
+    const [servico, setServico] = useState("");
+    const [valor, setValor] = useState("");
+
+    const alterarFtPerfil = () => {
+        axios
+            .patch("/perfil/alterar/fotoPerfil", {
+                servico,
+                valor,
+            })
+            .then(window.location.reload)
+            .catch((err) => console.log(err));
+    };
+
+    return (
+        <div className="z-50 fixed h-screen w-screen top-0 bg-blur flex justify-center items-center">
+            <div className="relative w-[500px] h-[500px] bg-white rounded-lg border-2 border-verde-padrao flex flex-col items-center p-6">
+                    <div
+                    onClick={modal}
+                    className="cursor-pointer absolute top-0 right-0"
+                >
+                    <XCircleIcon className="w-9 h-9 text-verde-padrao" />
+                </div>
+                <span className="text-3xl font-bold text-verde-padrao mb-4">
+                    Formulário de Orçamento
+                </span>
+                <div className="w-full px-4 mb-4">
+                    <label className="block text-verde-padrao font-semibold mb-2">Qual foi o serviço prestado?</label>
+                    <input
+                        className="bg-gray-50 border-2 border-verde-padrao text-gray-900 text-sm rounded-lg block w-full py-3 px-2.5 h-42"
+                        value={servico}
+                        onChange={(e) => setServico(e.target.value)}
+                    />
+                </div>
+                <div className="w-full px-4 mb-4">
+                    <label className="block text-verde-padrao font-semibold mb-2">Qual o valor do serviço prestado?</label>
+                    <input
+                        className="bg-gray-50 border-2 border-verde-padrao text-gray-900 text-sm rounded-lg block w-full py-3 px-2.5 h-12"
+                        value={valor}
+                        onChange={(e) => setValor(e.target.value)}
+                    />
+                </div>
+                <button
+                    onClick={alterarFtPerfil}
+                    className="w-24 h-10 text-xl bg-verde-padrao rounded-full text-white"
+                >
+                    Enviar
+                </button>
+            </div>
+        </div>
+    );
+}

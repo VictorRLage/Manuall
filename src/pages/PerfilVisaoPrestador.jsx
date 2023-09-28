@@ -11,6 +11,7 @@ import slugify from "slugify";
 import PerfilBg1 from "@/assets/shapes/PerfilBg1.svg?react";
 import PerfilBg2 from "@/assets/shapes/PerfilBg2.svg?react";
 import PerfilBg3 from "@/assets/shapes/PerfilBg3.svg?react";
+import ModalSolicitacao from "@/components/perfil/ModalSolicitacao";
 
 // 2. Define the component function
 export default function PerfilVisaoPrestador() {
@@ -21,6 +22,7 @@ export default function PerfilVisaoPrestador() {
     const [descricao, setDescricao] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
+    const [modalSolicitacao, setModalSolicitacao] = useState(false);
 
     const getInfoPrestador = () => {
         if (localStorage.getItem("TOKEN") === null) {
@@ -114,6 +116,8 @@ export default function PerfilVisaoPrestador() {
     return (
         <>
             {modalLinkPFP && <ModalLinkPFP modal={setModalLinkPFP} />}
+            {modalSolicitacao && <ModalSolicitacao modal={setModalSolicitacao} />}
+
             <PerfilBg1 />
             <PerfilBg3 />
             <Header />
@@ -144,9 +148,15 @@ export default function PerfilVisaoPrestador() {
                         </span>
                     </div>
                     <div className="ml-36 mr-36 mt-10 space-x-4 ">
-                        <button className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">
+
+
+                        {/* TESTANDO FORM ORÇAMENTO AO CLICAR NA ÁREA DO PRESTADOR */}
+                        <button onClick={() => setModalSolicitacao(true)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">
                             {prestador.area}
                         </button>
+                        {/* TESTANDO FORM ORÇAMENTO AO CLICAR NA ÁREA DO PRESTADOR */}
+
+
                         <button
                             onClick={() => console.log(prestador)}
                             className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all"
