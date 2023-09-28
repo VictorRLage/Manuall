@@ -157,7 +157,7 @@ export default function Chat() {
 
     return (
         <div
-            className="fixed z-50 right-8 w-[350px] transition-all"
+            className="fixed z-40 right-8 w-[350px] transition-all"
             style={{ bottom: isOpen ? "0" : "-400px" }}
         >
             <div
