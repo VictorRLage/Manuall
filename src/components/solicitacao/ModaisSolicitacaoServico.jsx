@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { ChevronRightIcon, ChevronLeftIcon, XCircleIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import ModalCustom from "@/components/main/ModalCustom";
-import WaitingBro from "@/assets/shapes/Waiting_bro.svg"
+import WaitingBro from "@/assets/storyset/Waiting_bro.svg";
 import SentMessage from "@/assets/storyset/SentMessage.svg"
 import CantoEsquerdo from "@/assets/shapes/ModalBottomRightWave.svg"
 import CantoDireito from "@/assets/shapes/ModalTopLeftWave.svg"
