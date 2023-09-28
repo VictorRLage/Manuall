@@ -6,6 +6,9 @@ import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
 import axios from "@/api/axios";
 import ModaisSolicitacaoServico from "@/components/solicitacao/ModaisSolicitacaoServico";
+import PerfilBg1 from "@/assets/shapes/PerfilBg1.svg?react";
+import PerfilBg2 from "@/assets/shapes/PerfilBg2.svg?react";
+import PerfilBg3 from "@/assets/shapes/PerfilBg3.svg?react";
 
 // 2. Define the component function
 export default function PerfilVisaoContratanate() {
@@ -111,75 +114,9 @@ export default function PerfilVisaoContratanate() {
                 modalSolicitacao={modaisSolicitacao}
                 modalSettr={setModaisSolicitacao}
             />
-            <svg
-                className="absolute top-0 z-[0]"
-                viewBox="0 0 1921 805"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M102.552 12.7864C450.19 12.7862 1778.3 146.35 2102.68 12.7863C2427.06 -120.777 2086.94 923.41 2102.68 731.758C2118.42 540.107 509.889 966.19 102.551 731.758C-304.786 497.327 -245.086 12.7866 102.552 12.7864Z"
-                    fill="#11AD0E"
-                    fill-opacity="0.25"
-                />
-            </svg>
-            <svg
-                className="absolute right-0"
-                width="460"
-                height="630"
-                viewBox="0 0 594 830"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <g filter="url(#filter0_d_8_430)">
-                    <path
-                        d="M423.719 502.664C423.719 35.6634 -220.544 194.088 88.5878 -79.1472C397.72 -352.383 705.725 -75.4086 725.945 58.8419C746.165 193.092 1042.95 24.2691 916.719 460.664C790.491 897.059 423.719 969.664 423.719 502.664Z"
-                        fill="#008042"
-                    />
-                </g>
-                <defs>
-                    <filter
-                        x="0.65332"
-                        y="-195.278"
-                        width="951.221"
-                        height="1025.07"
-                        filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
-                    >
-                        <feFlood
-                            flood-opacity="0"
-                            result="BackgroundImageFix"
-                        />
-                        <feColorMatrix
-                            in="SourceAlpha"
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha"
-                        />
-                        <feOffset dy="4" />
-                        <feGaussianBlur stdDeviation="2" />
-                        <feComposite in2="hardAlpha" operator="out" />
-                        <feColorMatrix
-                            type="matrix"
-                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-                        />
-                        <feBlend
-                            mode="normal"
-                            in2="BackgroundImageFix"
-                            result="effect1_dropShadow_8_430"
-                        />
-                        <feBlend
-                            mode="normal"
-                            in="SourceGraphic"
-                            in2="effect1_dropShadow_8_430"
-                            result="shape"
-                        />
-                    </filter>
-                </defs>
-            </svg>
-
+            <PerfilBg1 />
+            <PerfilBg3 />
             <Header />
-
             <div className="w-full h-full z-10 ">
                 <div className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
                     <div className="z-10">
@@ -294,62 +231,7 @@ export default function PerfilVisaoContratanate() {
                         </div>
                     </div>
                 </div>
-
-                <svg
-                    className="absolute top-[-250px]"
-                    width="360"
-                    height="1029"
-                    viewBox="0 0 360 1029"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <g filter="url(#filter0_d_8_431)">
-                        <path
-                            d="M-136.729 328.407C-197.545 664.774 110.518 788.917 322 814.5C445.999 829.5 200.301 892.156 59.4595 947C-466.541 1151.83 -510.128 875.754 -505.653 742.173C-501.179 608.591 -815.971 752.265 -617.241 332.526C-418.511 -87.2117 -53.674 -130.96 -136.729 328.407Z"
-                            fill="#008042"
-                        />
-                    </g>
-                    <defs>
-                        <filter
-                            x="-687.103"
-                            y="0.55835"
-                            width="1047"
-                            height="1027.66"
-                            filterUnits="userSpaceOnUse"
-                            color-interpolation-filters="sRGB"
-                        >
-                            <feFlood
-                                flood-opacity="0"
-                                result="BackgroundImageFix"
-                            />
-                            <feColorMatrix
-                                in="SourceAlpha"
-                                type="matrix"
-                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                result="hardAlpha"
-                            />
-                            <feOffset dy="4" />
-                            <feGaussianBlur stdDeviation="2" />
-                            <feComposite in2="hardAlpha" operator="out" />
-                            <feColorMatrix
-                                type="matrix"
-                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-                            />
-                            <feBlend
-                                mode="normal"
-                                in2="BackgroundImageFix"
-                                result="effect1_dropShadow_8_431"
-                            />
-                            <feBlend
-                                mode="normal"
-                                in="SourceGraphic"
-                                in2="effect1_dropShadow_8_431"
-                                result="shape"
-                            />
-                        </filter>
-                    </defs>
-                </svg>
-
+                <PerfilBg2 />
                 <div className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="mt-14 ml-36 mr-36 text-3xl font-bold">
                         Galeria de imagens
