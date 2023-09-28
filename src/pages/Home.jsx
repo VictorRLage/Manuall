@@ -13,8 +13,11 @@ import Carousel from "@/components/home/Carousel";
 import Cards from "@/components/home/Cards";
 import HomeLabel from "@/components/home/HomeLabel";
 import InfoCard from "@/components/home/InfoCard";
+import { useData } from "@/data/CreateContext";
 
 export default function Home() {
+    const { windowWidth } = useData();
+
     const [areas, setAreas] = useState();
     const [activeArea, setActiveAtiva] = useState(0);
     const [prestadores, setPrestadores] = useState();
@@ -48,7 +51,11 @@ export default function Home() {
                     Do que você{" "}
                     <span className="text-verde-padrao">precisa?</span>
                 </HomeLabel>
-                <div className="w-full px-16 flex justify-center flex-wrap">
+                <div
+                    className={`w-full ${
+                        windowWidth < 500 ? "px-8" : "px-16"
+                    } flex justify-center flex-wrap`}
+                >
                     {areas
                         ? areas.map(({ id, nome }, i) => (
                               <button

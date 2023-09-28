@@ -32,7 +32,7 @@ export default function Header() {
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
-            <header className="z-20 flex py-4 px-32 w-full bg-white drop-shadow-all justify-between items-center">
+            <header className={`z-20 flex py-4 ${windowWidth < 700 ? windowWidth < 500 ? "px-8" : "px-16" : "px-32"} w-full bg-white drop-shadow-all justify-between items-center`}>
                 <img
                     onClick={() => {
                         navigate("/");

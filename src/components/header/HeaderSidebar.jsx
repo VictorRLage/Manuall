@@ -1,9 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/manuall/logo_only.png";
+import { useData } from "@/data/CreateContext";
 
 export default function HeaderSidebar({ on, setOn, tipoUsuario, setModalEscolherCadastro }) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
+
+    const { windowWidth } = useData();
 
     return (
         <>
@@ -17,12 +20,12 @@ export default function HeaderSidebar({ on, setOn, tipoUsuario, setModalEscolher
             )}
             <div
                 className={`bg-white fixed flex flex-col items-center gap-4 top-0 py-8 overflow-y-auto ${
-                    on ? "right-0" : "right-[-400px]"
-                } w-[400px] z-50 h-full transition-all duration-150 ease-linear`}
+                    on ? "right-0" : windowWidth < 500 ? "right-[-100vw]" : "right-[-400px]"
+                } ${windowWidth < 500 ? "w-[100vw]" : "w-[400px]"} z-50 h-full transition-all duration-150 ease-linear`}
             >
                 <img
                     onClick={() => {
-                        navigate("/");
+                        setOn(false)
                     }}
                     src={logo}
                     alt="Logo da Manuall por extensa"
