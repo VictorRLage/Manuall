@@ -9,7 +9,7 @@ const NenhumPrestadorEncontrado = ({ isHome }) => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex flex-col items-center justify-center py-8 h-full">
             <img
                 src={imagemNotFound}
                 alt="Imagem de não encontrado"

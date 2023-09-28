@@ -1,10 +1,17 @@
 import Card from "@/components/home/Card";
 import NaoEncontrado from "@/components/prestadores/NaoEncontrado";
 import Skeleton from "react-loading-skeleton";
+import { useData } from "@/data/CreateContext";
 
 export default function Cards({ areas, prestadores, isHome }) {
+    const { windowWidth } = useData();
+
     return (
-        <div className="px-16 mt-12 flex flex-wrap justify-center gap-20 self-center">
+        <div
+            className={`${
+                windowWidth < 500 ? "px-8" : "px-16"
+            } mt-12 flex flex-wrap justify-center gap-20 self-center`}
+        >
             {prestadores ? (
                 prestadores.length === 0 ? (
                     <NaoEncontrado isHome={isHome} />

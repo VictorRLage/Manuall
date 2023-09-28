@@ -1,6 +1,5 @@
 import Header from "@/components/header/Header";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import lupaIcon from "@/assets/icons/lupa.png";
 import axios from "@/api/axios";
 import FooterWave from "@/assets/shapes/FooterWave.svg?react";
@@ -8,15 +7,16 @@ import Cards from "@/components/home/Cards";
 import FiltragemENUM from "@/enum/FiltragemENUM";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
+import { useData } from "@/data/CreateContext";
 
 export default function Prestadores() {
-    const navigate = useNavigate();
+    const { windowWidth } = useData();
 
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
 
-    const [areaSelecionada, setAreaSelecionada] = useState(null);
-    const [filtroSelecionado, setFiltroSelecionado] = useState(null);
+    const [areaSelecionada, setAreaSelecionada] = useState(0);
+    const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
     const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
     const getPrestadores = () => {
@@ -52,7 +52,11 @@ export default function Prestadores() {
         <div>
             <Header />
             <div className="w-full h-full">
-                <div className="px-32 pt-8">
+                <div
+                    className={`px-32 pt-8 flex ${
+                        windowWidth < 700 && "justify-center text-center"
+                    }`}
+                >
                     <Breadcrumb
                         items={[
                             { to: "/", desc: "Página Inicial" },

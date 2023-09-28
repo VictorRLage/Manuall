@@ -90,7 +90,11 @@ export default function Home() {
                 <HomeLabel>
                     Como <span className="text-verde-padrao">contratar?</span>
                 </HomeLabel>
-                <div className="px-16 flex flex-wrap justify-center gap-20 self-center">
+                <div
+                    className={`${
+                        windowWidth < 500 ? "px-8" : "px-16"
+                    } flex flex-wrap justify-center gap-20 self-center`}
+                >
                     <InfoCard img={comoContratar1}>
                         Cadastre-se e{" "}
                         <span className="text-verde-padrao font-semibold">
@@ -120,7 +124,11 @@ export default function Home() {
                 <HomeLabel>
                     Como <span className="text-verde-padrao">ensinar?</span>
                 </HomeLabel>
-                <div className="px-16 flex flex-wrap justify-center gap-20 self-center">
+                <div
+                    className={`${
+                        windowWidth < 500 ? "px-8" : "px-16"
+                    } flex flex-wrap justify-center gap-20 self-center`}
+                >
                     <InfoCard img={comoEnsinar1}>
                         Cadastre-se e converse conosco para sua{" "}
                         <span className="text-verde-padrao font-semibold">

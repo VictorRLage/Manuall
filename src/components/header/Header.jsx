@@ -28,11 +28,25 @@ export default function Header() {
 
     return (
         <>
+            <HeaderSidebar
+                on={sidebar}
+                setOn={setSidebar}
+                tipoUsuario={tipoUsuario}
+                setModalEscolherCadastro={setModalEscolherCadastro}
+            />
             <ModalEscolherCadastro
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
-            <header className={`z-20 flex py-4 ${windowWidth < 700 ? windowWidth < 500 ? "px-8" : "px-16" : "px-32"} w-full bg-white drop-shadow-all justify-between items-center`}>
+            <header
+                className={`z-20 flex py-4 ${
+                    windowWidth < 700
+                        ? windowWidth < 500
+                            ? "px-8"
+                            : "px-16"
+                        : "px-32"
+                } w-full bg-white drop-shadow-all justify-between items-center`}
+            >
                 <img
                     onClick={() => {
                         navigate("/");
@@ -124,7 +138,11 @@ export default function Header() {
                                             pathname !== "/development" &&
                                                 navigate("/development");
                                         }}
-                                        className="text-xl"
+                                        className={`text-xl decoration-green-400 ${
+                                            pathname === "/development"
+                                                ? "text-[#00CC69] cursor-default"
+                                                : "text-black hover:underline"
+                                        }`}
                                     >
                                         Histórico
                                     </button>
@@ -134,7 +152,11 @@ export default function Header() {
                                             pathname !== "/development" &&
                                                 navigate("/development");
                                         }}
-                                        className="text-xl"
+                                        className={`text-xl decoration-green-400 ${
+                                            pathname === "/development"
+                                                ? "text-[#00CC69] cursor-default"
+                                                : "text-black hover:underline"
+                                        }`}
                                     >
                                         Dashboard
                                     </button>
@@ -158,12 +180,6 @@ export default function Header() {
                 )}
             </header>
             {(tipoUsuario === 1 || tipoUsuario === 2) && <Chat />}
-            <HeaderSidebar
-                on={sidebar}
-                setOn={setSidebar}
-                tipoUsuario={tipoUsuario}
-                setModalEscolherCadastro={setModalEscolherCadastro}
-            />
         </>
     );
 }
