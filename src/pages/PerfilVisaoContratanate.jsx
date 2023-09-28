@@ -6,11 +6,7 @@ import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
 import Header from "@/components/header/Header";
 import axios from "@/api/axios";
 import ModaisSolicitacaoServico from "@/components/solicitacao/ModaisSolicitacaoServico";
-import PerfilBg1 from "@/assets/shapes/PerfilBg1.svg?react";
-import PerfilBg2 from "@/assets/shapes/PerfilBg2.svg?react";
-import PerfilBg3 from "@/assets/shapes/PerfilBg3.svg?react";
 
-// 2. Define the component function
 export default function PerfilVisaoContratanate() {
     const [prestador, setPrestador] = useState({});
     const [servicos, setServicos] = useState([]);
@@ -114,8 +110,6 @@ export default function PerfilVisaoContratanate() {
                 modalSolicitacao={modaisSolicitacao}
                 modalSettr={setModaisSolicitacao}
             />
-            <PerfilBg1 />
-            <PerfilBg3 />
             <Header />
             <div className="w-full h-full z-10 ">
                 <div className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
@@ -231,7 +225,6 @@ export default function PerfilVisaoContratanate() {
                         </div>
                     </div>
                 </div>
-                <PerfilBg2 />
                 <div className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="mt-14 ml-36 mr-36 text-3xl font-bold">
                         Galeria de imagens
@@ -281,7 +274,6 @@ export default function PerfilVisaoContratanate() {
                         </div>
                     </div>
                 </div>
-
                 <div className="bg-white z-10 h-72 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="ml-36 mr-36 text-3xl font-bold">
                         Avaliações

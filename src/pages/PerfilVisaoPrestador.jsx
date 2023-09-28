@@ -8,12 +8,9 @@ import Header from "@/components/header/Header";
 import ModalLinkPFP from "@/components/perfil/ModalLinkPFP";
 import axios from "@/api/axios";
 import slugify from "slugify";
-import PerfilBg1 from "@/assets/shapes/PerfilBg1.svg?react";
-import PerfilBg2 from "@/assets/shapes/PerfilBg2.svg?react";
-import PerfilBg3 from "@/assets/shapes/PerfilBg3.svg?react";
+import PerfilBg from "@/assets/shapes/PerfilBg.svg?react";
 import ModalSolicitacao from "@/components/perfil/ModalSolicitacao";
 
-// 2. Define the component function
 export default function PerfilVisaoPrestador() {
     const [prestador, setPrestador] = useState({});
     const [servicos, setServicos] = useState([]);
@@ -116,10 +113,10 @@ export default function PerfilVisaoPrestador() {
     return (
         <>
             {modalLinkPFP && <ModalLinkPFP modal={setModalLinkPFP} />}
-            {modalSolicitacao && <ModalSolicitacao modal={setModalSolicitacao} />}
+            {modalSolicitacao && (
+                <ModalSolicitacao modal={setModalSolicitacao} />
+            )}
 
-            <PerfilBg1 />
-            <PerfilBg3 />
             <Header />
             <div className="w-full h-full z-10 ">
                 <div className="bg-white h-[70vh] pt-10 pl-32 pr-32 flex flex-col ">
@@ -148,14 +145,14 @@ export default function PerfilVisaoPrestador() {
                         </span>
                     </div>
                     <div className="ml-36 mr-36 mt-10 space-x-4 ">
-
-
                         {/* TESTANDO FORM ORÇAMENTO AO CLICAR NA ÁREA DO PRESTADOR */}
-                        <button onClick={() => setModalSolicitacao(true)} className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all">
+                        <button
+                            onClick={() => setModalSolicitacao(true)}
+                            className="text-2xl bg-white h-10 pl-5 pr-5 font-semibold text-verde-escuro-1 rounded-full drop-shadow-all"
+                        >
                             {prestador.area}
                         </button>
                         {/* TESTANDO FORM ORÇAMENTO AO CLICAR NA ÁREA DO PRESTADOR */}
-
 
                         <button
                             onClick={() => console.log(prestador)}
@@ -247,7 +244,6 @@ export default function PerfilVisaoPrestador() {
                         </div>
                     </div>
                 </div>
-                <PerfilBg2 />
                 <div className="bg-white z-10 h-184 pt-10 pl-32 pr-32 flex flex-col">
                     <span className="mt-14 ml-36 mr-36 text-3xl font-bold">
                         Galeria de imagens
@@ -292,9 +288,7 @@ export default function PerfilVisaoPrestador() {
                         </span>
                         <div className="z-10 mt-2 text-lg flex flex-col">
                             {servicos.map((data, i) => (
-                                <span className="" key={i}>
-                                    {data.nome}
-                                </span>
+                                <span key={i}>{data.nome}</span>
                             ))}
                         </div>
                     </div>

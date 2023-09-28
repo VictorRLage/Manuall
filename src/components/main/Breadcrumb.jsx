@@ -7,6 +7,7 @@ export default function Breadcrumb({ items }) {
         <span className="text-xl">
             {items.map(({ to, desc }, i) => (
                 <span
+                    key={i}
                     onClick={() => {
                         to && navigate(to);
                     }}

@@ -15,8 +15,7 @@ import Contato from "@/pages/Contato";
 import AdmAprovacao from "@/pages/AdmAprovacao";
 import AdmDashboard from "@/pages/AdmDashboard";
 import AdmApiStatus from "@/pages/AdmApiStatus";
-import PerfilVisaoContratanate from "@/pages/PerfilVisaoContratanate";
-import PerfilVisaoPrestador from "@/pages/PerfilVisaoPrestador";
+import Perfil from "@/pages/Perfil";
 import Erro from "@/pages/Erro";
 import UnderConstruction from "@/pages/UnderConstruction";
 import VLibras from "@djpfs/react-vlibras";
@@ -48,11 +47,11 @@ const App = () => {
                     <Route path="/prestadores" element={<Prestadores />} />
                     <Route
                         path="/prestadores/*"
-                        element={<PerfilVisaoContratanate />}
+                        element={<Perfil isOwnProfile={false} />}
                     />
                     <Route
-                        path="/prestadores/eu/editar"
-                        element={<PerfilVisaoPrestador />}
+                        path="/perfil"
+                        element={<Perfil isOwnProfile={true} />}
                     />
                     <Route path="/contato" element={<Contato />} />
                     <Route path="/adm/aprovacao" element={<AdmAprovacao />} />
