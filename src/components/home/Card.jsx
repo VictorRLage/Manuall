@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
-import slugify from "slugify";
 import Skeleton from "react-loading-skeleton";
 import ModalNaoLogado from "@/components/main/ModalNaoLogado";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
@@ -34,15 +33,8 @@ export default function Card({
     });
 
     const verificarLogin = () => {
-        if (localStorage.getItem("TOKEN") === null) {
-            const slug = slugify(nome, { lower: true });
-            localStorage.PRESTADOR_SLUG = slug;
-            localStorage.PRESTADOR_INTERESSE = id;
-            setModalNaoLogado(true);
-        } else {
-            const slug = slugify(nome, { lower: true });
-            navigate(`/prestadores/${slug}`, { state: { id } });
-        }
+        if (localStorage.getItem("TOKEN")) navigate(`/prestadores/${id}`);
+        else setModalNaoLogado(true);
     };
 
     return (

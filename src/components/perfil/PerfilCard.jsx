@@ -1,6 +1,5 @@
 import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
-import { PlusIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 import ImageAddIcon from "@/assets/icons/image_add.png";
@@ -19,20 +18,12 @@ export default function PerfilCard({ prestador }) {
         );
     });
 
-    const alterarDesc = () => {
-        axios
-            .patch("/perfil/alterar/desc", {
-                descricao: prestador?.descricao,
-            })
-            .catch((err) => console.log(err));
-    };
-
     return (
         <div>
             <div className="flex flex-col items-center p-5 bg-white w-84 drop-shadow-all rounded-lg">
                 {prestador?.pfp ? (
                     <div
-                        className="cursor-pointer bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl relative"
+                        className="bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl relative"
                         style={{
                             backgroundImage: `url(${prestador?.pfp}), url(${defaultPfp})`,
                         }}
@@ -45,15 +36,14 @@ export default function PerfilCard({ prestador }) {
                         </button>
                     </div>
                 ) : (
-                    <div />
-                    // <div
-                    //     onClick={() => setModalLinkPFP(true)}
-                    //     className="cursor-pointer bg-center bg-no-repeat h-30 w-30 rounded-3xl border-verde-padrao border-4"
-                    //     style={{
-                    //         backgroundImage: `url(${ImageAddIcon})`,
-                    //         backgroundSize: "80%",
-                    //     }}
-                    // />
+                    <div
+                        onClick={() => setModalLinkPFP(true)}
+                        className="cursor-pointer bg-center bg-no-repeat h-30 w-30 rounded-3xl border-verde-padrao border-4"
+                        style={{
+                            backgroundImage: `url(${ImageAddIcon})`,
+                            backgroundSize: "80%",
+                        }}
+                    />
                 )}
                 <span className="mt-2 font-bold ml-auto mr-auto text-3xl">
                     {prestador?.nome}
@@ -78,11 +68,8 @@ export default function PerfilCard({ prestador }) {
                     <span>Estado</span>
                     <span>{prestador?.cidade}</span>
                 </div>
-                <button
-                    onClick={alterarDesc}
-                    className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full"
-                >
-                    Salvar
+                <button className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full">
+                    Contratar
                 </button>
             </div>
         </div>

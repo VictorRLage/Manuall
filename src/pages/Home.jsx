@@ -19,7 +19,7 @@ export default function Home() {
     const { windowWidth } = useData();
 
     const [areas, setAreas] = useState();
-    const [activeArea, setActiveAtiva] = useState(0);
+    const [activeArea, setActiveAtiva] = useState(null);
     const [prestadores, setPrestadores] = useState();
 
     const changeActiveArea = (idArea) => {
@@ -27,7 +27,7 @@ export default function Home() {
         if (activeArea === idArea) {
             axios.get("/usuario/prestadores").then(({ data }) => {
                 setPrestadores(data);
-                setActiveAtiva(0);
+                setActiveAtiva(null);
             });
         } else {
             axios.get(`/usuario/prestadores/${idArea}`).then(({ data }) => {
@@ -39,7 +39,7 @@ export default function Home() {
 
     useEffect(() => {
         axios.get("/usuario/areas").then(({ data }) => setAreas(data));
-        changeActiveArea(0);
+        changeActiveArea(null);
     }, []);
 
     return (

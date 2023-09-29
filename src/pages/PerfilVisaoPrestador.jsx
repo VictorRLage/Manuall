@@ -7,7 +7,6 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import Header from "@/components/header/Header";
 import ModalLinkPFP from "@/components/perfil/ModalLinkPFP";
 import axios from "@/api/axios";
-import slugify from "slugify";
 import PerfilBg from "@/assets/shapes/PerfilBg.svg?react";
 import ModalSolicitacao from "@/components/perfil/ModalSolicitacao";
 
@@ -35,7 +34,6 @@ export default function PerfilVisaoPrestador() {
     };
 
     const alterarDesc = () => {
-        const slug = slugify(prestador.nome, { lower: true });
         axios
             .patch("/perfil/alterar/desc", {
                 descricao: descricao,

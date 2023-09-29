@@ -7,6 +7,7 @@ import PerfilBg from "@/assets/shapes/PerfilBg.svg";
 import ModalSolicitacao from "@/components/perfil/ModalSolicitacao";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import PerfilCard from "@/components/perfil/PerfilCard";
+import defaultImg from "@/assets/demo/default_img.jpg";
 
 export default function Perfil() {
     const location = useLocation();
@@ -15,13 +16,24 @@ export default function Perfil() {
     const [modalLinkPFP, setModalLinkPFP] = useState(false);
     const [modalSolicitacao, setModalSolicitacao] = useState(false);
 
+    const alterarDesc = () => {
+        // axios
+        //     .patch("/perfil/alterar/desc", {
+        //         descricao: prestador?.descricao,
+        //     })
+        //     .catch((err) => console.log(err));
+    };
+
     useEffect(() => {
+        console.log(location);
         axios
-            .get(`/perfil/${location.state?.id}`)
-            .then(({ data }) => setPrestador(data))
+            .get(`/perfil/${location.pathname.substring(13)}`)
+            .then(({ data }) => {
+                setPrestador(data);
+            })
             .catch((err) => console.log(err));
 
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
     }, []);
 
     return (
@@ -54,7 +66,7 @@ export default function Perfil() {
                             <div className="flex gap-2 flex-wrap">
                                 <div className="text-2xl px-5 py-1 bg-white font-semibold text-verde-escuro-1 rounded-full drop-shadow-xl">
                                     {`Serviço${
-                                        prestador?.prestaAula ? "+ Aula" : ""
+                                        prestador?.prestaAula ? " + Aula" : ""
                                     }`}
                                 </div>
                                 <div className="text-2xl px-5 py-1 bg-white font-semibold text-verde-escuro-1 rounded-full drop-shadow-xl">
@@ -71,27 +83,25 @@ export default function Perfil() {
                         </div>
                     </div>
                 </div>
-                <div className="h-[60vh] px-32">
+                <div className="px-32 flex flex-col py-4 gap-4">
                     <span className="text-3xl font-semibold text-gray-900">
                         Galeria de{" "}
                         <span className="text-verde-escuro-1">Imagens</span>
                     </span>
-                    <div className="flex"></div>
-                </div>
-                <div className="bg-white h-184 pt-10 pl-32 pr-32 flex flex-col">
-                    <span className="mt-14 ml-36 mr-36 text-3xl font-bold">
-                        Galeria de imagens
-                    </span>
-                </div>
-                <div className="min-h-[18rem] bg-verde-escuro-2 pt-10 pl-36 pr-32 flex flex-col">
-                    <div className="bg-white rounded-3xl min-h-48 w-[40%] ml-32 mr-32 p-10 drop-shadow-all">
-                        <span className=" text-3xl font-bold">
-                            Serviços oferecidos
-                        </span>
-                        <div className="mt-2 text-lg flex flex-col">
-                            {prestador?.servicos.map(({ nome }, i) => (
-                                <span key={i}>{nome}</span>
-                            ))}
+                    <div className="flex flex-col gap-[4px]">
+                        <div className="flex flex-wrap max-w-[908px] rounded-3xl overflow-hidden gap-[4px]">
+                            {prestador &&
+                                Array.from({ length: 6 }, (_, i) => (
+                                    <img
+                                        key={i}
+                                        onError={({ target }) => {
+                                            target.src = defaultImg;
+                                        }}
+                                        src={prestador.imagens[i]}
+                                        alt=""
+                                        className="w-[300px] h-[150px] bg-gray-300 object-cover border-0"
+                                    />
+                                ))}
                         </div>
                     </div>
                 </div>
