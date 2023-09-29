@@ -39,9 +39,10 @@ export default function Perfil() {
     return (
         <>
             {modalLinkPFP && <ModalLinkPFP modal={setModalLinkPFP} />}
-            {modalSolicitacao && (
-                <ModalSolicitacao modal={setModalSolicitacao} />
-            )}
+            <ModalSolicitacao
+                modalGettr={modalSolicitacao}
+                modalSettr={setModalSolicitacao}
+            />
             <Header />
             <div className="w-full">
                 <div

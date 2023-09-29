@@ -11,7 +11,6 @@ export default function ModalCustom({
     children,
 }) {
     const modal_custom = useRef(null);
-    const modal_custom_bg = useRef(null);
 
     const [lastTimeout, setLastTimeout] = useState(0);
 
@@ -19,10 +18,6 @@ export default function ModalCustom({
         if (canClose && tempo) clearTimeout(lastTimeout);
 
         if (modalGettr) {
-            setTimeout(() => {
-                modal_custom.current.style.transform = "scale(1)";
-                modal_custom_bg.current.style.opacity = "0.4";
-            }, 1);
             if (canClose && tempo) {
                 setLastTimeout(
                     setTimeout(() => {
@@ -37,10 +32,7 @@ export default function ModalCustom({
         if (!canCloseOnItselfClick && target !== modal_custom.current) return;
 
         if (canClose) {
-            modal_custom_bg.current.style.opacity = "0";
             clearTimeout(lastTimeout);
-
-            modal_custom.current.style.transform = "scale(0.97)";
             modalSettr?.(false);
         }
     };
@@ -49,11 +41,10 @@ export default function ModalCustom({
         modalGettr && (
             <>
                 <div
-                    className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black transition-all duration-300"
+                    className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black"
                     style={{
-                        opacity: "0",
+                        animation: "opacity_in 300ms forwards",
                     }}
-                    ref={modal_custom_bg}
                 />
                 <div
                     onClick={closeModal}
@@ -62,7 +53,11 @@ export default function ModalCustom({
                 >
                     <div
                         className="bg-white flex flex-col justify-around items-center rounded-xl"
-                        style={{ width: w, height: h }}
+                        style={{
+                            width: w,
+                            height: h,
+                            animation: "pop_up 150ms",
+                        }}
                     >
                         {children}
                     </div>

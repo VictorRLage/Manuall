@@ -48,15 +48,6 @@ body {
   top: 55% !important;
 }
 
-@keyframes preenchimento {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-}
-
 .min-max-inputs::-webkit-inner-spin-button,
 .min-max-inputs::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -67,5 +58,35 @@ body {
   .py-auto {
     padding-top: auto;
     padding-bottom: auto;
+  }
+}
+
+@keyframes preenchimento {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes opacity_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+
+@keyframes pop_up {
+  0% {
+    transform: scale(0.97);
+  }
+  60% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
   }
 }
