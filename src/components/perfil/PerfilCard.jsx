@@ -4,7 +4,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 import ImageAddIcon from "@/assets/icons/image_add.png";
 
-export default function PerfilCard({ prestador }) {
+export default function PerfilCard({ isOwnProfile, prestador }) {
     const mediaAvaliacoes =
         prestador?.avaliacoes.reduce((acc, { nota }) => acc + nota, 0) /
         prestador?.avaliacoes.length;
@@ -28,12 +28,14 @@ export default function PerfilCard({ prestador }) {
                             backgroundImage: `url(${prestador?.pfp}), url(${defaultPfp})`,
                         }}
                     >
-                        <button
-                            onClick={() => setModalLinkPFP(true)}
-                            className="absolute bg-verde-padrao text-center w-8 h-8 rounded-full -right-1 -top-1"
-                        >
-                            <PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto" />
-                        </button>
+                        {isOwnProfile && (
+                            <button
+                                onClick={() => setModalLinkPFP(true)}
+                                className="absolute bg-verde-padrao text-center w-8 h-8 rounded-full -right-1 -top-1"
+                            >
+                                <PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto" />
+                            </button>
+                        )}
                     </div>
                 ) : (
                     <div
@@ -45,19 +47,19 @@ export default function PerfilCard({ prestador }) {
                         }}
                     />
                 )}
-                <span className="mt-2 font-bold ml-auto mr-auto text-3xl">
+                <span className="mt-2 font-bold m-auto text-3xl">
                     {prestador?.nome}
                 </span>
-                <div className="flex flex-row mr-auto ml-auto mt-2">
+                <div className="flex m-auto mt-2">
                     {estrelas}
-                    <span className="ml-2 text-lg">
+                    <span className="text-lg ml-2">
                         {mediaAvaliacoes.toFixed(1)}
                     </span>
                 </div>
-                <span className="ml-auto mr-auto text-cinza-claro-3">
+                <span className="m-auto text-cinza-claro-3">
                     {prestador?.avaliacoes.length} avaliações
                 </span>
-                <div className="grid grid-cols-2 text-lg mt-1 ml-auto mr-auto space-y-1">
+                <div className="grid grid-cols-2 text-lg mt-1 m-auto space-y-1">
                     <span>Preço</span>
                     <span>
                         R${prestador?.orcamentoMin} - R$
@@ -68,9 +70,21 @@ export default function PerfilCard({ prestador }) {
                     <span>Estado</span>
                     <span>{prestador?.cidade}</span>
                 </div>
-                <button className="bg-verde-padrao text-white w-52 h-10 text-2xl mt-6 mr-auto ml-auto rounded-full">
-                    Contratar
-                </button>
+                {!isOwnProfile &&
+                    (prestador?.prestaAula ? (
+                        <>
+                            <button className="bg-verde-padrao text-white px-6 py-2 text-xl mt-6 m-auto rounded-full">
+                                Contratar com aula
+                            </button>
+                            <button className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto">
+                                Contratar apenas serviço
+                            </button>
+                        </>
+                    ) : (
+                        <button className="bg-verde-padrao text-white px-6 py-2 text-2xl mt-6 m-auto rounded-full">
+                            Contratar
+                        </button>
+                    ))}
             </div>
         </div>
     );

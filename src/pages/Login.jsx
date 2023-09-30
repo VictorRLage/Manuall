@@ -80,30 +80,9 @@ export default function Login() {
                     localStorage.TOKEN = data;
                     localStorage.TIPO_USUARIO = tipoUsuario;
                     if (tipoUsuario === 1) {
-                        if (localStorage.PRESTADOR_INTERESSE !== undefined) {
-                            navigate(
-                                `/prestadores/${localStorage.PRESTADOR_SLUG}`,
-                                {
-                                    state: {
-                                        id: localStorage.PRESTADOR_INTERESSE,
-                                    },
-                                },
-                            );
-                        } else {
-                            navigate("/prestadores");
-                        }
+                        navigate("/prestadores");
                     } else if (tipoUsuario === 2) {
-                        axios
-                            .get("/usuario/id")
-                            .then(({ data }) => {
-                                localStorage.IDUSUARIO = data;
-                                navigate("/prestadores/eu/editar", {
-                                    state: { id: data },
-                                });
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            });
+                        navigate("/perfil");
                     } else if (tipoUsuario === 3) {
                         navigate("/adm/aprovacao");
                     }

@@ -15,7 +15,7 @@ export default function Prestadores() {
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
 
-    const [areaSelecionada, setAreaSelecionada] = useState(null);
+    const [areaSelecionada, setAreaSelecionada] = useState(0);
     const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
     const [ordemSelecionada, setOrdemSelecionada] = useState(true);
 
@@ -88,7 +88,7 @@ export default function Prestadores() {
                             setAreaSelecionada(target.value);
                         }}
                     >
-                        <option value={null}>Todas as categorias</option>
+                        <option value={0}>Todas as categorias</option>
                         {areas?.map(({ id, nome }) => (
                             <option key={id} value={id}>
                                 {nome}
