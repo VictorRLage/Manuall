@@ -8,11 +8,14 @@ import React, { useEffect, useRef, useState } from "react";
 export default function Carousel() {
     const scrollingDiv = useRef(null);
 
+    const [previousCarouselIndex, setPreviousCarouselIndex] = useState(0);
     const [carouselIndex, setCarouselIndex] = useState(0);
     const [currentSlides, setCurrentSlides] = useState([]);
     const [carouselAutoChangingTimeout, setCarouselAutoChangingTimeout] =
         useState(0);
     const [carouselIndexesTimeout, setCarouselIndexesTimeout] = useState(0);
+
+    const [isScrollSmoothed, setIsScrollSmoothed] = useState(true);
 
     const [canUserChange, setCanUserChange] = useState(true);
 
@@ -20,7 +23,14 @@ export default function Carousel() {
         clearTimeout(carouselIndexesTimeout);
         clearTimeout(carouselAutoChangingTimeout);
 
-        setCurrentSlides([...currentSlides, carouselIndex]);
+        if (
+            (carouselIndex === 0 && previousCarouselIndex === allSlides.length - 1) ||
+            carouselIndex === previousCarouselIndex + 1
+        ) {
+            setCurrentSlides([...currentSlides, carouselIndex]);
+        } else {
+            setCurrentSlides([carouselIndex, ...currentSlides]);
+        }
         setCarouselAutoChangingTimeout(
             setTimeout(() => {
                 setCarouselIndex((carouselIndex + 1) % 3);
@@ -30,17 +40,44 @@ export default function Carousel() {
 
     useEffect(() => {
         if (currentSlides.length >= 2) {
-            scrollingDiv.current.scrollLeft = 15000;
-
             setCanUserChange(false);
 
-            setCarouselIndexesTimeout(
+            if (
+                (carouselIndex === 0 && previousCarouselIndex === allSlides.length - 1) ||
+                carouselIndex === previousCarouselIndex + 1
+            ) {
+                setIsScrollSmoothed(true);
                 setTimeout(() => {
-                    setCanUserChange(true);
-                    setCurrentSlides([currentSlides[currentSlides.length - 1]]);
-                }, 500),
-            );
+                    scrollingDiv.current.scrollLeft = 15000;
+
+                    setCarouselIndexesTimeout(
+                        setTimeout(() => {
+                            setCanUserChange(true);
+                            setCurrentSlides([
+                                currentSlides[currentSlides.length - 1],
+                            ]);
+                        }, 500),
+                    );
+                }, 1);
+            } else {
+                setIsScrollSmoothed(false);
+                setTimeout(() => {
+                    scrollingDiv.current.scrollLeft = 15000;
+                    setIsScrollSmoothed(true);
+                    setTimeout(() => {
+                        scrollingDiv.current.scrollLeft = 0;
+
+                        setCarouselIndexesTimeout(
+                            setTimeout(() => {
+                                setCanUserChange(true);
+                                setCurrentSlides([currentSlides[0]]);
+                            }, 500),
+                        );
+                    }, 1);
+                }, 1);
+            }
         }
+        setPreviousCarouselIndex(carouselIndex);
     }, [currentSlides]);
 
     const allSlides = [
@@ -101,11 +138,13 @@ export default function Carousel() {
                 </div>
             </div>
             <div
-                className="min-w-full max-w-full h-full overflow-x-hidden flex scroll-smooth"
+                className={`min-w-full max-w-full h-full overflow-x-hidden flex ${
+                    isScrollSmoothed && "scroll-smooth"
+                }`}
                 ref={scrollingDiv}
             >
-                {currentSlides.map((it, i) => (
-                    <Fragment key={i}>{allSlides[it]}</Fragment>
+                {currentSlides.map((slide, i) => (
+                    <Fragment key={i}>{allSlides[slide]}</Fragment>
                 ))}
             </div>
         </div>
