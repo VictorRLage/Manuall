@@ -5,7 +5,7 @@ import HomeBg2 from "@/assets/shapes/home_bg_2.svg?react";
 import HomeBg3 from "@/assets/shapes/home_bg_3.svg?react";
 import React, { useEffect, useRef, useState } from "react";
 
-export default function Carousel() {
+export default function Carousel({ slides = [] }) {
     const scrollingDiv = useRef(null);
 
     const [previousCarouselIndex, setPreviousCarouselIndex] = useState(0);
@@ -28,11 +28,11 @@ export default function Carousel() {
             if (distanceSwiped > 300) {
                 canUserChange &&
                     setCarouselIndex(
-                        (carouselIndex + allSlides.length - 1) %
-                            allSlides.length,
+                        (carouselIndex + slides.length - 1) % slides.length,
                     );
             } else if (distanceSwiped < -300) {
-                canUserChange && setCarouselIndex((carouselIndex + 1) % 3);
+                canUserChange &&
+                    setCarouselIndex((carouselIndex + 1) % slides.length);
             }
         }
     };
@@ -43,7 +43,7 @@ export default function Carousel() {
 
         if (
             (carouselIndex === 0 &&
-                previousCarouselIndex === allSlides.length - 1) ||
+                previousCarouselIndex === slides.length - 1) ||
             carouselIndex === previousCarouselIndex + 1
         ) {
             setCurrentSlides([...currentSlides, carouselIndex]);
@@ -52,7 +52,7 @@ export default function Carousel() {
         }
         setCarouselAutoChangingTimeout(
             setTimeout(() => {
-                setCarouselIndex((carouselIndex + 1) % 3);
+                setCarouselIndex((carouselIndex + 1) % slides.length);
             }, 15000),
         );
     }, [carouselIndex]);
@@ -63,7 +63,7 @@ export default function Carousel() {
 
             if (
                 (carouselIndex === 0 &&
-                    previousCarouselIndex === allSlides.length - 1) ||
+                    previousCarouselIndex === slides.length - 1) ||
                 carouselIndex === previousCarouselIndex + 1
             ) {
                 setIsScrollSmoothed(true);
@@ -100,12 +100,6 @@ export default function Carousel() {
         setPreviousCarouselIndex(carouselIndex);
     }, [currentSlides]);
 
-    const allSlides = [
-        <div className="min-w-full h-full bg-red-950" />,
-        <div className="min-w-full h-full bg-blue-950" />,
-        <div className="min-w-full h-full bg-green-950" />,
-    ];
-
     return (
         <div
             className="w-full h-120 group flex justify-center relative overflow-x-hidden"
@@ -124,8 +118,7 @@ export default function Carousel() {
                 onClick={() => {
                     canUserChange &&
                         setCarouselIndex(
-                            (carouselIndex + allSlides.length - 1) %
-                                allSlides.length,
+                            (carouselIndex + slides.length - 1) % slides.length,
                         );
                 }}
                 className="w-12 h-12 bg-no-repeat z-30 absolute left-[-56px] self-center cursor-pointer flex group-hover:left-4 bg-gray-100 hover:bg-gray-200 transition-all rounded-full items-center justify-center"
@@ -137,7 +130,8 @@ export default function Carousel() {
             />
             <button
                 onClick={() => {
-                    canUserChange && setCarouselIndex((carouselIndex + 1) % 3);
+                    canUserChange &&
+                        setCarouselIndex((carouselIndex + 1) % slides.length);
                 }}
                 className="rotate-180 w-12 h-12 bg-no-repeat z-30 absolute right-[-56px] self-center cursor-pointer flex group-hover:right-4 bg-gray-100 hover:bg-gray-200 transition-all rounded-full items-center justify-center"
                 style={{
@@ -148,7 +142,7 @@ export default function Carousel() {
             />
             <div className="self-end absolute">
                 <div className="flex gap-1">
-                    {Array.from({ length: 3 }).map((_, i) => (
+                    {Array.from({ length: slides.length }).map((_, i) => (
                         <div
                             key={i}
                             className="w-6 h-2 bg-gray-400 cursor-pointer"
@@ -175,8 +169,8 @@ export default function Carousel() {
                 }`}
                 ref={scrollingDiv}
             >
-                {currentSlides.map((slide, i) => (
-                    <Fragment key={i}>{allSlides[slide]}</Fragment>
+                {currentSlides.map((slideI, i) => (
+                    <Fragment key={i}>{slides[slideI]}</Fragment>
                 ))}
             </div>
         </div>

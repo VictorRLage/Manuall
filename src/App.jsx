@@ -47,11 +47,11 @@ const App = () => {
                     <Route path="/prestadores" element={<Prestadores />} />
                     <Route
                         path="/prestadores/*"
-                        element={<Perfil isOwnProfile={false} />}
+                        element={<Perfil isOwnProfile={false} key={1} />}
                     />
                     <Route
                         path="/perfil"
-                        element={<Perfil isOwnProfile={true} />}
+                        element={<Perfil isOwnProfile={true} key={2} />}
                     />
                     <Route path="/contato" element={<Contato />} />
                     <Route path="/adm/aprovacao" element={<AdmAprovacao />} />

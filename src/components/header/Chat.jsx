@@ -93,9 +93,8 @@ export default function Chat() {
             .then(({ data }) => {
                 setManuelMsgs(data);
             })
-            .catch((err) => {
+            .catch(() => {
                 setManuelMsgs(true);
-                console.log(err);
             });
     };
 

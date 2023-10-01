@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo_extensa from "@/assets/manuall/logo_green_black.png";
-import { UserIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import Notificacao from "@/components/header/Notificacao";
 import Chat from "@/components/header/Chat";
 import HeaderSidebar from "@/components/header/HeaderSidebar";
@@ -9,8 +9,10 @@ import { logoff } from "@/utils/functions";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 import { useData } from "@/data/CreateContext";
 import ThreeBars from "@/assets/icons/3bars.png";
+import defaultPfp from "@/assets/demo/default_pfp.jpg";
+import axios from "@/api/axios";
 
-export default function Header() {
+export default function Header({ refetch }) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
@@ -21,10 +23,18 @@ export default function Header() {
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState();
 
     const [sidebar, setSidebar] = useState(false);
+    const [pfp, setPfp] = useState(undefined);
 
     const openSidebar = () => {
         setSidebar(true);
     };
+
+    const refetchAll = () => {
+        if (localStorage.getItem("TOKEN"))
+            axios.get("/perfil/fotoPerfil").then(({ data }) => setPfp(data));
+    };
+
+    useEffect(refetchAll, [refetch]);
 
     return (
         <>
@@ -162,11 +172,20 @@ export default function Header() {
                                     </button>
                                 )}
                                 <Notificacao tipoUsuario={tipoUsuario} />
+                                {tipoUsuario === 2 && (
+                                    <button
+                                        className="bg-verde-padrao w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
+                                        style={{
+                                            backgroundImage: `url(${pfp}), url(${defaultPfp})`,
+                                        }}
+                                        onClick={() => navigate("/perfil")}
+                                    />
+                                )}
                                 <button
                                     onClick={logoff}
-                                    className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"
+                                    className="bg-verde-padrao w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"
                                 >
-                                    <UserIcon className="w-7 text-verde-padrao" />
+                                    <ArrowLeftOnRectangleIcon className="w-7 text-white" />
                                 </button>
                             </>
                         )}

@@ -1,67 +1,45 @@
 import { useState, useEffect } from "react";
-import axios from "@/api/axios";
 import ModalCustom from "@/components/main/ModalCustom";
 import { ThreeDots } from "react-loader-spinner";
 
-export default function ModalUrlPfp({
+export default function ModalUrlGaleria({
     modalGettr,
     modalSettr,
-    currentPfp,
-    refetch,
+    createImagem,
 }) {
-    const [pfp, setPfp] = useState(currentPfp);
-    const [isPfpLoaded, setIsPfpLoaded] = useState(false);
+    const [url, setUrl] = useState("");
+    const [isUrlLoaded, setIsUrlLoaded] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const alterarFtPerfil = () => {
-        setLoading(true);
-        axios
-            .patch("/perfil/alterar/fotoPerfil", {
-                novaUrl: pfp,
-            })
-            .then(() => {
-                refetch();
-                modalSettr(false);
-            })
-            .catch((err) => console.log(err))
-            .finally(() => {
-                setLoading(false);
-            });
-    };
-
-    useEffect(() => {
-        setPfp(currentPfp);
-    }, [currentPfp]);
 
     return (
         <ModalCustom
             modalGettr={modalGettr}
             modalSettr={modalSettr}
-            canClose={true}
+            canClose
         >
             <div className="w-full h-full flex flex-col items-center py-8 px-10 gap-4">
                 <span className="text-2xl text-gray-900 font-semibold text-center">
-                    Insira o Url da sua imagem de perfil
+                    Insira o Url da sua nova imagem
                 </span>
                 <div className="flex flex-col justify-center items-center gap-2">
                     <img
-                        src={pfp}
+                        src={url}
                         alt=" "
-                        onLoad={() => setIsPfpLoaded(true)}
-                        onError={() => setIsPfpLoaded(false)}
+                        onLoad={() => setIsUrlLoaded(true)}
+                        onError={() => setIsUrlLoaded(false)}
                         className="object-cover h-52 w-52 rounded-3xl border-none bg-gray-200"
                     />
                     <textarea
                         className="border-cinza-claro-3 border-2 text-gray-900 rounded-lg"
-                        value={pfp}
-                        onChange={({ target }) => setPfp(target.value)}
+                        value={url}
+                        onChange={({ target }) => setUrl(target.value)}
                     />
                     <button
                         onClick={() => {
-                            isPfpLoaded && alterarFtPerfil();
+                            isUrlLoaded && createImagem(url);
                         }}
                         className={`text-2xl mt-4 ${
-                            isPfpLoaded ? "bg-verde-padrao" : "bg-cinza-claro-1"
+                            isUrlLoaded ? "bg-verde-padrao" : "bg-cinza-claro-1"
                         } rounded-full text-white w-32 h-10 `}
                     >
                         {loading ? (

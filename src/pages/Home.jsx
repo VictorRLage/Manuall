@@ -45,7 +45,13 @@ export default function Home() {
     return (
         <>
             <Header />
-            <Carousel />
+            <Carousel
+                slides={[
+                    <div className="min-w-full h-full bg-red-950" />,
+                    <div className="min-w-full h-full bg-blue-950" />,
+                    <div className="min-w-full h-full bg-green-950" />,
+                ]}
+            />
             <div className="flex justify-center flex-col w-full">
                 <HomeLabel>
                     Do que você{" "}

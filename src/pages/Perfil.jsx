@@ -3,13 +3,14 @@ import { useLocation } from "react-router-dom";
 import Header from "@/components/header/Header";
 import ModalUrlPfp from "@/components/perfil/ModalUrlPfp";
 import axios from "@/api/axios";
-import PerfilBg from "@/assets/shapes/PerfilBg.svg";
+import PerfilBg from "@/assets/shapes/PerfilBg.png";
 import ModalSolicitacao from "@/components/perfil/ModalSolicitacao";
+import ModalUrlGaleria from "@/components/perfil/ModalUrlGaleria";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import PrestadorCard from "@/components/perfil/PrestadorCard";
+import PrestadorGaleria from "@/components/perfil/PrestadorGaleria";
 import PrestadorServicos from "@/components/perfil/PrestadorServicos";
 import PrestadorAvaliacoes from "@/components/perfil/PrestadorAvaliacoes";
-import defaultImg from "@/assets/demo/default_img.jpg";
 import { useNavigate } from "react-router-dom";
 import { useData } from "@/data/CreateContext";
 
@@ -22,28 +23,56 @@ export default function Perfil({ isOwnProfile }) {
     const [prestador, setPrestador] = useState();
     const [modalUrlPfp, setModalUrlPfp] = useState(false);
     const [modalSolicitacao, setModalSolicitacao] = useState(false);
+    const [modalUrlGaleria, setModalUrlGaleria] = useState(false);
 
-    const alterarDesc = () => {
-        // axios
-        //     .patch("/perfil/alterar/desc", {
-        //         descricao: prestador?.descricao,
-        //     })
-        //     .catch((err) => console.log(err));
-    };
+    const [headerRefetch, setHeaderRefetch] = useState(false);
 
-    useEffect(() => {
+    const [descricao, setDescricao] = useState("");
+
+    const tipoUsuario =
+        localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO);
+
+    const refetch = () => {
+        setHeaderRefetch(!headerRefetch);
         axios
             .get(
                 `/perfil${
                     isOwnProfile ? "" : "/" + location.pathname.substring(13)
                 }`,
             )
-            .then(({ data }) => setPrestador(data))
+            .then(({ data }) => {
+                setPrestador(data);
+                setDescricao(data.descricao);
+            })
             .catch(({ response }) => {
                 if (response.status === 403 || response.status === 404) {
                     navigate("/prestadores");
                 }
             });
+    };
+
+    const alterarDesc = () => {
+        axios
+            .patch("/perfil/alterar/desc", {
+                descricao,
+            })
+            .then(refetch)
+            .catch((err) => console.log(err));
+    };
+
+    const createImagem = (url) => {
+        axios
+            .post("/perfil/imagem", { imagem: url })
+            .then(() => {
+                setModalUrlGaleria(false);
+                refetch();
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        refetch();
+        window.scrollTo(0, 0);
     }, []);
 
     return (
@@ -52,12 +81,18 @@ export default function Perfil({ isOwnProfile }) {
                 modalGettr={modalUrlPfp}
                 modalSettr={setModalUrlPfp}
                 currentPfp={prestador?.pfp}
+                refetch={refetch}
             />
             <ModalSolicitacao
                 modalGettr={modalSolicitacao}
                 modalSettr={setModalSolicitacao}
             />
-            <Header />
+            <ModalUrlGaleria
+                modalGettr={modalUrlGaleria}
+                modalSettr={setModalUrlGaleria}
+                createImagem={createImagem}
+            />
+            <Header refetch={headerRefetch} />
             <div className="w-full bg-gray-100">
                 <div
                     className={`flex flex-col bg-no-repeat ${
@@ -68,15 +103,15 @@ export default function Perfil({ isOwnProfile }) {
                             : "px-32"
                     } pb-16`}
                     style={{
-                        backgroundSize: "100%",
+                        backgroundSize: "100% 100%",
                         backgroundImage: `url(${PerfilBg})`,
-                        backgroundPosition: "0 -100px",
+                        // backgroundPosition: "0",
                     }}
                 >
                     <div
                         className={`py-6 ${
                             windowWidth < 500
-                                ? "flex items-center justify-center text-center bg-white px-8"
+                                ? "flex items-center justify-center text-center bg-[#bde5be] px-8"
                                 : ""
                         }`}
                     >
@@ -125,6 +160,11 @@ export default function Perfil({ isOwnProfile }) {
                                     </div>
                                     {isOwnProfile ? (
                                         <textarea
+                                            onBlur={alterarDesc}
+                                            value={descricao}
+                                            onChange={({ target }) => {
+                                                setDescricao(target.value);
+                                            }}
                                             className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                             placeholder="Escreva sua descrição aqui..."
                                             maxLength={270}
@@ -143,6 +183,7 @@ export default function Perfil({ isOwnProfile }) {
                                             setModalUrlPfp={setModalUrlPfp}
                                         />
                                         {!isOwnProfile &&
+                                            tipoUsuario !== 2 &&
                                             (prestador?.prestaAula ? (
                                                 <>
                                                     <button className="bg-verde-padrao text-white px-6 py-2 text-xl mt-6 m-auto rounded-full">
@@ -190,6 +231,11 @@ export default function Perfil({ isOwnProfile }) {
                                             </div>
                                             {isOwnProfile ? (
                                                 <textarea
+                                                    onBlur={alterarDesc}
+                                                    value={descricao}
+                                                    onChange={({
+                                                        target,
+                                                    }) => {}}
                                                     className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                                     placeholder="Escreva sua descrição aqui..."
                                                     maxLength={270}
@@ -233,6 +279,11 @@ export default function Perfil({ isOwnProfile }) {
                                             </div>
                                             {isOwnProfile ? (
                                                 <textarea
+                                                    onBlur={alterarDesc}
+                                                    value={descricao}
+                                                    onChange={({
+                                                        target,
+                                                    }) => {}}
                                                     className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                                     placeholder="Escreva sua descrição aqui..."
                                                     maxLength={270}
@@ -246,6 +297,7 @@ export default function Perfil({ isOwnProfile }) {
                                     </div>
                                 )}
                                 {!isOwnProfile &&
+                                    tipoUsuario !== 2 &&
                                     (prestador?.prestaAula ? (
                                         <>
                                             <button className="bg-verde-padrao text-white px-6 py-2 text-xl m-auto rounded-full">
@@ -269,46 +321,14 @@ export default function Perfil({ isOwnProfile }) {
                         )}
                     </div>
                 </div>
-                <div
-                    className={`flex flex-col pb-4 gap-4 ${
-                        windowWidth < 700
-                            ? windowWidth < 500
-                                ? "px-8"
-                                : "px-16"
-                            : "px-32"
-                    }`}
-                >
-                    <span className="text-3xl font-semibold text-gray-900">
-                        Galeria de{" "}
-                        <span className="text-verde-escuro-1">Imagens</span>
-                    </span>
-                    <div className="py-4">
-                        <div
-                            className={`flex flex-wrap ${
-                                windowWidth <= 1180
-                                    ? windowWidth <= 876
-                                        ? "max-w-[300px]"
-                                        : "max-w-[604px]"
-                                    : "max-w-[908px]"
-                            } rounded-3xl overflow-hidden gap-[4px]`}
-                        >
-                            {prestador &&
-                                Array.from({ length: 6 }, (_, i) => (
-                                    <img
-                                        key={i}
-                                        onError={({ target }) => {
-                                            target.src = defaultImg;
-                                        }}
-                                        src={prestador.imagens[i]}
-                                        alt=" "
-                                        className="w-[300px] h-[150px] bg-gray-200 object-cover border-0"
-                                    />
-                                ))}
-                        </div>
-                    </div>
-                </div>
+                <PrestadorGaleria
+                    prestador={prestador}
+                    isOwnProfile={isOwnProfile}
+                    refetch={refetch}
+                    openCreateImageModal={() => setModalUrlGaleria(true)}
+                />
                 <PrestadorServicos servicos={prestador?.servicos} />
-                <PrestadorAvaliacoes />
+                <PrestadorAvaliacoes avaliacoes={prestador?.avaliacoes} />
                 <div className="h-80 w-full" />
             </div>
         </>
