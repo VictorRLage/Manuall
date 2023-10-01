@@ -153,7 +153,14 @@ export default function Perfil({ isOwnProfile }) {
                                                     </button>
                                                 </>
                                             ) : (
-                                                <button className="bg-verde-padrao text-white px-6 py-2 text-2xl mt-6 m-auto rounded-full">
+                                                <button
+                                                    onClick={() =>
+                                                        setModalSolicitacao(
+                                                            true,
+                                                        )
+                                                    }
+                                                    className="bg-verde-padrao text-white px-6 py-2 text-2xl mt-6 m-auto rounded-full"
+                                                >
                                                     Contratar
                                                 </button>
                                             ))}
@@ -249,7 +256,12 @@ export default function Perfil({ isOwnProfile }) {
                                             </button>
                                         </>
                                     ) : (
-                                        <button className="bg-verde-padrao text-white px-6 py-2 text-2xl m-auto rounded-full">
+                                        <button
+                                            onClick={() =>
+                                                setModalSolicitacao(true)
+                                            }
+                                            className="bg-verde-padrao text-white px-6 py-2 text-2xl m-auto rounded-full"
+                                        >
                                             Contratar
                                         </button>
                                     ))}

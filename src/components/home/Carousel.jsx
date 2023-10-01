@@ -19,12 +19,31 @@ export default function Carousel() {
 
     const [canUserChange, setCanUserChange] = useState(true);
 
+    const [isUserSwiping, setIsUserSwiping] = useState(false);
+    const [distanceSwiped, setDistanceSwiped] = useState(0);
+
+    const mousemove = ({ movementX }) => {
+        if (isUserSwiping) {
+            setDistanceSwiped(distanceSwiped + movementX);
+            if (distanceSwiped > 300) {
+                canUserChange &&
+                    setCarouselIndex(
+                        (carouselIndex + allSlides.length - 1) %
+                            allSlides.length,
+                    );
+            } else if (distanceSwiped < -300) {
+                canUserChange && setCarouselIndex((carouselIndex + 1) % 3);
+            }
+        }
+    };
+
     useEffect(() => {
         clearTimeout(carouselIndexesTimeout);
         clearTimeout(carouselAutoChangingTimeout);
 
         if (
-            (carouselIndex === 0 && previousCarouselIndex === allSlides.length - 1) ||
+            (carouselIndex === 0 &&
+                previousCarouselIndex === allSlides.length - 1) ||
             carouselIndex === previousCarouselIndex + 1
         ) {
             setCurrentSlides([...currentSlides, carouselIndex]);
@@ -43,7 +62,8 @@ export default function Carousel() {
             setCanUserChange(false);
 
             if (
-                (carouselIndex === 0 && previousCarouselIndex === allSlides.length - 1) ||
+                (carouselIndex === 0 &&
+                    previousCarouselIndex === allSlides.length - 1) ||
                 carouselIndex === previousCarouselIndex + 1
             ) {
                 setIsScrollSmoothed(true);
@@ -87,7 +107,19 @@ export default function Carousel() {
     ];
 
     return (
-        <div className="w-full h-120 group flex justify-center relative overflow-x-hidden">
+        <div
+            className="w-full h-120 group flex justify-center relative overflow-x-hidden"
+            onMouseDown={() => setIsUserSwiping(true)}
+            onMouseOut={() => {
+                setIsUserSwiping(false);
+                setDistanceSwiped(0);
+            }}
+            onMouseUp={() => {
+                setIsUserSwiping(false);
+                setDistanceSwiped(0);
+            }}
+            onMouseMove={mousemove}
+        >
             <button
                 onClick={() => {
                     canUserChange &&
