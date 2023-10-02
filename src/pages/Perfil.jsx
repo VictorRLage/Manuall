@@ -328,8 +328,9 @@ export default function Perfil({ isOwnProfile }) {
                     openCreateImageModal={() => setModalUrlGaleria(true)}
                 />
                 <PrestadorServicos servicos={prestador?.servicos} />
-                <PrestadorAvaliacoes avaliacoes={prestador?.avaliacoes} />
-                <div className="h-80 w-full" />
+                {prestador?.avaliacoes?.[0] && (
+                    <PrestadorAvaliacoes avaliacoes={prestador.avaliacoes} />
+                )}
             </div>
         </>
     );

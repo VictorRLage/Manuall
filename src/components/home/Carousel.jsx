@@ -1,8 +1,5 @@
 import { Fragment } from "react";
 import ChevronArrow from "@/assets/icons/ChevronArrow.svg";
-import HomeBg1 from "@/assets/shapes/home_bg_1.svg?react";
-import HomeBg2 from "@/assets/shapes/home_bg_2.svg?react";
-import HomeBg3 from "@/assets/shapes/home_bg_3.svg?react";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function Carousel({ slides = [] }) {
@@ -151,7 +148,7 @@ export default function Carousel({ slides = [] }) {
                             }}
                         >
                             <div
-                                className="h-full w-0 bg-verde-escuro-1"
+                                className="h-full w-0 bg-[rgb(5,72,39)]"
                                 style={{
                                     width: carouselIndex > i ? "100%" : "0%",
                                     animation:
@@ -175,67 +172,4 @@ export default function Carousel({ slides = [] }) {
             </div>
         </div>
     );
-}
-
-{
-    /* {carouselIndex === 0 ? (
-                <div className="absolute">
-                    <div className="absolute ml-20 mt-20 text-white text-6xl">
-                        Encontre <br /> prestadores de <br /> serviço{" "}
-                        <span className="font-bold">excelentes</span> <br />{" "}
-                        prontos para te <br />{" "}
-                        <span className="font-bold">ensinar!</span>
-                    </div>
-                    <button
-                        onClick={() => {
-                            navigate("/login");
-                        }}
-                        className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-112 ring-4 ring-verde-padrao focus:outline-none focus:ring"
-                    >
-                        Encontrar
-                    </button>
-                    <HomeBg1 />
-                </div>
-            ) : carouselIndex === 1 ? (
-                <div className="absolute flex">
-                    <div className="absolute ml-[66rem] mt-20 text-white text-6xl text-right">
-                        Venha <span className=" font-bold">mudar</span> <br /> o
-                        mercado de <br />{" "}
-                        <span className="font-bold">
-                            prestadores de <br /> serviço{" "}
-                        </span>{" "}
-                        com <br /> a gente
-                    </div>
-                    <button
-                        className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-88 ml-[62rem] ring-4 ring-verde-padrao focus:outline-none focus:ring "
-                        onClick={() => {
-                            navigate("/cadastro/prestador");
-                        }}
-                    >
-                        Cadastrar
-                    </button>
-                    <HomeBg2 className="ml-[52rem]" />
-                </div>
-            ) : (
-                carouselIndex === 2 && (
-                    <div className="absolute flex justify-center">
-                        <div className="absolute ml-52 mt-13 text-white text-6xl text-center">
-                            Com a <span className="font-bold">Manuall</span>{" "}
-                            <br /> você pode passar o seu <br />{" "}
-                            <span className="font-bold">conhecimento</span>{" "}
-                            adiante e <br /> deixar o seu{" "}
-                            <span className="font-bold">legado</span>
-                        </div>
-                        <button
-                            className="absolute w-32 h-12 bg-white rounded-full text-2xl text-verde-escuro-2 font-semibold mt-84 ml-52 ring-4 ring-verde-padrao focus:outline-none focus:ring "
-                            onClick={() => {
-                                navigate("/cadastro/prestador");
-                            }}
-                        >
-                            Cadastrar
-                        </button>
-                        <HomeBg3 className="ml-52 mt-3" />
-                    </div>
-                )
-            )} */
 }

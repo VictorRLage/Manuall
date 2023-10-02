@@ -31,7 +31,14 @@ export default function Header({ refetch }) {
 
     const refetchAll = () => {
         if (localStorage.getItem("TOKEN"))
-            axios.get("/perfil/fotoPerfil").then(({ data }) => setPfp(data));
+            axios
+                .get("/perfil/fotoPerfil")
+                .then(({ data }) => setPfp(data))
+                .catch((err) => {
+                    if (err.response.status !== 403) {
+                        console.log(err);
+                    }
+                });
     };
 
     useEffect(refetchAll, [refetch]);
