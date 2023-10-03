@@ -9,7 +9,6 @@ export default function ModalUrlGaleria({
 }) {
     const [url, setUrl] = useState("");
     const [isUrlLoaded, setIsUrlLoaded] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     return (
         <ModalCustom
@@ -40,13 +39,9 @@ export default function ModalUrlGaleria({
                         }}
                         className={`text-2xl mt-4 ${
                             isUrlLoaded ? "bg-verde-padrao" : "bg-cinza-claro-1"
-                        } rounded-full text-white w-32 h-10 `}
+                        } rounded-full text-white w-32 h-10`}
                     >
-                        {loading ? (
-                            <ThreeDots height="20" color="#fff" />
-                        ) : (
-                            "Salvar"
-                        )}
+                        Salvar
                     </button>
                 </div>
             </div>

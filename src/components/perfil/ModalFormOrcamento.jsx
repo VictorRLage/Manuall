@@ -2,7 +2,7 @@ import { XCircleIcon } from "@heroicons/react/24/solid";
 import ModalCustom from "@/components/main/ModalCustom";
 import { useState } from "react";
 
-export default function ModalSolicitacao({ modalGettr, modalSettr }) {
+export default function ModalFormOrcamento({ modalGettr, modalSettr }) {
     const [servico, setServico] = useState("");
     const [valor, setValor] = useState("");
 

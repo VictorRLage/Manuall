@@ -62,7 +62,7 @@ export default function ModalUrlPfp({
                         }}
                         className={`text-2xl mt-4 ${
                             isPfpLoaded ? "bg-verde-padrao" : "bg-cinza-claro-1"
-                        } rounded-full text-white w-32 h-10 `}
+                        } rounded-full text-white w-32 h-10 flex items-center justify-center`}
                     >
                         {loading ? (
                             <ThreeDots height="20" color="#fff" />

@@ -4,7 +4,7 @@ import Header from "@/components/header/Header";
 import ModalUrlPfp from "@/components/perfil/ModalUrlPfp";
 import axios from "@/api/axios";
 import PerfilBg from "@/assets/shapes/PerfilBg.png";
-import ModalSolicitacao from "@/components/perfil/ModalSolicitacao";
+import ModalFormOrcamento from "@/components/perfil/ModalFormOrcamento";
 import ModalUrlGaleria from "@/components/perfil/ModalUrlGaleria";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import PrestadorCard from "@/components/perfil/PrestadorCard";
@@ -13,6 +13,7 @@ import PrestadorServicos from "@/components/perfil/PrestadorServicos";
 import PrestadorAvaliacoes from "@/components/perfil/PrestadorAvaliacoes";
 import { useNavigate } from "react-router-dom";
 import { useData } from "@/data/CreateContext";
+import ModalSolicitacao from "@/components/solicitacao/ModalSolicitacao";
 
 export default function Perfil({ isOwnProfile }) {
     const navigate = useNavigate();
@@ -22,8 +23,11 @@ export default function Perfil({ isOwnProfile }) {
 
     const [prestador, setPrestador] = useState();
     const [modalUrlPfp, setModalUrlPfp] = useState(false);
-    const [modalSolicitacao, setModalSolicitacao] = useState(false);
+    const [modalFormOrcamento, setModalFormOrcamento] = useState(false);
     const [modalUrlGaleria, setModalUrlGaleria] = useState(false);
+    const [modalSolicitacao, setModalSolicitacao] = useState(false);
+
+    const [querAula, setQuerAula] = useState();
 
     const [headerRefetch, setHeaderRefetch] = useState(false);
 
@@ -83,14 +87,20 @@ export default function Perfil({ isOwnProfile }) {
                 currentPfp={prestador?.pfp}
                 refetch={refetch}
             />
-            <ModalSolicitacao
-                modalGettr={modalSolicitacao}
-                modalSettr={setModalSolicitacao}
+            <ModalFormOrcamento
+                modalGettr={modalFormOrcamento}
+                modalSettr={setModalFormOrcamento}
             />
             <ModalUrlGaleria
                 modalGettr={modalUrlGaleria}
                 modalSettr={setModalUrlGaleria}
                 createImagem={createImagem}
+            />
+            <ModalSolicitacao
+                modalGettr={modalSolicitacao}
+                modalSettr={setModalSolicitacao}
+                querAula={querAula}
+                servicos={prestador?.servicos}
             />
             <Header refetch={headerRefetch} />
             <div className="w-full bg-gray-100">
@@ -186,21 +196,38 @@ export default function Perfil({ isOwnProfile }) {
                                             tipoUsuario !== 2 &&
                                             (prestador?.prestaAula ? (
                                                 <>
-                                                    <button className="bg-verde-padrao text-white px-6 py-2 text-xl mt-6 m-auto rounded-full">
+                                                    <button
+                                                        className="bg-verde-padrao text-white px-6 py-2 text-xl mt-6 m-auto rounded-full"
+                                                        onClick={() => {
+                                                            setModalSolicitacao(
+                                                                true,
+                                                            );
+                                                            setQuerAula(true);
+                                                        }}
+                                                    >
                                                         Contratar com aula
                                                     </button>
-                                                    <button className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto">
+                                                    <button
+                                                        className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto"
+                                                        onClick={() => {
+                                                            setModalSolicitacao(
+                                                                true,
+                                                            );
+                                                            setQuerAula(false);
+                                                        }}
+                                                    >
                                                         Contratar apenas serviço
                                                     </button>
                                                 </>
                                             ) : (
                                                 <button
-                                                    onClick={() =>
+                                                    className="bg-verde-padrao text-white px-6 py-2 text-2xl mt-6 m-auto rounded-full"
+                                                    onClick={() => {
                                                         setModalSolicitacao(
                                                             true,
-                                                        )
-                                                    }
-                                                    className="bg-verde-padrao text-white px-6 py-2 text-2xl mt-6 m-auto rounded-full"
+                                                        );
+                                                        setQuerAula(false);
+                                                    }}
                                                 >
                                                     Contratar
                                                 </button>
@@ -300,19 +327,32 @@ export default function Perfil({ isOwnProfile }) {
                                     tipoUsuario !== 2 &&
                                     (prestador?.prestaAula ? (
                                         <>
-                                            <button className="bg-verde-padrao text-white px-6 py-2 text-xl m-auto rounded-full">
+                                            <button
+                                                className="bg-verde-padrao text-white px-6 py-2 text-xl m-auto rounded-full"
+                                                onClick={() => {
+                                                    setModalSolicitacao(true);
+                                                    setQuerAula(true);
+                                                }}
+                                            >
                                                 Contratar com aula
                                             </button>
-                                            <button className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto">
+                                            <button
+                                                className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto"
+                                                onClick={() => {
+                                                    setModalSolicitacao(true);
+                                                    setQuerAula(false);
+                                                }}
+                                            >
                                                 Contratar apenas serviço
                                             </button>
                                         </>
                                     ) : (
                                         <button
-                                            onClick={() =>
-                                                setModalSolicitacao(true)
-                                            }
                                             className="bg-verde-padrao text-white px-6 py-2 text-2xl m-auto rounded-full"
+                                            onClick={() => {
+                                                setModalSolicitacao(true);
+                                                setQuerAula(false);
+                                            }}
                                         >
                                             Contratar
                                         </button>
