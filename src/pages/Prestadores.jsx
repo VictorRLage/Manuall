@@ -17,7 +17,7 @@ export default function Prestadores() {
 
     const [areaSelecionada, setAreaSelecionada] = useState(0);
     const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
-    const [ordemSelecionada, setOrdemSelecionada] = useState(true);
+    const [ordemSelecionada, setOrdemSelecionada] = useState(false);
 
     const getPrestadores = () => {
         setPrestadores();

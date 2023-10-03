@@ -31,12 +31,12 @@ export default function Home() {
     const changeActiveArea = (idArea) => {
         setPrestadores();
         if (activeArea === idArea) {
-            axios.get("/usuario/prestadores").then(({ data }) => {
+            axios.get("/usuario/prestadores/0/null/false").then(({ data }) => {
                 setPrestadores(data);
                 setActiveAtiva(0);
             });
         } else {
-            axios.get(`/usuario/prestadores/${idArea}`).then(({ data }) => {
+            axios.get(`/usuario/prestadores/${idArea}/null/false`).then(({ data }) => {
                 setPrestadores(data);
                 setActiveAtiva(idArea);
             });

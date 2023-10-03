@@ -21,7 +21,7 @@ export default function Cards({ areas, prestadores, isHome }) {
                             key={i}
                             prestador={data}
                             area={
-                                areas?.find((area) => area.id === data.idArea)
+                                areas?.find((area) => area.id === data.area)
                                     ?.nome
                             }
                         />
