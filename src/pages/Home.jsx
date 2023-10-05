@@ -19,6 +19,7 @@ import BannerBase1 from "@/assets/manuall/banner_base1.jpg";
 import BannerBase1Responsive from "@/assets/manuall/banner_base1_responsive.jpg";
 import BannerBase2 from "@/assets/manuall/banner_base2.jpg";
 import BannerBase3 from "@/assets/manuall/banner_base3.jpg";
+import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ export default function Home() {
     const [areas, setAreas] = useState();
     const [activeArea, setActiveAtiva] = useState(0);
     const [prestadores, setPrestadores] = useState();
+    const [modalAvaliacao, setModalAvaliacao] = useState(false);
 
     const changeActiveArea = (idArea) => {
         setPrestadores();
@@ -50,43 +52,45 @@ export default function Home() {
 
     return (
         <>
+            <ModalAvaliacao
+                modalGettr={ModalAvaliacao}
+                modalSettr={setModalAvaliacao}
+            />
+
             <Header />
             <Carousel
                 slides={[
                     <div
-                        className={`min-w-full h-full bg-cover flex items-center ${
-                            windowWidth <= 1000 && "justify-center"
-                        }`}
+                        className={`min-w-full h-full bg-cover flex items-center ${windowWidth <= 1000 && "justify-center"
+                            }`}
                         style={
                             windowWidth > 1000
                                 ? {
-                                      backgroundImage: `url(${BannerBase1})`,
-                                      backgroundPosition: "bottom",
-                                  }
+                                    backgroundImage: `url(${BannerBase1})`,
+                                    backgroundPosition: "bottom",
+                                }
                                 : {
-                                      backgroundImage: `url(${BannerBase1Responsive})`,
-                                      backgroundSize: "100% 100%",
-                                  }
+                                    backgroundImage: `url(${BannerBase1Responsive})`,
+                                    backgroundSize: "100% 100%",
+                                }
                         }
                     >
                         <div
-                            className={`min-w-[480px] w-[40%] h-full relative flex items-center justify-center ${
-                                windowWidth > 1200
-                                    ? "ml-[50%]"
-                                    : windowWidth > 1100
+                            className={`min-w-[480px] w-[40%] h-full relative flex items-center justify-center ${windowWidth > 1200
+                                ? "ml-[50%]"
+                                : windowWidth > 1100
                                     ? "ml-[45%]"
                                     : windowWidth > 1000
-                                    ? "ml-[40%]"
-                                    : ""
-                            } ${
-                                windowWidth > 800
+                                        ? "ml-[40%]"
+                                        : ""
+                                } ${windowWidth > 800
                                     ? "scale-[1]"
                                     : windowWidth > 600
-                                    ? "scale-[0.8]"
-                                    : windowWidth > 500
-                                    ? "scale-[0.6]"
-                                    : "scale-[0.5]"
-                            }`}
+                                        ? "scale-[0.8]"
+                                        : windowWidth > 500
+                                            ? "scale-[0.6]"
+                                            : "scale-[0.5]"
+                                }`}
                         >
                             <span className="text-[#02ff88] bg-[#278054] rounded-full px-4 font-extrabold text-9xl tracking-wide absolute mb-[150px] mr-[200px]">
                                 serviços
@@ -126,38 +130,40 @@ export default function Home() {
             <div className="flex justify-center flex-col w-full">
                 <HomeLabel>
                     Do que você{" "}
-                    <span className="text-verde-padrao">precisa?</span>
+                    <span onClick={() => {
+                        setModalAvaliacao(
+                            true,
+                        );
+                    }} className="text-verde-padrao">precisa?</span>
                 </HomeLabel>
                 <div
-                    className={`w-full ${
-                        windowWidth < 500 ? "px-8" : "px-16"
-                    } flex justify-center flex-wrap`}
+                    className={`w-full ${windowWidth < 500 ? "px-8" : "px-16"
+                        } flex justify-center flex-wrap`}
                 >
                     {areas
                         ? areas.map(({ id, nome }, i) => (
-                              <button
-                                  onClick={() => {
-                                      changeActiveArea(id);
-                                  }}
-                                  key={i}
-                                  className={`${
-                                      activeArea === id
-                                          ? "bg-verde-padrao text-white"
-                                          : "bg-white hover:bg-[#eefff3] text-verde-padrao"
-                                  }
+                            <button
+                                onClick={() => {
+                                    changeActiveArea(id);
+                                }}
+                                key={i}
+                                className={`${activeArea === id
+                                    ? "bg-verde-padrao text-white"
+                                    : "bg-white hover:bg-[#eefff3] text-verde-padrao"
+                                    }
                                     transition-all w-32 h-10 rounded-full text-xl font-semibold border-verde-padrao border-2 p-6 flex justify-center items-center m-3`}
-                              >
-                                  {nome}
-                              </button>
-                          ))
+                            >
+                                {nome}
+                            </button>
+                        ))
                         : Array.from({ length: 6 }).map((_, i) => (
-                              <div key={i} className="w-32 h-[52px] m-3">
-                                  <Skeleton
-                                      height={"100%"}
-                                      borderRadius={"9999px"}
-                                  />
-                              </div>
-                          ))}
+                            <div key={i} className="w-32 h-[52px] m-3">
+                                <Skeleton
+                                    height={"100%"}
+                                    borderRadius={"9999px"}
+                                />
+                            </div>
+                        ))}
                 </div>
                 <Cards
                     areas={areas}
@@ -168,9 +174,8 @@ export default function Home() {
                     Como <span className="text-verde-padrao">contratar?</span>
                 </HomeLabel>
                 <div
-                    className={`${
-                        windowWidth < 500 ? "px-8" : "px-16"
-                    } flex flex-wrap justify-center gap-20 self-center`}
+                    className={`${windowWidth < 500 ? "px-8" : "px-16"
+                        } flex flex-wrap justify-center gap-20 self-center`}
                 >
                     <InfoCard img={comoContratar1}>
                         Cadastre-se e{" "}
@@ -202,9 +207,8 @@ export default function Home() {
                     Como <span className="text-verde-padrao">ensinar?</span>
                 </HomeLabel>
                 <div
-                    className={`${
-                        windowWidth < 500 ? "px-8" : "px-16"
-                    } flex flex-wrap justify-center gap-20 self-center`}
+                    className={`${windowWidth < 500 ? "px-8" : "px-16"
+                        } flex flex-wrap justify-center gap-20 self-center`}
                 >
                     <InfoCard img={comoEnsinar1}>
                         Cadastre-se e converse conosco para sua{" "}
