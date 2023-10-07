@@ -19,7 +19,6 @@ import BannerBase1 from "@/assets/manuall/banner_base1.jpg";
 import BannerBase1Responsive from "@/assets/manuall/banner_base1_responsive.jpg";
 import BannerBase2 from "@/assets/manuall/banner_base2.jpg";
 import BannerBase3 from "@/assets/manuall/banner_base3.jpg";
-import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -28,7 +27,6 @@ export default function Home() {
     const [areas, setAreas] = useState();
     const [activeArea, setActiveAtiva] = useState(0);
     const [prestadores, setPrestadores] = useState();
-    const [modalAvaliacao, setModalAvaliacao] = useState(false);
 
     const changeActiveArea = (idArea) => {
         setPrestadores();
@@ -52,11 +50,6 @@ export default function Home() {
 
     return (
         <>
-            <ModalAvaliacao
-                modalGettr={ModalAvaliacao}
-                modalSettr={setModalAvaliacao}
-            />
-
             <Header />
             <Carousel
                 slides={[
@@ -130,11 +123,7 @@ export default function Home() {
             <div className="flex justify-center flex-col w-full">
                 <HomeLabel>
                     Do que você{" "}
-                    <span onClick={() => {
-                        setModalAvaliacao(
-                            true,
-                        );
-                    }} className="text-verde-padrao">precisa?</span>
+                    <span className="text-verde-padrao">precisa?</span>
                 </HomeLabel>
                 <div
                     className={`w-full ${windowWidth < 500 ? "px-8" : "px-16"

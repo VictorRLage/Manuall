@@ -104,7 +104,7 @@ export default function Perfil({ isOwnProfile }) {
                 servicos={prestador?.servicos}
             />
             <ModalAvaliacao
-                modalGettr={ModalAvaliacao}
+                modalGettr={modalAvaliacao}
                 modalSettr={setModalAvaliacao}
             />
 
@@ -161,11 +161,7 @@ export default function Perfil({ isOwnProfile }) {
                             <>
                                 <div className="w-[50%]">
                                     <div className="flex gap-2 flex-wrap">
-                                        <div onClick={() => {
-                                            setModalAvaliacao(
-                                                true,
-                                            );
-                                        }}
+                                        <div
                                             className="text-2xl px-5 py-1 bg-white font-semibold text-verde-escuro-1 rounded-full drop-shadow-xl">
                                             {`Serviço${prestador?.prestaAula
                                                 ? " + Aula"
