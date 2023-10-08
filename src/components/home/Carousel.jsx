@@ -2,6 +2,8 @@ import { Fragment } from "react";
 import ChevronArrow from "@/assets/icons/ChevronArrow.svg";
 import React, { useEffect, useRef, useState } from "react";
 
+/* NÃO EDITE ESSE ARQUIVO */
+
 export default function Carousel({ slides = [] }) {
     const scrollingDiv = useRef(null);
 
