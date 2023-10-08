@@ -14,7 +14,7 @@ export default function CarouselHome() {
         <Carousel
             slides={[
                 <div
-                    className={`min-w-full h-full bg-cover flex items-center ${
+                    className={`min-w-full h-full bg-cover flex items-center bg-[#278054] ${
                         windowWidth <= 1000 && "justify-center"
                     }`}
                     style={

@@ -159,15 +159,13 @@ export default function Fase3({
                         />
                     </div>
                     <div className="w-[2px] h-[80%] bg-gray-300"></div>
-                    <div className="w-[40%] h-full flex flex-col justify-center items-center p-5">
+                    <div className="w-[40%] h-full flex flex-col p-5">
+                        <span className="h-[15%] flex items-end px-1">Gostaria de ensinar?</span>
                         <div className="w-full h-[70%] flex flex-col justify-around">
-                            <span className="text-lg gray-900">
-                                Gostaria de ensinar?
-                            </span>
                             <label
                                 htmlFor={1}
                                 className={`w-full bg-white border-2 rounded-lg p-2 text-gray-700
-                                hover:border-green-500 transition-colors
+                                hover:border-green-500 transition-colors h-[52px] flex items-center
                                 ${
                                     prestaAula == 2
                                         ? "border-gray-200"
@@ -195,7 +193,7 @@ export default function Fase3({
                             <label
                                 htmlFor={2}
                                 className={`w-full bg-white border-2 rounded-lg p-2 text-gray-700
-                                hover:border-green-500 transition-colors
+                                hover:border-green-500 transition-colors h-[52px] flex items-center
                                 ${
                                     prestaAula == 1
                                         ? "border-gray-200"
