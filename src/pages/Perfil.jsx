@@ -29,7 +29,7 @@ export default function Perfil({ isOwnProfile }) {
     const [modalSolicitacao, setModalSolicitacao] = useState(false);
     const [modalAvaliacao, setModalAvaliacao] = useState(false);
 
-    const [querAula, setQuerAula] = useState();
+    const [incluiAula, setIncluiAula] = useState();
 
     const [headerRefetch, setHeaderRefetch] = useState(false);
 
@@ -100,14 +100,14 @@ export default function Perfil({ isOwnProfile }) {
             <ModalSolicitacao
                 modalGettr={modalSolicitacao}
                 modalSettr={setModalSolicitacao}
-                querAula={querAula}
+                idPrestador={location.pathname.substring(13)}
+                incluiAula={incluiAula}
                 servicos={prestador?.servicos}
             />
             <ModalAvaliacao
                 modalGettr={modalAvaliacao}
                 modalSettr={setModalAvaliacao}
             />
-
             <Header refetch={headerRefetch} />
             <div className="w-full bg-gray-100">
                 <div
@@ -206,7 +206,7 @@ export default function Perfil({ isOwnProfile }) {
                                                             setModalSolicitacao(
                                                                 true,
                                                             );
-                                                            setQuerAula(true);
+                                                            setIncluiAula(true);
                                                         }}
                                                     >
                                                         Contratar com aula
@@ -217,7 +217,7 @@ export default function Perfil({ isOwnProfile }) {
                                                             setModalSolicitacao(
                                                                 true,
                                                             );
-                                                            setQuerAula(false);
+                                                            setIncluiAula(false);
                                                         }}
                                                     >
                                                         Contratar apenas serviço
@@ -230,7 +230,7 @@ export default function Perfil({ isOwnProfile }) {
                                                         setModalSolicitacao(
                                                             true,
                                                         );
-                                                        setQuerAula(false);
+                                                        setIncluiAula(false);
                                                     }}
                                                 >
                                                     Contratar
@@ -332,7 +332,7 @@ export default function Perfil({ isOwnProfile }) {
                                                 className="bg-verde-padrao text-white px-6 py-2 text-xl m-auto rounded-full"
                                                 onClick={() => {
                                                     setModalSolicitacao(true);
-                                                    setQuerAula(true);
+                                                    setIncluiAula(true);
                                                 }}
                                             >
                                                 Contratar com aula
@@ -341,7 +341,7 @@ export default function Perfil({ isOwnProfile }) {
                                                 className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto"
                                                 onClick={() => {
                                                     setModalSolicitacao(true);
-                                                    setQuerAula(false);
+                                                    setIncluiAula(false);
                                                 }}
                                             >
                                                 Contratar apenas serviço
@@ -352,7 +352,7 @@ export default function Perfil({ isOwnProfile }) {
                                             className="bg-verde-padrao text-white px-6 py-2 text-2xl m-auto rounded-full"
                                             onClick={() => {
                                                 setModalSolicitacao(true);
-                                                setQuerAula(false);
+                                                setIncluiAula(false);
                                             }}
                                         >
                                             Contratar

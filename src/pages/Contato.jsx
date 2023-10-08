@@ -18,7 +18,7 @@ export default function Contato() {
     return (
         <>
             <Header />
-            <div className="w-full h-full">
+            <div className="w-full h-full bg-[#fafafa]">
                 <div className="flex flex-row justify-center items-end h-20 relative">
                     <div className="absolute left-52">
                         <Breadcrumb

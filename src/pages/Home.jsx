@@ -46,7 +46,7 @@ export default function Home() {
         <>
             <Header />
             <CarouselHome />
-            <div className="flex justify-center flex-col w-full">
+            <div className="flex justify-center flex-col w-full bg-[#fafafa]">
                 <HomeLabel>
                     Do que você{" "}
                     <span className="text-verde-padrao">precisa?</span>
@@ -147,7 +147,7 @@ export default function Home() {
                     </InfoCard>
                 </div>
             </div>
-            <footer className="overflow-hidden">
+            <footer className="overflow-hidden bg-[#fafafa]">
                 <FooterWave />
             </footer>
         </>

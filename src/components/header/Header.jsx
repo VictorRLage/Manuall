@@ -62,7 +62,7 @@ export default function Header({ refetch }) {
                             ? "px-8"
                             : "px-16"
                         : "px-32"
-                } w-full bg-white drop-shadow-all justify-between items-center`}
+                } w-full bg-white drop-shadow-md justify-between items-center`}
             >
                 <img
                     onClick={() => {

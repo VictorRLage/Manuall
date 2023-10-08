@@ -1,4 +1,4 @@
-export default MedidasTamanhoENUM = [
+export default [
     "Unidade",
     "m²",
     "m",

@@ -51,7 +51,7 @@ export default function Prestadores() {
     return (
         <div>
             <Header />
-            <div className="w-full h-full">
+            <div className="w-full h-full bg-[#fafafa]">
                 <div
                     className={`px-32 pt-8 flex ${
                         windowWidth < 700 && "justify-center text-center"
@@ -77,7 +77,7 @@ export default function Prestadores() {
                     />
                     <select
                         name="area"
-                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none bg-white"
                         style={{
                             backgroundImage: `url(${SelectArrowIcon})`,
                             backgroundPosition: "right 16px top 50%",
@@ -97,7 +97,7 @@ export default function Prestadores() {
                     </select>
                     <select
                         name="filtro"
-                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none bg-white"
                         style={{
                             backgroundImage: `url(${SelectArrowIcon})`,
                             backgroundPosition: "right 16px top 50%",
@@ -116,7 +116,7 @@ export default function Prestadores() {
                     </select>
                     <select
                         name="ordem"
-                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none bg-white"
                         style={{
                             backgroundImage: `url(${SelectArrowIcon})`,
                             backgroundPosition: "right 16px top 50%",
@@ -135,7 +135,7 @@ export default function Prestadores() {
                     <Cards areas={areas} prestadores={prestadores} />
                 </div>
             </div>
-            <footer className="overflow-hidden">
+            <footer className="overflow-hidden bg-[#fafafa]">
                 <FooterWave />
             </footer>
         </div>

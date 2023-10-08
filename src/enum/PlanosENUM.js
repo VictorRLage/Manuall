@@ -1,7 +1,7 @@
 const items = [
-    { id: 1, name: "Básico" },
-    { id: 2, name: "Premium" },
-    { id: 3, name: "Advanced" },
+    { id: 1, name: "Basic" },
+    { id: 2, name: "Advanced" },
+    { id: 3, name: "Premium" },
 ]
 
 export default {
