@@ -8,6 +8,7 @@ import SolicitacaoFase2 from "@/components/solicitacao/SolicitacaoFase2";
 import SolicitacaoFase3 from "@/components/solicitacao/SolicitacaoFase3";
 import SolicitacaoConclusao from "@/components/solicitacao/SolicitacaoConclusao";
 import axios from "@/api/axios";
+import { useEffect } from "react";
 
 export default function ModalSolicitacao({
     modalGettr,
@@ -22,6 +23,12 @@ export default function ModalSolicitacao({
     const [tamanho, setTamanho] = useState("");
     const [medida, setMedida] = useState("Unidade");
     const [descricao, setDescricao] = useState("");
+
+    const [faseValidated, setFaseValidated] = useState({
+        fase1: false,
+        fase2: false,
+        fase3: true,
+    });
 
     const finalizar = () => {
         axios
@@ -39,6 +46,16 @@ export default function ModalSolicitacao({
             })
             .catch((err) => console.log(err));
     };
+
+    useEffect(() => {
+        if (faseAtual === 4) {
+            setFaseAtual(1);
+            setIdServico();
+            setTamanho("");
+            setMedida("Unidade");
+            setDescricao("");
+        }
+    }, [modalGettr]);
 
     return (
         <ModalCustom
@@ -78,6 +95,12 @@ export default function ModalSolicitacao({
                                     <SolicitacaoFase1
                                         idServico={{ idServico, setIdServico }}
                                         servicos={servicos}
+                                        setIsEveryThingValidated={(value) =>
+                                            setFaseValidated({
+                                                ...faseValidated,
+                                                fase1: value,
+                                            })
+                                        }
                                     />
                                 ) : faseAtual === 2 ? (
                                     <SolicitacaoFase2
@@ -86,6 +109,12 @@ export default function ModalSolicitacao({
                                             medida,
                                             setMedida,
                                         }}
+                                        setIsEveryThingValidated={(value) =>
+                                            setFaseValidated({
+                                                ...faseValidated,
+                                                fase2: value,
+                                            })
+                                        }
                                     />
                                 ) : (
                                     <SolicitacaoFase3
@@ -114,11 +143,16 @@ export default function ModalSolicitacao({
                                     </span>
                                 </button>
                                 <button
-                                    className="text-white text-lg bg-verde-padrao flex justify-end items-center rounded-full h-[35px] w-[120px]"
+                                    className={`text-white text-lg flex justify-end items-center rounded-full h-[35px] w-[120px] ${
+                                        faseValidated[`fase${faseAtual}`]
+                                            ? "bg-verde-padrao"
+                                            : "bg-cinza-claro-1 cursor-default"
+                                    }`}
                                     onClick={() =>
-                                        faseAtual < 3
+                                        faseValidated[`fase${faseAtual}`] &&
+                                        (faseAtual < 3
                                             ? setFaseAtual(faseAtual + 1)
-                                            : finalizar()
+                                            : finalizar())
                                     }
                                 >
                                     <span

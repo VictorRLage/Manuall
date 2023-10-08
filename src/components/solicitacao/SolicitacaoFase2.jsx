@@ -7,6 +7,7 @@ import Regex from "@/enum/RegexENUM";
 export default function SolicitacaoFase2({
     tamanho: { tamanho, setTamanho },
     medida: { medida, setMedida },
+    setIsEveryThingValidated,
 }) {
     return (
         <>
@@ -16,9 +17,12 @@ export default function SolicitacaoFase2({
                     className="w-full text-lg text-[rgb(55,65,81)] border-cinza-claro-1 border-2 rounded-lg focus:outline-none focus:ring-0 focus:border-[#90cd93] p-2 transition-colors"
                     value={tamanho}
                     onChange={({ target }) => {
-                        setTamanho(
-                            target.value.replace(Regex.NUMBER_REPLACEABLE, ""),
+                        const newValue = target.value.replace(
+                            Regex.NUMBER_REPLACEABLE,
+                            "",
                         );
+                        setTamanho(newValue);
+                        setIsEveryThingValidated(newValue && true);
                     }}
                 />
                 <Dropdown
