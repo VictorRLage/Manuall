@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "@/components/header/Header";
 import ModalUrlPfp from "@/components/perfil/ModalUrlPfp";
 import axios from "@/api/axios";
@@ -12,7 +12,6 @@ import PrestadorGaleria from "@/components/perfil/PrestadorGaleria";
 import PrestadorServicos from "@/components/perfil/PrestadorServicos";
 import PrestadorAvaliacoes from "@/components/perfil/PrestadorAvaliacoes";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
-import { useNavigate } from "react-router-dom";
 import { useData } from "@/data/CreateContext";
 import ModalSolicitacao from "@/components/solicitacao/ModalSolicitacao";
 

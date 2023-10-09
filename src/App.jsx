@@ -41,6 +41,10 @@ const App = () => {
                         element={<CadastroPrestador />}
                     />
                     <Route
+                        path="/cadastro/prestador/planos"
+                        element={<CadastroPrestador />}
+                    />
+                    <Route
                         path="/cadastro/contratante"
                         element={<CasdastroContratante />}
                     />
