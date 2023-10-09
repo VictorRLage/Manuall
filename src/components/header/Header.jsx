@@ -63,12 +63,13 @@ export default function Header({ refetch }) {
                 modalSettr={setModalConfiguracao}
             />
             <header
-                className={`z-20 flex py-4 ${windowWidth < 700
-                    ? windowWidth < 500
-                        ? "px-8"
-                        : "px-16"
-                    : "px-32"
-                    } w-full bg-white drop-shadow-all justify-between items-center`}
+                className={`z-20 flex py-4 ${
+                    windowWidth < 700
+                        ? windowWidth < 500
+                            ? "px-8"
+                            : "px-16"
+                        : "px-32"
+                } w-full bg-white drop-shadow-md justify-between items-center`}
             >
                 <img
                     onClick={() => {

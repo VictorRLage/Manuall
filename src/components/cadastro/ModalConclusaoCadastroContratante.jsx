@@ -2,7 +2,7 @@ import BgModal from "@/assets/shapes/ModalBg.png";
 import ModalCustom from "@/components/main/ModalCustom";
 import { useNavigate } from "react-router-dom";
 
-export default function modalConclusaoCadastroPrestador({
+export default function ModalConclusaoCadastroContratante({
     modalGettr,
     modalSettr,
 }) {
