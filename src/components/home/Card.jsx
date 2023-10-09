@@ -26,9 +26,9 @@ export default function Card({
     const estrelas = Array.from({ length: 5 }, (_, i) => {
         const estrela = i + 1;
         return mediaAvaliacoes >= estrela ? (
-            <StarIconCheio key={estrela} className="w-4 h-4 text-yellow-500" />
+            <StarIconCheio key={estrela} className="w-6 h-6 text-yellow-500" />
         ) : (
-            <StarIconVazio key={estrela} className="w-4 h-4 text-yellow-500" />
+            <StarIconVazio key={estrela} className="w-6 h-6 text-yellow-500" />
         );
     });
 
@@ -43,17 +43,17 @@ export default function Card({
                 modalGettr={modalNaoLogado}
                 modalSettr={setModalNaoLogado}
             />
-            <div className="w-80 h-120 rounded-3xl drop-shadow-all">
+            <div className="w-80 rounded-3xl drop-shadow-all">
                 <img
                     onError={({ target }) => (target.src = defaultPfp)}
                     src={anexoPfp}
                     alt=""
-                    className="object-cover h-[55%] w-full rounded-t-3xl bg-verde-padrao bg-cover bg-center"
+                    className="object-cover h-80 w-full rounded-t-3xl bg-verde-padrao bg-cover bg-center"
                 />
                 <div className="h-[45%] w-full rounded-b-3xl bg-white py-2 px-4">
                     <div className="flex flex-col">
                         <span className="text-2xl font-semibold">{nome}</span>
-                        <span className="text-xl font-thin">
+                        <span className="text-sl font-thin">
                             {area ? (
                                 <>
                                     {area}
@@ -63,27 +63,27 @@ export default function Card({
                                 <Skeleton />
                             )}
                         </span>
-                        <span className="text-lg font-normal mt-1">
+                        <span className="text-lg font-normal mt-3">
                             R${orcamentoMin} - R${orcamentoMax}
                         </span>
                     </div>
-                    <div className="flex w-full justify-between mt-1">
-                        <div className="w-[45%] bg-verde-padrao rounded-full text-white text-center">
+                    <div className="flex w-full justify-between mt-4">
+                        <div className="w-[45%] border-2 border-verde-padrao bg-green-100 rounded-full text-verde-padrao text-center">
                             {cidade}
                         </div>
-                        <div className="w-[45%] bg-verde-padrao rounded-full text-white text-center">
+                        <div className="w-[45%] border-2 border-verde-padrao bg-green-100 rounded-full text-verde-padrao text-center">
                             {prestaAula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
-                    <div className="flex mt-2">
+                    <div className="flex space-x-1 mt-6">
                         {estrelas}
-                        <span className="text-sm ml-2 font-medium">
+                        <span className="text-lg ml-2 font-medium">
                             {mediaAvaliacoes?.toFixed(1)}
                         </span>
                     </div>
-                    <div className="flex mt-1 justify-center">
+                    <div className="flex mt-5 justify-center">
                         <button
-                            className="w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold"
+                            className="mb-3 w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold"
                             onClick={verificarLogin}
                         >
                             CONTRATAR
