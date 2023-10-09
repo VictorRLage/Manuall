@@ -1,4 +1,3 @@
-import React from "react";
 import imagemNotFound from "@/assets/storyset/Not_Found.svg";
 
 const NenhumPrestadorEncontrado = ({ isHome }) => {

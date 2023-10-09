@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ModalCustom from "@/components/main/ModalCustom";
-import { ThreeDots } from "react-loader-spinner";
 
 export default function ModalUrlGaleria({
     modalGettr,

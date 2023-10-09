@@ -16,7 +16,6 @@ export default function ChatManuel({ chat, scrollDown }) {
         for (let i = 0; i < msgsFlow.length; i++) {
             const msgAtual = FalasManuelENUM.find((v) => v.id == msgsFlow[i]);
 
-            console.log(msgAtual);
             const proximaMsg = FalasManuelENUM.find(
                 (v) => v.id == msgAtual.getProximo(chat.dadosUsuarioCrm),
             );

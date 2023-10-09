@@ -21,7 +21,8 @@ export default function Login() {
     const [avisoTitulo, setAvisoTitulo] = useState("");
     const [avisoDescricao, setAvisoDescricao] = useState("");
 
-    const [modalEscolherTipoUsuarioList, setModalEscolherTipoUsuarioList] = useState();
+    const [modalEscolherTipoUsuarioList, setModalEscolherTipoUsuarioList] =
+        useState();
 
     const [tipoUsuario, setTipoUsuario] = useState(null);
 
@@ -68,7 +69,6 @@ export default function Login() {
                     } else if (data.tipoUsuario === 2) {
                         navigate("/perfil");
                     } else if (data.tipoUsuario === 3) {
-                        console.log("ue")
                         navigate("/adm/aprovacao");
                     }
                 } else if (status === 206) {

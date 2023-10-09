@@ -9,7 +9,8 @@ import { useEffect } from "react";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import CadastroPrestador from "@/pages/CadastroPrestador";
-import CasdastroContratante from "@/pages/CadastroContratante";
+import CadastroContratante from "@/pages/CadastroContratante";
+import CadastroPlanos from "@/pages/CadastroPlanos";
 import Prestadores from "@/pages/Prestadores";
 import Contato from "@/pages/Contato";
 import AdmAprovacao from "@/pages/AdmAprovacao";
@@ -42,11 +43,11 @@ const App = () => {
                     />
                     <Route
                         path="/cadastro/prestador/planos"
-                        element={<CadastroPrestador />}
+                        element={<CadastroPlanos />}
                     />
                     <Route
                         path="/cadastro/contratante"
-                        element={<CasdastroContratante />}
+                        element={<CadastroContratante />}
                     />
                     <Route path="/prestadores" element={<Prestadores />} />
                     <Route

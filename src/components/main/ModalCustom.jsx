@@ -6,8 +6,6 @@ export default function ModalCustom({
     modalGettr,
     modalSettr,
     tempo,
-    w,
-    h,
     children,
 }) {
     const modal_custom = useRef(null);
@@ -54,8 +52,6 @@ export default function ModalCustom({
                     <div
                         className="bg-white flex flex-col justify-around items-center rounded-xl"
                         style={{
-                            width: w,
-                            height: h,
                             animation: "pop_up 150ms",
                         }}
                     >

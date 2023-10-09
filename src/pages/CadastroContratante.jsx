@@ -6,11 +6,19 @@ import ModalAviso from "@/components/main/ModalAviso";
 import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import axios from "@/api/axios";
 import ModalConclusaoCadastroContratante from "@/components/cadastro/ModalConclusaoCadastroContratante";
+import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
+import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
 
 export default function CadastroContratante() {
     const scrollingDiv = useRef(null);
 
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
+    const [modalJaPossuiConta, setModalJaPossuiConta] = useState(false);
+
+    const [modalFaseCadastro, setModalFaseCadastro] = useState(false);
+    const [modalFaseCadastroFase, setModalFaseCadastroFase] = useState(null);
+
+    // const [isReturning, setIsReturning] = useState(false);
 
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
@@ -37,35 +45,37 @@ export default function CadastroContratante() {
                 telefone,
                 senha,
                 tipoUsuario: 1,
+                // isReturning,
             })
             .then((res) => {
                 if (res.status === 201) {
-                    localStorage.setItem("ID_CADASTRANTE", res.data);
+                    localStorage.setItem("ID_CADASTRANTE", res.data.usuarioId);
                     mudarStep();
+                } else if (res.status === 206) {
+                    localStorage.setItem("ID_CADASTRANTE", res.data.usuarioId);
+                    setModalFaseCadastroFase(res.data.fase);
+                    setModalFaseCadastro(true);
                 } else {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
             })
-            .catch((err) => {
-                console.log(err);
-                if (err.response.status === 400) {
-                    for (let i = 0; i < err.response.data.errors.length; i++) {
+            .catch(({ response }) => {
+                if (response.status === 400) {
+                    for (let i = 0; i < response.data.errors.length; i++) {
                         setModalAviso(true);
                         setAvisoTitulo(
-                            `${err.response.data.errors[
+                            `${response.data.errors[
                                 i
                             ]?.field.toUpperCase()} inválido`,
                         );
                         setAvisoDescricao(
-                            err.response.data.errors[i]?.defaultMessage,
+                            response.data.errors[i]?.defaultMessage,
                         );
                     }
-                } else if (err.response.status === 409) {
-                    setModalAviso(true);
-                    setAvisoTitulo("Email já cadastrado");
-                    setAvisoDescricao("Tente acessar sua conta");
+                } else if (response.status === 409) {
+                    setModalJaPossuiConta(true);
                 } else {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
@@ -155,6 +165,17 @@ export default function CadastroContratante() {
             <ModalConclusaoCadastroContratante
                 modalGettr={modalConclusaoCadastro}
                 modalSettr={setModalConclusaoCadastro}
+            />
+            <ModalJaPossuiConta
+                modalGettr={modalJaPossuiConta}
+                modalSettr={setModalJaPossuiConta}
+                tipoUsuario="contratante"
+            />
+            <ModalFaseCadastro
+                modalGettr={modalFaseCadastro}
+                modalSettr={setModalFaseCadastro}
+                fase={modalFaseCadastroFase}
+                changePhaseTo={mudarStep}
             />
             <div
                 className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth"

@@ -8,6 +8,8 @@ import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import axios from "@/api/axios";
 import ModalConclusaoCadastroPrestador from "@/components/cadastro/ModalConclusaoCadastroPrestador";
 import { useLocation } from "react-router-dom";
+import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
+import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
 
 export default function CadastroPrestador() {
     const location = useLocation();
@@ -17,6 +19,12 @@ export default function CadastroPrestador() {
     const scrollingDiv = useRef(null);
 
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
+    const [modalJaPossuiConta, setModalJaPossuiConta] = useState(false);
+
+    // const [isReturning, setIsReturning] = useState(false);
+
+    const [modalFaseCadastro, setModalFaseCadastro] = useState(false);
+    const [modalFaseCadastroFase, setModalFaseCadastroFase] = useState(null);
 
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
@@ -51,35 +59,37 @@ export default function CadastroPrestador() {
                 telefone,
                 senha,
                 tipoUsuario: 2,
+                // isReturning,
             })
             .then((res) => {
                 if (res.status === 201) {
-                    localStorage.setItem("ID_CADASTRANTE", res.data);
+                    localStorage.setItem("ID_CADASTRANTE", res.data.usuarioId);
                     setStepAtual(2);
+                } else if (res.status === 206) {
+                    localStorage.setItem("ID_CADASTRANTE", res.data.usuarioId);
+                    setModalFaseCadastroFase(res.data.fase);
+                    setModalFaseCadastro(true);
                 } else {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
             })
-            .catch((err) => {
-                console.log(err);
-                if (err.response.status === 400) {
-                    for (let i = 0; i < err.response.data.errors.length; i++) {
+            .catch(({ response }) => {
+                if (response.status === 400) {
+                    for (let i = 0; i < response.data.errors.length; i++) {
                         setModalAviso(true);
                         setAvisoTitulo(
-                            `${err.response.data.errors[
+                            `${response.data.errors[
                                 i
                             ]?.field.toUpperCase()} inválido`,
                         );
                         setAvisoDescricao(
-                            err.response.data.errors[i]?.defaultMessage,
+                            response.data.errors[i]?.defaultMessage,
                         );
                     }
-                } else if (err.response.status === 409) {
-                    setModalAviso(true);
-                    setAvisoTitulo("Email já cadastrado");
-                    setAvisoDescricao("Tente acessar sua conta");
+                } else if (response.status === 409) {
+                    setModalJaPossuiConta(true);
                 } else {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
@@ -167,6 +177,7 @@ export default function CadastroPrestador() {
             })
             .then((res) => {
                 if (res.status === 201) {
+                    // setIsReturning(false);
                     setModalConclusaoCadastro(true);
                 } else {
                     setModalAviso(true);
@@ -209,12 +220,21 @@ export default function CadastroPrestador() {
     }, []);
 
     useEffect(() => {
-        scrollingDiv.current.style.scrollBehavior = "smooth";
-        scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
+        if (stepAtual === 3) {
+            setDelayedStepAtual(3);
+            setTimeout(() => {
+                scrollingDiv.current.style.scrollBehavior = "smooth";
+                scrollingDiv.current.scrollLeft =
+                    stepAtual % 2 !== 0 ? 2000 : 0;
+            }, 1);
+        } else {
+            scrollingDiv.current.style.scrollBehavior = "smooth";
+            scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
 
-        setTimeout(() => {
-            setDelayedStepAtual(stepAtual);
-        }, 150);
+            setTimeout(() => {
+                setDelayedStepAtual(stepAtual);
+            }, 150);
+        }
     }, [stepAtual]);
 
     return (
@@ -236,14 +256,32 @@ export default function CadastroPrestador() {
                 modalGettr={modalConclusaoCadastro}
                 modalSettr={setModalConclusaoCadastro}
             />
+            <ModalJaPossuiConta
+                modalGettr={modalJaPossuiConta}
+                modalSettr={setModalJaPossuiConta}
+                tipoUsuario="prestador"
+            />
+            <ModalFaseCadastro
+                modalGettr={modalFaseCadastro}
+                modalSettr={setModalFaseCadastro}
+                fase={modalFaseCadastroFase}
+                changePhaseTo={setStepAtual}
+            />
             <div
                 className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden"
                 ref={scrollingDiv}
             >
                 <Fase2
                     stepInfo={{
-                        passarFaseAtalho: () => setStepAtual(3),
+                        passarFaseAtalho: () => {
+                            setStepAtual(3);
+                            // setIsReturning(false);
+                        },
                         fases: 3,
+                    }}
+                    voltarFase={() => {
+                        setStepAtual(1);
+                        // setIsReturning(true);
                     }}
                     passarFase={validarStep2}
                     isNextLoading={fase2FinalLoading}
@@ -252,7 +290,10 @@ export default function CadastroPrestador() {
                 {delayedStepAtual <= 1 ? (
                     <Fase1
                         stepInfo={{
-                            passarFaseAtalho: () => setStepAtual(2),
+                            passarFaseAtalho: () => {
+                                setStepAtual(2)
+                                // setIsReturning(false);
+                            },
                             fases: 3,
                         }}
                         passarFase={validarStep1}
@@ -261,11 +302,17 @@ export default function CadastroPrestador() {
                 ) : (
                     <Fase3
                         stepInfo={{
-                            passarFaseAtalho: () => setStepAtual(4),
+                            passarFaseAtalho: () => {
+                                setStepAtual(4);
+                                // setIsReturning(false);
+                            },
                             fases: 3,
                         }}
                         passarFase={validarStep3}
-                        voltarFase={() => setStepAtual(2)}
+                        voltarFase={() => {
+                            setStepAtual(2);
+                            // setIsReturning(true);
+                        }}
                         isNextLoading={fase3FinalLoading}
                     />
                 )}
