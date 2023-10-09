@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo_extensa from "@/assets/manuall/logo_green_black.png";
 import { ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
+import { Cog6ToothIcon } from "@heroicons/react/24/solid"
 import Notificacao from "@/components/header/Notificacao";
 import Chat from "@/components/header/Chat";
 import HeaderSidebar from "@/components/header/HeaderSidebar";
@@ -11,6 +12,7 @@ import { useData } from "@/data/CreateContext";
 import ThreeBars from "@/assets/icons/3bars.png";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 import axios from "@/api/axios";
+import ModalConfiguracao from "../perfil/ModalConfiguracao";
 
 export default function Header({ refetch }) {
     const navigate = useNavigate();
@@ -24,6 +26,7 @@ export default function Header({ refetch }) {
 
     const [sidebar, setSidebar] = useState(false);
     const [pfp, setPfp] = useState(undefined);
+    const [modalConfiguracao, setModalConfiguracao] = useState(false);
 
     const openSidebar = () => {
         setSidebar(true);
@@ -55,14 +58,17 @@ export default function Header({ refetch }) {
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
+            <ModalConfiguracao
+                modalGettr={modalConfiguracao}
+                modalSettr={setModalConfiguracao}
+            />
             <header
-                className={`z-20 flex py-4 ${
-                    windowWidth < 700
-                        ? windowWidth < 500
-                            ? "px-8"
-                            : "px-16"
-                        : "px-32"
-                } w-full bg-white drop-shadow-all justify-between items-center`}
+                className={`z-20 flex py-4 ${windowWidth < 700
+                    ? windowWidth < 500
+                        ? "px-8"
+                        : "px-16"
+                    : "px-32"
+                    } w-full bg-white drop-shadow-all justify-between items-center`}
             >
                 <img
                     onClick={() => {
@@ -78,11 +84,10 @@ export default function Header({ refetch }) {
                             onClick={() => {
                                 pathname !== "/" && navigate("/");
                             }}
-                            className={`text-xl decoration-green-400 ${
-                                pathname === "/"
-                                    ? "text-[#00CC69] cursor-default"
-                                    : "text-black hover:underline"
-                            }`}
+                            className={`text-xl decoration-green-400 ${pathname === "/"
+                                ? "text-[#00CC69] cursor-default"
+                                : "text-black hover:underline"
+                                }`}
                         >
                             Início
                         </button>
@@ -91,11 +96,10 @@ export default function Header({ refetch }) {
                                 pathname !== "/prestadores" &&
                                     navigate("/prestadores");
                             }}
-                            className={`text-xl decoration-green-400 ${
-                                pathname === "/prestadores"
-                                    ? "text-[#00CC69] cursor-default"
-                                    : "text-black hover:underline"
-                            }`}
+                            className={`text-xl decoration-green-400 ${pathname === "/prestadores"
+                                ? "text-[#00CC69] cursor-default"
+                                : "text-black hover:underline"
+                                }`}
                         >
                             Prestadores
                         </button>
@@ -103,11 +107,10 @@ export default function Header({ refetch }) {
                             onClick={() => {
                                 pathname !== "/contato" && navigate("/contato");
                             }}
-                            className={`text-xl decoration-green-400 ${
-                                pathname === "/contato"
-                                    ? "text-[#00CC69] cursor-default"
-                                    : "text-black hover:underline"
-                            }`}
+                            className={`text-xl decoration-green-400 ${pathname === "/contato"
+                                ? "text-[#00CC69] cursor-default"
+                                : "text-black hover:underline"
+                                }`}
                         >
                             Contato
                         </button>
@@ -120,11 +123,10 @@ export default function Header({ refetch }) {
                                                 "/cadastro/prestador" &&
                                                 navigate("/cadastro/prestador");
                                         }}
-                                        className={`text-xl decoration-green-400 ${
-                                            pathname === "/cadastro/prestador"
-                                                ? "text-[#00CC69] cursor-default"
-                                                : "text-black hover:underline"
-                                        }`}
+                                        className={`text-xl decoration-green-400 ${pathname === "/cadastro/prestador"
+                                            ? "text-[#00CC69] cursor-default"
+                                            : "text-black hover:underline"
+                                            }`}
                                     >
                                         Quero ensinar
                                     </button>
@@ -155,11 +157,10 @@ export default function Header({ refetch }) {
                                             pathname !== "/development" &&
                                                 navigate("/development");
                                         }}
-                                        className={`text-xl decoration-green-400 ${
-                                            pathname === "/development"
-                                                ? "text-[#00CC69] cursor-default"
-                                                : "text-black hover:underline"
-                                        }`}
+                                        className={`text-xl decoration-green-400 ${pathname === "/development"
+                                            ? "text-[#00CC69] cursor-default"
+                                            : "text-black hover:underline"
+                                            }`}
                                     >
                                         Histórico
                                     </button>
@@ -169,11 +170,10 @@ export default function Header({ refetch }) {
                                             pathname !== "/development" &&
                                                 navigate("/development");
                                         }}
-                                        className={`text-xl decoration-green-400 ${
-                                            pathname === "/development"
-                                                ? "text-[#00CC69] cursor-default"
-                                                : "text-black hover:underline"
-                                        }`}
+                                        className={`text-xl decoration-green-400 ${pathname === "/development"
+                                            ? "text-[#00CC69] cursor-default"
+                                            : "text-black hover:underline"
+                                            }`}
                                     >
                                         Dashboard
                                     </button>
@@ -193,6 +193,14 @@ export default function Header({ refetch }) {
                                     className="bg-verde-padrao w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"
                                 >
                                     <ArrowLeftOnRectangleIcon className="w-7 text-white" />
+                                </button>
+                                <button onClick={() => {
+                                    setModalConfiguracao(
+                                        true,
+                                    );
+                                }}
+                                    className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center">
+                                    <Cog6ToothIcon className="w-7 text-verde-padrao" />
                                 </button>
                             </>
                         )}
