@@ -52,8 +52,8 @@ export default function Card({
                 />
                 <div className="h-[45%] w-full rounded-b-3xl bg-white py-2 px-4">
                     <div className="flex flex-col">
-                        <span className="text-2xl font-semibold">{nome}</span>
-                        <span className="text-sl font-thin">
+                        <span className="text-2xl font-semibold ml-2">{nome}</span>
+                        <span className="text-sl font-thin ml-2">
                             {area ? (
                                 <>
                                     {area}
@@ -63,19 +63,19 @@ export default function Card({
                                 <Skeleton />
                             )}
                         </span>
-                        <span className="text-lg font-normal mt-3">
+                        <span className="text-lg font-normal mt-3 ml-2">
                             R${orcamentoMin} - R${orcamentoMax}
                         </span>
                     </div>
-                    <div className="flex w-full justify-between mt-4">
-                        <div className="w-[45%] border-2 border-verde-padrao bg-green-100 rounded-full text-verde-padrao text-center">
+                    <div className="flex w-full justify-center gap-4 mt-4">
+                        <div className="w-[45%] border-[1px] border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
                             {cidade}
                         </div>
-                        <div className="w-[45%] border-2 border-verde-padrao bg-green-100 rounded-full text-verde-padrao text-center">
+                        <div className="w-[45%] border-[1px] border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
                             {prestaAula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
-                    <div className="flex space-x-1 mt-6">
+                    <div className="flex space-x-1 mt-6 ml-2">
                         {estrelas}
                         <span className="text-lg ml-2 font-medium">
                             {mediaAvaliacoes?.toFixed(1)}
@@ -83,7 +83,7 @@ export default function Card({
                     </div>
                     <div className="flex mt-5 justify-center">
                         <button
-                            className="mb-3 w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold"
+                            className="mb-10 w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold"
                             onClick={verificarLogin}
                         >
                             CONTRATAR

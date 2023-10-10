@@ -73,7 +73,8 @@ export default function CarouselHome() {
                         backgroundImage: `url(${BannerBase2})`,
                         backgroundPosition: "bottom",
                     }}
-                />,
+                />, 
+               
                 <div
                     className="min-w-full h-full bg-cover bg-[#278054]"
                     style={{
