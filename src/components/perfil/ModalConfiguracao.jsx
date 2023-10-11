@@ -1,65 +1,50 @@
-import BgModal from "@/assets/shapes/ModalBg.png";
 import ModalCustom from "@/components/main/ModalCustom";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserIcon, ChartBarIcon, SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
 export default function ModalConfiguracao({
   modalGettr,
   modalSettr,
 }) {
   const navigate = useNavigate();
-  const [rating, setRating] = useState(0);
-  const [hoveredRating, setHoveredRating] = useState(0);
-
-  const handleRating = (index) => {
-    setRating(index);
-  };
 
   return (
     <ModalCustom
       modalGettr={modalGettr}
       modalSettr={modalSettr}
-      canClose={false}
+      canClose={true}
     >
-      <div
-        className="bg-white w-144 h-88 flex flex-col items-center rounded-lg bg-cover bg-center"
-        style={{ backgroundImage: `url(${BgModal})` }}
-      >
-        <div className="h-[33%] w-full flex justify-center items-center text-verde-escuro-1 text-3xl font-extrabold">
-          Como foi o serviço do (NOME)?
+      <div className="bg-white w-112 h-88 flex flex-col items-center rounded-lg bg-cover bg-center">
+
+        <div className="h-[33%] w-full flex justify-center items-center text-verde-escuro-1 text-3xl font-bold">
+          Configurações
         </div>
-        <div className="h-[18%] w-full flex justify-center items-center">
-          {[1, 2, 3, 4, 5].map((star, index) => (
-            <span
-              key={index}
-              onMouseEnter={() => setHoveredRating(index + 1)}
-              onMouseLeave={() => setHoveredRating(0)}
-              onClick={() => handleRating(index + 1)}
-              className={
-                (hoveredRating > 0 && index < hoveredRating) ||
-                (hoveredRating === 0 && index < rating)
-                  ? "text-yellow-500 text-5xl cursor-pointer"
-                  : "text-gray-400 text-5xl cursor-pointer"
-              }
-            >
-              ★
+
+        <button
+          className="bg-verde-escuro-1 text-white w-72 h-12 rounded-full mb-2 font-semibold flex justify-start items-center px-6 space-x-4"
+          onClick={() => navigate("/perfil")}
+        >
+          <UserIcon className="w-6 h-6 mr-2"/>
+          Perfil
+        </button>
+
+        <button
+          className="bg-verde-escuro-1 text-white w-72 h-12 rounded-full mb-2 font-semibold flex justify-start items-center px-6 space-x-4"
+          onClick={() => navigate("/dashboard")}
+        >
+          <ChartBarIcon className="w-6 h-6 mr-2"/>
+          Dashboard
+        </button>
+
+        <div className="bg-verde-escuro-1 text-white w-72 h-12 rounded-full mb-2 font-semibold flex justify-between items-center px-6">
+          <span class="text-xl">Modo Noturno</span>
+          <label class="relative flex items-center group">
+            <input type="checkbox" class="absolute z-10 w-12 h-6 peer appearance-none rounded-md" />
+            <span class="relative w-13 h-6 flex items-center p-1 bg-gray-300 rounded-full duration-300 ease-in-out peer-checked:bg-green-400 after:w-6 after:h-6 after:bg-white after:rounded-full after:shadow-md after:duration-300 peer-checked:after:translate-x-6 group-hover:after:translate-x-1">
+              <SunIcon className="absolute left-1 w-5 h-5 text-yellow-300"/>
+              <MoonIcon className="absolute right-1 w-5 h-5 peer-checked:opacity-0 text-gray-600"/>
             </span>
-          ))}
-        </div>
-        <div className="h-[40%] w-full flex flex-col justify-center items-center">
-          <textarea
-            type="text"
-            placeholder="Escreva aqui sua avaliação:"
-            className="mb-4 px-4 py-2 w-3/4 border-2 rounded-2xl border-verde-escuro-1 focus:outline-none focus:border-verde-escuro-2"
-          />
-          <button
-            className="bg-verde-padrao hover:bg-[rgb(16,166,93)] text-white rounded-lg text-xl px-6 py-2 transition-all"
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Avaliar
-          </button>
+          </label>
         </div>
       </div>
     </ModalCustom>
