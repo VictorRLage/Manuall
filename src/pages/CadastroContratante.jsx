@@ -18,7 +18,7 @@ export default function CadastroContratante() {
     const [modalFaseCadastro, setModalFaseCadastro] = useState(false);
     const [modalFaseCadastroFase, setModalFaseCadastroFase] = useState(null);
 
-    // const [isReturning, setIsReturning] = useState(false);
+    const [isReturning, setIsReturning] = useState(false);
 
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
@@ -45,7 +45,7 @@ export default function CadastroContratante() {
                 telefone,
                 senha,
                 tipoUsuario: 1,
-                // isReturning,
+                isReturning,
             })
             .then((res) => {
                 if (res.status === 201) {

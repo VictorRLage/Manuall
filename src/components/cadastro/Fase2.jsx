@@ -15,7 +15,12 @@ import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import InputMask from "react-input-mask";
 import { ThreeDots, Oval } from "react-loader-spinner";
 
-export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
+export default function Fase2({
+    stepInfo,
+    voltarFase,
+    passarFase,
+    isNextLoading,
+}) {
     const [isCepValidado, setIsCepValidado] = useState();
     const [isEstadoValidado, setIsEstadoValidado] = useState();
     const [isCidadeValidado, setIsCidadeValidado] = useState();
@@ -363,7 +368,13 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                     </div>
                 </div>
             </div>
-            <div className="w-full h-[15%] flex justify-end items-center">
+            <div className="w-full h-[15%] flex justify-between items-center px-11">
+                <button
+                    onClick={voltarFase}
+                    className="text-gray-400 cursor-default text-xl mb-8 font-bold flex justify-center items-center h-[40px]"
+                >
+                    <ChevronDoubleRightIcon className="h-8 w-8 rotate-180" /> Voltar
+                </button>
                 {stepInfo.fases <= 2 ? (
                     <button
                         onClick={() => {
@@ -390,7 +401,7 @@ export default function Fase2({ stepInfo, passarFase, isNextLoading }) {
                             isEveryThingValidated()
                                 ? "text-verde-padrao cursor-pointer"
                                 : "text-gray-400 cursor-default"
-                        } text-xl mb-8 mr-11 font-bold flex justify-center items-center h-[40px]`}
+                        } text-xl mb-8 font-bold flex justify-center items-center h-[40px]`}
                     >
                         {isNextLoading ? (
                             <Oval

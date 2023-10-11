@@ -13,8 +13,7 @@ export default function PrestadorGaleria({
     const deleteImagem = (url) => {
         axios
             .post("/perfil/imagem/delete", { imagem: url })
-            .then((res) => {
-                console.log(res);
+            .then(() => {
                 refetch();
             })
             .catch((err) => console.log(err));

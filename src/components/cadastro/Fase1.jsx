@@ -310,7 +310,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                     )}
                 </div>
             </div>
-            <div className="w-full h-[15%] flex justify-end items-center">
+            <div className="w-full h-[15%] flex justify-end items-center px-40">
                 <button
                     onClick={() => {
                         isEveryThingValidated() && avancar();
@@ -319,7 +319,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         isEveryThingValidated()
                             ? "text-verde-padrao cursor-pointer"
                             : "text-gray-400 cursor-default"
-                    } text-xl mb-8 mr-11 font-bold flex justify-center items-center h-[40px]`}
+                    } text-xl mb-8 font-bold flex justify-center items-center h-[40px]`}
                 >
                     {isNextLoading ? (
                         <Oval

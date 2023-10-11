@@ -14,14 +14,12 @@ import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
 export default function CadastroPrestador() {
     const location = useLocation();
 
-    console.log(location);
-
     const scrollingDiv = useRef(null);
 
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
     const [modalJaPossuiConta, setModalJaPossuiConta] = useState(false);
 
-    // const [isReturning, setIsReturning] = useState(false);
+    const [isReturning, setIsReturning] = useState(false);
 
     const [modalFaseCadastro, setModalFaseCadastro] = useState(false);
     const [modalFaseCadastroFase, setModalFaseCadastroFase] = useState(null);
@@ -59,7 +57,7 @@ export default function CadastroPrestador() {
                 telefone,
                 senha,
                 tipoUsuario: 2,
-                // isReturning,
+                isReturning,
             })
             .then((res) => {
                 if (res.status === 201) {
@@ -177,7 +175,7 @@ export default function CadastroPrestador() {
             })
             .then((res) => {
                 if (res.status === 201) {
-                    // setIsReturning(false);
+                    setIsReturning(false);
                     setModalConclusaoCadastro(true);
                 } else {
                     setModalAviso(true);
@@ -275,13 +273,13 @@ export default function CadastroPrestador() {
                     stepInfo={{
                         passarFaseAtalho: () => {
                             setStepAtual(3);
-                            // setIsReturning(false);
+                            setIsReturning(false);
                         },
                         fases: 3,
                     }}
                     voltarFase={() => {
                         setStepAtual(1);
-                        // setIsReturning(true);
+                        setIsReturning(true);
                     }}
                     passarFase={validarStep2}
                     isNextLoading={fase2FinalLoading}
@@ -292,7 +290,7 @@ export default function CadastroPrestador() {
                         stepInfo={{
                             passarFaseAtalho: () => {
                                 setStepAtual(2)
-                                // setIsReturning(false);
+                                setIsReturning(false);
                             },
                             fases: 3,
                         }}
@@ -304,14 +302,14 @@ export default function CadastroPrestador() {
                         stepInfo={{
                             passarFaseAtalho: () => {
                                 setStepAtual(4);
-                                // setIsReturning(false);
+                                setIsReturning(false);
                             },
                             fases: 3,
                         }}
                         passarFase={validarStep3}
                         voltarFase={() => {
                             setStepAtual(2);
-                            // setIsReturning(true);
+                            setIsReturning(true);
                         }}
                         isNextLoading={fase3FinalLoading}
                     />
