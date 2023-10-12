@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "@/api/axios";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import SelectArrowIcon from "@/assets/icons/select_arrow.svg";
 import { Dropdown } from "primereact/dropdown";
@@ -160,7 +161,9 @@ export default function Fase3({
                     </div>
                     <div className="w-[2px] h-[80%] bg-gray-300"></div>
                     <div className="w-[40%] h-full flex flex-col p-5">
-                        <span className="h-[15%] flex items-end px-1">Gostaria de ensinar?</span>
+                        <span className="h-[15%] flex items-end px-1">
+                            Gostaria de ensinar?
+                        </span>
                         <div className="w-full h-[70%] flex flex-col justify-around">
                             <label
                                 htmlFor={1}
@@ -281,7 +284,14 @@ export default function Fase3({
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-[15%] flex justify-end items-center">
+                <div className="w-full h-[15%] flex justify-between items-center px-32">
+                    <button
+                        onClick={voltarFase}
+                        className="text-gray-400 text-xl mb-4 font-bold flex justify-center items-center h-[40px] cursor-pointer"
+                    >
+                        <ChevronDoubleRightIcon className="h-8 w-8 rotate-180" />{" "}
+                        Voltar
+                    </button>
                     <button
                         onClick={() => {
                             isEveryThingValidated() && avancar();
@@ -290,7 +300,7 @@ export default function Fase3({
                             isEveryThingValidated()
                                 ? "bg-verde-escuro-2 cursor-pointer"
                                 : "bg-gray-400 cursor-default"
-                        } w-32 h-10 rounded-full text-xl mb-4 mr-16 font-semibold text-white flex items-center justify-center`}
+                        } w-32 h-10 rounded-full text-xl mb-4 font-semibold text-white flex items-center justify-center`}
                     >
                         {isNextLoading ? (
                             <ThreeDots height="20" color="#fff" />

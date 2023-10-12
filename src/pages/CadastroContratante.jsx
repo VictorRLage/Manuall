@@ -18,7 +18,9 @@ export default function CadastroContratante() {
     const [modalFaseCadastro, setModalFaseCadastro] = useState(false);
     const [modalFaseCadastroFase, setModalFaseCadastroFase] = useState(null);
 
-    // const [isReturning, setIsReturning] = useState(false);
+    const [voltaCadastroDados, setVoltaCadastroDados] = useState();
+
+    const [isReturning, setIsReturning] = useState(false);
 
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
@@ -45,7 +47,8 @@ export default function CadastroContratante() {
                 telefone,
                 senha,
                 tipoUsuario: 1,
-                // isReturning,
+                isReturning,
+                id: localStorage.getItem("ID_CADASTRANTE") || null,
             })
             .then((res) => {
                 if (res.status === 201) {
@@ -146,6 +149,15 @@ export default function CadastroContratante() {
     const mudarStep = () => {
         scrollingDiv.current.scrollLeft = 2000;
     };
+    const voltarStep = () => {
+        scrollingDiv.current.scrollLeft = 0;
+
+        axios
+            .get(`/cadastrar/1/${localStorage.getItem("ID_CADASTRANTE")}`)
+            .then(({ data }) => {
+                setVoltaCadastroDados(data);
+            });
+    };
 
     return (
         <div
@@ -187,6 +199,7 @@ export default function CadastroContratante() {
                         fases: 2,
                     }}
                     passarFase={validarStep1}
+                    voltaCadastroDados={voltaCadastroDados}
                     isNextLoading={fase1FinalLoading}
                 />
                 <CadastroSidebar mainText="Cadastro de Contratante" />
@@ -194,6 +207,10 @@ export default function CadastroContratante() {
                     stepInfo={{
                         passarFaseAtalho: mudarStep,
                         fases: 2,
+                    }}
+                    voltarFase={() => {
+                        voltarStep();
+                        setIsReturning(true);
                     }}
                     passarFase={validarStep2}
                     isNextLoading={fase2FinalLoading}
