@@ -20,7 +20,8 @@ module.exports = {
         'verde-claro-4': '#92E3A9',
         'verde-escuro-1': '#008042',
         'verde-escuro-2': '#268054',
-        'blur': 'rgba(0, 0, 0, 0.400)'
+        'blur': 'rgba(0, 0, 0, 0.400)',
+        'verde-switch': '#264D47'
       },
       spacing: {
         '8.5': '2.13rem',

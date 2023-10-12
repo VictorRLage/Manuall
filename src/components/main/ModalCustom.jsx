@@ -7,6 +7,8 @@ export default function ModalCustom({
     modalSettr,
     tempo,
     children,
+    backgroundStyle,
+    modalStyle,
 }) {
     const modal_custom = useRef(null);
 
@@ -42,6 +44,7 @@ export default function ModalCustom({
                     className="left-0 top-0 fixed justify-center items-center h-screen w-screen z-40 bg-black"
                     style={{
                         animation: "opacity_in 300ms forwards",
+                        ...backgroundStyle
                     }}
                 />
                 <div
@@ -53,6 +56,7 @@ export default function ModalCustom({
                         className="bg-white flex flex-col justify-around items-center rounded-xl"
                         style={{
                             animation: "pop_up 150ms",
+                            ...modalStyle,
                         }}
                     >
                         {children}
