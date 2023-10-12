@@ -10,6 +10,7 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
             modalGettr={modalGettr}
             modalSettr={modalSettr}
             canClose={true}
+            modalStyle={{ overflow: "hidden" }}
         >
             <div className="relative w-full h-full flex flex-col items-center py-8 gap-10 px-16 bg-no-repeat"
                 style = {{ backgroundImage: `url(${cantoSuperior})`,
