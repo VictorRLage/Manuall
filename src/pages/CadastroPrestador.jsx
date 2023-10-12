@@ -19,6 +19,9 @@ export default function CadastroPrestador() {
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
     const [modalJaPossuiConta, setModalJaPossuiConta] = useState(false);
 
+    const [voltaCadastro1Dados, setVoltaCadastro1Dados] = useState();
+    const [voltaCadastro2Dados, setVoltaCadastro2Dados] = useState();
+
     const [isReturning, setIsReturning] = useState(false);
 
     const [modalFaseCadastro, setModalFaseCadastro] = useState(false);
@@ -58,6 +61,7 @@ export default function CadastroPrestador() {
                 senha,
                 tipoUsuario: 2,
                 isReturning,
+                id: localStorage.getItem("ID_CADASTRANTE") || null,
             })
             .then((res) => {
                 if (res.status === 201) {
@@ -280,8 +284,18 @@ export default function CadastroPrestador() {
                     voltarFase={() => {
                         setStepAtual(1);
                         setIsReturning(true);
+                        axios
+                            .get(
+                                `/cadastrar/1/${localStorage.getItem(
+                                    "ID_CADASTRANTE",
+                                )}`,
+                            )
+                            .then(({ data }) => {
+                                setVoltaCadastro1Dados(data);
+                            });
                     }}
                     passarFase={validarStep2}
+                    voltaCadastroDados={voltaCadastro2Dados}
                     isNextLoading={fase2FinalLoading}
                 />
                 <CadastroSidebar mainText="Cadastro de Prestador" />
@@ -289,12 +303,13 @@ export default function CadastroPrestador() {
                     <Fase1
                         stepInfo={{
                             passarFaseAtalho: () => {
-                                setStepAtual(2)
+                                setStepAtual(2);
                                 setIsReturning(false);
                             },
                             fases: 3,
                         }}
                         passarFase={validarStep1}
+                        voltaCadastroDados={voltaCadastro1Dados}
                         isNextLoading={fase1FinalLoading}
                     />
                 ) : (
@@ -310,6 +325,15 @@ export default function CadastroPrestador() {
                         voltarFase={() => {
                             setStepAtual(2);
                             setIsReturning(true);
+                            axios
+                                .get(
+                                    `/cadastrar/2/${localStorage.getItem(
+                                        "ID_CADASTRANTE",
+                                    )}`,
+                                )
+                                .then(({ data }) => {
+                                    setVoltaCadastro2Dados(data);
+                                });
                         }}
                         isNextLoading={fase3FinalLoading}
                     />

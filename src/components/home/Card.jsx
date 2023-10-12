@@ -68,10 +68,10 @@ export default function Card({
                         </span>
                     </div>
                     <div className="flex w-full justify-center gap-4 mt-4">
-                        <div className="w-[45%] border-[1px] border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
+                        <div className="w-[45%] border-[1px] flex items-center justify-center border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
                             {cidade}
                         </div>
-                        <div className="w-[45%] border-[1px] border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
+                        <div className="w-[45%] border-[1px] flex items-center justify-center border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
                             {prestaAula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>

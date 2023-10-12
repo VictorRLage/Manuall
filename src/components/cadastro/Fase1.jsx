@@ -12,13 +12,21 @@ import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import Regex from "@/enum/RegexENUM";
 import InputMask from "react-input-mask";
 import { Oval } from "react-loader-spinner";
+import { useEffect } from "react";
 
-export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
+export default function Fase1({
+    stepInfo,
+    passarFase,
+    isNextLoading,
+    voltaCadastroDados,
+}) {
     const [isNomeValidado, setIsNomeValidado] = useState();
     const [isEmailValidado, setIsEmailValidado] = useState();
     const [isCpfValidado, setIsCpfValidado] = useState();
     const [isTelefoneValidado, setIsTelefoneValidado] = useState();
     const [isSenhaValidado, setIsSenhaValidado] = useState();
+
+    const [senhaDisabled, setSenhaDisabled] = useState(false);
 
     const nome_input = useRef(null);
     const email_input = useRef(null);
@@ -63,7 +71,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
             isEmailValidado &&
             isCpfValidado &&
             isTelefoneValidado &&
-            isSenhaValidado
+            (isSenhaValidado || senhaDisabled)
         );
     };
 
@@ -116,6 +124,16 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                 }
             });
     };
+
+    useEffect(() => {
+        if (voltaCadastroDados) {
+            nome_input.current.value = voltaCadastroDados.nome;
+            email_input.current.value = voltaCadastroDados.email;
+            cpf_input.current.value = voltaCadastroDados.cpf;
+            telefone_input.current.value = voltaCadastroDados.telefone;
+            setSenhaDisabled(true);
+        }
+    }, [voltaCadastroDados]);
 
     return (
         <div className="bg-white h-full min-w-[70%] flex flex-col items-center">
@@ -276,6 +294,7 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                 <div className="w-[60%] relative">
                     <input
                         onBlur={validar.senha}
+                        disabled={senhaDisabled}
                         ref={senha_input}
                         onKeyDown={({ key }) => {
                             if (key !== "Enter") return;
@@ -287,23 +306,29 @@ export default function Fase1({ stepInfo, passarFase, isNextLoading }) {
                         id="senha"
                         placeholder=" "
                         className={`
-							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${
-                                isSenhaValidado === false
-                                    ? "border-red-500"
-                                    : "border-cinza-claro-1 hover:border-green-300"
+                            ${
+                                senhaDisabled
+                                    ? "bg-[#e0e0e0]"
+                                    : `bg-transparent ${
+                                          isSenhaValidado === false
+                                              ? "border-red-500"
+                                              : "border-cinza-claro-1 hover:border-green-300"
+                                      }`
                             }
 						`}
                     />
                     <label
                         htmlFor="senha"
-                        className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"
+                        className={`${
+                            senhaDisabled ? "bg-[#e0e0e0]" : ""
+                        } cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center`}
                     >
                         <LockClosedIcon className="h-5 w-5 mr-1" />
                         Senha
                     </label>
-                    {isSenhaValidado === false && (
+                    {isSenhaValidado === false && !senhaDisabled && (
                         <label className="absolute ml-1 text-red-500 font-medium">
                             Campo inválido
                         </label>

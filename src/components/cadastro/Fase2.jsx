@@ -19,6 +19,7 @@ export default function Fase2({
     stepInfo,
     voltarFase,
     passarFase,
+    voltaCadastroDados,
     isNextLoading,
 }) {
     const [isCepValidado, setIsCepValidado] = useState();
@@ -94,6 +95,7 @@ export default function Fase2({
             cidade: cidade_input.current.value,
             bairro: bairro_input.current.value,
             rua: rua_input.current.value,
+            numero: numero_input.current.value,
             complemento: complemento_input.current.value,
         });
     };
@@ -128,6 +130,26 @@ export default function Fase2({
                 }
             });
     }, [isCepValidado]);
+
+    useEffect(() => {
+        if (voltaCadastroDados) {
+            cep_input.current.value = voltaCadastroDados.cep;
+            estado_input.current.value = voltaCadastroDados.estado;
+            cidade_input.current.value = voltaCadastroDados.cidade;
+            bairro_input.current.value = voltaCadastroDados.bairro;
+            rua_input.current.value = voltaCadastroDados.rua;
+            numero_input.current.value = voltaCadastroDados.numero;
+            complemento_input.current.value = voltaCadastroDados.complemento;
+
+            validar.cep();
+            validar.estado();
+            validar.cidade();
+            validar.bairro();
+            validar.rua();
+            validar.numero();
+            validar.complemento();
+        }
+    }, [voltaCadastroDados]);
 
     return (
         <div className="bg-white h-full min-w-[70%] flex flex-col items-center">
@@ -368,10 +390,10 @@ export default function Fase2({
                     </div>
                 </div>
             </div>
-            <div className="w-full h-[15%] flex justify-between items-center px-11">
+            <div className="w-full h-[15%] flex justify-between items-center px-40">
                 <button
                     onClick={voltarFase}
-                    className="text-gray-400 cursor-default text-xl mb-8 font-bold flex justify-center items-center h-[40px]"
+                    className="text-gray-400 text-xl mb-8 font-bold flex justify-center items-center h-[40px] cursor-pointer"
                 >
                     <ChevronDoubleRightIcon className="h-8 w-8 rotate-180" /> Voltar
                 </button>
@@ -384,7 +406,7 @@ export default function Fase2({
                             isEveryThingValidated()
                                 ? "bg-verde-escuro-2 cursor-pointer"
                                 : "bg-gray-400 cursor-default"
-                        } w-32 h-10 rounded-full text-xl mb-8 mr-16 font-semibold text-white flex items-center justify-center`}
+                        } w-32 h-10 rounded-full text-xl mb-8 font-semibold text-white flex items-center justify-center`}
                     >
                         {isNextLoading ? (
                             <ThreeDots height="20" color="#fff" />
