@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
-import LoadingGif from "@/assets/icons/loading.gif";
 import axios from "@/api/axios";
 import ModalEscolherTipoUsuario from "@/components/login/ModalEscolherTipoUsuario";
 import ModalAviso from "@/components/main/ModalAviso";

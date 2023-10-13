@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
 import Fase1 from "@/components/cadastro/Fase1";
 import Fase2 from "@/components/cadastro/Fase2";
@@ -84,7 +84,7 @@ export default function CadastroPrestador() {
                         setAvisoTitulo(
                             `${response.data.errors[
                                 i
-                            ]?.field.toUpperCase()} inválido`,
+                                ]?.field.toUpperCase()} inválido`,
                         );
                         setAvisoDescricao(
                             response.data.errors[i]?.defaultMessage,
@@ -219,7 +219,7 @@ export default function CadastroPrestador() {
         if (location.state?.id) {
             localStorage.setItem("ID_CADASTRANTE", location.state.id);
         }
-    }, []);
+    }, []); // eslint-disable-line
 
     useEffect(() => {
         if (stepAtual === 3) {
