@@ -41,12 +41,15 @@ export default function Perfil({ isOwnProfile }) {
         setHeaderRefetch(!headerRefetch);
         axios
             .get(
-                `/perfil${isOwnProfile ? "" : "/" + location.pathname.substring(13)
+                `/perfil${
+                    isOwnProfile ? "" : "/" + location.pathname.substring(13)
                 }`,
             )
             .then(({ data }) => {
                 setPrestador(data);
-                setDescricao(data.descricao);
+                if (descricao) {
+                    setDescricao(data.descricao);
+                }
             })
             .catch(({ response }) => {
                 if (response.status === 403 || response.status === 404) {
@@ -110,12 +113,13 @@ export default function Perfil({ isOwnProfile }) {
             <Header refetch={headerRefetch} />
             <div className="w-full bg-gray-100">
                 <div
-                    className={`flex flex-col bg-no-repeat ${windowWidth < 700
-                        ? windowWidth < 500
-                            ? ""
-                            : "px-16"
-                        : "px-32"
-                        } pb-16`}
+                    className={`flex flex-col bg-no-repeat ${
+                        windowWidth < 700
+                            ? windowWidth < 500
+                                ? ""
+                                : "px-16"
+                            : "px-32"
+                    } pb-16`}
                     style={{
                         backgroundSize: "100% 100%",
                         backgroundImage: `url(${PerfilBg})`,
@@ -123,35 +127,36 @@ export default function Perfil({ isOwnProfile }) {
                     }}
                 >
                     <div
-                        className={`py-6 ${windowWidth < 500
-                            ? "flex items-center justify-center text-center bg-[#bde5be] px-8"
-                            : ""
-                            }`}
+                        className={`py-6 ${
+                            windowWidth < 500
+                                ? "flex items-center justify-center text-center bg-[#bde5be] px-8"
+                                : ""
+                        }`}
                     >
                         <Breadcrumb
                             items={
                                 isOwnProfile
                                     ? [
-                                        {
-                                            to: "/",
-                                            desc: "Página Inicial",
-                                        },
-                                        { to: null, desc: "Perfil" },
-                                    ]
+                                          {
+                                              to: "/",
+                                              desc: "Página Inicial",
+                                          },
+                                          { to: null, desc: "Perfil" },
+                                      ]
                                     : [
-                                        {
-                                            to: "/",
-                                            desc: "Página Inicial",
-                                        },
-                                        {
-                                            to: "/prestadores",
-                                            desc: "Prestadores",
-                                        },
-                                        {
-                                            to: null,
-                                            desc: prestador?.nome,
-                                        },
-                                    ]
+                                          {
+                                              to: "/",
+                                              desc: "Página Inicial",
+                                          },
+                                          {
+                                              to: "/prestadores",
+                                              desc: "Prestadores",
+                                          },
+                                          {
+                                              to: null,
+                                              desc: prestador?.nome,
+                                          },
+                                      ]
                             }
                         />
                     </div>
@@ -160,12 +165,12 @@ export default function Perfil({ isOwnProfile }) {
                             <>
                                 <div className="w-[50%]">
                                     <div className="flex gap-2 flex-wrap">
-                                        <div
-                                            className="text-2xl px-5 py-1 bg-white font-semibold text-verde-escuro-1 rounded-full drop-shadow-xl">
-                                            {`Serviço${prestador?.prestaAula
-                                                ? " + Aula"
-                                                : ""
-                                                }`}
+                                        <div className="text-2xl px-5 py-1 bg-white font-semibold text-verde-escuro-1 rounded-full drop-shadow-xl">
+                                            {`Serviço${
+                                                prestador?.prestaAula
+                                                    ? " + Aula"
+                                                    : ""
+                                            }`}
                                         </div>
                                         <div className="text-2xl px-5 py-1 bg-white font-semibold text-verde-escuro-1 rounded-full drop-shadow-xl">
                                             {prestador?.area}
@@ -216,7 +221,9 @@ export default function Perfil({ isOwnProfile }) {
                                                             setModalSolicitacao(
                                                                 true,
                                                             );
-                                                            setIncluiAula(false);
+                                                            setIncluiAula(
+                                                                false,
+                                                            );
                                                         }}
                                                     >
                                                         Contratar apenas serviço
@@ -240,18 +247,20 @@ export default function Perfil({ isOwnProfile }) {
                             </>
                         ) : (
                             <div
-                                className={`flex flex-col items-center justify-center p-5 w-full drop-shadow-all bg-white ${windowWidth > 500 ? "rounded-lg" : ""
-                                    }`}
+                                className={`flex flex-col items-center justify-center p-5 w-full drop-shadow-all bg-white ${
+                                    windowWidth > 500 ? "rounded-lg" : ""
+                                }`}
                             >
                                 {windowWidth > 700 ? (
                                     <div className="flex items-center justify-center">
                                         <div className="w-[48%]">
                                             <div className="flex gap-2 flex-wrap">
                                                 <div className="text-2xl px-5 py-1 bg-verde-escuro-1 font-semibold text-white rounded-full drop-shadow-xl">
-                                                    {`Serviço${prestador?.prestaAula
-                                                        ? " + Aula"
-                                                        : ""
-                                                        }`}
+                                                    {`Serviço${
+                                                        prestador?.prestaAula
+                                                            ? " + Aula"
+                                                            : ""
+                                                    }`}
                                                 </div>
                                                 <div className="text-2xl px-5 py-1 bg-verde-escuro-1 font-semibold text-white rounded-full drop-shadow-xl">
                                                     {prestador?.area}
@@ -263,7 +272,7 @@ export default function Perfil({ isOwnProfile }) {
                                                     value={descricao}
                                                     onChange={({
                                                         target,
-                                                    }) => { }}
+                                                    }) => {}}
                                                     className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                                     placeholder="Escreva sua descrição aqui..."
                                                     maxLength={270}
@@ -295,10 +304,11 @@ export default function Perfil({ isOwnProfile }) {
                                         <div className="px-8">
                                             <div className="flex gap-2 flex-wrap justify-center">
                                                 <div className="text-2xl px-5 py-1 bg-verde-escuro-1 font-semibold text-white rounded-full drop-shadow-xl">
-                                                    {`Serviço${prestador?.prestaAula
-                                                        ? " + Aula"
-                                                        : ""
-                                                        }`}
+                                                    {`Serviço${
+                                                        prestador?.prestaAula
+                                                            ? " + Aula"
+                                                            : ""
+                                                    }`}
                                                 </div>
                                                 <div className="text-2xl px-5 py-1 bg-verde-escuro-1 font-semibold text-white rounded-full drop-shadow-xl">
                                                     {prestador?.area}
@@ -310,7 +320,7 @@ export default function Perfil({ isOwnProfile }) {
                                                     value={descricao}
                                                     onChange={({
                                                         target,
-                                                    }) => { }}
+                                                    }) => {}}
                                                     className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                                     placeholder="Escreva sua descrição aqui..."
                                                     maxLength={270}
