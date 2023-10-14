@@ -42,7 +42,7 @@ export default function HeaderSidebar({
                         setOn(false);
                     }}
                     src={logo}
-                    alt="Logo da Manuall por extensa"
+                    alt="Logotipo da Manuall"
                     className="w-[50px] cursor-pointer pb-4"
                 />
                 <button
