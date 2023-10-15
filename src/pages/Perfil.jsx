@@ -42,7 +42,7 @@ export default function Perfil({ isOwnProfile }) {
         axios
             .get(
                 `/perfil${
-                    isOwnProfile ? "" : "/" + location.pathname.substring(13)
+                    isOwnProfile ? "" : "/" + location.pathname.substring(8)
                 }`,
             )
             .then(({ data }) => {
@@ -102,7 +102,7 @@ export default function Perfil({ isOwnProfile }) {
             <ModalSolicitacao
                 modalGettr={modalSolicitacao}
                 modalSettr={setModalSolicitacao}
-                idPrestador={location.pathname.substring(13)}
+                idPrestador={location.pathname.substring(8)}
                 incluiAula={incluiAula}
                 servicos={prestador?.servicos}
             />
