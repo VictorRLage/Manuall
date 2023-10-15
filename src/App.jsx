@@ -51,7 +51,7 @@ const App = () => {
                     />
                     <Route path="/prestadores" element={<Prestadores />} />
                     <Route
-                        path="/prestadores/*"
+                        path="/perfil/*"
                         element={<Perfil isOwnProfile={false} key={1} />}
                     />
                     <Route

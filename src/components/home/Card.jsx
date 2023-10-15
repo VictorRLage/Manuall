@@ -33,7 +33,7 @@ export default function Card({
     });
 
     const verificarLogin = () => {
-        if (localStorage.getItem("TOKEN")) navigate(`/prestadores/${id}`);
+        if (localStorage.getItem("TOKEN")) navigate(`/perfil/${id}`);
         else setModalNaoLogado(true);
     };
 
