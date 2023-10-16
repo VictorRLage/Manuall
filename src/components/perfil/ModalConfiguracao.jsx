@@ -19,6 +19,12 @@ export default function ModalConfiguracao({
       modalGettr={modalGettr}
       modalSettr={modalSettr}
       canClose={true}
+      blurBackgroundStyle={{
+          zIndex: "600",
+      }}
+      modalBackgroundStyle={{
+          zIndex: "601",
+      }}
     >
       <div className="bg-white w-112 h-88 flex flex-col items-center rounded-lg bg-cover bg-center">
 

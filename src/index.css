@@ -144,3 +144,21 @@ body {
     z-index: 50;
   }
 }
+
+@keyframes grow_height {
+  0% {
+    max-height: 0%;
+  }
+  100% {
+    max-height: 50%;
+  }
+}
+
+@keyframes shrink_height {
+  0% {
+    max-height: 50%;
+  }
+  100% {
+    max-height: 0%;
+  }
+}

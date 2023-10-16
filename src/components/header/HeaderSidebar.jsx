@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/manuall/logo_only.png";
 import { useData } from "@/data/CreateContext";
 import { logoff } from "@/utils/functions";
-import Notificacao from "@/components/header/Notificacao";
 import { UserIcon } from "@heroicons/react/24/solid";
 
 export default function HeaderSidebar({
@@ -145,7 +144,6 @@ export default function HeaderSidebar({
                             </button>
                         )}
                         <div className="flex gap-4">
-                            <Notificacao tipoUsuario={tipoUsuario} />
                             <button
                                 onClick={logoff}
                                 className="bg-white w-11 h-11 rounded-full border-2 border-verde-padrao drop-shadow-all-icon flex justify-center items-center"
