@@ -36,10 +36,7 @@ export default function Prestadores() {
             .get("/usuario/areas")
             .then(({ data }) => setAreas(data))
             .catch((err) => console.log(err));
-        axios
-            .get("/usuario/prestadores")
-            .then(({ data }) => setPrestadores(data))
-            .catch((err) => console.log(err));
+        getPrestadores();
     }, []);
 
     useEffect(getPrestadores, [

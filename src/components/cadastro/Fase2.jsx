@@ -395,7 +395,8 @@ export default function Fase2({
                     onClick={voltarFase}
                     className="text-gray-400 text-xl mb-8 font-bold flex justify-center items-center h-[40px] cursor-pointer"
                 >
-                    <ChevronDoubleRightIcon className="h-8 w-8 rotate-180" /> Voltar
+                    <ChevronDoubleRightIcon className="h-8 w-8 rotate-180" />{" "}
+                    Voltar
                 </button>
                 {stepInfo.fases <= 2 ? (
                     <button
