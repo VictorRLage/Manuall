@@ -1,10 +1,10 @@
 import axios from "axios";
 import { logoff } from "@/utils/functions";
 
-const mainApiUrl = "http://localhost:8080";
+const mainApiUrl = import.meta.env.VITE_APP_MAIN_API_URL;
 
 export const routineApiInstance = axios.create({
-    baseURL: "http://localhost:8081",
+    baseURL: import.meta.env.VITE_APP_ROUTINE_API_INSTANCE,
     timeout: 10000,
 });
 
@@ -19,20 +19,22 @@ export const mainApiInstance = axios.create({
 });
 
 mainApiInstance.interceptors.request.use(
-    config => {
+    (config) => {
         if (localStorage.getItem("TOKEN"))
-            config.headers["Authorization"] = `Bearer ${localStorage.getItem("TOKEN")}`
-        return config
+            config.headers["Authorization"] = `Bearer ${localStorage.getItem(
+                "TOKEN",
+            )}`;
+        return config;
     },
-    error => Promise.reject(error)
+    (error) => Promise.reject(error),
 );
 
 mainApiInstance.interceptors.response.use(
-    response => response,
-    error => {
+    (response) => response,
+    (error) => {
         if (error.response && error.response.status === 480) logoff();
         return Promise.reject(error);
-    }
+    },
 );
 
 export default mainApiInstance;
