@@ -14,9 +14,9 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
 
     const [modalReceberSolicitacao, setModalReceberSolicitacao] =
         useState(false);
-    const [solicitacao, setSolicitacao] = useState();
+    const [notificacaoSelecionda, setNotificacaoSelecionada] = useState();
 
-    useEffect(() => {
+    const fetch = () => {
         if (localStorage.getItem("TOKEN")) {
             axios
                 .get("/usuario/notificacoes")
@@ -25,14 +25,17 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                 })
                 .catch((err) => console.log(err));
         }
-    }, []);
+    };
+
+    useEffect(fetch, []);
 
     return (
         <>
             <ModalReceberSolicitacao
                 modalGettr={modalReceberSolicitacao}
                 modalSettr={setModalReceberSolicitacao}
-                solicitacao={solicitacao}
+                notificacao={notificacaoSelecionda}
+                refetch={fetch}
             />
             <ModalCustom
                 modalGettr={modalGettr}
@@ -54,53 +57,45 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                         Notificações
                     </div>
                     <div className="h-[90%] w-full bg-white rounded-xl flex flex-col items-center p-2 gap-2 overflow-y-auto">
-                        {notificacoes?.map(
-                            ({
-                                solicitacaoId,
-                                nomeUsuario,
-                                type,
-                                date,
-                                isSolicitacao,
-                            }) => (
-                                <div
-                                    className="min-h-[70px] w-full bg-white border-[1px] border-[#268054] rounded-lg flex items-center justify-between p-4"
-                                    key={solicitacaoId}
-                                >
-                                    <span className="text-xl text-[#1F1F1F]">
-                                        {NotificacaoENUM[tipoUsuario][type](
-                                            nomeUsuario,
-                                        )}
-                                    </span>
-                                    {type === 1 ? (
-                                        tipoUsuario === 2 && (
-                                            <button
-                                                className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold"
-                                                onClick={() => {
-                                                    setSolicitacao(
-                                                        isSolicitacao,
-                                                    );
-                                                    setModalReceberSolicitacao(
-                                                        true,
-                                                    );
-                                                }}
-                                            >
-                                                Checar
-                                            </button>
-                                        )
-                                    ) : type === 2 ? (
-                                        <button className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold">
-                                            Chat
+                        {notificacoes?.map((notificacao) => (
+                            <div
+                                className="min-h-[70px] w-full bg-white border-[1px] border-[#268054] rounded-lg flex items-center justify-between p-4"
+                                key={notificacao.solicitacaoId}
+                            >
+                                <span className="text-xl text-[#1F1F1F]">
+                                    {NotificacaoENUM[tipoUsuario][
+                                        notificacao.type
+                                    ](notificacao.nomeUsuario)}
+                                </span>
+                                {notificacao.type === 1 ? (
+                                    tipoUsuario === 2 && (
+                                        <button
+                                            className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold"
+                                            onClick={() => {
+                                                setNotificacaoSelecionada(
+                                                    notificacao,
+                                                );
+                                                setModalReceberSolicitacao(
+                                                    true,
+                                                );
+                                            }}
+                                        >
+                                            Checar
                                         </button>
-                                    ) : (
-                                        type === 3 && (
-                                            <span className="text-[#767676]">
-                                                {date}
-                                            </span>
-                                        )
-                                    )}
-                                </div>
-                            ),
-                        )}
+                                    )
+                                ) : notificacao.type === 2 ? (
+                                    <button className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold">
+                                        Chat
+                                    </button>
+                                ) : (
+                                    notificacao.type === 3 && (
+                                        <span className="text-[#767676]">
+                                            {date}
+                                        </span>
+                                    )
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </ModalCustom>
