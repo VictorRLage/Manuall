@@ -160,34 +160,31 @@ export default function CarouselHome() {
                                     ? "scale-[0.6]"
                                     : "scale-[0.5]"}`}
                 >
-                    <div className="absolute mb-[300px] ml-[170px] w-[500px]"
-                        // style={{
-                        //     backgroundImage: `url(${elemento3})`,
-                        //     backgroundSize: "100% 100%",
-                        //     backgroundPosition: "center",
-                        // }}
-                    >
-                        <span className="text-white bg-[#278054] px-4 font-extrabold text-4xl tracking-wide ">
-                                FÁCIL CONTATO
-                        </span>
-                    </div>
+                    
+                        <div className="text-white bg-[#0cdda3] px-4 font-medium text-3xl tracking-wide relative mb-[250px] ml-[300px] h-[45px] w-[360px] flex item-center">
+                                
+                                <img className="absolute w-[135px] h-10px] -left-18" src={elemento3} alt="decorativa"/>
+                                <span className="ml-[70px] w-[350px] py-2">FÁCIL CONTATO</span>
+                                
+
+                        </div>
             
-                    <span className="text-[#c6faed] bg-[#278054] rounded-full px-4 font-bold text-8xl tracking-wide absolute mb-[100px] ml-[160px]"
+                    <span className="text-[#c6faed] bg-[#278054] rounded-full px-4 font-bold text-8xl tracking-wide absolute mb-[100px] ml-[320px]"
                         style={{ 
-                            textShadow: "0 0 10px, 0 0 20px, 0 0 30px #8aefd1, 0 0 40px #8aefd1"
+                            textShadow: "0 0 10px, 0 0 20px #8aefd1"
                         }}
                     >
                     ENCONTRE
                     </span>
-                    <span className="text-[#c6faed] bg-[#278054] font-bold text-8xl tracking-wide absolute mt-[90px] ml-[200px] "
+                    <span className="text-[#c6faed] bg-[#278054] font-bold text-8xl tracking-wide absolute mt-[90px] ml-[300px] "
                         style={{ 
-                            textShadow: "0 0 10px, 0 0 20px, 0 0 30px #8aefd1, 0 0 40px #8aefd1"
+                            textShadow: "0 0 10px, 0 0 20px #8aefd1"
                         }}
                     >
                     PRESTADORES
                     </span>
                     <button
-                        className="text-[#278054] bg-white px-8 font-extrabold text-3xl rounded-3xl py-3 absolute mt-[350px] ml-[150px]"
+                        className="text-[#278054] bg-white px-8 font-extrabold text-3xl rounded-3xl py-3 absolute mt-[350px] ml-[300px]"
                         onClick={() => {
                             navigate("/prestadores");
                         } }
