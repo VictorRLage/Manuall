@@ -157,11 +157,11 @@ export default function Header({ refetch }) {
                         ) : tipoUsuario === 1 ? (
                             <button
                                 onClick={() => {
-                                    pathname !== "/development" &&
-                                        navigate("/development");
+                                    pathname !== "/contratante/historico" &&
+                                        navigate("/contratante/historico");
                                 }}
                                 className={`text-xl decoration-green-400 ${
-                                    pathname === "/development"
+                                    pathname === "/contratante/historico"
                                         ? "text-[#00CC69] cursor-default"
                                         : "text-black hover:underline"
                                 }`}

@@ -29,24 +29,8 @@ export default function ModalConfiguracao({
       <div className="bg-white w-112 h-88 flex flex-col items-center rounded-lg bg-cover bg-center">
 
         <div className="h-[33%] w-full flex justify-center items-center text-verde-escuro-1 text-3xl font-bold">
-          Configurações
+          Acessibilidade
         </div>
-
-        <button
-          className="bg-verde-escuro-1 text-white w-72 h-12 rounded-full mb-2 font-semibold flex justify-start items-center px-6 space-x-4"
-          onClick={() => navigate("/perfil")}
-        >
-          <UserIcon className="w-6 h-6 mr-2" />
-          Perfil
-        </button>
-
-        <button
-          className="bg-verde-escuro-1 text-white w-72 h-12 rounded-full mb-2 font-semibold flex justify-start items-center px-6 space-x-4"
-          onClick={() => navigate("/dashboard")}
-        >
-          <ChartBarIcon className="w-6 h-6 mr-2" />
-          Dashboard
-        </button>
 
         <div className="bg-verde-escuro-1 text-white w-72 h-12 rounded-full mb-2 font-semibold flex justify-between items-center px-6">
           <span className="text-xl">Modo Noturno</span>

@@ -13,6 +13,7 @@ import CadastroContratante from "@/pages/CadastroContratante";
 import CadastroPlanos from "@/pages/CadastroPlanos";
 import Prestadores from "@/pages/Prestadores";
 import Contato from "@/pages/Contato";
+import HistoricoContratante from "@/pages/HistoricoContratante";
 import AdmAprovacao from "@/pages/AdmAprovacao";
 import AdmDashboard from "@/pages/AdmDashboard";
 import AdmApiStatus from "@/pages/AdmApiStatus";
@@ -59,6 +60,7 @@ const App = () => {
                         element={<Perfil isOwnProfile={true} key={2} />}
                     />
                     <Route path="/contato" element={<Contato />} />
+                    <Route path="/contratante/historico" element={<HistoricoContratante />} />
                     <Route path="/adm/aprovacao" element={<AdmAprovacao />} />
                     <Route path="/adm/dashboard" element={<AdmDashboard />} />
                     <Route path="/adm/api" element={<AdmApiStatus />} />
