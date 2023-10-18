@@ -21,6 +21,7 @@ import Perfil from "@/pages/Perfil";
 import Erro from "@/pages/Erro";
 import UnderConstruction from "@/pages/UnderConstruction";
 import VLibras from "@djpfs/react-vlibras";
+import Dashboard from "@/pages/Dashboard";
 
 const App = () => {
     const { setWindowWidth } = useData();
@@ -64,6 +65,7 @@ const App = () => {
                     <Route path="/adm/aprovacao" element={<AdmAprovacao />} />
                     <Route path="/adm/dashboard" element={<AdmDashboard />} />
                     <Route path="/adm/api" element={<AdmApiStatus />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route
                         path="/development"
                         element={<UnderConstruction />}

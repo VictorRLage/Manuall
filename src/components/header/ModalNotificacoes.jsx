@@ -90,7 +90,10 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                                 ) : (
                                     notificacao.type === 3 && (
                                         <span className="text-[#767676]">
-                                            {date}
+                                            {notificacao.date &&
+                                                new Date(notificacao.date)
+                                                    .toLocaleString("pt-br")
+                                                    .replace(",", "")}
                                         </span>
                                     )
                                 )}
