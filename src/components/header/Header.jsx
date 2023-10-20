@@ -184,20 +184,18 @@ export default function Header({ refetch }) {
                             </button>
                         )}
                         {tipoUsuario && (
-                            <>
-                                <button
-                                    className="bg-verde-padrao w-10 h-10 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
-                                    style={{
-                                        backgroundImage:
-                                            tipoUsuario === 2
-                                                ? `url(${pfp}), url(${defaultPfp})`
-                                                : `url(${UserIcon})`,
-                                    }}
-                                    onClick={() => {
-                                        setDropdown(!dropdown);
-                                    }}
-                                />
-                            </>
+                            <button
+                                className="bg-verde-padrao w-10 h-10 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
+                                style={{
+                                    backgroundImage:
+                                        tipoUsuario === 2
+                                            ? `url(${pfp}), url(${defaultPfp})`
+                                            : `url(${UserIcon})`,
+                                }}
+                                onClick={() => {
+                                    setDropdown(!dropdown);
+                                }}
+                            />
                         )}
                     </nav>
                 ) : (

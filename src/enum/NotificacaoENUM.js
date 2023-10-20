@@ -3,6 +3,7 @@ export default {
         1: (name) => `Você enviou uma solicitação para ${name}`,
         2: (name) => `Sua solicitação foi aceita por ${name}`,
         3: (name) => `Sua solicitação foi recusada por ${name}`,
+        4: (name) => `O serviço de ${name} já foi finalizado?`,
     },
     2: {
         1: (name) => `${name} te enviou uma solicitação`,
