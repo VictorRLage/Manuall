@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "@/api/axios";
 import NotificacaoENUM from "@/enum/NotificacaoENUM";
 import ModalReceberSolicitacao from "@/components/header/ModalReceberSolicitacao";
+import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 
 export default function ModalNotificacoes({ modalGettr, modalSettr }) {
     const tipoUsuario =
@@ -15,6 +16,8 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
     const [modalReceberSolicitacao, setModalReceberSolicitacao] =
         useState(false);
     const [notificacaoSelecionda, setNotificacaoSelecionada] = useState();
+
+    const [modalAvaliacao, setModalAvaliacao] = useState(false);
 
     const fetch = () => {
         if (localStorage.getItem("TOKEN")) {
@@ -51,6 +54,10 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                     backgroundColor: "#268054",
                 }}
             >
+                <ModalAvaliacao
+                modalGettr={modalAvaliacao}
+                modalSettr={setModalAvaliacao}
+            />
                 <div className="w-[700px] p-[4%] h-[500px] gap-8 flex flex-col items-center justify-center">
                     <div className="w-full flex items-center justify-center gap-4 text-white text-3xl font-semibold">
                         <BellIcon className="w-8 h-8" />
@@ -64,9 +71,10 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                                 onClick={() => {
                                     if (notificacao.type === 4) {
                                         if (tipoUsuario === 1) {
-                                            // abrir modal form orçamento
+                                            setModalAvaliacao(true)
                                         } else if (tipoUsuario === 2) {
-                                            // abrir modal avaliação
+                                            // abrir modal form orçamento
+                                            
                                         }
                                     }
                                 }}

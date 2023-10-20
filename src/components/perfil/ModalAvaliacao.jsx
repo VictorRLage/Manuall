@@ -15,11 +15,21 @@ export default function ModalAvaliacao({
     setRating(index);
   };
 
+  const postarAvaliacao = (aprovar) => {
+    axios
+        .post(`/solicitacao/${notificacao.solicitacaoId}/${aprovar}`)
+        .then(() => {
+            refetch();
+            modalSettr(false);
+        })
+        .catch((err) => console.log(err));
+};
+
   return (
     <ModalCustom
       modalGettr={modalGettr}
       modalSettr={modalSettr}
-      canClose={false}
+      canClose={true}
     >
       <div
         className="bg-white w-144 h-88 flex flex-col items-center rounded-lg bg-cover bg-center"
