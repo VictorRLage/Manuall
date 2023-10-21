@@ -47,7 +47,7 @@ export default function Perfil({ isOwnProfile }) {
             )
             .then(({ data }) => {
                 setPrestador(data);
-                if (descricao) {
+                if (data.descricao) {
                     setDescricao(data.descricao);
                 }
             })
@@ -270,9 +270,11 @@ export default function Perfil({ isOwnProfile }) {
                                                 <textarea
                                                     onBlur={alterarDesc}
                                                     value={descricao}
-                                                    onChange={({
-                                                        target,
-                                                    }) => {}}
+                                                    onChange={({ target }) => {
+                                                        setDescricao(
+                                                            target.value,
+                                                        );
+                                                    }}
                                                     className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                                     placeholder="Escreva sua descrição aqui..."
                                                     maxLength={270}
@@ -318,9 +320,11 @@ export default function Perfil({ isOwnProfile }) {
                                                 <textarea
                                                     onBlur={alterarDesc}
                                                     value={descricao}
-                                                    onChange={({
-                                                        target,
-                                                    }) => {}}
+                                                    onChange={({ target }) => {
+                                                        setDescricao(
+                                                            target.value,
+                                                        );
+                                                    }}
                                                     className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                                     placeholder="Escreva sua descrição aqui..."
                                                     maxLength={270}

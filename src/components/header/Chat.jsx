@@ -281,24 +281,31 @@ export default function Chat() {
                                 </div>
                             </div>
                         )}
-                    {conversas?.map(({ solicitacaoId, usuarioId, usuarioPfp, usuarioNome }) => (
-                        <div
-                            onClick={() => {
-                                selecionarChat(solicitacaoId);
-                            }}
-                            className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                            key={usuarioId}
-                        >
-                            <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                                <img
-                                    src={usuarioPfp}
-                                    className="w-10 h-10 rounded-full object-cover"
-                                    alt=""
-                                />
-                                <span className="p-2">{usuarioNome}</span>
+                    {conversas?.map(
+                        ({
+                            solicitacaoId,
+                            usuarioId,
+                            usuarioPfp,
+                            usuarioNome,
+                        }) => (
+                            <div
+                                onClick={() => {
+                                    selecionarChat(solicitacaoId);
+                                }}
+                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                                key={usuarioId}
+                            >
+                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                    <img
+                                        src={usuarioPfp}
+                                        className="w-10 h-10 rounded-full object-cover"
+                                        alt=""
+                                    />
+                                    <span className="p-2">{usuarioNome}</span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ),
+                    )}
                 </div>
             ) : (
                 <div className="bg-white h-[400px] flex justify-center items-center">
