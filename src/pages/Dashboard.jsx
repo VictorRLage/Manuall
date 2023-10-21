@@ -4,7 +4,11 @@ import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "@/api/axios";
-import { ThreeCircles } from "react-loader-spinner";
+import { ThreeCircles, CirclesWithBar } from "react-loader-spinner";
+import GraficoServicosContratados from "@/components/dashboard/GraficoServicosContratados";
+import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
+import { useRef } from "react";
+import ChartsAmico from "@/assets/storyset/Charts-amico.svg";
 
 const meses = [
     "Janeiro",
@@ -27,6 +31,8 @@ export default function Dashboard() {
     const [intervaloOptions, setIntervaloOptions] = useState();
     const [intervalo, setIntervalo] = useState();
     const [dashboardData, setDashboardData] = useState();
+
+    const graficoMediaServico = useRef(null);
 
     useEffect(() => {
         const dataAtual = new Date();
@@ -112,8 +118,8 @@ export default function Dashboard() {
                         { to: null, desc: "Dashboard" },
                     ]}
                 />
-                <div className="w-full flex gap-8">
-                    <div className="h-[120px] w-[25%] flex items-center justify-center flex-col gap-2">
+                <div className="w-full flex justify-between">
+                    <div className="h-[120px] w-[23%] flex items-center justify-center flex-col gap-2">
                         <select
                             className="h-[50%] w-full bg-white border-2 border-[#008042] rounded-xl text-[#008042] flex items-center justify-between px-4 text-lg cursor-pointer bg-no-repeat appearance-none"
                             style={{
@@ -152,7 +158,7 @@ export default function Dashboard() {
                             ))}
                         </select>
                     </div>
-                    <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Serviços Concluídos</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
@@ -168,7 +174,7 @@ export default function Dashboard() {
                             )}
                         </h2>
                     </div>
-                    <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Tempo médio de resposta</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
@@ -189,7 +195,7 @@ export default function Dashboard() {
                             )}
                         </h2>
                     </div>
-                    <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Valor arrecadado</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
@@ -204,6 +210,98 @@ export default function Dashboard() {
                                 />
                             )}
                         </h2>
+                    </div>
+                </div>
+                <div className="flex justify-between">
+                    <div className="w-[23%] h-[280px] flex flex-col">
+                        <div className="h-[40px] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
+                            Seus serviços mais contratados
+                        </div>
+                        <div className="h-[240px] w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                            <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
+                                {dashboardData ? (
+                                    dashboardData.servicos.length === 0 ? (
+                                        <div className="h-[90%] flex flex-col items-center justify-center text-center">
+                                            <img
+                                                src={ChartsAmico}
+                                                className="h-[100%]"
+                                            />
+                                            <span>
+                                                Parece que não existem dados
+                                                disponíveis com esses filtros
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <GraficoServicosContratados
+                                            labels={dashboardData.servicos.map(
+                                                ({ servico }) => servico,
+                                            )}
+                                            data={dashboardData.servicos.map(
+                                                ({ mediaAvaliacoes }) =>
+                                                    mediaAvaliacoes,
+                                            )}
+                                        />
+                                    )
+                                ) : (
+                                    <CirclesWithBar
+                                        height="100"
+                                        width="100"
+                                        color="#4fa94d"
+                                        visible={true}
+                                        ariaLabel="circles-with-bar-loading"
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="w-[74.5%] h-[280px] flex flex-col"
+                        ref={graficoMediaServico}
+                    >
+                        <div className="h-[40px] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
+                            Média de avaliações em cada serviço
+                        </div>
+                        <div className="h-[240px] w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                            <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
+                                {dashboardData ? (
+                                    dashboardData.servicos.length === 0 ? (
+                                        <div className="h-[90%] flex flex-col items-center justify-center text-center">
+                                            <img
+                                                src={ChartsAmico}
+                                                className="h-[100%]"
+                                            />
+                                            <span>
+                                                Parece que não existem dados
+                                                disponíveis com esses filtros
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <GraficoMediaServico
+                                            labels={dashboardData?.servicos.map(
+                                                ({ servico }) => servico,
+                                            )}
+                                            data={dashboardData?.servicos.map(
+                                                ({ mediaAvaliacoes }) =>
+                                                    mediaAvaliacoes,
+                                            )}
+                                            width={
+                                                graficoMediaServico?.current
+                                                    ?.clientWidth - 100 ||
+                                                "100%"
+                                            }
+                                        />
+                                    )
+                                ) : (
+                                    <CirclesWithBar
+                                        height="100"
+                                        width="100"
+                                        color="#4fa94d"
+                                        visible={true}
+                                        ariaLabel="circles-with-bar-loading"
+                                    />
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
