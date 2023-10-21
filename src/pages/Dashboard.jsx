@@ -4,6 +4,7 @@ import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "@/api/axios";
+import { ThreeCircles } from "react-loader-spinner";
 
 const meses = [
     "Janeiro",
@@ -94,6 +95,7 @@ export default function Dashboard() {
     useEffect(() => {
         if (!intervalo) return;
 
+        setDashboardData();
         axios
             .get(`dashboard/${intervalo[0]}/${intervalo[1]}`)
             .then((res) => setDashboardData(res.data))
@@ -153,22 +155,54 @@ export default function Dashboard() {
                     <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Serviços Concluídos</span>
                         <h2 className="text-4xl font-bold">
-                            {dashboardData?.servicosConcluidos}
+                            {dashboardData ? (
+                                dashboardData.servicosConcluidos
+                            ) : (
+                                <ThreeCircles
+                                    height={40}
+                                    width={40}
+                                    color="#ffffff"
+                                    visible={true}
+                                    ariaLabel="three-circles-rotating"
+                                />
+                            )}
                         </h2>
                     </div>
                     <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Tempo médio de resposta</span>
                         <h2 className="text-4xl font-bold">
-                            {typeof dashboardData?.tempoMedioResposta ===
-                            "number"
-                                ? dashboardData?.tempoMedioResposta
-                                : "N/A"}
+                            {dashboardData ? (
+                                typeof dashboardData?.tempoMedioResposta ===
+                                "number" ? (
+                                    dashboardData?.tempoMedioResposta
+                                ) : (
+                                    "N/A"
+                                )
+                            ) : (
+                                <ThreeCircles
+                                    height={40}
+                                    width={40}
+                                    color="#ffffff"
+                                    visible={true}
+                                    ariaLabel="three-circles-rotating"
+                                />
+                            )}
                         </h2>
                     </div>
                     <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Valor arrecadado</span>
                         <h2 className="text-4xl font-bold">
-                            {dashboardData?.valorArrecadado}
+                            {dashboardData ? (
+                                dashboardData.valorArrecadado
+                            ) : (
+                                <ThreeCircles
+                                    height={40}
+                                    width={40}
+                                    color="#ffffff"
+                                    visible={true}
+                                    ariaLabel="three-circles-rotating"
+                                />
+                            )}
                         </h2>
                     </div>
                 </div>
