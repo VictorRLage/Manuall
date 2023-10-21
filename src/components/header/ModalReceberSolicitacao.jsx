@@ -40,7 +40,7 @@ export default function ModalReceberSolicitacao({
                 <div className="w-full h-full flex px-20 gap-8 py-8">
                     <div className="w-[50%] h-full flex flex-col gap-2">
                         <span className="text-lg font-normal">
-                            {!notificacao?.solicitacao.incluiAula
+                            {notificacao?.solicitacao.incluiAula
                                 ? "Serviço + aula necessitado:"
                                 : "Serviço necessitado:"}
                         </span>
