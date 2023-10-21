@@ -84,6 +84,7 @@ export default function Login() {
                         });
                     } else if (data.fase === 4) {
                         localStorage.TOKEN = data.token;
+                        localStorage.TIPO_USUARIO = data.tipoUsuario;
                         navigate("/cadastro/prestador/planos");
                     }
                 } else {

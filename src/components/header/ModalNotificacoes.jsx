@@ -20,7 +20,10 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
     const [modalAvaliacao, setModalAvaliacao] = useState(false);
 
     const fetch = () => {
-        if (localStorage.getItem("TOKEN")) {
+        if (
+            localStorage.getItem("TOKEN") &&
+            localStorage.getItem("TIPO_USUARIO") !== "3"
+        ) {
             axios
                 .get("/usuario/notificacoes")
                 .then((res) => {
@@ -55,9 +58,9 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                 }}
             >
                 <ModalAvaliacao
-                modalGettr={modalAvaliacao}
-                modalSettr={setModalAvaliacao}
-            />
+                    modalGettr={modalAvaliacao}
+                    modalSettr={setModalAvaliacao}
+                />
                 <div className="w-[700px] p-[4%] h-[500px] gap-8 flex flex-col items-center justify-center">
                     <div className="w-full flex items-center justify-center gap-4 text-white text-3xl font-semibold">
                         <BellIcon className="w-8 h-8" />
@@ -71,10 +74,9 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                                 onClick={() => {
                                     if (notificacao.type === 4) {
                                         if (tipoUsuario === 1) {
-                                            setModalAvaliacao(true)
+                                            setModalAvaliacao(true);
                                         } else if (tipoUsuario === 2) {
                                             // abrir modal form orçamento
-                                            
                                         }
                                     }
                                 }}

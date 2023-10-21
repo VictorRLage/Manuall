@@ -31,7 +31,10 @@ export default function Header({ refetch }) {
     };
 
     const refetchAll = () => {
-        if (localStorage.getItem("TOKEN"))
+        if (
+            localStorage.getItem("TOKEN") &&
+            localStorage.getItem("TIPO_USUARIO") === "2"
+        )
             axios
                 .get("/perfil/fotoPerfil")
                 .then(({ data }) => setPfp(data))

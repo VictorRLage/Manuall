@@ -93,10 +93,9 @@ export default function Dashboard() {
     useEffect(() => {
         if (!intervalo) return;
 
-        console.log(intervalo);
         axios
             .get(`dashboard/${intervalo[0]}/${intervalo[1]}`)
-            .then((res) => console.log(res))
+            .then((res) => console.log(res.data))
             .catch((err) => console.log(err));
     }, [intervalo]);
 
