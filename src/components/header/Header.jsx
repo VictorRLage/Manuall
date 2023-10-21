@@ -157,48 +157,56 @@ export default function Header({ refetch }) {
                                     Cadastre-se
                                 </button>
                             </>
-                        ) : tipoUsuario === 1 ? (
-                            <button
-                                onClick={() => {
-                                    pathname !== "/contratante/historico" &&
-                                        navigate("/contratante/historico");
-                                }}
-                                className={`text-xl decoration-green-400 ${
-                                    pathname === "/contratante/historico"
-                                        ? "text-[#00CC69] cursor-default"
-                                        : "text-black hover:underline"
-                                }`}
-                            >
-                                Histórico
-                            </button>
                         ) : (
-                            <button
-                                onClick={() => {
-                                    pathname !== "/dashboard" &&
-                                        navigate("/dashboard");
-                                }}
-                                className={`text-xl decoration-green-400 ${
-                                    pathname === "/dashboard"
-                                        ? "text-[#00CC69] cursor-default"
-                                        : "text-black hover:underline"
-                                }`}
-                            >
-                                Dashboard
-                            </button>
-                        )}
-                        {tipoUsuario && (
-                            <button
-                                className="bg-verde-padrao w-10 h-10 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
-                                style={{
-                                    backgroundImage:
-                                        tipoUsuario === 2
-                                            ? `url(${pfp}), url(${defaultPfp})`
-                                            : `url(${UserIcon})`,
-                                }}
-                                onClick={() => {
-                                    setDropdown(!dropdown);
-                                }}
-                            />
+                            <>
+                                <button
+                                    className="bg-verde-padrao w-10 h-10 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
+                                    style={{
+                                        backgroundImage:
+                                            tipoUsuario === 2
+                                                ? `url(${pfp}), url(${defaultPfp})`
+                                                : `url(${UserIcon})`,
+                                    }}
+                                    onClick={() => {
+                                        setDropdown(!dropdown);
+                                    }}
+                                />
+                                {tipoUsuario === 1 ? (
+                                    <button
+                                        onClick={() => {
+                                            pathname !==
+                                                "/contratante/historico" &&
+                                                navigate(
+                                                    "/contratante/historico",
+                                                );
+                                        }}
+                                        className={`text-xl decoration-green-400 ${
+                                            pathname ===
+                                            "/contratante/historico"
+                                                ? "text-[#00CC69] cursor-default"
+                                                : "text-black hover:underline"
+                                        }`}
+                                    >
+                                        Histórico
+                                    </button>
+                                ) : (
+                                    tipoUsuario === 2 && (
+                                        <button
+                                            onClick={() => {
+                                                pathname !== "/dashboard" &&
+                                                    navigate("/dashboard");
+                                            }}
+                                            className={`text-xl decoration-green-400 ${
+                                                pathname === "/dashboard"
+                                                    ? "text-[#00CC69] cursor-default"
+                                                    : "text-black hover:underline"
+                                            }`}
+                                        >
+                                            Dashboard
+                                        </button>
+                                    )
+                                )}
+                            </>
                         )}
                     </nav>
                 ) : (

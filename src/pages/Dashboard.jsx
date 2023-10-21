@@ -25,6 +25,7 @@ export default function Dashboard() {
 
     const [intervaloOptions, setIntervaloOptions] = useState();
     const [intervalo, setIntervalo] = useState();
+    const [dashboardData, setDashboardData] = useState();
 
     useEffect(() => {
         const dataAtual = new Date();
@@ -95,7 +96,7 @@ export default function Dashboard() {
 
         axios
             .get(`dashboard/${intervalo[0]}/${intervalo[1]}`)
-            .then((res) => console.log(res.data))
+            .then((res) => setDashboardData(res.data))
             .catch((err) => console.log(err));
     }, [intervalo]);
 
@@ -151,15 +152,24 @@ export default function Dashboard() {
                     </div>
                     <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Serviços Concluídos</span>
-                        <h2 className="text-4xl font-bold">N/A</h2>
+                        <h2 className="text-4xl font-bold">
+                            {dashboardData?.servicosConcluidos}
+                        </h2>
                     </div>
                     <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Tempo médio de resposta</span>
-                        <h2 className="text-4xl font-bold">N/A</h2>
+                        <h2 className="text-4xl font-bold">
+                            {typeof dashboardData?.tempoMedioResposta ===
+                            "number"
+                                ? dashboardData?.tempoMedioResposta
+                                : "N/A"}
+                        </h2>
                     </div>
                     <div className="h-[120px] w-[25%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Valor arrecadado</span>
-                        <h2 className="text-4xl font-bold">N/A</h2>
+                        <h2 className="text-4xl font-bold">
+                            {dashboardData?.valorArrecadado}
+                        </h2>
                     </div>
                 </div>
             </div>
