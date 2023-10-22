@@ -53,6 +53,8 @@ export default function Dashboard() {
             [],
         );
 
+        setUltimos12Meses(mesesAtuais);
+
         if (intervaloCategoria === "mes") {
             const newIntervaloOptions = mesesAtuais.map(({ mes, ano }) => ({
                 value: [
@@ -368,7 +370,18 @@ export default function Dashboard() {
                         <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
-                                    <GraficoSolicitacoesConcluidas />
+                                    <GraficoSolicitacoesConcluidas
+                                        mesesTotais={[
+                                            ...ultimos12Meses,
+                                        ].reverse()}
+                                        solicitacoes={
+                                            dashboardData.solicitacoesMensais
+                                        }
+                                        width={
+                                            graficoSolicitacoesConcluidas
+                                                ?.current?.clientWidth - 50 || 0
+                                        }
+                                    />
                                 ) : (
                                     <CirclesWithBar
                                         height="100"
