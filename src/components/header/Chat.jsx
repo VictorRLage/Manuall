@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Oval } from "react-loader-spinner";
+import { Oval, ThreeDots } from "react-loader-spinner";
 import Arrow from "@/assets/icons/arrow.svg";
 import ArrowHead from "@/assets/icons/arrowhead.svg";
 import Manuel from "@/assets/manuall/manuel_pfp.png";
@@ -27,6 +27,9 @@ export default function Chat() {
 
     const [userId, setUserId] = useState();
     const [stompClient, setStompClient] = useState(null);
+
+    const [mensagem, setMensagem] = useState("");
+    const [isMensagemLoading, setIsMensagemLoading] = useState(false);
 
     const alternarChat = (e) => {
         if (
@@ -90,28 +93,38 @@ export default function Chat() {
             .then((res) => {
                 if (res.status === 200 || res.status === 204) {
                     setConversas(res.data);
-                    console.log(res.data);
+                    axios
+                        .get("/usuario/id")
+                        .then(({ data }) => {
+                            const sock = new SockJS("http://localhost:8080/ws");
+                            const stomp = over(sock);
+                            stomp.debug = () => {};
+
+                            setUserId(data);
+                            setStompClient(stomp);
+                        })
+                        .catch((err2) => console.log(err2));
                 }
             })
             .catch((err) => console.error(err));
-
-        axios
-            .get("/usuario/id")
-            .then(({ data }) => {
-                const sock = new SockJS("http://localhost:8080/ws");
-                const stomp = over(sock);
-                stomp.debug = () => {};
-
-                setUserId(data);
-                setStompClient(stomp);
-            })
-            .catch((err) => console.log(err));
     }, []);
 
     useEffect(() => {
         stompClient?.connect({}, () => {
             stompClient.subscribe(`/chat/${userId}`, ({ body }) => {
-                console.log(body);
+                setIsMensagemLoading(false);
+                setMensagem("");
+                const msg = JSON.parse(body);
+                if (!conversas) return;
+                const newConversas = [...conversas];
+                for (let i = 0; i < newConversas?.length; i++) {
+                    if (newConversas[i].solicitacaoId === msg.solicitacaoId) {
+                        newConversas[i].mensagens.push(msg);
+                        break;
+                    }
+                }
+                setConversas(newConversas);
+                scrollDown();
             });
         });
 
@@ -123,10 +136,17 @@ export default function Chat() {
     }, [stompClient]);
 
     const sendMessage = () => {
+        if (isMensagemLoading) return;
+        setIsMensagemLoading(true);
         stompClient.send(
-            "/app/mensagem",
+            "/app/chat",
             {},
-            JSON.stringify({ mensagem: "asd" }),
+            JSON.stringify({
+                mensagem,
+                solicitacaoId: chatAtual.solicitacaoId,
+                token: localStorage.getItem("TOKEN"),
+                anexo: null,
+            }),
         );
     };
 
@@ -188,24 +208,43 @@ export default function Chat() {
                                 scrollDown={scrollDown}
                             />
                         ) : (
-                            <ChatUsuario
-                                chat={chatAtual}
-                                scrollDown={scrollDown}
-                            />
+                            <ChatUsuario chat={chatAtual} />
                         )}
                     </div>
                     {!chatAtual.isManuel && (
-                        <div className="bg-gray-100 h-[40px] flex items-center justify-between px-1 gap-2">
-                            <div className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full">
+                        <div className="bg-gray-100 h-[40px] flex items-center justify-between px-1 gap-2 border-2 border-t-gray-200 relative">
+                            <div className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full cursor-pointer">
                                 <PhotoIcon className="text-white" />
                             </div>
                             <input
                                 className="bg-gray-200 h-[30px] w-full rounded-xl px-1"
                                 placeholder="Digite sua mensagem aqui"
+                                value={mensagem}
+                                onChange={({ target }) =>
+                                    setMensagem(target.value)
+                                }
+                                onKeyDown={({ key }) => {
+                                    if (key === "Enter") sendMessage();
+                                }}
                             />
-                            <div className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full">
+                            <div
+                                className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full cursor-pointer"
+                                onClick={sendMessage}
+                            >
                                 <PaperAirplaneIcon className="text-white" />
                             </div>
+                            {isMensagemLoading && (
+                                <div className="w-full h-full absolute bg-[rgba(0,0,0,0.3)] flex items-center justify-center">
+                                    <ThreeDots
+                                        height="60"
+                                        width="60"
+                                        radius="9"
+                                        color="#ffffff"
+                                        ariaLabel="three-dots-loading"
+                                        visible={true}
+                                    />
+                                </div>
+                            )}
                         </div>
                     )}
                 </>
@@ -251,9 +290,16 @@ export default function Chat() {
                                             alt=""
                                         />
                                     )}
-                                    <span className="p-2">
-                                        {conversa.usuarioNome}
-                                    </span>
+                                    <div className="px-2 flex flex-col">
+                                        <span className="font-medium">
+                                            {conversa.usuarioNome}
+                                        </span>
+                                        <span className="text-gray-600">
+                                            {conversa.mensagens?.[
+                                                conversa.mensagens.length - 1
+                                            ]?.mensagem || "Inicie o chat já!"}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         ))}

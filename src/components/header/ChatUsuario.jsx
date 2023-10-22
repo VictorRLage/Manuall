@@ -1,12 +1,12 @@
-export default function ChatUsuario({ chat, scrollDown }) {
-    return chat.mensagens.map((msg, i) => (
+export default function ChatUsuario({ chat }) {
+    return chat.mensagens.map(({ anexo, horario, selfSender, mensagem }, i) => (
         <div
             key={i}
             className={`w-full px-3 py-1 flex ${
-                msg.selfsender ? "justify-end" : "justify-start"
+                selfSender ? "justify-end" : "justify-start"
             }`}
         >
-            {!msg.selfsender && (
+            {!selfSender && (
                 <div
                     className="w-2 h-3 bg-[#c0e8c0]"
                     style={{
@@ -16,14 +16,14 @@ export default function ChatUsuario({ chat, scrollDown }) {
             )}
             <div
                 className={`max-w-[80%] p-2 rounded-lg ${
-                    msg.selfsender
+                    selfSender
                         ? "bg-[#5faf88] rounded-tr-none"
                         : "bg-[#c0e8c0] rounded-tl-none"
                 }`}
             >
-                {msg.texto}
+                {mensagem}
             </div>
-            {msg.selfsender && (
+            {selfSender && (
                 <div
                     className="w-2 h-3 bg-[#5faf88]"
                     style={{
