@@ -2,10 +2,16 @@ import Sidebar from "@/components/adm/Sidebar";
 import { Oval } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
+import ModalAviso from "@/components/main/ModalAviso";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 import done from "@/assets/storyset/Done-rafiki.svg";
 
 export default function AdmAprovacao() {
     const [prestadores, setPrestadores] = useState();
+
+    const [modalAviso, setModalAviso] = useState(false);
+    const [avisoTitulo, setAvisoTitulo] = useState("");
+    const [avisoDescricao, setAvisoDescricao] = useState("");
 
     const aprovar = (idPrestador, aprovar) => {
         axios
@@ -16,6 +22,9 @@ export default function AdmAprovacao() {
                     .then((res) => {
                         if (res.status === 200) {
                             setPrestadores(res.data);
+                            if (aprovar !== 1) {
+                                pushDecisao(idPrestador);
+                            }
                         }
                     })
                     .catch((err) => {
@@ -26,6 +35,8 @@ export default function AdmAprovacao() {
                 console.log(err);
             });
     };
+
+
 
     useEffect(() => {
         axios
@@ -40,8 +51,33 @@ export default function AdmAprovacao() {
             });
     }, []);
 
+    const [decisao, setDecisao] = useState([]);
+
+    const pushDecisao = (item) => {
+        setDecisao(prevItems => [...prevItems, item]);
+    }
+
+    const popDecisao = () => {
+        if (decisao.length > 0) {
+            aprovar(decisao[decisao.length - 1], 1)
+            const novaDecisao = decisao.slice(0, decisao.length - 1);
+            setDecisao(novaDecisao);
+        } else {
+            setModalAviso(true);
+            setAvisoTitulo("Erro");
+            setAvisoDescricao("Não há decisões para serem desfeitas");
+        }
+    }
+
     return (
         <div className="h-screen w-screen flex bg-cinza-claro-2">
+            <ModalAviso
+                modalGettr={modalAviso}
+                modalSettr={setModalAviso}
+                tempo={5000}
+                titulo={avisoTitulo}
+                descricao={avisoDescricao}
+            />
             <Sidebar />
             <div className="w-[82%] h-full overflow-y-scroll">
                 <div className="h-[10%] w-full flex items-center">
@@ -49,6 +85,7 @@ export default function AdmAprovacao() {
                         Aprovações pendentes
                     </span>
                 </div>
+                <button onClick={popDecisao} className=" flex fixed bg-verde-escuro-1 mt-[40%] text-white ml-[66%] pt-4 pb-4 pr-5 pl-5 rounded-full items-center "><ArrowUturnLeftIcon className="h-6 mr-2" /> <span className="mt-1 text-lg">Desfazer ultima decisão</span></button>
                 {prestadores ? (
                     prestadores.length > 0 ? (
                         <div className="h-[90%] w-full flex flex-wrap justify-evenly">
@@ -150,7 +187,7 @@ export default function AdmAprovacao() {
                                             onClick={() => {
                                                 aprovar(
                                                     prestador.dados.id,
-                                                    true,
+                                                    2,
                                                 );
                                             }}
                                             className="cursor-pointer w-[30%] h-[60%] mr-4 bg-[#47AE3E] text-white rounded-lg flex justify-center items-center"
@@ -161,7 +198,7 @@ export default function AdmAprovacao() {
                                             onClick={() => {
                                                 aprovar(
                                                     prestador.dados.id,
-                                                    false,
+                                                    4,
                                                 );
                                             }}
                                             className="cursor-pointer w-[30%] h-[60%] ml-4 bg-[#D02B2B] text-white rounded-lg flex justify-center items-center"
