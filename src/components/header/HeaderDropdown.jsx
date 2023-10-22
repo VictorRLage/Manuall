@@ -15,6 +15,7 @@ export default function HeaderDropdown({
     dropdownSettr,
     tipoUsuario,
     refetchAll,
+    openSpecificChat,
 }) {
     const navigate = useNavigate();
 
@@ -41,6 +42,11 @@ export default function HeaderDropdown({
             <ModalNotificacoes
                 modalGettr={modalNotificacoes}
                 modalSettr={setModalNotificacoes}
+                openSpecificChat={(solicitacaoId) => {
+                    setModalNotificacoes(false);
+                    dropdownSettr(false);
+                    openSpecificChat(solicitacaoId);
+                }}
             />
             {realOn && (
                 <div

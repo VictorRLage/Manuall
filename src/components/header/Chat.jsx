@@ -11,7 +11,7 @@ import SockJS from "sockjs-client/dist/sockjs";
 import { over } from "stompjs";
 import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
 
-export default function Chat() {
+export default function Chat({ forceChatOpen }) {
     const tipoUsuario =
         localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO);
 
@@ -149,6 +149,18 @@ export default function Chat() {
             }),
         );
     };
+
+    useEffect(() => {
+        if (forceChatOpen) {
+            for (let i = 0; i < conversas?.length; i++) {
+                if (conversas[i].solicitacaoId === forceChatOpen) {
+                    selecionarChat(conversas[i]);
+                    setIsOpen(true);
+                    break;
+                }
+            }
+        }
+    }, [forceChatOpen]);
 
     return (
         <div

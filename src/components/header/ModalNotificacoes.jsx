@@ -6,7 +6,11 @@ import NotificacaoENUM from "@/enum/NotificacaoENUM";
 import ModalReceberSolicitacao from "@/components/header/ModalReceberSolicitacao";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 
-export default function ModalNotificacoes({ modalGettr, modalSettr }) {
+export default function ModalNotificacoes({
+    modalGettr,
+    modalSettr,
+    openSpecificChat,
+}) {
     const tipoUsuario =
         localStorage.getItem("TIPO_USUARIO") &&
         Number(localStorage.getItem("TIPO_USUARIO"));
@@ -108,7 +112,14 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                                         </button>
                                     )
                                 ) : notificacao.type === 2 ? (
-                                    <button className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold">
+                                    <button
+                                        className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold"
+                                        onClick={() => {
+                                            openSpecificChat(
+                                                notificacao.solicitacaoId,
+                                            );
+                                        }}
+                                    >
                                         Chat
                                     </button>
                                 ) : (
