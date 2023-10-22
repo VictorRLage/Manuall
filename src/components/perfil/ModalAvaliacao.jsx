@@ -1,13 +1,12 @@
 import BgModal from "@/assets/shapes/ModalBg.png";
 import ModalCustom from "@/components/main/ModalCustom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function ModalAvaliacao({
   modalGettr,
   modalSettr,
+  nomeUsuario,
 }) {
-  const navigate = useNavigate();
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
 
@@ -17,7 +16,9 @@ export default function ModalAvaliacao({
 
   const postarAvaliacao = (aprovar) => {
     axios
-        .post(`/solicitacao/${notificacao.solicitacaoId}/${aprovar}`)
+        .post(`/solicitacao/postarAvaliacao`, {
+          descricao: txt_descricao.value,
+        })
         .then(() => {
             refetch();
             modalSettr(false);
@@ -36,7 +37,7 @@ export default function ModalAvaliacao({
         style={{ backgroundImage: `url(${BgModal})` }}
       >
         <div className="h-[33%] w-full flex justify-center items-center text-verde-escuro-1 text-3xl font-extrabold">
-          Como foi o serviço do (NOME)?
+          Como foi o serviço do {nomeUsuario}?
         </div>
         <div className="h-[18%] w-full flex justify-center items-center">
           {[1, 2, 3, 4, 5].map((star, index) => (
@@ -57,7 +58,7 @@ export default function ModalAvaliacao({
           ))}
         </div>
         <div className="h-[40%] w-full flex flex-col justify-center items-center">
-          <textarea
+          <textarea id="txt_descricao"
             type="text"
             placeholder="Escreva aqui sua avaliação:"
             className="mb-4 px-4 py-2 w-3/4 border-2 rounded-2xl border-verde-escuro-1 focus:outline-none focus:border-verde-escuro-2"
@@ -65,7 +66,7 @@ export default function ModalAvaliacao({
           <button
             className="bg-verde-padrao hover:bg-[rgb(16,166,93)] text-white rounded-lg text-xl px-6 py-2 transition-all"
             onClick={() => {
-              navigate("/login");
+              postarAvaliacao()
             }}
           >
             Avaliar

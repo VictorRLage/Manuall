@@ -19,6 +19,8 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
 
     const [modalAvaliacao, setModalAvaliacao] = useState(false);
 
+    const [nomeUsuario, setNomeUsuario] = useState("");
+
     const fetch = () => {
         if (
             localStorage.getItem("TOKEN") &&
@@ -60,6 +62,7 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                 <ModalAvaliacao
                     modalGettr={modalAvaliacao}
                     modalSettr={setModalAvaliacao}
+                    nomeUsuario={nomeUsuario}
                 />
                 <div className="w-[700px] p-[4%] h-[500px] gap-8 flex flex-col items-center justify-center">
                     <div className="w-full flex items-center justify-center gap-4 text-white text-3xl font-semibold">
@@ -69,11 +72,13 @@ export default function ModalNotificacoes({ modalGettr, modalSettr }) {
                     <div className="h-[90%] w-full bg-white rounded-xl flex flex-col items-center p-2 gap-2 overflow-y-auto">
                         {notificacoes?.map((notificacao) => (
                             <div
-                                className="min-h-[70px] w-full bg-white border-[1px] border-[#268054] rounded-lg flex items-center justify-between p-4"
+                                className="min-h-[70px] w-full bg-white border-[1px] border-[#268054] rounded-lg flex items-center justify-between p-4 cursor-pointer"
                                 key={notificacao.solicitacaoId}
                                 onClick={() => {
                                     if (notificacao.type === 4) {
                                         if (tipoUsuario === 1) {
+                                            console.log(notificacao.nomeUsuario)
+                                            setNomeUsuario(notificacao.nomeUsuario)
                                             setModalAvaliacao(true);
                                         } else if (tipoUsuario === 2) {
                                             // abrir modal form orçamento
