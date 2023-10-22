@@ -7,6 +7,9 @@ import ChatManuel from "@/components/header/ChatManuel";
 import ChatUsuario from "@/components/header/ChatUsuario";
 import BotCertification from "@/assets/icons/checkmark_bot.svg";
 import axios from "@/api/axios";
+import SockJS from "sockjs-client/dist/sockjs";
+import { over } from "stompjs";
+import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
 
 export default function Chat() {
     const tipoUsuario =
@@ -22,16 +25,8 @@ export default function Chat() {
     const [conversas, setConversas] = useState();
     const [chatAtual, setChatAtual] = useState();
 
-    const getNewConversas = () => {
-        axios
-            .get("/chat")
-            .then((res) => {
-                if (res.status === 200 || res.status === 204) {
-                    setConversas(res.data);
-                }
-            })
-            .catch((err) => console.error(err));
-    };
+    const [userId, setUserId] = useState();
+    const [stompClient, setStompClient] = useState(null);
 
     const alternarChat = (e) => {
         if (
@@ -61,6 +56,8 @@ export default function Chat() {
                 pfp: conversa.usuarioPfp,
                 solicitacaoId: conversa.solicitacaoId,
             });
+
+            scrollDown();
         }
     };
 
@@ -77,7 +74,8 @@ export default function Chat() {
             .catch(() => setManuelMsgs(true));
     };
 
-    const getDadosUsuarioCrm = () => {
+    useEffect(() => {
+        getDadosCrm();
         tipoUsuario &&
             axios
                 .get(`/crm/dados/${tipoUsuario}`)
@@ -86,13 +84,51 @@ export default function Chat() {
                     console.log(err);
                     setDadosUsuarioCrm(true);
                 });
-    };
+
+        axios
+            .get("/chat")
+            .then((res) => {
+                if (res.status === 200 || res.status === 204) {
+                    setConversas(res.data);
+                    console.log(res.data);
+                }
+            })
+            .catch((err) => console.error(err));
+
+        axios
+            .get("/usuario/id")
+            .then(({ data }) => {
+                const sock = new SockJS("http://localhost:8080/ws");
+                const stomp = over(sock);
+                stomp.debug = () => {};
+
+                setUserId(data);
+                setStompClient(stomp);
+            })
+            .catch((err) => console.log(err));
+    }, []);
 
     useEffect(() => {
-        getDadosCrm();
-        getDadosUsuarioCrm();
-        getNewConversas();
-    }, []);
+        stompClient?.connect({}, () => {
+            stompClient.subscribe(`/chat/${userId}`, ({ body }) => {
+                console.log(body);
+            });
+        });
+
+        return () => {
+            if (stompClient?.connected) {
+                stompClient.disconnect();
+            }
+        };
+    }, [stompClient]);
+
+    const sendMessage = () => {
+        stompClient.send(
+            "/app/mensagem",
+            {},
+            JSON.stringify({ mensagem: "asd" }),
+        );
+    };
 
     return (
         <div
@@ -159,12 +195,21 @@ export default function Chat() {
                         )}
                     </div>
                     {!chatAtual.isManuel && (
-                        <div className="bg-gray-500 h-[40px] flex">
-                            <div></div>
+                        <div className="bg-gray-100 h-[40px] flex items-center justify-between px-1 gap-2">
+                            <div className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full">
+                                <PhotoIcon className="text-white" />
+                            </div>
+                            <input
+                                className="bg-gray-200 h-[30px] w-full rounded-xl px-1"
+                                placeholder="Digite sua mensagem aqui"
+                            />
+                            <div className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full">
+                                <PaperAirplaneIcon className="text-white" />
+                            </div>
                         </div>
                     )}
                 </>
-            ) : conversas && manuelMsgs && dadosUsuarioCrm ? (
+            ) : conversas !== undefined && manuelMsgs && dadosUsuarioCrm ? (
                 <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
                     {typeof manuelMsgs !== "boolean" &&
                         typeof dadosUsuarioCrm !== "boolean" && (
@@ -189,28 +234,29 @@ export default function Chat() {
                                 </div>
                             </div>
                         )}
-                    {conversas?.map((conversa) => (
-                        <div
-                            onClick={() => {
-                                selecionarChat(conversa);
-                            }}
-                            className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                            key={conversa.solicitacaoId}
-                        >
-                            <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                                {tipoUsuario === 1 && (
-                                    <img
-                                        src={conversa.usuarioPfp}
-                                        className="w-10 h-10 rounded-full object-cover"
-                                        alt=""
-                                    />
-                                )}
-                                <span className="p-2">
-                                    {conversa.usuarioNome}
-                                </span>
+                    {conversas !== "" &&
+                        conversas?.map((conversa) => (
+                            <div
+                                onClick={() => {
+                                    selecionarChat(conversa);
+                                }}
+                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                                key={conversa.solicitacaoId}
+                            >
+                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                    {tipoUsuario === 1 && (
+                                        <img
+                                            src={conversa.usuarioPfp}
+                                            className="w-10 h-10 rounded-full object-cover"
+                                            alt=""
+                                        />
+                                    )}
+                                    <span className="p-2">
+                                        {conversa.usuarioNome}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             ) : (
                 <div className="bg-white h-[400px] flex justify-center items-center">
