@@ -40,20 +40,20 @@ export default function ModalReceberSolicitacao({
                 <div className="w-full h-full flex px-20 gap-8 py-8">
                     <div className="w-[50%] h-full flex flex-col gap-2">
                         <span className="text-lg font-normal">
-                            {notificacao?.solicitacao.incluiAula
+                            {notificacao?.solicitacao?.incluiAula
                                 ? "Serviço + aula necessitado:"
                                 : "Serviço necessitado:"}
                         </span>
                         <div className="bg-white w-fit rounded-xl drop-shadow-md px-4 text-center py-1">
-                            {notificacao?.solicitacao.servico} -{" "}
-                            {notificacao?.solicitacao.tamanho}
-                            {notificacao?.solicitacao.medida}
+                            {notificacao?.solicitacao?.servico} -{" "}
+                            {notificacao?.solicitacao?.tamanho}
+                            {notificacao?.solicitacao?.medida}
                         </div>
                         <span className="text-lg font-normal">
                             Comentários adicionais:
                         </span>
                         <div className="bg-white w-full h-full rounded-xl drop-shadow-md p-2 overflow-auto">
-                            {notificacao?.solicitacao.descricao}
+                            {notificacao?.solicitacao?.descricao}
                         </div>
                         <button
                             className="text-white bg-[#388760] w-fit self-end px-5 rounded-md text-2xl py-1 mt-4 hover:bg-[rgb(43,111,77)] transition-colors"
@@ -75,7 +75,7 @@ export default function ModalReceberSolicitacao({
                                         target.src = defaultImg;
                                     }}
                                     key={i}
-                                    src={notificacao?.solicitacao.imagens[i]}
+                                    src={notificacao?.solicitacao?.imagens[i]}
                                     alt=" "
                                     className="bg-gray-200 object-cover"
                                 />
