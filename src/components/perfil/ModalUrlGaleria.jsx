@@ -14,6 +14,12 @@ export default function ModalUrlGaleria({
             modalGettr={modalGettr}
             modalSettr={modalSettr}
             canClose
+            blurBackgroundStyle={{
+                zIndex: "600",
+            }}
+            modalBackgroundStyle={{
+                zIndex: "601",
+            }}
         >
             <div className="w-full h-full flex flex-col items-center py-8 px-10 gap-4">
                 <span className="text-2xl text-gray-900 font-semibold text-center">
@@ -34,7 +40,10 @@ export default function ModalUrlGaleria({
                     />
                     <button
                         onClick={() => {
-                            isUrlLoaded && createImagem(url);
+                            if (isUrlLoaded) {
+                                createImagem(url);
+                                setUrl("");
+                            }
                         }}
                         className={`text-2xl mt-4 ${
                             isUrlLoaded ? "bg-verde-padrao" : "bg-cinza-claro-1"
