@@ -1,14 +1,14 @@
 import Header from "@/components/header/Header";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "@/api/axios";
+import ChartsAmico from "@/assets/storyset/Charts-amico.svg";
 import { ThreeCircles, CirclesWithBar } from "react-loader-spinner";
 import GraficoServicosContratados from "@/components/dashboard/GraficoServicosContratados";
 import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
-import { useRef } from "react";
-import ChartsAmico from "@/assets/storyset/Charts-amico.svg";
+import WordCloudAvaliacoes from "@/components/dashboard/WordCloudAvaliacoes";
+import GraficoSolicitacoesConcluidas from "@/components/dashboard/GraficoSolicitacoesConcluidas";
 
 const meses = [
     "Janeiro",
@@ -33,6 +33,10 @@ export default function Dashboard() {
     const [dashboardData, setDashboardData] = useState();
 
     const graficoMediaServico = useRef(null);
+    const palavrasChave = useRef(null);
+    const graficoSolicitacoesConcluidas = useRef(null);
+
+    const [ultimos12Meses, setUltimos12Meses] = useState();
 
     useEffect(() => {
         const dataAtual = new Date();
@@ -111,7 +115,7 @@ export default function Dashboard() {
     return (
         <div className="bg-[#FBFBFB] min-h-screen">
             <Header />
-            <div className="w-full py-6 px-32 flex flex-col gap-6">
+            <div className="w-full pt-6 pb-16 px-32 flex flex-col gap-6">
                 <Breadcrumb
                     items={[
                         { to: "/", desc: "Página Inicial" },
@@ -213,15 +217,15 @@ export default function Dashboard() {
                     </div>
                 </div>
                 <div className="flex justify-between">
-                    <div className="w-[23%] h-[280px] flex flex-col">
-                        <div className="h-[40px] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
+                    <div className="w-[23%] flex flex-col">
+                        <div className="py-2 max-w-[90%] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
                             Seus serviços mais contratados
                         </div>
-                        <div className="h-[240px] w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
                                     dashboardData.servicos.length === 0 ? (
-                                        <div className="h-[90%] flex flex-col items-center justify-center text-center">
+                                        <div className="h-[200px] flex flex-col items-center justify-center text-center">
                                             <img
                                                 src={ChartsAmico}
                                                 className="h-[100%]"
@@ -255,17 +259,17 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div
-                        className="w-[74.5%] h-[280px] flex flex-col"
+                        className="w-[74.5%] flex flex-col"
                         ref={graficoMediaServico}
                     >
-                        <div className="h-[40px] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
+                        <div className="py-2 max-w-[90%] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
                             Média de avaliações em cada serviço
                         </div>
-                        <div className="h-[240px] w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
                                     dashboardData.servicos.length === 0 ? (
-                                        <div className="h-[90%] flex flex-col items-center justify-center text-center">
+                                        <div className="h-[200px] flex flex-col items-center justify-center text-center">
                                             <img
                                                 src={ChartsAmico}
                                                 className="h-[100%]"
@@ -291,6 +295,80 @@ export default function Dashboard() {
                                             }
                                         />
                                     )
+                                ) : (
+                                    <CirclesWithBar
+                                        height="100"
+                                        width="100"
+                                        color="#4fa94d"
+                                        visible={true}
+                                        ariaLabel="circles-with-bar-loading"
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex justify-between">
+                    <div className="w-[23%] flex flex-col" ref={palavrasChave}>
+                        <div className="py-2 max-w-[90%] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
+                            Palavras-chave comuns em suas avaliações
+                        </div>
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                            <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
+                                {dashboardData ? (
+                                    dashboardData.avaliacoes.length === 0 ? (
+                                        <div className="h-[200px] flex flex-col items-center justify-center text-center">
+                                            <img
+                                                src={ChartsAmico}
+                                                className="h-[100%]"
+                                            />
+                                            <span>
+                                                Parece que não existem dados
+                                                disponíveis com esses filtros
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <WordCloudAvaliacoes
+                                            words={dashboardData.avaliacoes}
+                                            width={
+                                                palavrasChave?.current
+                                                    ?.clientWidth - 50 || 300
+                                            }
+                                            height={
+                                                palavrasChave?.current
+                                                    ?.clientHeight - 100 || 300
+                                            }
+                                        />
+                                    )
+                                ) : (
+                                    <CirclesWithBar
+                                        height="100"
+                                        width="100"
+                                        color="#4fa94d"
+                                        visible={true}
+                                        ariaLabel="circles-with-bar-loading"
+                                    />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="w-[74.5%] flex flex-col"
+                        ref={graficoSolicitacoesConcluidas}
+                    >
+                        <div className="max-w-[90%] flex items-center gap-2">
+                            <span className="w-fit bg-[#008042] text-white font-semibold px-3 py-2 rounded-t-xl">
+                                Quantidade mensal de solicitações recebidas e
+                                concluídas
+                            </span>
+                            <span className="text-[rgb(43,43,43)]">
+                                *esse gráfico não é influenciado pelos filtros
+                            </span>
+                        </div>
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                            <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
+                                {dashboardData ? (
+                                    <GraficoSolicitacoesConcluidas />
                                 ) : (
                                     <CirclesWithBar
                                         height="100"

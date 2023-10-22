@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@djpfs/react-vlibras": "^2.0.2",
+    "@visx/scale": "^3.3.0",
+    "@visx/text": "^3.3.0",
+    "@visx/wordcloud": "^3.3.0",
     "primereact": "^9.6.2",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",

@@ -12,7 +12,8 @@ export default {
     TEXT_SPACE_REPLACEABLE: /[^a-zA-Z\sÀ-ÖØ-öø-ÿ´~`^¨]/g,
     TEXT_SPACE: /^[a-zA-Z\sÀ-ÖØ-öø-ÿ]+$/,
     TEXT_NUMBER: /^[a-zA-Z0-9]+$/,
-    TEXT_NUMBER: /^[a-zA-Z0-9]+$/,
+    TEXT_NUMBER_LOCALES: /^[a-zA-Z0-9À-ÖØ-öø-ÿ]+$/,
+    TEXT_NUMBER_LOCALES_REPLACEABLE: /[^a-zA-Z\sÀ-ÖØ-öø-ÿ´~`^¨]/g,
     TEXT_NUMBER_SPACE: /^[a-zA-Z0-9\sÀ-ÖØ-öø-ÿ]+$/,
     BETWEEN_8_AND_24: /^.{8,24}$/,
-}
+};
