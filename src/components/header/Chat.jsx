@@ -4,6 +4,7 @@ import Arrow from "@/assets/icons/arrow.svg";
 import ArrowHead from "@/assets/icons/arrowhead.svg";
 import Manuel from "@/assets/manuall/manuel_pfp.png";
 import ChatManuel from "@/components/header/ChatManuel";
+import ChatUsuario from "@/components/header/ChatUsuario";
 import BotCertification from "@/assets/icons/checkmark_bot.svg";
 import axios from "@/api/axios";
 
@@ -19,41 +20,18 @@ export default function Chat() {
     const [manuelMsgs, setManuelMsgs] = useState();
     const [dadosUsuarioCrm, setDadosUsuarioCrm] = useState();
     const [conversas, setConversas] = useState();
-    // const [mensagens, setMensagens] = useState()
     const [chatAtual, setChatAtual] = useState();
 
-    // const getNewConversas = () => {
-    //     axios.get("/chat")
-    //         .then((res) => {
-    //             if (res.status === 200) {
-    //                 setConversas(res.data)
-    //                 getNewMensagens()
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.error(err);
-    //         });
-    // }
-
-    // const getNewMensagens = () => {
-    //     conversas?.forEach(e => {
-    //         axios.get(`/chat/${e.solicitacaoId}`)
-    //             .then((res) => {
-    //                 if (res.status === 200) {
-    //                     const newItem = {
-    //                         'idMsg': res.data.mensagens[res.data.mensagens.length - 1].id,
-    //                         'idSolicitação': e.solicitacaoId,
-    //                         'nome': e.usuarioNome,
-    //                         'mensagem': res.data.mensagens[res.data.mensagens.length - 1].mensagem
-    //                     }
-    //                     setMensagens(prevArray => [...prevArray, newItem])
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 console.error(err);
-    //             });
-    //     });
-    // }
+    const getNewConversas = () => {
+        axios
+            .get("/chat")
+            .then((res) => {
+                if (res.status === 200 || res.status === 204) {
+                    setConversas(res.data);
+                }
+            })
+            .catch((err) => console.error(err));
+    };
 
     const alternarChat = (e) => {
         if (
@@ -62,10 +40,9 @@ export default function Chat() {
         ) {
             setIsOpen(!isOpen);
         }
-        // if (isOpen && localStorage.TOKEN) getNewConversas()
     };
 
-    const selecionarChat = (id, isManuel = false) => {
+    const selecionarChat = (conversa, isManuel = false) => {
         if (isManuel) {
             setChatAtual({
                 name: "Manuel",
@@ -77,7 +54,13 @@ export default function Chat() {
 
             scrollDown();
         } else {
-            // implementação chat real
+            setChatAtual({
+                isManuel: false,
+                name: conversa.usuarioNome,
+                mensagens: conversa.mensagens,
+                pfp: conversa.usuarioPfp,
+                solicitacaoId: conversa.solicitacaoId,
+            });
         }
     };
 
@@ -90,21 +73,15 @@ export default function Chat() {
     const getDadosCrm = () => {
         axios
             .get("/crm")
-            .then(({ data }) => {
-                setManuelMsgs(data);
-            })
-            .catch(() => {
-                setManuelMsgs(true);
-            });
+            .then(({ data }) => setManuelMsgs(data))
+            .catch(() => setManuelMsgs(true));
     };
 
     const getDadosUsuarioCrm = () => {
-        if (tipoUsuario)
+        tipoUsuario &&
             axios
                 .get(`/crm/dados/${tipoUsuario}`)
-                .then(({ data }) => {
-                    setDadosUsuarioCrm(data);
-                })
+                .then(({ data }) => setDadosUsuarioCrm(data))
                 .catch((err) => {
                     console.log(err);
                     setDadosUsuarioCrm(true);
@@ -112,46 +89,9 @@ export default function Chat() {
     };
 
     useEffect(() => {
-        setConversas([
-            {
-                solicitacaoId: 1,
-                usuarioId: 1,
-                usuarioNome: "Michael",
-                usuarioPfp:
-                    "https://akamai.sscdn.co/uploadfile/letras/fotos/3/4/1/b/341be9c93b5809ae1cf9862d71319531.jpg",
-            },
-            {
-                solicitacaoId: 2,
-                usuarioId: 2,
-                usuarioNome: "Mitsuki",
-                usuarioPfp:
-                    "https://cdn.amomama.com/4bf8d90018c96028117814b9b5c0c2fe.jpg",
-            },
-            {
-                solicitacaoId: 3,
-                usuarioId: 3,
-                usuarioNome: "Chester",
-                usuarioPfp:
-                    "https://www.themoviedb.org/t/p/w500/6100kBIvUHArlQnBYO0B3u107rV.jpg",
-            },
-            {
-                solicitacaoId: 4,
-                usuarioId: 4,
-                usuarioNome: "Kevin",
-                usuarioPfp:
-                    "https://www.rollingstone.com/wp-content/uploads/2019/05/tame-impala-lead-photo.jpg",
-            },
-            {
-                solicitacaoId: 5,
-                usuarioId: 5,
-                usuarioNome: "Alexandre",
-                usuarioPfp:
-                    "https://www.mapadoceu.com.br/photo/astro/chorao.jpg",
-            },
-        ]);
-
         getDadosCrm();
         getDadosUsuarioCrm();
+        getNewConversas();
     }, []);
 
     return (
@@ -212,48 +152,16 @@ export default function Chat() {
                                 scrollDown={scrollDown}
                             />
                         ) : (
-                            chatAtual.mensagens.map((msg, i) => (
-                                <div
-                                    key={i}
-                                    className={`w-full px-3 py-1 flex ${
-                                        msg.selfsender
-                                            ? "justify-end"
-                                            : "justify-start"
-                                    }`}
-                                >
-                                    {!msg.selfsender && (
-                                        <div
-                                            className="w-2 h-3 bg-[#c0e8c0]"
-                                            style={{
-                                                clipPath:
-                                                    "polygon(100% 0, 0 0, 100% 100%)",
-                                            }}
-                                        />
-                                    )}
-                                    <div
-                                        className={`max-w-[80%] p-2 rounded-lg ${
-                                            msg.selfsender
-                                                ? "bg-[#5faf88] rounded-tr-none"
-                                                : "bg-[#c0e8c0] rounded-tl-none"
-                                        }`}
-                                    >
-                                        {msg.texto}
-                                    </div>
-                                    {msg.selfsender && (
-                                        <div
-                                            className="w-2 h-3 bg-[#5faf88]"
-                                            style={{
-                                                clipPath:
-                                                    "polygon(0 0, 100% 0, 0 100%)",
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                            ))
+                            <ChatUsuario
+                                chat={chatAtual}
+                                scrollDown={scrollDown}
+                            />
                         )}
                     </div>
                     {!chatAtual.isManuel && (
-                        <div className="bg-gray-500 h-[40px] flex" />
+                        <div className="bg-gray-500 h-[40px] flex">
+                            <div></div>
+                        </div>
                     )}
                 </>
             ) : conversas && manuelMsgs && dadosUsuarioCrm ? (
@@ -281,39 +189,34 @@ export default function Chat() {
                                 </div>
                             </div>
                         )}
-                    {conversas?.map(
-                        ({
-                            solicitacaoId,
-                            usuarioId,
-                            usuarioPfp,
-                            usuarioNome,
-                        }) => (
-                            <div
-                                onClick={() => {
-                                    selecionarChat(solicitacaoId);
-                                }}
-                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                                key={usuarioId}
-                            >
-                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                    {conversas?.map((conversa) => (
+                        <div
+                            onClick={() => {
+                                selecionarChat(conversa);
+                            }}
+                            className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                            key={conversa.solicitacaoId}
+                        >
+                            <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                {tipoUsuario === 1 && (
                                     <img
-                                        src={usuarioPfp}
+                                        src={conversa.usuarioPfp}
                                         className="w-10 h-10 rounded-full object-cover"
                                         alt=""
                                     />
-                                    <span className="p-2">{usuarioNome}</span>
-                                </div>
+                                )}
+                                <span className="p-2">
+                                    {conversa.usuarioNome}
+                                </span>
                             </div>
-                        ),
-                    )}
+                        </div>
+                    ))}
                 </div>
             ) : (
                 <div className="bg-white h-[400px] flex justify-center items-center">
                     <Oval
                         height={50}
                         color="#00cc69"
-                        wrapperStyle={{}}
-                        wrapperClass=""
                         visible={true}
                         ariaLabel="oval-loading"
                         secondaryColor="#00cc69"

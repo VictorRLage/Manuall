@@ -68,7 +68,7 @@ export default function ModalReceberSolicitacao({
                         <span className="text-lg font-normal">
                             Imagens em anexo:
                         </span>
-                        <div className="w-[350px] h-[250px] grid grid-cols-3 gap-1 rounded-xl overflow-hidden">
+                        <div className="w-[350px] h-[255px] grid grid-cols-3 gap-1 rounded-xl overflow-hidden">
                             {Array.from({ length: 6 }, (_, i) => (
                                 <img
                                     onError={({ target }) => {
