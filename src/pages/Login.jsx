@@ -63,6 +63,7 @@ export default function Login() {
                 if (status === 200) {
                     localStorage.TOKEN = data.token;
                     localStorage.TIPO_USUARIO = data.tipoUsuario;
+                    localStorage.PLANO = data.plano;
                     if (data.tipoUsuario === 1) {
                         navigate("/prestadores");
                     } else if (data.tipoUsuario === 2) {
@@ -85,6 +86,7 @@ export default function Login() {
                     } else if (data.fase === 4) {
                         localStorage.TOKEN = data.token;
                         localStorage.TIPO_USUARIO = data.tipoUsuario;
+                        localStorage.PLANO = data.plano;
                         navigate("/cadastro/prestador/planos");
                     }
                 } else {

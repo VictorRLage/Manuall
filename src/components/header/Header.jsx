@@ -187,7 +187,11 @@ export default function Header({ refetch }) {
                                         Histórico
                                     </button>
                                 ) : (
-                                    tipoUsuario === 2 && (
+                                    tipoUsuario === 2 &&
+                                    localStorage.getItem("PLANO") &&
+                                    (localStorage.getItem("PLANO") == "2" ||
+                                        localStorage.getItem("PLANO") ==
+                                            "3") && (
                                         <button
                                             onClick={() => {
                                                 pathname !== "/dashboard" &&

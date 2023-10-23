@@ -1,8 +1,10 @@
 import { useData } from "@/data/CreateContext";
 import axios from "@/api/axios";
 import PrestadorGaleriaImg from "@/components/perfil/PrestadorGaleriaImg";
+import Skeleton from "react-loading-skeleton";
 
 export default function PrestadorGaleria({
+    hasInfoLoaded,
     prestador,
     isOwnProfile,
     refetch,
@@ -37,24 +39,27 @@ export default function PrestadorGaleria({
                     className={`flex flex-wrap ${
                         windowWidth <= 1180
                             ? windowWidth <= 876
-                                ? "max-w-[300px]"
-                                : "max-w-[604px]"
-                            : "max-w-[908px]"
+                                ? "max-w-[302px]"
+                                : "max-w-[606px]"
+                            : "max-w-[910px]"
                     } rounded-3xl overflow-hidden gap-[4px]`}
                 >
-                    {prestador &&
-                        Array.from({ length: 6 }, (_, i) => (
-                            <PrestadorGaleriaImg
-                                isOwnProfile={isOwnProfile}
-                                openCreateImageModal={openCreateImageModal}
-                                key={i}
-                                deleteImagem={deleteImagem}
-                                isNextToBeUploaded={
-                                    prestador.imagens.length === i
-                                }
-                                currentImg={prestador.imagens[i]}
-                            />
-                        ))}
+                    {hasInfoLoaded
+                        ? Array.from({ length: 6 }, (_, i) => (
+                              <PrestadorGaleriaImg
+                                  isOwnProfile={isOwnProfile}
+                                  openCreateImageModal={openCreateImageModal}
+                                  key={i}
+                                  deleteImagem={deleteImagem}
+                                  isNextToBeUploaded={
+                                      prestador.imagens.length === i
+                                  }
+                                  currentImg={prestador.imagens[i]}
+                              />
+                          ))
+                        : Array.from({ length: 6 }, (_, i) => (
+                              <Skeleton width={300} height={150} />
+                          ))}
                 </div>
             </div>
         </div>

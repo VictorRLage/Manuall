@@ -1,6 +1,7 @@
 import { useData } from "@/data/CreateContext";
+import Skeleton from "react-loading-skeleton";
 
-export default function PrestadorServicos({ servicos }) {
+export default function PrestadorServicos({ servicos, hasInfoLoaded }) {
     const { windowWidth } = useData();
 
     return (
@@ -32,12 +33,14 @@ export default function PrestadorServicos({ servicos }) {
                 } bg-verde-escuro-1 flex`}
             >
                 <div className="bg-white w-[600px] py-4 text-verde-escuro-1 text-xl font-semibold flex flex-col justify-center px-16 gap-4">
-                    {servicos?.map(({ id, nome }) => (
-                        <div key={id} className="flex gap-2">
-                            <div className="text-[8px]">⬤</div>
-                            {nome}
-                        </div>
-                    ))}
+                    {hasInfoLoaded
+                        ? servicos?.map(({ id, nome }) => (
+                              <div key={id} className="flex gap-2">
+                                  <div className="text-[8px]">⬤</div>
+                                  {nome}
+                              </div>
+                          ))
+                        : Array.from({ length: 3 }).map((_, i) => <Skeleton />)}
                 </div>
             </div>
             <div

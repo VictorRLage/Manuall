@@ -3,8 +3,10 @@ import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 import ImageAddIcon from "@/assets/icons/image_add.png";
+import Skeleton from "react-loading-skeleton";
 
 export default function PrestadorCard({
+    hasInfoLoaded,
     isOwnProfile,
     prestador,
     setModalUrlPfp,
@@ -24,61 +26,95 @@ export default function PrestadorCard({
 
     return (
         <>
-            {prestador?.pfp ? (
-                <div
-                    className="bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl relative"
-                    style={{
-                        backgroundImage: `url(${prestador?.pfp}), url(${defaultPfp})`,
-                    }}
-                >
-                    {isOwnProfile && (
-                        <button
-                            onClick={() => setModalUrlPfp(true)}
-                            className="absolute bg-verde-padrao text-center w-8 h-8 rounded-full -right-1 -top-1"
-                        >
-                            <PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto" />
-                        </button>
-                    )}
-                </div>
-            ) : isOwnProfile ? (
-                <div
-                    onClick={() => setModalUrlPfp(true)}
-                    className="cursor-pointer bg-center bg-no-repeat h-30 w-30 rounded-3xl border-verde-padrao border-4"
-                    style={{
-                        backgroundImage: `url(${ImageAddIcon})`,
-                        backgroundSize: "80%",
-                    }}
-                />
+            {hasInfoLoaded ? (
+                prestador?.pfp ? (
+                    <div
+                        className="bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl relative"
+                        style={{
+                            backgroundImage: `url(${prestador?.pfp}), url(${defaultPfp})`,
+                        }}
+                    >
+                        {isOwnProfile && (
+                            <button
+                                onClick={() => setModalUrlPfp(true)}
+                                className="absolute bg-verde-padrao text-center w-8 h-8 rounded-full -right-1 -top-1"
+                            >
+                                <PencilSquareIcon className="text-white h-[1.25rem] w-[1.25rem] m-auto" />
+                            </button>
+                        )}
+                    </div>
+                ) : isOwnProfile ? (
+                    <div
+                        onClick={() => setModalUrlPfp(true)}
+                        className="cursor-pointer bg-center bg-no-repeat h-30 w-30 rounded-3xl border-verde-padrao border-4"
+                        style={{
+                            backgroundImage: `url(${ImageAddIcon})`,
+                            backgroundSize: "80%",
+                        }}
+                    />
+                ) : (
+                    <div
+                        className="bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl"
+                        style={{
+                            backgroundImage: `url(${defaultPfp})`,
+                        }}
+                    />
+                )
             ) : (
-                <div
-                    className="bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl"
-                    style={{
-                        backgroundImage: `url(${defaultPfp})`,
-                    }}
-                />
+                <Skeleton height={120} width={120} borderRadius={20} />
             )}
             <span className="mt-2 font-bold m-auto text-3xl text-center">
-                {prestador?.nome}
+                {hasInfoLoaded ? prestador?.nome : <Skeleton width={200} />}
             </span>
-            <div className="flex m-auto mt-2">
-                {estrelas}
-                <span className="text-lg ml-2">
-                    {mediaAvaliacoes.toFixed(1)}
-                </span>
-            </div>
-            <span className="m-auto text-cinza-claro-3">
-                {prestador?.avaliacoes.length} avaliações
-            </span>
-            <div className="grid grid-cols-2 text-lg mt-1 m-auto space-y-1">
-                <span>Preço</span>
-                <span>
-                    R${prestador?.orcamentoMin} - R$
-                    {prestador?.orcamentoMax}
-                </span>
-                <span>Cidade</span>
-                <span>{prestador?.estado}</span>
-                <span>Estado</span>
-                <span>{prestador?.cidade}</span>
+            {hasInfoLoaded ? (
+                <>
+                    <div className="flex m-auto mt-2">
+                        {estrelas}
+                        <span className="text-lg ml-2">
+                            {mediaAvaliacoes.toFixed(1)}
+                        </span>
+                    </div>
+                    <span className="m-auto text-cinza-claro-3">
+                        {prestador?.avaliacoes.length} avaliações
+                    </span>
+                </>
+            ) : (
+                <>
+                    <Skeleton width={180} height={20} />
+                    <Skeleton width={120} height={20} />
+                </>
+            )}
+            <div className="flex w-full py-4">
+                <div className="w-full flex flex-col items-center justify-center">
+                    <span>Preço</span>
+                    <span>Cidade</span>
+                    <span>Estado</span>
+                </div>
+                <div className="w-full flex flex-col items-center justify-center">
+                    {hasInfoLoaded ? (
+                        <>
+                            <span>
+                                {" "}
+                                R${prestador?.orcamentoMin} - R$
+                                {prestador?.orcamentoMax}
+                            </span>
+                            <span>{prestador?.estado}</span>
+                            <span>{prestador?.cidade}</span>
+                        </>
+                    ) : (
+                        <>
+                            <span>
+                                <Skeleton width={100} />
+                            </span>
+                            <span>
+                                <Skeleton width={100} />
+                            </span>
+                            <span>
+                                <Skeleton width={100} />
+                            </span>
+                        </>
+                    )}
+                </div>
             </div>
         </>
     );
