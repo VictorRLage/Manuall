@@ -5,6 +5,7 @@ export default {
     CEP: /^\d{8}$/,
     CPF: /^\d{11}$/,
     TEXT_REPLACEABLE: /[^a-zA-ZÀ-ÖØ-öø-ÿ´~`^¨]/g,
+    LOCALELESS_TEXT_REPLACEABLE: /[^a-zA-Z]/g,
     TEXT: /^[a-zA-ZÀ-ÖØ-öø-ÿ]+$/,
     NUMBER_REPLACEABLE: /[^0-9]/g,
     NUMBER: /^[0-9]+$/,

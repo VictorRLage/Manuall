@@ -5,6 +5,7 @@ import axios from "@/api/axios";
 import NotificacaoENUM from "@/enum/NotificacaoENUM";
 import ModalReceberSolicitacao from "@/components/header/ModalReceberSolicitacao";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
+import ModalFormOrcamento from "@/components/perfil/ModalFormOrcamento";
 
 export default function ModalNotificacoes({
     modalGettr,
@@ -22,6 +23,7 @@ export default function ModalNotificacoes({
     const [notificacaoSelecionda, setNotificacaoSelecionada] = useState();
 
     const [modalAvaliacao, setModalAvaliacao] = useState(false);
+    const [modalFormOrcamento, setModalFormOrcamento] = useState(false);
 
     const fetch = () => {
         if (
@@ -50,6 +52,12 @@ export default function ModalNotificacoes({
             <ModalAvaliacao
                 modalGettr={modalAvaliacao}
                 modalSettr={setModalAvaliacao}
+                notificacao={notificacaoSelecionda}
+                refetch={fetch}
+            />
+            <ModalFormOrcamento
+                modalGettr={modalFormOrcamento}
+                modalSettr={setModalFormOrcamento}
                 notificacao={notificacaoSelecionda}
                 refetch={fetch}
             />
@@ -85,7 +93,7 @@ export default function ModalNotificacoes({
                                         if (tipoUsuario === 1) {
                                             setModalAvaliacao(true);
                                         } else if (tipoUsuario === 2) {
-                                            // setModalFormOrcamento(true);
+                                            setModalFormOrcamento(true);
                                         }
                                     }
                                 }}

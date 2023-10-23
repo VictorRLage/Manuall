@@ -8,16 +8,20 @@ import FiltragemENUM from "@/enum/FiltragemENUM";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
 import { useData } from "@/data/CreateContext";
+import RegexENUM from "@/enum/RegexENUM";
 
 export default function Prestadores() {
     const { windowWidth } = useData();
 
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
+    const [filteredPrestadores, setFilteredPrestadores] = useState();
 
     const [areaSelecionada, setAreaSelecionada] = useState(0);
     const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
     const [ordemSelecionada, setOrdemSelecionada] = useState(false);
+
+    const [searchbarText, setSearchbarText] = useState("");
 
     const getPrestadores = () => {
         setPrestadores();
@@ -45,6 +49,21 @@ export default function Prestadores() {
         ordemSelecionada,
     ]);
 
+    useEffect(() => {
+        setFilteredPrestadores(
+            prestadores?.filter(({ nome }) =>
+                nome
+                    .toLowerCase()
+                    .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "")
+                    .includes(
+                        searchbarText
+                            .toLowerCase()
+                            .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, ""),
+                    ),
+            ),
+        );
+    }, [searchbarText, prestadores]);
+
     return (
         <div>
             <Header />
@@ -71,6 +90,10 @@ export default function Prestadores() {
                             backgroundPosition: "right 16px top 50%",
                             backgroundSize: "20px",
                         }}
+                        value={searchbarText}
+                        onChange={({ target }) =>
+                            setSearchbarText(target.value)
+                        }
                     />
                     <select
                         name="area"
@@ -129,7 +152,7 @@ export default function Prestadores() {
                     </select>
                 </div>
                 <div className="flex justify-center flex-col w-full">
-                    <Cards areas={areas} prestadores={prestadores} />
+                    <Cards areas={areas} prestadores={filteredPrestadores} />
                 </div>
             </div>
             <footer className="overflow-hidden bg-[#fafafa]">

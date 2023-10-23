@@ -50,7 +50,7 @@ export default function HeaderDropdown({
             />
             {realOn && (
                 <div
-                    className="absolute right-32 top-[60px] flex flex-col items-end overflow-hidden transition-all"
+                    className="absolute right-32 top-[60px] flex flex-col items-end overflow-hidden transition-all drop-shadow-xl"
                     style={{
                         zIndex: "500",
                         animation: `grow_height 400ms forwards${

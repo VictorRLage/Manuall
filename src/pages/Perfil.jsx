@@ -4,7 +4,6 @@ import Header from "@/components/header/Header";
 import ModalUrlPfp from "@/components/perfil/ModalUrlPfp";
 import axios from "@/api/axios";
 import PerfilBg from "@/assets/shapes/PerfilBg.png";
-import ModalFormOrcamento from "@/components/perfil/ModalFormOrcamento";
 import ModalUrlGaleria from "@/components/perfil/ModalUrlGaleria";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import PrestadorCard from "@/components/perfil/PrestadorCard";
@@ -23,7 +22,6 @@ export default function Perfil({ isOwnProfile }) {
 
     const [prestador, setPrestador] = useState();
     const [modalUrlPfp, setModalUrlPfp] = useState(false);
-    const [modalFormOrcamento, setModalFormOrcamento] = useState(false);
     const [modalUrlGaleria, setModalUrlGaleria] = useState(false);
     const [modalSolicitacao, setModalSolicitacao] = useState(false);
     const [modalAvaliacao, setModalAvaliacao] = useState(false);
@@ -89,10 +87,6 @@ export default function Perfil({ isOwnProfile }) {
                 modalSettr={setModalUrlPfp}
                 currentPfp={prestador?.pfp}
                 refetch={refetch}
-            />
-            <ModalFormOrcamento
-                modalGettr={modalFormOrcamento}
-                modalSettr={setModalFormOrcamento}
             />
             <ModalUrlGaleria
                 modalGettr={modalUrlGaleria}
