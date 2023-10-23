@@ -62,8 +62,7 @@ export default function AdmAprovacao() {
             setDecisao(novaDecisao);
         } else {
             setModalAviso(true);
-            setAvisoTitulo("Erro");
-            setAvisoDescricao("Não há decisões para serem desfeitas");
+            setAvisoTitulo("Não há decisões para serem desfeitas");
         }
     };
 
@@ -74,7 +73,7 @@ export default function AdmAprovacao() {
                 className="flex fixed bg-verde-escuro-1 text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-full items-center"
             >
                 <ArrowUturnLeftIcon className="h-6 mr-2" />{" "}
-                <span className="mt-1 text-lg">Desfazer ultima decisão</span>
+                <span className="mt-1 text-lg">Desfazer última decisão</span>
             </button>
             <div className="h-screen w-screen flex bg-cinza-claro-2">
                 <ModalAviso
