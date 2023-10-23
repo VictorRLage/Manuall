@@ -40,13 +40,20 @@ export default function PrestadorCard({
                         </button>
                     )}
                 </div>
-            ) : (
+            ) : isOwnProfile ? (
                 <div
                     onClick={() => setModalUrlPfp(true)}
                     className="cursor-pointer bg-center bg-no-repeat h-30 w-30 rounded-3xl border-verde-padrao border-4"
                     style={{
                         backgroundImage: `url(${ImageAddIcon})`,
                         backgroundSize: "80%",
+                    }}
+                />
+            ) : (
+                <div
+                    className="bg-cover bg-center bg-no-repeat h-30 w-30 rounded-3xl"
+                    style={{
+                        backgroundImage: `url(${defaultPfp})`,
                     }}
                 />
             )}
