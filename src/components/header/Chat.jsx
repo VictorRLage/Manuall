@@ -143,6 +143,8 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
     const sendMessage = () => {
         if (isMensagemLoading) return;
+
+        document.activeElement.blur();
         setIsMensagemLoading(true);
         stompClient.send(
             "/app/chat",

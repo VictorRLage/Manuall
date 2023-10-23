@@ -15,7 +15,7 @@ export default function ChatUsuario({ chat }) {
                 />
             )}
             <div
-                className={`max-w-[80%] p-2 rounded-lg ${
+                className={`max-w-[80%] p-2 rounded-lg break-words ${
                     selfSender
                         ? "bg-[#5faf88] rounded-tr-none"
                         : "bg-[#c0e8c0] rounded-tl-none"
