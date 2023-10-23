@@ -73,7 +73,9 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                     axios
                         .get("/usuario/id")
                         .then(({ data }) => {
-                            const sock = new SockJS("http://localhost:8080/ws");
+                            const sock = new SockJS(
+                                `${import.meta.env.VITE_APP_MAIN_API_URL}/ws`,
+                            );
                             const stomp = over(sock);
                             stomp.debug = () => {};
 

@@ -50,7 +50,7 @@ export default function PrestadorCard({
                     }}
                 />
             )}
-            <span className="mt-2 font-bold m-auto text-3xl">
+            <span className="mt-2 font-bold m-auto text-3xl text-center">
                 {prestador?.nome}
             </span>
             <div className="flex m-auto mt-2">
