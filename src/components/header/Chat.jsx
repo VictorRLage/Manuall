@@ -11,7 +11,7 @@ import SockJS from "sockjs-client/dist/sockjs";
 import { over } from "stompjs";
 import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
 
-export default function Chat({ forceChatOpen }) {
+export default function Chat({ forceChatOpen, forceChatRefetch }) {
     const tipoUsuario =
         localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO);
 
@@ -64,6 +64,28 @@ export default function Chat({ forceChatOpen }) {
         }
     };
 
+    const fetch = () => {
+        axios
+            .get("/chat")
+            .then((res) => {
+                if (res.status === 200 || res.status === 204) {
+                    setConversas(res.data);
+                    axios
+                        .get("/usuario/id")
+                        .then(({ data }) => {
+                            const sock = new SockJS("http://localhost:8080/ws");
+                            const stomp = over(sock);
+                            stomp.debug = () => {};
+
+                            setUserId(data);
+                            setStompClient(stomp);
+                        })
+                        .catch((err2) => console.log(err2));
+                }
+            })
+            .catch((err) => console.error(err));
+    };
+
     const scrollDown = () => {
         setTimeout(() => {
             scrollingDiv.current.scrollTop = scrollingDiv.current.scrollHeight;
@@ -88,25 +110,7 @@ export default function Chat({ forceChatOpen }) {
                     setDadosUsuarioCrm(true);
                 });
 
-        axios
-            .get("/chat")
-            .then((res) => {
-                if (res.status === 200 || res.status === 204) {
-                    setConversas(res.data);
-                    axios
-                        .get("/usuario/id")
-                        .then(({ data }) => {
-                            const sock = new SockJS("http://localhost:8080/ws");
-                            const stomp = over(sock);
-                            stomp.debug = () => {};
-
-                            setUserId(data);
-                            setStompClient(stomp);
-                        })
-                        .catch((err2) => console.log(err2));
-                }
-            })
-            .catch((err) => console.error(err));
+        fetch();
     }, []);
 
     useEffect(() => {
@@ -161,6 +165,10 @@ export default function Chat({ forceChatOpen }) {
             }
         }
     }, [forceChatOpen]);
+
+    useEffect(() => {
+        fetch();
+    }, [forceChatRefetch]);
 
     return (
         <div

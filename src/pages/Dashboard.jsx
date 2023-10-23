@@ -186,7 +186,14 @@ export default function Dashboard() {
                             {dashboardData ? (
                                 typeof dashboardData?.tempoMedioResposta ===
                                 "number" ? (
-                                    dashboardData?.tempoMedioResposta
+                                    dashboardData?.tempoMedioResposta >= 60 ? (
+                                        `${
+                                            dashboardData?.tempoMedioResposta /
+                                            60
+                                        }h`
+                                    ) : (
+                                        `${dashboardData?.tempoMedioResposta}min`
+                                    )
                                 ) : (
                                     "N/A"
                                 )
@@ -205,7 +212,7 @@ export default function Dashboard() {
                         <span className="text-lg">Valor arrecadado</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
-                                dashboardData.valorArrecadado
+                                `R$${dashboardData.valorArrecadado},00`
                             ) : (
                                 <ThreeCircles
                                     height={40}

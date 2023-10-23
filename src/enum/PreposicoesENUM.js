@@ -29,4 +29,6 @@ export default [
     "das",
     "do",
     "dos",
+    "mais",
+    "mas",
 ];

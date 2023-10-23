@@ -27,6 +27,7 @@ export default function Header({ refetch }) {
     const [dropdown, setDropdown] = useState(false);
 
     const [forceChatOpen, setForceChatOpen] = useState();
+    const [forceChatRefetch, setForceChatRefetch] = useState(false);
 
     const openSidebar = () => {
         setSidebar(true);
@@ -55,7 +56,10 @@ export default function Header({ refetch }) {
                 dropdownGettr={dropdown && windowWidth > 1000}
                 dropdownSettr={setDropdown}
                 tipoUsuario={tipoUsuario}
-                refetchAll={refetchAll}
+                refetchAll={() => {
+                    refetchAll();
+                    setForceChatRefetch(!forceChatRefetch);
+                }}
                 openSpecificChat={(solicitacaoId) =>
                     setForceChatOpen(solicitacaoId)
                 }
@@ -223,7 +227,10 @@ export default function Header({ refetch }) {
                 )}
             </header>
             {(tipoUsuario === 1 || tipoUsuario === 2) && (
-                <Chat forceChatOpen={forceChatOpen} />
+                <Chat
+                    forceChatOpen={forceChatOpen}
+                    forceChatRefetch={forceChatRefetch}
+                />
             )}
         </>
     );

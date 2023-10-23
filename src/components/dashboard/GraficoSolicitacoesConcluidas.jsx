@@ -22,7 +22,7 @@ export default function GraficoSolicitacoesConcluidas({
                     name: "Solicitações Realizadas",
                     data: mesesTotais.map(({ mes, ano }) => {
                         const solicitacao = solicitacoes.find(
-                            (s) => s.mes === mes && s.ano === ano,
+                            (s) => s.mes === mes + 1 && s.ano === ano,
                         );
 
                         return solicitacao ? solicitacao.qntRealizadas : 0;

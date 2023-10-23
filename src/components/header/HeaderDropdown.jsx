@@ -47,6 +47,7 @@ export default function HeaderDropdown({
                     dropdownSettr(false);
                     openSpecificChat(solicitacaoId);
                 }}
+                refetchAll={refetchAll}
             />
             {realOn && (
                 <div

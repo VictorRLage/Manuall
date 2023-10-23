@@ -11,6 +11,7 @@ export default function ModalNotificacoes({
     modalGettr,
     modalSettr,
     openSpecificChat,
+    refetchAll,
 }) {
     const tipoUsuario =
         localStorage.getItem("TIPO_USUARIO") &&
@@ -33,10 +34,12 @@ export default function ModalNotificacoes({
             axios
                 .get("/usuario/notificacoes")
                 .then((res) => {
-                    setNotificacoes(res.data);
+                    setNotificacoes(res.data.reverse());
                 })
                 .catch((err) => console.log(err));
         }
+
+        refetchAll();
     };
 
     useEffect(fetch, []);
