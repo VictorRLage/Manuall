@@ -9,9 +9,11 @@ import Breadcrumb from "@/components/main/Breadcrumb";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
 import { useData } from "@/data/CreateContext";
 import RegexENUM from "@/enum/RegexENUM";
+import { useLocation } from "react-router-dom";
 
 export default function Prestadores() {
     const { windowWidth } = useData();
+    const { search } = useLocation();
 
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
@@ -22,6 +24,7 @@ export default function Prestadores() {
     const [ordemSelecionada, setOrdemSelecionada] = useState(false);
 
     const [searchbarText, setSearchbarText] = useState("");
+    const [cidadeSelecionada, setCidadeSelecionada] = useState();
 
     const getPrestadores = () => {
         setPrestadores();
@@ -41,6 +44,8 @@ export default function Prestadores() {
             .then(({ data }) => setAreas(data))
             .catch((err) => console.log(err));
         getPrestadores();
+
+        setCidadeSelecionada(search.substring(8));
     }, []);
 
     useEffect(getPrestadores, [
@@ -51,7 +56,16 @@ export default function Prestadores() {
 
     useEffect(() => {
         setFilteredPrestadores(
-            prestadores?.filter(({ nome }) =>
+            (cidadeSelecionada
+                ? prestadores?.filter(
+                      ({ cidade }) =>
+                          cidade
+                              .toLowerCase()
+                              .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "") ===
+                          cidadeSelecionada,
+                  )
+                : prestadores
+            )?.filter(({ nome }) =>
                 nome
                     .toLowerCase()
                     .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "")
@@ -62,7 +76,7 @@ export default function Prestadores() {
                     ),
             ),
         );
-    }, [searchbarText, prestadores]);
+    }, [searchbarText, prestadores, cidadeSelecionada]);
 
     return (
         <div>

@@ -200,37 +200,37 @@ export default [{
     id: 14369,
     msgsType: "COSTUMER",
     getMensagens: () => ["São Bernardo do Campo"],
-    getProximo: () => 73892
+    getProximo: () => 73893
 },
 {
     id: 25781,
     msgsType: "COSTUMER",
     getMensagens: () => ["São Caetano do Sul"],
-    getProximo: () => 73892
+    getProximo: () => 73894
 },
 {
     id: 39274,
     msgsType: "COSTUMER",
     getMensagens: () => ["Santo André"],
-    getProximo: () => 73892
+    getProximo: () => 73895
 },
 {
     id: 40895,
     msgsType: "COSTUMER",
     getMensagens: () => ["Osasco"],
-    getProximo: () => 73892
+    getProximo: () => 73896
 },
 {
     id: 51678,
     msgsType: "COSTUMER",
     getMensagens: () => ["Bauru"],
-    getProximo: () => 73892
+    getProximo: () => 73897
 },
 {
     id: 62743,
     msgsType: "COSTUMER",
     getMensagens: () => ["Outro"],
-    getProximo: () => 73892
+    getProximo: () => 73898
 },
 {
     id: 73892,
@@ -238,10 +238,76 @@ export default [{
     getMensagens() {
         return [
             "Entendido!",
-            "Vou te encaminhar à uma página especial que mostra apenas prestadores da sua região!"
+            "Vou te encaminhar à uma página especial que mostra apenas prestadores de São Paulo!"
         ]
     },
     getProximo: () => 84921
+},
+{
+    id: 73893,
+    msgsType: "CHATBOT",
+    getMensagens() {
+        return [
+            "Entendido!",
+            "Vou te encaminhar à uma página especial que mostra apenas prestadores de São Bernardo do Campo!"
+        ]
+    },
+    getProximo: () => 84922
+},
+{
+    id: 73894,
+    msgsType: "CHATBOT",
+    getMensagens() {
+        return [
+            "Entendido!",
+            "Vou te encaminhar à uma página especial que mostra apenas prestadores de São Caetano do Sul!"
+        ]
+    },
+    getProximo: () => 84923
+},
+{
+    id: 73895,
+    msgsType: "CHATBOT",
+    getMensagens() {
+        return [
+            "Entendido!",
+            "Vou te encaminhar à uma página especial que mostra apenas prestadores de Santo André!"
+        ]
+    },
+    getProximo: () => 84924
+},
+{
+    id: 73896,
+    msgsType: "CHATBOT",
+    getMensagens() {
+        return [
+            "Entendido!",
+            "Vou te encaminhar à uma página especial que mostra apenas prestadores de Osasco!"
+        ]
+    },
+    getProximo: () => 84925
+},
+{
+    id: 73897,
+    msgsType: "CHATBOT",
+    getMensagens() {
+        return [
+            "Entendido!",
+            "Vou te encaminhar à uma página especial que mostra apenas prestadores de Bauru!"
+        ]
+    },
+    getProximo: () => 84926
+},
+{
+    id: 73898,
+    msgsType: "CHATBOT",
+    getMensagens() {
+        return [
+            "Entendido!",
+            "Vou te encaminhar à página de prestadores!"
+        ]
+    },
+    getProximo: () => 84927
 },
 {
     id: 84921,
@@ -250,7 +316,79 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/development"
+            redirecionar: "/prestadores?cidade=sopaulo"
+        }]
+    },
+    getProximo: () => undefined
+},
+{
+    id: 84922,
+    msgsType: "ANSWER",
+    getMensagens() {
+        return [{
+            nextId: 96135,
+            msg: "Sim",
+            redirecionar: "/prestadores?cidade=sobernardodocampo"
+        }]
+    },
+    getProximo: () => undefined
+},
+{
+    id: 84923,
+    msgsType: "ANSWER",
+    getMensagens() {
+        return [{
+            nextId: 96135,
+            msg: "Sim",
+            redirecionar: "/prestadores?cidade=socaetanodosul"
+        }]
+    },
+    getProximo: () => undefined
+},
+{
+    id: 84924,
+    msgsType: "ANSWER",
+    getMensagens() {
+        return [{
+            nextId: 96135,
+            msg: "Sim",
+            redirecionar: "/prestadores?cidade=santoandr"
+        }]
+    },
+    getProximo: () => undefined
+},
+{
+    id: 84925,
+    msgsType: "ANSWER",
+    getMensagens() {
+        return [{
+            nextId: 96135,
+            msg: "Sim",
+            redirecionar: "/prestadores?cidade=osasco"
+        }]
+    },
+    getProximo: () => undefined
+},
+{
+    id: 84926,
+    msgsType: "ANSWER",
+    getMensagens() {
+        return [{
+            nextId: 96135,
+            msg: "Sim",
+            redirecionar: "/prestadores?cidade=bauru"
+        }]
+    },
+    getProximo: () => undefined
+},
+{
+    id: 84927,
+    msgsType: "ANSWER",
+    getMensagens() {
+        return [{
+            nextId: 96135,
+            msg: "Sim",
+            redirecionar: "/prestadores"
         }]
     },
     getProximo: () => undefined
