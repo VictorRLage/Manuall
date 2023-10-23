@@ -238,6 +238,7 @@ export default function Chat({ forceChatOpen }) {
                                 onKeyDown={({ key }) => {
                                     if (key === "Enter") sendMessage();
                                 }}
+                                maxLength={150}
                             />
                             <div
                                 className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full cursor-pointer"
