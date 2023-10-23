@@ -36,8 +36,6 @@ export default function AdmAprovacao() {
             });
     };
 
-
-
     useEffect(() => {
         axios
             .get("/usuario/aprovacoesPendentes")
@@ -54,12 +52,12 @@ export default function AdmAprovacao() {
     const [decisao, setDecisao] = useState([]);
 
     const pushDecisao = (item) => {
-        setDecisao(prevItems => [...prevItems, item]);
-    }
+        setDecisao((prevItems) => [...prevItems, item]);
+    };
 
     const popDecisao = () => {
         if (decisao.length > 0) {
-            aprovar(decisao[decisao.length - 1], 1)
+            aprovar(decisao[decisao.length - 1], 1);
             const novaDecisao = decisao.slice(0, decisao.length - 1);
             setDecisao(novaDecisao);
         } else {
@@ -67,176 +65,191 @@ export default function AdmAprovacao() {
             setAvisoTitulo("Erro");
             setAvisoDescricao("Não há decisões para serem desfeitas");
         }
-    }
+    };
 
     return (
-        <div className="h-screen w-screen flex bg-cinza-claro-2">
-            <ModalAviso
-                modalGettr={modalAviso}
-                modalSettr={setModalAviso}
-                tempo={5000}
-                titulo={avisoTitulo}
-                descricao={avisoDescricao}
-            />
-            <Sidebar />
-            <div className="w-[82%] h-full overflow-y-scroll">
-                <div className="h-[10%] w-full flex items-center">
-                    <span className="text-verde-escuro-1 font-bold ml-10 text-[30px]">
-                        Aprovações pendentes
-                    </span>
-                </div>
-                <button onClick={popDecisao} className=" flex fixed bg-verde-escuro-1 mt-[40%] text-white ml-[66%] pt-4 pb-4 pr-5 pl-5 rounded-full items-center "><ArrowUturnLeftIcon className="h-6 mr-2" /> <span className="mt-1 text-lg">Desfazer ultima decisão</span></button>
-                {prestadores ? (
-                    prestadores.length > 0 ? (
-                        <div className="h-[90%] w-full flex flex-wrap justify-evenly">
-                            {prestadores.map((prestador, index) => (
-                                <div
-                                    key={index}
-                                    className="h-[90%] min-w-[350px] w-[40%] m-5 flex justify-center items-center flex-col border-verde-escuro-1 border-2 rounded-lg"
-                                >
-                                    <div className="h-[30%] w-[90%] flex justify-center items-center">
-                                        <img
-                                            src={prestador.dados.fotoPerfil}
-                                            className="h-full object-cover w-[25%]"
-                                            alt=""
-                                        />
-                                        <div className="h-full w-[75%] flex flex-col">
-                                            <span className="w-full h-[25%] overflow-hidden pl-3 font-bold text-lg">
-                                                {prestador.dados.nome}
-                                            </span>
-                                            <span className="w-full h-[25%] overflow-hidden pl-3 underline">
-                                                {prestador.dados.email}
-                                            </span>
-                                            <span className="w-full h-[25%] overflow-hidden pl-3">
-                                                {prestador.dados.telefone}
-                                            </span>
-                                            <span className="w-full h-[25%] overflow-hidden pl-3">
-                                                {prestador.dados.cpf}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="max-h-[50%] w-[90%] flex justify-center items-center">
-                                        <div className="h-full w-[50%] p-1">
-                                            <div className="w-full break-words font-bold">
-                                                Endereço
-                                            </div>
-                                            <div className="w-full break-words">
-                                                {prestador.dados.cidade} -{" "}
-                                                {prestador.dados.estado}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>CEP:</b>{" "}
-                                                {prestador.dados.cep}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Bairro:</b>{" "}
-                                                {prestador.dados.bairro}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Rua:</b>{" "}
-                                                {prestador.dados.rua}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Número:</b>{" "}
-                                                {prestador.dados.numero}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Complemento:</b>{" "}
-                                                {prestador.dados.complemento}
-                                            </div>
-                                        </div>
-                                        <div className="h-full w-[50%] p-1">
-                                            <div className="w-full break-words font-bold">
-                                                Serviço
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Área:</b>{" "}
-                                                {prestador.dados.area}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Serviços:</b>
-                                            </div>
-                                            {prestador.servicos.map(
-                                                (servico, index2) => (
-                                                    <div
-                                                        className="w-full break-words"
-                                                        key={index2}
-                                                    >
-                                                        ● {servico};
-                                                    </div>
-                                                ),
-                                            )}
-                                            <div className="w-full break-words">
-                                                <b>Ensino:</b>{" "}
-                                                {prestador.dados.ensino
-                                                    ? "SIM"
-                                                    : "NÃO"}
-                                            </div>
-                                            <div className="w-full break-words">
-                                                <b>Faixa de preço:</b>
-                                            </div>
-                                            <div className="w-full break-words">
-                                                R${prestador.dados.orcamentoMin}{" "}
-                                                - R$
-                                                {prestador.dados.orcamentoMax}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="h-[15%] w-[90%] flex justify-center items-center">
-                                        <div
-                                            onClick={() => {
-                                                aprovar(
-                                                    prestador.dados.id,
-                                                    2,
-                                                );
-                                            }}
-                                            className="cursor-pointer w-[30%] h-[60%] mr-4 bg-[#47AE3E] text-white rounded-lg flex justify-center items-center"
-                                        >
-                                            Aprovar
-                                        </div>
-                                        <div
-                                            onClick={() => {
-                                                aprovar(
-                                                    prestador.dados.id,
-                                                    4,
-                                                );
-                                            }}
-                                            className="cursor-pointer w-[30%] h-[60%] ml-4 bg-[#D02B2B] text-white rounded-lg flex justify-center items-center"
-                                        >
-                                            Reprovar
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="h-[90%] w-full flex flex-col items-center">
-                            <img
-                                src={done}
-                                className="w-[400px] h-[400px] mt-10"
-                                alt=""
-                            />
-                            <span className="text-verde-escuro-1 text-xl">
-                                Todos os prestadores já foram aprovados!
-                            </span>
-                        </div>
-                    )
-                ) : (
-                    <div className="h-[90%] w-full flex justify-center">
-                        <Oval
-                            height={500}
-                            width={100}
-                            color="#00cc69"
-                            wrapperClass=""
-                            visible={true}
-                            ariaLabel="oval-loading"
-                            secondaryColor="#00cc69"
-                            strokeWidth={1}
-                            strokeWidthSecondary={4}
-                        />
+        <>
+            <button
+                onClick={popDecisao}
+                className="flex fixed bg-verde-escuro-1 text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-full items-center"
+            >
+                <ArrowUturnLeftIcon className="h-6 mr-2" />{" "}
+                <span className="mt-1 text-lg">Desfazer ultima decisão</span>
+            </button>
+            <div className="h-screen w-screen flex bg-cinza-claro-2">
+                <ModalAviso
+                    modalGettr={modalAviso}
+                    modalSettr={setModalAviso}
+                    tempo={5000}
+                    titulo={avisoTitulo}
+                    descricao={avisoDescricao}
+                />
+                <Sidebar />
+                <div className="w-[82%] h-full overflow-y-scroll">
+                    <div className="h-[10%] w-full flex items-center">
+                        <span className="text-verde-escuro-1 font-bold ml-10 text-[30px]">
+                            Aprovações pendentes
+                        </span>
                     </div>
-                )}
+                    {prestadores ? (
+                        prestadores.length > 0 ? (
+                            <div className="h-[90%] w-full flex flex-wrap justify-evenly">
+                                {prestadores.map((prestador, index) => (
+                                    <div
+                                        key={index}
+                                        className="h-[80%] min-w-[350px] w-[40%] m-5 flex justify-center items-center flex-col border-verde-escuro-1 border-2 rounded-lg"
+                                    >
+                                        <div className="h-[30%] w-[90%] flex justify-center items-center">
+                                            <div className="h-full w-[75%] flex flex-col">
+                                                <span className="w-full h-[25%] overflow-hidden font-bold text-lg flex items-center justify-center">
+                                                    {prestador.dados.nome}
+                                                </span>
+                                                <span className="w-full h-[25%] overflow-hidden underline flex items-center justify-center">
+                                                    {prestador.dados.email}
+                                                </span>
+                                                <span className="w-full h-[25%] overflow-hidden flex items-center justify-center">
+                                                    <b>Fone: </b>{" "}
+                                                    {prestador.dados.telefone}
+                                                </span>
+                                                <span className="w-full h-[25%] overflow-hidden flex items-center justify-center">
+                                                    <b>CPF: </b>{" "}
+                                                    {prestador.dados.cpf}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="max-h-[50%] w-[90%] flex justify-center items-center">
+                                            <div className="h-full w-[50%] p-1">
+                                                <div className="w-full break-words font-bold">
+                                                    Endereço
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    {prestador.dados.cidade} -{" "}
+                                                    {prestador.dados.estado}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>CEP:</b>{" "}
+                                                    {prestador.dados.cep}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Bairro:</b>{" "}
+                                                    {prestador.dados.bairro}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Rua:</b>{" "}
+                                                    {prestador.dados.rua}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Número:</b>{" "}
+                                                    {prestador.dados.numero}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Complemento:</b>{" "}
+                                                    {
+                                                        prestador.dados
+                                                            .complemento
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="h-full w-[50%] p-1">
+                                                <div className="w-full break-words font-bold">
+                                                    Serviço
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Área:</b>{" "}
+                                                    {prestador.dados.area}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Serviços:</b>
+                                                </div>
+                                                {prestador.servicos.map(
+                                                    (servico, index2) => (
+                                                        <div
+                                                            className="w-full break-words"
+                                                            key={index2}
+                                                        >
+                                                            ● {servico};
+                                                        </div>
+                                                    ),
+                                                )}
+                                                <div className="w-full break-words">
+                                                    <b>Ensino:</b>{" "}
+                                                    {prestador.dados.ensino
+                                                        ? "SIM"
+                                                        : "NÃO"}
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    <b>Faixa de preço:</b>
+                                                </div>
+                                                <div className="w-full break-words">
+                                                    R$
+                                                    {
+                                                        prestador.dados
+                                                            .orcamentoMin
+                                                    }{" "}
+                                                    - R$
+                                                    {
+                                                        prestador.dados
+                                                            .orcamentoMax
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="h-[15%] w-[90%] flex justify-center items-center">
+                                            <div
+                                                onClick={() => {
+                                                    aprovar(
+                                                        prestador.dados.id,
+                                                        2,
+                                                    );
+                                                }}
+                                                className="cursor-pointer w-[30%] h-[60%] mr-4 bg-[#47AE3E] text-white rounded-lg flex justify-center items-center"
+                                            >
+                                                Aprovar
+                                            </div>
+                                            <div
+                                                onClick={() => {
+                                                    aprovar(
+                                                        prestador.dados.id,
+                                                        4,
+                                                    );
+                                                }}
+                                                className="cursor-pointer w-[30%] h-[60%] ml-4 bg-[#D02B2B] text-white rounded-lg flex justify-center items-center"
+                                            >
+                                                Reprovar
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="h-[90%] w-full flex flex-col items-center">
+                                <img
+                                    src={done}
+                                    className="w-[400px] h-[400px] mt-10"
+                                    alt=""
+                                />
+                                <span className="text-verde-escuro-1 text-xl">
+                                    Todos os prestadores já foram aprovados!
+                                </span>
+                            </div>
+                        )
+                    ) : (
+                        <div className="h-[90%] w-full flex justify-center">
+                            <Oval
+                                height={500}
+                                width={100}
+                                color="#00cc69"
+                                wrapperClass=""
+                                visible={true}
+                                ariaLabel="oval-loading"
+                                secondaryColor="#00cc69"
+                                strokeWidth={1}
+                                strokeWidthSecondary={4}
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
