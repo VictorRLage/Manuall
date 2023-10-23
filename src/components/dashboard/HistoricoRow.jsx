@@ -1,6 +1,8 @@
 import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
 import { useState } from "react";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
+import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
+import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
 
 export default function HistoricoRow({
     solicitacao: {
@@ -12,7 +14,10 @@ export default function HistoricoRow({
         valorOrcamento,
         prestadorPfp,
         descricao,
+        notaDada,
+        solicitacaoId
     },
+    avaliar,
 }) {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -131,15 +136,35 @@ export default function HistoricoRow({
                     </span>
                 </div>
                 <div className="h-full w-[20%] flex items-center justify-center">
-                    <button
-                        className={`${
-                            valorOrcamento
-                                ? "bg-[#00cc69]"
-                                : "bg-gray-400 cursor-default"
-                        } px-8 py-4 rounded-lg text-white font-semibold`}
-                    >
-                        Avaliar
-                    </button>
+                    {notaDada ? (
+                        Array.from({ length: 5 }, (_, i) => {
+                            const estrela = i + 1;
+                            return notaDada >= estrela ? (
+                                <StarIconCheio
+                                    key={estrela}
+                                    className="w-6 h-6 text-yellow-500"
+                                />
+                            ) : (
+                                <StarIconVazio
+                                    key={estrela}
+                                    className="w-6 h-6 text-yellow-500"
+                                />
+                            );
+                        })
+                    ) : (
+                        <button
+                            className={`${
+                                valorOrcamento
+                                    ? "bg-[#00cc69]"
+                                    : "bg-gray-400 cursor-default"
+                            } px-8 py-4 rounded-lg text-white font-semibold`}
+                            onClick={() => {
+                                valorOrcamento && avaliar(solicitacaoId);
+                            }}
+                        >
+                            Avaliar
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
