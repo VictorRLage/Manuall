@@ -5,9 +5,16 @@ export default function GraficoServicosContratados({ labels, data }) {
         <Chart
             series={data}
             options={{
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: "50%",
+                        },
+                    },
+                },
                 colors: [
                     "#00CC69",
-                    "#4DFFA9",
+                    "#0bb562",
                     "rgba(17, 173, 14, 0.25)",
                     "#008042",
                     "#268054",

@@ -250,8 +250,7 @@ export default function Dashboard() {
                                                 ({ servico }) => servico,
                                             )}
                                             data={dashboardData.servicos.map(
-                                                ({ mediaAvaliacoes }) =>
-                                                    mediaAvaliacoes,
+                                                ({ quantidade }) => quantidade,
                                             )}
                                         />
                                     )

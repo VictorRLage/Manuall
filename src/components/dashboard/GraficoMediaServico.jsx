@@ -21,7 +21,7 @@ export default function GraficoServicosContratados({ labels, data, width }) {
                 },
                 colors: [
                     "#00CC69",
-                    "#4DFFA9",
+                    "#0bb562",
                     "rgba(17, 173, 14, 0.25)",
                     "#008042",
                     "#268054",
