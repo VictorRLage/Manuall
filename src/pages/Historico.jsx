@@ -60,7 +60,7 @@ export default function Historico() {
                 </div>
                 <div className="flex w-full h-[50px] justify-between gap-1 mt-8">
                     <div className="text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tl-xl">
-                        Data
+                        Data de Início
                     </div>
                     <div className="text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
                         Prestador
