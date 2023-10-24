@@ -48,7 +48,7 @@ export default function WordCloudAvaliacoes({ words, width, height }) {
                             Math.min(...etlWords.map((w) => w.value)),
                             Math.max(...etlWords.map((w) => w.value)),
                         ],
-                        range: [10, 100],
+                        range: [10, 40],
                     })(datum.value)
                 }
                 padding={2}

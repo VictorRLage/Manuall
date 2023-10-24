@@ -31,4 +31,6 @@ export default [
     "dos",
     "mais",
     "mas",
+    "não",
+    "sim",
 ];
