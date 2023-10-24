@@ -31,6 +31,7 @@ export default function CadastroPlanos() {
             .put(`/cadastrar/4/${plano}`)
             .then(({ status }) => {
                 if (status === 201) {
+                    localStorage.PLANO = plano;
                     setModalCompraAprovada(true);
                 }
             })
