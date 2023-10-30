@@ -65,7 +65,7 @@ export default function Login() {
                     localStorage.TIPO_USUARIO = data.tipoUsuario;
                     localStorage.PLANO = data.plano;
                     if (data.tipoUsuario === 1) {
-                        navigate("/prestadores");
+                        navigate("/prestadores?pagina=1");
                     } else if (data.tipoUsuario === 2) {
                         navigate("/perfil");
                     } else if (data.tipoUsuario === 3) {

@@ -1,5 +1,5 @@
 import Header from "@/components/header/Header";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import lupaIcon from "@/assets/icons/lupa.png";
 import axios from "@/api/axios";
 import FooterWave from "@/assets/shapes/FooterWave.svg?react";
@@ -9,11 +9,16 @@ import Breadcrumb from "@/components/main/Breadcrumb";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
 import { useData } from "@/data/CreateContext";
 import RegexENUM from "@/enum/RegexENUM";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import BlackArrowhead from "@/assets/icons/black_arrowhead.svg";
 
 export default function Prestadores() {
+    const mockPrestadoresPorPagina = 18;
+
     const { windowWidth } = useData();
-    const { search } = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const [paginasNavigator, setPaginasNavigator] = useState();
 
     const [areas, setAreas] = useState();
     const [prestadores, setPrestadores] = useState();
@@ -43,9 +48,14 @@ export default function Prestadores() {
             .get("/usuario/areas")
             .then(({ data }) => setAreas(data))
             .catch((err) => console.log(err));
+
         getPrestadores();
 
-        setCidadeSelecionada(search.substring(8));
+        if (!Number(searchParams.get("pagina"))) {
+            setSearchParams({ pagina: 1 });
+        }
+
+        setCidadeSelecionada(searchParams.get("cidade")?.substring(8));
     }, []);
 
     useEffect(getPrestadores, [
@@ -55,28 +65,57 @@ export default function Prestadores() {
     ]);
 
     useEffect(() => {
+        if (!prestadores) return;
+
+        const paginaAtual = Number(searchParams.get("pagina"));
+        const paginasTotal = Math.ceil(
+            prestadores.length / mockPrestadoresPorPagina,
+        );
+
+        let paginas = [];
+        if (paginaAtual - 2 >= 1) paginas.push(paginaAtual - 2);
+        if (paginaAtual - 1 >= 1) paginas.push(paginaAtual - 1);
+        paginas.push(paginaAtual);
+        if (paginaAtual + 1 <= paginasTotal) paginas.push(paginaAtual + 1);
+        if (paginaAtual + 2 <= paginasTotal) paginas.push(paginaAtual + 2);
+
+        setPaginasNavigator(paginas);
+    }, [searchParams, prestadores]);
+
+    useEffect(() => {
         setFilteredPrestadores(
             (cidadeSelecionada
                 ? prestadores?.filter(
                       ({ cidade }) =>
                           cidade
                               .toLowerCase()
-                              .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "") ===
-                          cidadeSelecionada,
+                              .replace(
+                                  RegexENUM.LOCALELESS_TEXT_REPLACEABLE,
+                                  "",
+                              ) === cidadeSelecionada,
                   )
                 : prestadores
-            )?.filter(({ nome }) =>
-                nome
-                    .toLowerCase()
-                    .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "")
-                    .includes(
-                        searchbarText
-                            .toLowerCase()
-                            .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, ""),
-                    ),
-            ),
+            )
+                ?.filter(({ nome }) =>
+                    nome
+                        .toLowerCase()
+                        .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "")
+                        .includes(
+                            searchbarText
+                                .toLowerCase()
+                                .replace(
+                                    RegexENUM.LOCALELESS_TEXT_REPLACEABLE,
+                                    "",
+                                ),
+                        ),
+                )
+                .splice(
+                    mockPrestadoresPorPagina * searchParams.get("pagina") -
+                        mockPrestadoresPorPagina,
+                    mockPrestadoresPorPagina,
+                ),
         );
-    }, [searchbarText, prestadores, cidadeSelecionada]);
+    }, [searchbarText, prestadores, cidadeSelecionada, searchParams]);
 
     return (
         <div>
@@ -167,6 +206,65 @@ export default function Prestadores() {
                 </div>
                 <div className="flex justify-center flex-col w-full">
                     <Cards areas={areas} prestadores={filteredPrestadores} />
+                </div>
+            </div>
+            <div className="w-full px-32 pt-12 flex justify-end">
+                <div className="h-[50px] flex rounded-2xl overflow-hidden gap-1 bg-transparent drop-shadow-sm">
+                    {Number(searchParams.get("pagina")) > 1 && (
+                        <div
+                            className="h-full w-[50px] flex justify-center items-center cursor-pointer text-2xl rounded-sm hover:bg-[rgb(87,255,129)] transition-colors hover:scale-105 hover:text-white bg-[#f1f1f1]"
+                            onClick={() => {
+                                setSearchParams({
+                                    pagina:
+                                        Number(searchParams.get("pagina")) - 1,
+                                });
+                                window.scrollTo(0, 0);
+                            }}
+                        >
+                            <img
+                                src={BlackArrowhead}
+                                className="h-[50%]"
+                                alt=""
+                            />
+                        </div>
+                    )}
+                    {paginasNavigator?.map((pagina, i) => (
+                        <div
+                            key={i}
+                            className={`h-full w-[50px] flex justify-center items-center cursor-pointer text-2xl rounded-sm hover:bg-[rgb(87,255,129)] transition-colors hover:scale-105 hover:text-white ${
+                                searchParams.get("pagina") == pagina
+                                    ? "bg-[#00cc69] text-white font-bold"
+                                    : "bg-[#f1f1f1]"
+                            }`}
+                            onClick={() => {
+                                setSearchParams({ pagina });
+                                window.scrollTo(0, 0);
+                            }}
+                        >
+                            {pagina}
+                        </div>
+                    ))}
+                    {Number(searchParams.get("pagina")) <
+                        Math.ceil(
+                            prestadores?.length / mockPrestadoresPorPagina,
+                        ) && (
+                        <div
+                            className="h-full w-[50px] flex justify-center items-center cursor-pointer text-2xl rounded-sm hover:bg-[rgb(87,255,129)] transition-colors hover:scale-105 hover:text-white bg-[#f1f1f1]"
+                            onClick={() => {
+                                setSearchParams({
+                                    pagina:
+                                        Number(searchParams.get("pagina")) + 1,
+                                });
+                                window.scrollTo(0, 0);
+                            }}
+                        >
+                            <img
+                                src={BlackArrowhead}
+                                className="h-[50%] transform rotate-180"
+                                alt=""
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
             <footer className="overflow-hidden bg-[#fafafa]">

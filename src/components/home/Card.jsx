@@ -43,17 +43,19 @@ export default function Card({
                 modalGettr={modalNaoLogado}
                 modalSettr={setModalNaoLogado}
             />
-            <div className="w-80 rounded-3xl drop-shadow-all">
+            <div className="w-80 rounded-3xl drop-shadow-xl">
                 <img
                     onError={({ target }) => (target.src = defaultPfp)}
                     src={anexoPfp}
                     alt=""
                     className="object-cover h-80 w-full rounded-t-3xl bg-verde-padrao bg-cover bg-center"
                 />
-                <div className="h-[45%] w-full rounded-b-3xl bg-white py-2 px-4">
+                <div className="w-full rounded-b-3xl bg-white pt-2 pb-4 px-6 flex flex-col gap-4">
                     <div className="flex flex-col">
-                        <span className="text-2xl font-semibold ml-2">{nome}</span>
-                        <span className="text-sl font-thin ml-2">
+                        <span className="text-2xl font-semibold">
+                            {nome}
+                        </span>
+                        <span className="text-sl font-thin">
                             {area ? (
                                 <>
                                     {area}
@@ -63,27 +65,27 @@ export default function Card({
                                 <Skeleton />
                             )}
                         </span>
-                        <span className="text-lg font-normal mt-3 ml-2">
-                            R${orcamentoMin} - R${orcamentoMax}
-                        </span>
                     </div>
-                    <div className="flex w-full justify-center gap-4 mt-4">
-                        <div className="w-[45%] border-[1px] flex items-center justify-center border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
+                    <span className="text-lg font-normal">
+                        R${orcamentoMin} - R${orcamentoMax}
+                    </span>
+                    <div className="flex w-full justify-between">
+                        <div className="w-[47%] border-[1px] flex items-center justify-center border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
                             {cidade}
                         </div>
-                        <div className="w-[45%] border-[1px] flex items-center justify-center border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
+                        <div className="w-[47%] border-[1px] flex items-center justify-center border-verde-padrao bg-green-50 rounded-full text-verde-padrao text-center">
                             {prestaAula ? "Serviço + Aula" : "Serviço"}
                         </div>
                     </div>
-                    <div className="flex space-x-1 mt-6 ml-2">
+                    <div className="flex space-x-1">
                         {estrelas}
-                        <span className="text-lg ml-2 font-medium">
+                        <span className="text-lg font-medium">
                             {mediaAvaliacoes?.toFixed(1)}
                         </span>
                     </div>
-                    <div className="flex mt-5 justify-center">
+                    <div className="flex justify-center">
                         <button
-                            className="mb-10 w-32 h-10 text-xl bg-verde-padrao rounded-full text-white font-semibold"
+                            className="px-6 py-2 text-xl bg-verde-padrao rounded-full text-white font-semibold"
                             onClick={verificarLogin}
                         >
                             CONTRATAR

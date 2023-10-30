@@ -63,7 +63,7 @@ export default function CarouselHome() {
                         <button
                             className="text-[#278054] bg-white px-8 font-extrabold text-3xl rounded-3xl py-3 absolute mt-[350px] ml-[50px]"
                             onClick={() => {
-                                navigate("/prestadores");
+                                navigate("/prestadores?pagina=1");
                             }}
                         >
                             ENCONTRAR
@@ -186,7 +186,7 @@ export default function CarouselHome() {
                     <button
                         className="text-[#278054] bg-white px-8 font-extrabold text-3xl rounded-3xl py-3 absolute mt-[350px] ml-[300px]"
                         onClick={() => {
-                            navigate("/prestadores");
+                            navigate("/prestadores?pagina=1");
                         } }
                     >
                         ENCONTRAR

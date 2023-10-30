@@ -108,7 +108,7 @@ export default function Header({ refetch }) {
                         <button
                             onClick={() => {
                                 pathname !== "/prestadores" &&
-                                    navigate("/prestadores");
+                                    navigate("/prestadores?pagina=1");
                             }}
                             className={`text-xl decoration-green-400 ${
                                 pathname === "/prestadores"

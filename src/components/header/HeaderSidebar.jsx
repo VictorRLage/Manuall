@@ -58,7 +58,7 @@ export default function HeaderSidebar({
                 </button>
                 <button
                     onClick={() => {
-                        pathname !== "/prestadores" && navigate("/prestadores");
+                        pathname !== "/prestadores" && navigate("/prestadores?pagina=1");
                     }}
                     className={`w-[60%] min-h-[56px] hover:bg-gray-200 text-xl transition-all rounded-full border-[1px] border-gray-500 ${
                         pathname === "/prestadores"

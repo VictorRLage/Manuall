@@ -57,7 +57,7 @@ export default function PrestadorGaleria({
                                   currentImg={prestador.imagens[i]}
                               />
                           ))
-                        : Array.from({ length: 6 }, (_, i) => (
+                        : Array.from({ length: 6 }, () => (
                               <Skeleton width={300} height={150} />
                           ))}
                 </div>

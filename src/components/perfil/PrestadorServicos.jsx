@@ -40,7 +40,7 @@ export default function PrestadorServicos({ servicos, hasInfoLoaded }) {
                                   {nome}
                               </div>
                           ))
-                        : Array.from({ length: 3 }).map((_, i) => <Skeleton />)}
+                        : Array.from({ length: 3 }).map(() => <Skeleton />)}
                 </div>
             </div>
             <div

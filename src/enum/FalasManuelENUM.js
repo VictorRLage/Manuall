@@ -316,7 +316,7 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/prestadores?cidade=sopaulo"
+            redirecionar: "/prestadores?pagina=1&cidade=sopaulo"
         }]
     },
     getProximo: () => undefined
@@ -328,7 +328,7 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/prestadores?cidade=sobernardodocampo"
+            redirecionar: "/prestadores?pagina=1&cidade=sobernardodocampo"
         }]
     },
     getProximo: () => undefined
@@ -340,7 +340,7 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/prestadores?cidade=socaetanodosul"
+            redirecionar: "/prestadores?pagina=1&cidade=socaetanodosul"
         }]
     },
     getProximo: () => undefined
@@ -352,7 +352,7 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/prestadores?cidade=santoandr"
+            redirecionar: "/prestadores?pagina=1&cidade=santoandr"
         }]
     },
     getProximo: () => undefined
@@ -364,7 +364,7 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/prestadores?cidade=osasco"
+            redirecionar: "/prestadores?pagina=1&cidade=osasco"
         }]
     },
     getProximo: () => undefined
@@ -376,7 +376,7 @@ export default [{
         return [{
             nextId: 96135,
             msg: "Sim",
-            redirecionar: "/prestadores?cidade=bauru"
+            redirecionar: "/prestadores?pagina=1&cidade=bauru"
         }]
     },
     getProximo: () => undefined

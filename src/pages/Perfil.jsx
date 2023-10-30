@@ -54,7 +54,7 @@ export default function Perfil({ isOwnProfile }) {
             })
             .catch(({ response }) => {
                 if (response.status === 403 || response.status === 404) {
-                    navigate("/prestadores");
+                    navigate("/prestadores?pagina=1");
                 }
             });
     };
@@ -146,7 +146,7 @@ export default function Perfil({ isOwnProfile }) {
                                               desc: "Página Inicial",
                                           },
                                           {
-                                              to: "/prestadores",
+                                              to: "/prestadores?pagina=1",
                                               desc: "Prestadores",
                                           },
                                           {
