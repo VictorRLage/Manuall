@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { logoff } from "@/utils/functions";
-import ModalConfiguracao from "@/components/perfil/ModalConfiguracao";
+import ModalAcessibilidade from "@/components/perfil/ModalAcessibilidade";
 import ModalNotificacoes from "@/components/header/ModalNotificacoes";
 
 export default function HeaderDropdown({
@@ -20,7 +20,7 @@ export default function HeaderDropdown({
     const navigate = useNavigate();
 
     const [realOn, setRealOn] = useState(dropdownGettr);
-    const [modalConfiguracao, setModalConfiguracao] = useState(false);
+    const [modalAcessibilidade, setModalAcessibilidade] = useState(false);
     const [modalNotificacoes, setModalNotificacoes] = useState(false);
 
     useEffect(() => {
@@ -35,9 +35,9 @@ export default function HeaderDropdown({
 
     return (
         <>
-            <ModalConfiguracao
-                modalGettr={modalConfiguracao}
-                modalSettr={setModalConfiguracao}
+            <ModalAcessibilidade
+                modalGettr={modalAcessibilidade}
+                modalSettr={setModalAcessibilidade}
             />
             <ModalNotificacoes
                 modalGettr={modalNotificacoes}
@@ -92,7 +92,7 @@ export default function HeaderDropdown({
                         <button
                             className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                             onClick={() => {
-                                setModalConfiguracao(true);
+                                setModalAcessibilidade(true);
                             }}
                         >
                             <EyeIcon className="w-5 h-5" />
