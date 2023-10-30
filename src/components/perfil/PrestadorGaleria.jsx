@@ -12,9 +12,9 @@ export default function PrestadorGaleria({
 }) {
     const { windowWidth } = useData();
 
-    const deleteImagem = (url) => {
+    const deleteImagem = (id) => {
         axios
-            .post("/perfil/imagem/delete", { imagem: url })
+            .post(`/perfil/imagem/delete/${id}`)
             .then(() => {
                 refetch();
             })
@@ -50,15 +50,17 @@ export default function PrestadorGaleria({
                                   isOwnProfile={isOwnProfile}
                                   openCreateImageModal={openCreateImageModal}
                                   key={i}
-                                  deleteImagem={deleteImagem}
+                                  deleteImagem={() => {
+                                      deleteImagem(prestador.imagens[i].id);
+                                  }}
                                   isNextToBeUploaded={
                                       prestador.imagens.length === i
                                   }
-                                  currentImg={prestador.imagens[i]}
+                                  currentImg={prestador.imagens[i]?.url}
                               />
                           ))
-                        : Array.from({ length: 6 }, () => (
-                              <Skeleton width={300} height={150} />
+                        : Array.from({ length: 6 }, (_, i) => (
+                              <Skeleton key={i} width={300} height={150} />
                           ))}
                 </div>
             </div>
