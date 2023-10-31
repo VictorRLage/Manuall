@@ -93,18 +93,17 @@ export default function ModalNotificacoes({
                                 onClick={() => {
                                     if (notificacao.type === 4) {
                                         setNotificacaoSelecionada(notificacao);
-                                        if (tipoUsuario === 1) {
+                                        if (tipoUsuario === 1)
                                             setModalAvaliacao(true);
-                                        } else if (tipoUsuario === 2) {
+                                        else if (tipoUsuario === 2)
                                             setModalFormOrcamento(true);
-                                        }
                                     }
                                 }}
                             >
                                 <span className="text-xl text-[#1F1F1F]">
-                                    {NotificacaoENUM[tipoUsuario][
+                                    {NotificacaoENUM[tipoUsuario]?.[
                                         notificacao.type
-                                    ](notificacao.nomeUsuario)}
+                                    ]?.(notificacao.nomeUsuario)}
                                 </span>
                                 {notificacao.type === 1 ? (
                                     tipoUsuario === 2 && (
