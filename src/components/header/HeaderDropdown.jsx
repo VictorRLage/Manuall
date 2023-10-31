@@ -51,60 +51,68 @@ export default function HeaderDropdown({
             />
             {realOn && (
                 <div
-                    className="absolute right-32 top-[60px] flex flex-col items-end overflow-hidden transition-all drop-shadow-xl"
-                    style={{
-                        zIndex: "500",
-                        animation: `grow_height 400ms forwards${
-                            dropdownGettr
-                                ? ""
-                                : ", shrink_height 400ms forwards"
-                        }`,
+                    className="absolute w-screen h-screen"
+                    style={{ zIndex: 499 }}
+                    onClick={() => {
+                        dropdownSettr(false);
                     }}
                 >
                     <div
-                        className="bg-white h-5 w-10"
+                        className="absolute right-32 top-[60px] flex flex-col items-end overflow-hidden transition-all drop-shadow-xl"
                         style={{
-                            clipPath:
-                                "polygon(50% 0, 50% 0px, 100% 100%, 0px 100%)",
+                            zIndex: "500",
+                            animation: `grow_height 400ms forwards${
+                                dropdownGettr
+                                    ? ""
+                                    : ", shrink_height 400ms forwards"
+                            }`,
                         }}
-                    />
-                    <div className="bg-white h-auto flex flex-col w-[300px] rounded-xl rounded-tr-none p-4 gap-3">
-                        {tipoUsuario === 2 && (
+                    >
+                        <div
+                            className="bg-white h-5 w-10"
+                            style={{
+                                clipPath:
+                                    "polygon(50% 0, 50% 0px, 100% 100%, 0px 100%)",
+                            }}
+                        />
+                        <div className="bg-white h-auto flex flex-col w-[300px] rounded-xl rounded-tr-none p-4 gap-3">
+                            {tipoUsuario === 2 && (
+                                <button
+                                    className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                    onClick={() => {
+                                        navigate("/perfil");
+                                    }}
+                                >
+                                    <UserIcon className="w-5 h-5" />
+                                    Perfil
+                                </button>
+                            )}
                             <button
                                 className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                                 onClick={() => {
-                                    navigate("/perfil");
+                                    setModalNotificacoes(true);
                                 }}
                             >
-                                <UserIcon className="w-5 h-5" />
-                                Perfil
+                                <BellIcon className="w-5 h-5" />
+                                Notificações
                             </button>
-                        )}
-                        <button
-                            className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
-                            onClick={() => {
-                                setModalNotificacoes(true);
-                            }}
-                        >
-                            <BellIcon className="w-5 h-5" />
-                            Notificações
-                        </button>
-                        <button
-                            className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
-                            onClick={() => {
-                                setModalAcessibilidade(true);
-                            }}
-                        >
-                            <EyeIcon className="w-5 h-5" />
-                            Acessibilidade
-                        </button>
-                        <button
-                            className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
-                            onClick={logoff}
-                        >
-                            <ArrowLeftOnRectangleIcon className="w-5 h-5" />
-                            Sair
-                        </button>
+                            <button
+                                className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                onClick={() => {
+                                    setModalAcessibilidade(true);
+                                }}
+                            >
+                                <EyeIcon className="w-5 h-5" />
+                                Acessibilidade
+                            </button>
+                            <button
+                                className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                onClick={logoff}
+                            >
+                                <ArrowLeftOnRectangleIcon className="w-5 h-5" />
+                                Sair
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

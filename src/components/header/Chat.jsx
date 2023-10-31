@@ -10,6 +10,7 @@ import axios from "@/api/axios";
 import SockJS from "sockjs-client/dist/sockjs";
 import { over } from "stompjs";
 import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
+import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
 
 export default function Chat({ forceChatOpen, forceChatRefetch }) {
     const tipoUsuario =
@@ -64,12 +65,14 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
         }
     };
 
-    const fetch = () => {
+    const fetch = (openSocketConnection = false) => {
         axios
             .get("/chat")
             .then((res) => {
                 if (res.status === 200 || res.status === 204) {
                     setConversas(res.data);
+
+                    if (!openSocketConnection) return;
                     axios
                         .get("/usuario/id")
                         .then(({ data }) => {
@@ -112,7 +115,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                     setDadosUsuarioCrm(true);
                 });
 
-        fetch();
+        fetch(true);
     }, []);
 
     useEffect(() => {
@@ -146,6 +149,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
         document.activeElement.blur();
         setIsMensagemLoading(true);
+        console.log("???");
         stompClient.send(
             "/app/chat",
             {},
@@ -170,9 +174,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
         }
     }, [forceChatOpen]);
 
-    useEffect(() => {
-        fetch();
-    }, [forceChatRefetch]);
+    useEffect(fetch, [forceChatRefetch]);
 
     return (
         <div
@@ -276,28 +278,43 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
             ) : conversas !== undefined && manuelMsgs && dadosUsuarioCrm ? (
                 <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
                     {typeof manuelMsgs !== "boolean" &&
-                        typeof dadosUsuarioCrm !== "boolean" && (
-                            <div
-                                onClick={() => {
-                                    selecionarChat(undefined, true);
-                                }}
-                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                            >
-                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                                    <img
-                                        src={Manuel}
-                                        className="w-10 rounded-full"
-                                        alt=""
-                                    />
-                                    <span className="p-2">Manuel</span>
-                                    <img
-                                        src={BotCertification}
-                                        className="w-5"
-                                        alt=""
-                                    />
-                                </div>
+                    typeof dadosUsuarioCrm !== "boolean" ? (
+                        <div
+                            onClick={() => {
+                                selecionarChat(undefined, true);
+                            }}
+                            className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                        >
+                            <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                <img
+                                    src={Manuel}
+                                    className="w-10 rounded-full"
+                                    alt=""
+                                />
+                                <span className="p-2">Manuel</span>
+                                <img
+                                    src={BotCertification}
+                                    className="w-5"
+                                    alt=""
+                                />
                             </div>
-                        )}
+                        </div>
+                    ) : (
+                        conversas === "" &&
+                        conversas?.length === 0 && (
+                            <div className="w-full h-full bg-white flex items-center justify-center flex-col gap-8">
+                                <img
+                                    src={NoChatsIcon}
+                                    className="w-[40%]"
+                                    alt=""
+                                />
+                                <span className="text-lg text-center max-w-[80%] font-bold">
+                                    Você não possui solicitações ativas no
+                                    momento
+                                </span>
+                            </div>
+                        )
+                    )}
                     {conversas !== "" &&
                         conversas?.map((conversa) => (
                             <div

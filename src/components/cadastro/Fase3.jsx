@@ -30,6 +30,11 @@ export default function Fase3({
     const [prestaAula, setPrestaAula] = useState(null);
     const [orcamento, setOrcamento] = useState([1500, 3500]);
 
+    const [isOrcamentoSelected, setIsOrcamentoSelected] = useState([
+        false,
+        false,
+    ]);
+
     const validar = {
         areaSelecionada: (areaSelecionadaValue = areaSelecionada) => {
             setIsAreaSelecionadaValidado(areaSelecionadaValue !== null);
@@ -235,12 +240,31 @@ export default function Fase3({
                     </h3>
                     <div className="flex items-center justify-between w-full py-8">
                         <div className="flex items-center justify-between w-[17%]">
-                            <span className="text-lg text-gray-800">Mín</span>
+                            <label
+                                htmlFor="orcamento_min"
+                                className="text-lg text-gray-800"
+                            >
+                                Mín
+                            </label>
                             <input
+                                id="orcamento_min"
                                 type="text"
-                                value={orcamento[0]}
+                                value={`${orcamento[0]}${
+                                    isOrcamentoSelected[0] ? "" : ",00"
+                                }`}
+                                onBlur={() => {
+                                    setIsOrcamentoSelected([
+                                        false,
+                                        isOrcamentoSelected[1],
+                                    ]);
+                                }}
+                                onFocus={() => {
+                                    setIsOrcamentoSelected([
+                                        true,
+                                        isOrcamentoSelected[1],
+                                    ]);
+                                }}
                                 onChange={({ target }) => {
-                                    console.log(target)
                                     setOrcamento([
                                         Number(
                                             target.value.replace(
@@ -268,10 +292,30 @@ export default function Fase3({
                             minDistance={50}
                         />
                         <div className="flex items-center justify-between w-[17%]">
-                            <span className="text-lg text-gray-800">Máx</span>
+                            <label
+                                htmlFor="orcamento_max"
+                                className="text-lg text-gray-800"
+                            >
+                                Máx
+                            </label>
                             <input
+                                id="orcamento_max"
                                 type="text"
-                                value={orcamento[1]}
+                                value={`${orcamento[1]}${
+                                    isOrcamentoSelected[1] ? "" : ",00"
+                                }`}
+                                onBlur={() => {
+                                    setIsOrcamentoSelected([
+                                        isOrcamentoSelected[0],
+                                        false,
+                                    ]);
+                                }}
+                                onFocus={() => {
+                                    setIsOrcamentoSelected([
+                                        isOrcamentoSelected[0],
+                                        true,
+                                    ]);
+                                }}
                                 onChange={({ target }) => {
                                     setOrcamento([
                                         orcamento[0] < target.value
