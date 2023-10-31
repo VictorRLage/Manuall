@@ -94,7 +94,6 @@ export default function PrestadorCard({
                     {hasInfoLoaded ? (
                         <>
                             <span>
-                                {" "}
                                 R${prestador?.orcamentoMin} - R$
                                 {prestador?.orcamentoMax}
                             </span>

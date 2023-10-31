@@ -107,6 +107,13 @@ export default function Fase3({
             .catch((err) => console.log(err));
     }, [areaSelecionada]);
 
+    useEffect(() => {
+        if (orcamento[0] < 50) setOrcamento([50, orcamento[1]]);
+        else if (orcamento[0] > 4950) setOrcamento([4950, orcamento[1]]);
+        if (orcamento[1] < 100) setOrcamento([orcamento[0], 100]);
+        else if (orcamento[1] > 5000) setOrcamento([orcamento[0], 5000]);
+    }, [orcamento]);
+
     return (
         <div className="bg-white h-full min-w-[100%] flex flex-col items-center">
             <CadastroProgress
@@ -233,6 +240,7 @@ export default function Fase3({
                                 type="text"
                                 value={orcamento[0]}
                                 onChange={({ target }) => {
+                                    console.log(target)
                                     setOrcamento([
                                         Number(
                                             target.value.replace(
