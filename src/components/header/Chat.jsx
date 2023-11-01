@@ -121,6 +121,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
     useEffect(() => {
         stompClient?.connect({}, () => {
             stompClient.subscribe(`/chat/${userId}`, ({ body }) => {
+                console.log(body)
                 setIsMensagemLoading(false);
                 setMensagem("");
                 const msg = JSON.parse(body);
@@ -149,7 +150,6 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
         document.activeElement.blur();
         setIsMensagemLoading(true);
-        console.log("???");
         stompClient.send(
             "/app/chat",
             {},
