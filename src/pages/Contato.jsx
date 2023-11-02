@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "@/components/header/Header";
 import fundoContato from "@/assets/shapes/MainBg.svg";
 import Skeleton from "react-loading-skeleton";
@@ -10,8 +9,6 @@ import iconeRelogio from "@/assets/icons/clock.png";
 import Breadcrumb from "@/components/main/Breadcrumb";
 
 export default function Contato() {
-    const navigate = useNavigate();
-
     const [iFrameIsLoading, setIFrameIsLoading] = useState(true);
     const [imgIsLoading, setImgIsLoading] = useState(true);
 

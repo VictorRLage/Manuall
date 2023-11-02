@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Oval, ThreeDots } from "react-loader-spinner";
+import { Oval } from "react-loader-spinner";
 import Arrow from "@/assets/icons/arrow.svg";
 import ArrowHead from "@/assets/icons/arrowhead.svg";
 import Manuel from "@/assets/manuall/manuel_pfp.png";
@@ -30,7 +30,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
     const [stompClient, setStompClient] = useState(null);
 
     const [mensagem, setMensagem] = useState("");
-    const [isMensagemLoading, setIsMensagemLoading] = useState(false);
+    const [tempId, setTempId] = useState(0);
 
     const alternarChat = (e) => {
         if (
@@ -121,15 +121,31 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
     useEffect(() => {
         stompClient?.connect({}, () => {
             stompClient.subscribe(`/chat/${userId}`, ({ body }) => {
-                console.log(body)
-                setIsMensagemLoading(false);
                 setMensagem("");
                 const msg = JSON.parse(body);
                 if (!conversas) return;
                 const newConversas = [...conversas];
                 for (let i = 0; i < newConversas?.length; i++) {
                     if (newConversas[i].solicitacaoId === msg.solicitacaoId) {
-                        newConversas[i].mensagens.push(msg);
+                        if (msg.selfSender) {
+                            for (
+                                let j = 0;
+                                j < newConversas[i].mensagens?.length;
+                                j++
+                            ) {
+                                if (
+                                    newConversas[i].mensagens[j].tempId ===
+                                    msg.tempId
+                                ) {
+                                    newConversas[i].mensagens[
+                                        j
+                                    ].loading = false;
+                                    break;
+                                }
+                            }
+                        } else {
+                            newConversas[i].mensagens.push(msg);
+                        }
                         break;
                     }
                 }
@@ -139,27 +155,40 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
         });
 
         return () => {
-            if (stompClient?.connected) {
-                stompClient.disconnect();
-            }
+            if (stompClient?.connected) stompClient.disconnect();
         };
     }, [stompClient]);
 
     const sendMessage = () => {
-        if (isMensagemLoading) return;
+        if (!mensagem) return;
 
-        document.activeElement.blur();
-        setIsMensagemLoading(true);
-        stompClient.send(
-            "/app/chat",
-            {},
-            JSON.stringify({
-                mensagem,
-                solicitacaoId: chatAtual.solicitacaoId,
-                token: localStorage.getItem("TOKEN"),
-                anexo: null,
-            }),
-        );
+        const curTempId = tempId;
+
+        setTempId(tempId + 1);
+
+        const mensagemAtual = {
+            mensagem,
+            solicitacaoId: chatAtual.solicitacaoId,
+            token: localStorage.getItem("TOKEN"),
+            anexo: null,
+            tempId: curTempId,
+        };
+        stompClient.send("/app/chat", {}, JSON.stringify(mensagemAtual));
+        const newConversas = [...conversas];
+        for (let i = 0; i < newConversas?.length; i++) {
+            if (newConversas[i].solicitacaoId === mensagemAtual.solicitacaoId) {
+                newConversas[i].mensagens.push({
+                    ...mensagemAtual,
+                    visto: false,
+                    selfSender: true,
+                    horario: new Date().toString(),
+                    loading: true,
+                });
+                break;
+            }
+        }
+        setConversas(newConversas);
+        scrollDown();
     };
 
     useEffect(() => {
@@ -243,7 +272,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                                 <PhotoIcon className="text-white" />
                             </div>
                             <input
-                                className="bg-gray-200 h-[30px] w-full rounded-xl px-1"
+                                className="bg-gray-200 h-[30px] w-full rounded-xl px-1 focus:border-[2px] border-verde-escuro-1 outline-none"
                                 placeholder="Digite sua mensagem aqui"
                                 value={mensagem}
                                 onChange={({ target }) =>
@@ -260,18 +289,6 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                             >
                                 <PaperAirplaneIcon className="text-white" />
                             </div>
-                            {isMensagemLoading && (
-                                <div className="w-full h-full absolute bg-[rgba(0,0,0,0.3)] flex items-center justify-center">
-                                    <ThreeDots
-                                        height="60"
-                                        width="60"
-                                        radius="9"
-                                        color="#ffffff"
-                                        ariaLabel="three-dots-loading"
-                                        visible={true}
-                                    />
-                                </div>
-                            )}
                         </div>
                     )}
                 </>
