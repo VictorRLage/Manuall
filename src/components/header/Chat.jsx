@@ -25,6 +25,8 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
     const [dadosUsuarioCrm, setDadosUsuarioCrm] = useState();
     const [conversas, setConversas] = useState();
     const [chatAtual, setChatAtual] = useState();
+    const chatAtualRef = useRef(chatAtual);
+    chatAtualRef.current = chatAtual;
 
     const [userId, setUserId] = useState();
     const [stompClient, setStompClient] = useState(null);
@@ -53,6 +55,25 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
             scrollDown();
         } else {
+            if (conversa.mensagens) {
+                for (let i = 0; i < conversa.mensagens.length; i++) {
+                    const mensagemAtual = conversa.mensagens[i];
+
+                    if (
+                        mensagemAtual.selfSender === false &&
+                        mensagemAtual.visto === false
+                    ) {
+                        stompClient.send(
+                            "/app/visualizar",
+                            {},
+                            JSON.stringify({
+                                token: localStorage.getItem("TOKEN"),
+                                mensagemId: mensagemAtual.id,
+                            }),
+                        );
+                    }
+                }
+            }
             setChatAtual({
                 isManuel: false,
                 name: conversa.usuarioNome,
@@ -93,7 +114,10 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
     const scrollDown = () => {
         setTimeout(() => {
-            scrollingDiv.current.scrollTop = scrollingDiv.current.scrollHeight;
+            if (scrollingDiv.current) {
+                scrollingDiv.current.scrollTop =
+                    scrollingDiv.current.scrollHeight;
+            }
         }, 1);
     };
 
@@ -120,7 +144,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
     useEffect(() => {
         stompClient?.connect({}, () => {
-            stompClient.subscribe(`/chat/${userId}`, ({ body }) => {
+            stompClient.subscribe(`/mensagem/${userId}`, ({ body }) => {
                 setMensagem("");
                 const msg = JSON.parse(body);
                 if (!conversas) return;
@@ -140,10 +164,24 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                                     newConversas[i].mensagens[
                                         j
                                     ].loading = false;
+                                    newConversas[i].mensagens[j].id = msg.id;
                                     break;
                                 }
                             }
                         } else {
+                            if (
+                                newConversas[i].solicitacaoId ===
+                                chatAtualRef.current?.solicitacaoId
+                            ) {
+                                stompClient.send(
+                                    "/app/visualizar",
+                                    {},
+                                    JSON.stringify({
+                                        token: localStorage.getItem("TOKEN"),
+                                        mensagemId: msg.id,
+                                    }),
+                                );
+                            }
                             newConversas[i].mensagens.push(msg);
                         }
                         break;
@@ -151,6 +189,27 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                 }
                 setConversas(newConversas);
                 scrollDown();
+            });
+            stompClient.subscribe(`/visualizacao/${userId}`, ({ body }) => {
+                const msg = JSON.parse(body);
+                if (!conversas) return;
+                const newConversas = [...conversas];
+                for (let i = 0; i < newConversas?.length; i++) {
+                    if (newConversas[i].solicitacaoId === msg.solicitacaoId) {
+                        for (
+                            let j = 0;
+                            j < newConversas[i].mensagens?.length;
+                            j++
+                        ) {
+                            if (newConversas[i].mensagens[j].id === msg.id) {
+                                newConversas[i].mensagens[j].visto = true;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                setConversas(newConversas);
             });
         });
 
@@ -236,12 +295,12 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                         className="text-white font-bold text-xl"
                         style={{ paddingLeft: chatAtual ? "4px" : "0" }}
                     >
-                        {(chatAtual && chatAtual.name) || "Conversas"}
+                        {chatAtual?.name || "Conversas"}
                     </span>
                 </div>
                 <div className="w-8 h-8 p-1 flex justify-center items-center">
                     <img
-                        className="transition-all"
+                        className="transition-all h-4"
                         style={{ rotate: isOpen ? "180deg" : "360deg" }}
                         src={ArrowHead}
                         alt=""

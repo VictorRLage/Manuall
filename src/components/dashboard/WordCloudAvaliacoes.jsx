@@ -52,7 +52,7 @@ export default function WordCloudAvaliacoes({ words, width, height }) {
                     })(datum.value)
                 }
                 padding={2}
-                spiral={"archimedean"}
+                spiral="archimedean"
                 rotate={0}
                 random={() => 0.5}
             >
@@ -69,7 +69,7 @@ export default function WordCloudAvaliacoes({ words, width, height }) {
                                     "#268054",
                                 ][i % 5]
                             }
-                            textAnchor={"middle"}
+                            textAnchor="middle"
                             transform={`translate(${w.x}, ${w.y}) rotate(${w.rotate})`}
                             fontSize={w.size}
                             fontFamily={w.font}
