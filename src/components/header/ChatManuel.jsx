@@ -76,6 +76,9 @@ export default function ChatManuel({ chat, scrollDown }) {
                                 : "justify-start"
                         }
                         ${firstMsgOfChunk && "pt-2"}`}
+            style={{
+                animation: "pop_up_test 150ms",
+            }}
         >
             {msgType === "CHATBOT" && firstMsgOfChunk && (
                 <div

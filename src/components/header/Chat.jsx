@@ -11,6 +11,8 @@ import SockJS from "sockjs-client/dist/sockjs";
 import { over } from "stompjs";
 import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
+import GrayCheckmark from "@/assets/icons/gray_checkmark.svg";
+import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
 
 export default function Chat({ forceChatOpen, forceChatRefetch }) {
     const tipoUsuario =
@@ -86,12 +88,35 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
         }
     };
 
+    const orderConversas = (conversas) => {
+        const newConversas = [...conversas];
+
+        newConversas.sort((a, b) => {
+            const requiredDateA =
+                a.mensagens?.length > 0
+                    ? a.mensagens?.[a.mensagens.length - 1]?.horario
+                    : a.dataInicio;
+
+            const requiredDateB =
+                b.mensagens?.length > 0
+                    ? b.mensagens?.[b.mensagens.length - 1]?.horario
+                    : b.dataInicio;
+
+            return (
+                new Date(requiredDateB).getTime() -
+                new Date(requiredDateA).getTime()
+            );
+        });
+
+        setConversas(newConversas);
+    };
+
     const fetch = (openSocketConnection = false) => {
         axios
             .get("/chat")
             .then((res) => {
                 if (res.status === 200 || res.status === 204) {
-                    setConversas(res.data);
+                    orderConversas(res.data);
 
                     if (!openSocketConnection) return;
                     axios
@@ -187,7 +212,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                         break;
                     }
                 }
-                setConversas(newConversas);
+                orderConversas(newConversas);
                 scrollDown();
             });
             stompClient.subscribe(`/visualizacao/${userId}`, ({ body }) => {
@@ -209,7 +234,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                         break;
                     }
                 }
-                setConversas(newConversas);
+                orderConversas(newConversas);
             });
         });
 
@@ -246,7 +271,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                 break;
             }
         }
-        setConversas(newConversas);
+        orderConversas(newConversas);
         scrollDown();
     };
 
@@ -400,7 +425,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                                 className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
                                 key={conversa.solicitacaoId}
                             >
-                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                <div className="w-full h-full flex items-center border-b-2 border-gray-200 relative">
                                     {tipoUsuario === 1 && (
                                         <img
                                             src={conversa.usuarioPfp}
@@ -412,12 +437,61 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                                         <span className="font-medium">
                                             {conversa.usuarioNome}
                                         </span>
-                                        <span className="text-gray-600">
-                                            {conversa.mensagens?.[
-                                                conversa.mensagens.length - 1
-                                            ]?.mensagem || "Inicie o chat já!"}
+                                        <span className="text-gray-600 flex items-center gap-1">
+                                            {(() => {
+                                                const ultimaMensagem =
+                                                    conversa.mensagens?.[
+                                                        conversa.mensagens
+                                                            .length - 1
+                                                    ];
+                                                return ultimaMensagem?.mensagem ? (
+                                                    <>
+                                                        {ultimaMensagem.selfSender &&
+                                                            (ultimaMensagem.visto ? (
+                                                                <img
+                                                                    src={
+                                                                        BlueCheckmark
+                                                                    }
+                                                                    className="h-[8px] opacity-70"
+                                                                    alt=""
+                                                                />
+                                                            ) : (
+                                                                <img
+                                                                    src={
+                                                                        GrayCheckmark
+                                                                    }
+                                                                    className="h-[8px] opacity-70"
+                                                                    alt=""
+                                                                />
+                                                            ))}
+                                                        {
+                                                            ultimaMensagem.mensagem
+                                                        }
+                                                    </>
+                                                ) : (
+                                                    "Inicie a conversa já!"
+                                                );
+                                            })()}
                                         </span>
                                     </div>
+                                    {conversa.mensagens.length > 0 &&
+                                        conversa.mensagens[
+                                            conversa.mensagens.length - 1
+                                        ].selfSender === false &&
+                                        conversa.mensagens[
+                                            conversa.mensagens.length - 1
+                                        ].visto === false && (
+                                            <div className="h-6 w-6 rounded-full bg-red-600 text-white absolute right-2 flex items-center justify-center text-center">
+                                                {
+                                                    conversa.mensagens.filter(
+                                                        (m) =>
+                                                            m.selfSender ===
+                                                                false &&
+                                                            m.visto === false,
+                                                    ).length
+                                                }
+                                            </div>
+                                        )}
                                 </div>
                             </div>
                         ))}
