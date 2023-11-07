@@ -34,6 +34,7 @@ export default function Fase1({
     const telefone_input = useRef(null);
     const senha_input = useRef(null);
 
+    
     const validar = {
         nome() {
             const nome = nome_input.current.value;
