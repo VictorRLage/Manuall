@@ -10,8 +10,6 @@ export default function AdmAprovacao() {
     const [prestadores, setPrestadores] = useState();
 
     const [modalAviso, setModalAviso] = useState(false);
-    const [avisoTitulo, setAvisoTitulo] = useState("");
-    const [avisoDescricao, setAvisoDescricao] = useState("");
 
     const aprovar = (idPrestador, aprovar) => {
         axios
@@ -19,34 +17,26 @@ export default function AdmAprovacao() {
             .then(() => {
                 axios
                     .get("/usuario/aprovacoesPendentes")
-                    .then((res) => {
-                        if (res.status === 200) {
-                            setPrestadores(res.data);
-                            if (aprovar !== 1) {
-                                pushDecisao(idPrestador);
-                            }
+                    .then(({ status, data }) => {
+                        if (status === 200) {
+                            setPrestadores(data);
+                            if (aprovar !== 1) pushDecisao(idPrestador);
                         }
                     })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                    .catch((err) => console.log(err));
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch((err) => console.log(err));
     };
 
     useEffect(() => {
         axios
             .get("/usuario/aprovacoesPendentes")
-            .then((res) => {
-                if (res.status === 200) {
-                    setPrestadores(res.data);
+            .then(({ status, data }) => {
+                if (status === 200) {
+                    setPrestadores(data);
                 }
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch((err) => console.log(err));
     }, []);
 
     const [decisao, setDecisao] = useState([]);
@@ -62,7 +52,6 @@ export default function AdmAprovacao() {
             setDecisao(novaDecisao);
         } else {
             setModalAviso(true);
-            setAvisoTitulo("Não há decisões para serem desfeitas");
         }
     };
 
@@ -70,7 +59,7 @@ export default function AdmAprovacao() {
         <>
             <button
                 onClick={popDecisao}
-                className="flex fixed bg-verde-escuro-1 text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-full items-center"
+                className="flex fixed bg-[#209D61] text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-xl items-center"
             >
                 <ArrowUturnLeftIcon className="h-6 mr-2" />{" "}
                 <span className="mt-1 text-lg">Desfazer última decisão</span>
@@ -80,17 +69,22 @@ export default function AdmAprovacao() {
                     modalGettr={modalAviso}
                     modalSettr={setModalAviso}
                     tempo={5000}
-                    titulo={avisoTitulo}
-                    descricao={avisoDescricao}
+                    titulo={"Não existem decisões para serem desfeitas"}
                 />
                 <Sidebar />
                 <div className="w-[82%] h-full overflow-y-scroll">
-                    <div className="h-[10%] w-full flex items-center">
-                        <span className="text-verde-escuro-1 font-bold ml-10 text-[30px]">
-                            Aprovações pendentes
+                    <div className="h-[15%] w-full flex items-center justify-center">
+                        <span className="text-gray-900 font-bold text-[30px]">
+                            Aprovações de Prestadores
                         </span>
                     </div>
-                    {prestadores ? (
+                    <div className="h-[60px] w-full flex px-12 gap-4">
+                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl grow" />
+                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl w-[30%]" />
+                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[60px]" />
+                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[60px]" />
+                    </div>
+                    {/* {prestadores ? (
                         prestadores.length > 0 ? (
                             <div className="h-[90%] w-full flex flex-wrap justify-evenly">
                                 {prestadores.map((prestador, index) => (
@@ -246,7 +240,7 @@ export default function AdmAprovacao() {
                                 strokeWidthSecondary={4}
                             />
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </>

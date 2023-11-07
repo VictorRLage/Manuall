@@ -1,44 +1,62 @@
 import { useState } from "react";
 import Header from "@/components/header/Header";
-import fundoContato from "@/assets/shapes/MainBg.svg";
+import fundoContato from "@/assets/shapes/MainBg.png";
 import Skeleton from "react-loading-skeleton";
 import imagemTelemarketing from "@/assets/demo/telemarketing.png";
 import iconeTelefone from "@/assets/icons/phone.png";
 import iconeMapa from "@/assets/icons/gps.png";
 import iconeRelogio from "@/assets/icons/clock.png";
 import Breadcrumb from "@/components/main/Breadcrumb";
+import { useData } from "@/data/CreateContext";
 
 export default function Contato() {
     const [iFrameIsLoading, setIFrameIsLoading] = useState(true);
     const [imgIsLoading, setImgIsLoading] = useState(true);
+
+    const { windowWidth } = useData();
 
     return (
         <>
             <Header />
             <div className="w-full h-full bg-[#fafafa]">
                 <div className="flex flex-row justify-center items-end h-20 relative">
-                    <div className="absolute left-52">
-                        <Breadcrumb
-                            items={[
-                                { to: "/", desc: "Página Inicial" },
-                                { to: null, desc: "Contato" },
-                            ]}
-                        />
-                    </div>
+                    {windowWidth > 1000 && (
+                        <div className="absolute left-32">
+                            <Breadcrumb
+                                items={[
+                                    { to: "/", desc: "Página Inicial" },
+                                    { to: null, desc: "Contato" },
+                                ]}
+                            />
+                        </div>
+                    )}
                     <div className="text-4xl font-semibold text-center text-gray-900">
                         Contato
                     </div>
                 </div>
-                <div className="relative flex justify-center items-center h-[600px]">
-                    <img
-                        src={fundoContato}
-                        className="absolute z-40 w-full overflow-y-hidden"
-                        alt=""
-                    />
-                    <div className="flex z-40 mt-[-50px] gap-40">
-                        <div className="w-[400px] h-[450px] shadow-2xl rounded-md">
+                <div
+                    className="flex justify-center items-center mb-16"
+                    style={{
+                        backgroundImage: `url(${fundoContato})`,
+                        backgroundSize: "100% 100%",
+                    }}
+                >
+                    <div
+                        className={`w-full flex flex-wrap py-12 ${
+                            windowWidth < 700
+                                ? windowWidth < 500
+                                    ? "px-8"
+                                    : "px-16"
+                                : "px-32"
+                        } ${
+                            windowWidth > 1150
+                                ? "justify-between"
+                                : "justify-center gap-12"
+                        }`}
+                    >
+                        <div className="w-[400px] min-h-[450px] shadow-2xl rounded-md">
                             {iFrameIsLoading && (
-                                <Skeleton width={"100%"} height={"100%"} />
+                                <Skeleton width="100%" height="100%" />
                             )}
                             <iframe
                                 title="formulario_contato"
@@ -47,18 +65,13 @@ export default function Contato() {
                                     display: iFrameIsLoading ? "none" : "block",
                                 }}
                                 src="https://app.pipefy.com/public/form/fdmepBpW?embedded=true"
-                                onLoad={() => {
-                                    setIFrameIsLoading(false);
-                                }}
+                                onLoad={() => setIFrameIsLoading(false)}
                             />
                         </div>
-                        <div className="flex flex-col w-[400px] h-[450px] shadow-2xl rounded-b-md">
+                        <div className="w-[400px] shadow-2xl rounded-b-md flex flex-col">
                             <div className="w-[100%]">
                                 {imgIsLoading && (
-                                    <Skeleton
-                                        width={"100%"}
-                                        height={"266.55px"}
-                                    />
+                                    <Skeleton width="100%" height="266.55px" />
                                 )}
                                 <img
                                     src={imagemTelemarketing}
