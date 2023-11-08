@@ -5,44 +5,104 @@ import axios from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 import done from "@/assets/storyset/Done-rafiki.svg";
+import AprovacaoSection from "@/components/adm/AprovacaoSection";
+import lupaIcon from "@/assets/icons/lupa.png";
+import FileDownload from "@/assets/icons/file_download.png";
+import FileUpload from "@/assets/icons/file_upload.png";
+import RegexENUM from "@/enum/RegexENUM";
+import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
 
 export default function AdmAprovacao() {
     const [prestadores, setPrestadores] = useState();
 
+    const [filtro, setFiltro] = useState("");
+    const [agrupamentoSelecionado, setAgrupamentoSelecionado] = useState(0);
+
+    const { prestadoresPendente, prestadoresAgendado, prestadoresFinalizado } =
+        prestadores?.reduce(
+            (acc, prestador) => {
+                if (filtro) {
+                    if (
+                        !prestador.nome
+                            .toLowerCase()
+                            .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "")
+                            .includes(
+                                filtro
+                                    .toLowerCase()
+                                    .replace(
+                                        RegexENUM.LOCALELESS_TEXT_REPLACEABLE,
+                                        "",
+                                    ),
+                            )
+                    ) {
+                        return acc;
+                    }
+                }
+
+                if (
+                    prestador.statusProcesso === 1 ||
+                    !prestador.statusProcesso
+                ) {
+                    acc.prestadoresPendente.push(prestador);
+                } else if (prestador.statusProcesso === 2) {
+                    acc.prestadoresAgendado.push(prestador);
+                } else if (prestador.statusProcesso === 3) {
+                    acc.prestadoresFinalizado.push(prestador);
+                }
+                return acc;
+            },
+            {
+                prestadoresPendente: [],
+                prestadoresAgendado: [],
+                prestadoresFinalizado: [],
+            },
+        ) || {
+            prestadoresPendente: [],
+            prestadoresAgendado: [],
+            prestadoresFinalizado: [],
+        };
+
     const [modalAviso, setModalAviso] = useState(false);
+    const [decisao, setDecisao] = useState([]);
 
     const aprovar = (idPrestador, aprovar) => {
+        setPrestadores();
         axios
-            .get(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`)
-            .then(() => {
-                axios
-                    .get("/usuario/aprovacoesPendentes")
-                    .then(({ status, data }) => {
-                        if (status === 200) {
-                            setPrestadores(data);
-                            if (aprovar !== 1) pushDecisao(idPrestador);
-                        }
-                    })
-                    .catch((err) => console.log(err));
-            })
+            .patch(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`)
+            .then(() => fetch(true, idPrestador))
             .catch((err) => console.log(err));
     };
 
-    useEffect(() => {
+    const alterarStatusProcessoAprovacao = (
+        idPrestador,
+        statusProcessoAprovacao,
+    ) => {
+        setPrestadores();
+        axios
+            .patch(
+                `/usuario/aprovacoesPendentes/alterarStatusProcesso/${idPrestador}/${statusProcessoAprovacao}`,
+            )
+            .then(fetch)
+            .catch((err) => console.log(err));
+    };
+
+    const fetch = (doCoisar = false, idPrestador) => {
         axios
             .get("/usuario/aprovacoesPendentes")
             .then(({ status, data }) => {
                 if (status === 200) {
                     setPrestadores(data);
+                    if (doCoisar) {
+                        if (aprovar !== 1) {
+                            setDecisao((prevItems) => [
+                                ...prevItems,
+                                idPrestador,
+                            ]);
+                        }
+                    }
                 }
             })
             .catch((err) => console.log(err));
-    }, []);
-
-    const [decisao, setDecisao] = useState([]);
-
-    const pushDecisao = (item) => {
-        setDecisao((prevItems) => [...prevItems, item]);
     };
 
     const popDecisao = () => {
@@ -55,167 +115,126 @@ export default function AdmAprovacao() {
         }
     };
 
+    useEffect(fetch, []);
+
     return (
         <>
             <button
                 onClick={popDecisao}
-                className="flex fixed bg-[#209D61] text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-xl items-center"
+                className="flex fixed bg-[#209D61] hover:bg-[rgb(44,191,120)] transition-colors text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-xl items-center"
             >
                 <ArrowUturnLeftIcon className="h-6 mr-2" />{" "}
                 <span className="mt-1 text-lg">Desfazer última decisão</span>
             </button>
+            <ModalAviso
+                modalGettr={modalAviso}
+                modalSettr={setModalAviso}
+                tempo={5000}
+                titulo={"Não existem decisões para serem desfeitas"}
+            />
             <div className="h-screen w-screen flex bg-cinza-claro-2">
-                <ModalAviso
-                    modalGettr={modalAviso}
-                    modalSettr={setModalAviso}
-                    tempo={5000}
-                    titulo={"Não existem decisões para serem desfeitas"}
-                />
                 <Sidebar />
                 <div className="w-[82%] h-full overflow-y-scroll">
                     <div className="h-[15%] w-full flex items-center justify-center">
                         <span className="text-gray-900 font-bold text-[30px]">
-                            Aprovações de Prestadores
+                            Aprovação de Prestadores
                         </span>
                     </div>
-                    <div className="h-[60px] w-full flex px-12 gap-4">
-                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl grow" />
-                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl w-[30%]" />
-                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[60px]" />
-                        <div className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[60px]" />
+                    <div className="h-[50px] w-full flex px-12 gap-4">
+                        <input
+                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl grow px-2 outline-none bg-no-repeat"
+                            placeholder="Busca por nome"
+                            style={{
+                                backgroundImage: `url(${lupaIcon})`,
+                                backgroundPosition: "right 16px top 50%",
+                                backgroundSize: "20px",
+                            }}
+                            value={filtro}
+                            onChange={({ target }) => setFiltro(target.value)}
+                        />
+                        <select
+                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl w-[30%] bg-no-repeat appearance-none bg-white px-2"
+                            style={{
+                                backgroundImage: `url(${SelectArrowIcon})`,
+                                backgroundPosition: "right 0.7rem top 50%",
+                                backgroundSize: "20px",
+                            }}
+                            value={agrupamentoSelecionado}
+                            onChange={({ target }) =>
+                                setAgrupamentoSelecionado(Number(target.value))
+                            }
+                        >
+                            <option value={0}>Todos</option>
+                            <option value={1}>Pendente</option>
+                            <option value={2}>Agendado</option>
+                            <option value={3}>Finalizado</option>
+                        </select>
+                        <div
+                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
+                            onClick={() => {}}
+                        >
+                            <img
+                                src={FileDownload}
+                                className="h-[70%]"
+                                alt="file download icon"
+                            />
+                        </div>
+                        <div
+                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
+                            onClick={() => {}}
+                        >
+                            <img
+                                src={FileUpload}
+                                className="h-[70%]"
+                                alt="file upload icon"
+                            />
+                        </div>
                     </div>
-                    {/* {prestadores ? (
+                    {prestadores ? (
                         prestadores.length > 0 ? (
-                            <div className="h-[90%] w-full flex flex-wrap justify-evenly">
-                                {prestadores.map((prestador, index) => (
-                                    <div
-                                        key={index}
-                                        className="h-[80%] min-w-[350px] w-[40%] m-5 flex justify-center items-center flex-col border-verde-escuro-1 border-2 rounded-lg"
-                                    >
-                                        <div className="h-[30%] w-[90%] flex justify-center items-center">
-                                            <div className="h-full w-[75%] flex flex-col">
-                                                <span className="w-full h-[25%] overflow-hidden font-bold text-lg flex items-center justify-center">
-                                                    {prestador.dados.nome}
-                                                </span>
-                                                <span className="w-full h-[25%] overflow-hidden underline flex items-center justify-center">
-                                                    {prestador.dados.email}
-                                                </span>
-                                                <span className="w-full h-[25%] overflow-hidden flex items-center justify-center">
-                                                    <b>Fone: </b>{" "}
-                                                    {prestador.dados.telefone}
-                                                </span>
-                                                <span className="w-full h-[25%] overflow-hidden flex items-center justify-center">
-                                                    <b>CPF: </b>{" "}
-                                                    {prestador.dados.cpf}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="max-h-[50%] w-[90%] flex justify-center items-center">
-                                            <div className="h-full w-[50%] p-1">
-                                                <div className="w-full break-words font-bold">
-                                                    Endereço
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    {prestador.dados.cidade} -{" "}
-                                                    {prestador.dados.estado}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>CEP:</b>{" "}
-                                                    {prestador.dados.cep}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Bairro:</b>{" "}
-                                                    {prestador.dados.bairro}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Rua:</b>{" "}
-                                                    {prestador.dados.rua}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Número:</b>{" "}
-                                                    {prestador.dados.numero}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Complemento:</b>{" "}
-                                                    {
-                                                        prestador.dados
-                                                            .complemento
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className="h-full w-[50%] p-1">
-                                                <div className="w-full break-words font-bold">
-                                                    Serviço
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Área:</b>{" "}
-                                                    {prestador.dados.area}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Serviços:</b>
-                                                </div>
-                                                {prestador.servicos.map(
-                                                    (servico, index2) => (
-                                                        <div
-                                                            className="w-full break-words"
-                                                            key={index2}
-                                                        >
-                                                            ● {servico};
-                                                        </div>
-                                                    ),
-                                                )}
-                                                <div className="w-full break-words">
-                                                    <b>Ensino:</b>{" "}
-                                                    {prestador.dados.ensino
-                                                        ? "SIM"
-                                                        : "NÃO"}
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    <b>Faixa de preço:</b>
-                                                </div>
-                                                <div className="w-full break-words">
-                                                    R$
-                                                    {
-                                                        prestador.dados
-                                                            .orcamentoMin
-                                                    }{" "}
-                                                    - R$
-                                                    {
-                                                        prestador.dados
-                                                            .orcamentoMax
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="h-[15%] w-[90%] flex justify-center items-center">
-                                            <div
-                                                onClick={() => {
-                                                    aprovar(
-                                                        prestador.dados.id,
-                                                        2,
-                                                    );
-                                                }}
-                                                className="cursor-pointer w-[30%] h-[60%] mr-4 bg-[#47AE3E] text-white rounded-lg flex justify-center items-center"
-                                            >
-                                                Aprovar
-                                            </div>
-                                            <div
-                                                onClick={() => {
-                                                    aprovar(
-                                                        prestador.dados.id,
-                                                        4,
-                                                    );
-                                                }}
-                                                className="cursor-pointer w-[30%] h-[60%] ml-4 bg-[#D02B2B] text-white rounded-lg flex justify-center items-center"
-                                            >
-                                                Reprovar
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className="flex flex-col px-12 pt-4 pb-20 gap-4">
+                                {(agrupamentoSelecionado === 1 ||
+                                    agrupamentoSelecionado === 0) && (
+                                    <AprovacaoSection
+                                        label="Pendente"
+                                        prestadores={prestadoresPendente}
+                                        aprovar={aprovar}
+                                        alterarStatusProcessoAprovacao={
+                                            alterarStatusProcessoAprovacao
+                                        }
+                                    />
+                                )}
+                                {agrupamentoSelecionado === 0 && (
+                                    <div className="bg-gray-300 w-full h-[2px] my-4" />
+                                )}
+                                {(agrupamentoSelecionado === 2 ||
+                                    agrupamentoSelecionado === 0) && (
+                                    <AprovacaoSection
+                                        label="Agendado"
+                                        prestadores={prestadoresAgendado}
+                                        aprovar={aprovar}
+                                        alterarStatusProcessoAprovacao={
+                                            alterarStatusProcessoAprovacao
+                                        }
+                                    />
+                                )}
+                                {agrupamentoSelecionado === 0 && (
+                                    <div className="bg-gray-300 w-full h-[2px] my-4" />
+                                )}
+                                {(agrupamentoSelecionado === 3 ||
+                                    agrupamentoSelecionado === 0) && (
+                                    <AprovacaoSection
+                                        label="Finalizado"
+                                        prestadores={prestadoresFinalizado}
+                                        aprovar={aprovar}
+                                        alterarStatusProcessoAprovacao={
+                                            alterarStatusProcessoAprovacao
+                                        }
+                                    />
+                                )}
                             </div>
                         ) : (
-                            <div className="h-[90%] w-full flex flex-col items-center">
+                            <div className="w-full flex flex-col items-center">
                                 <img
                                     src={done}
                                     className="w-[400px] h-[400px] mt-10"
@@ -227,7 +246,7 @@ export default function AdmAprovacao() {
                             </div>
                         )
                     ) : (
-                        <div className="h-[90%] w-full flex justify-center">
+                        <div className="w-full flex justify-center">
                             <Oval
                                 height={500}
                                 width={100}
@@ -240,7 +259,7 @@ export default function AdmAprovacao() {
                                 strokeWidthSecondary={4}
                             />
                         </div>
-                    )} */}
+                    )}
                 </div>
             </div>
         </>

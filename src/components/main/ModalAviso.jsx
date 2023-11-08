@@ -39,12 +39,16 @@ export default function ModalAviso({
                     />
                 </div>
                 <div className="w-full rounded-b-lg bg-white flex flex-col items-center p-10 gap-6">
-                    <span className="text-3xl font-medium text-center">
-                        {titulo}
-                    </span>
-                    <span className="text-xl font-medium text-center">
-                        {descricao}
-                    </span>
+                    {titulo && (
+                        <span className="text-3xl font-medium text-center">
+                            {titulo}
+                        </span>
+                    )}
+                    {descricao && (
+                        <span className="text-xl font-medium text-center">
+                            {descricao}
+                        </span>
+                    )}
                 </div>
             </div>
         </ModalCustom>

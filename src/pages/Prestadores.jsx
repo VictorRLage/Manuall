@@ -1,5 +1,5 @@
 import Header from "@/components/header/Header";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import lupaIcon from "@/assets/icons/lupa.png";
 import axios from "@/api/axios";
 import FooterWave from "@/assets/shapes/FooterWave.svg?react";

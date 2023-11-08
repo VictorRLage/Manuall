@@ -115,7 +115,7 @@ export default function AdmApiStatus() {
                     <div className="w-[300px] h-[160px] bg-[#cfffdd] rounded-md">
                         <div className="h-[80px] flex items-center justify-center gap-2">
                             <span className="text-[#222] font-bold text-xl">
-                                Rotina Chatbot/Email
+                                Rotina Crm
                             </span>
                             {statusApiCrm === undefined ? (
                                 <Oval
