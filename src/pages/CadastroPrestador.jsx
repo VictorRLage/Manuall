@@ -10,9 +10,11 @@ import ModalConclusaoCadastroPrestador from "@/components/cadastro/ModalConclusa
 import { useLocation } from "react-router-dom";
 import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
 import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
+import { useData } from "@/data/CreateContext";
 
 export default function CadastroPrestador() {
     const location = useLocation();
+    const { windowWidth } = useData();
 
     const scrollingDiv = useRef(null);
 
@@ -84,7 +86,7 @@ export default function CadastroPrestador() {
                         setAvisoTitulo(
                             `${response.data.errors[
                                 i
-                                ]?.field.toUpperCase()} inválido`,
+                            ]?.field.toUpperCase()} inválido`,
                         );
                         setAvisoDescricao(
                             response.data.errors[i]?.defaultMessage,
@@ -270,7 +272,16 @@ export default function CadastroPrestador() {
                 changePhaseTo={setStepAtual}
             />
             <div
-                className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden"
+                className={`flex bg-white overflow-x-hidden ${
+                    windowWidth <= 800
+                        ? "w-[100%] h-[100%] rounded-none"
+                        : "h-[580px] rounded-lg drop-shadow-all " +
+                          (windowWidth > 1200
+                              ? "w-[1152px]"
+                              : windowWidth > 1000
+                              ? "w-[900px]"
+                              : "w-[800px]")
+                }`}
                 ref={scrollingDiv}
             >
                 <Fase2
@@ -298,7 +309,9 @@ export default function CadastroPrestador() {
                     voltaCadastroDados={voltaCadastro2Dados}
                     isNextLoading={fase2FinalLoading}
                 />
-                <CadastroSidebar mainText="Cadastro de Prestador" />
+                {windowWidth > 1000 && (
+                    <CadastroSidebar mainText="Cadastro de Prestador" />
+                )}
                 {delayedStepAtual <= 1 ? (
                     <Fase1
                         stepInfo={{

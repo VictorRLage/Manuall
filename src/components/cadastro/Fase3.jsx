@@ -336,7 +336,7 @@ export default function Fase3({
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-[15%] flex justify-between items-center px-32">
+                <div className="w-full h-[15%] flex justify-between items-center px-[12%]">
                     <button
                         onClick={voltarFase}
                         className="text-gray-400 text-xl mb-4 font-bold flex justify-center items-center h-[40px] cursor-pointer"

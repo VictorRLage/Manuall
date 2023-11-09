@@ -190,7 +190,7 @@ export default function CadastroContratante() {
                 changePhaseTo={mudarStep}
             />
             <div
-                className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth"
+                className="flex bg-white h-144 w-[900px] rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth"
                 ref={scrollingDiv}
             >
                 <Fase1

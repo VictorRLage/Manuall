@@ -14,6 +14,7 @@ import Regex from "@/enum/RegexENUM";
 import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import InputMask from "react-input-mask";
 import { ThreeDots, Oval } from "react-loader-spinner";
+import { useData } from "@/data/CreateContext";
 
 export default function Fase2({
     stepInfo,
@@ -22,6 +23,8 @@ export default function Fase2({
     voltaCadastroDados,
     isNextLoading,
 }) {
+    const { windowWidth } = useData();
+
     const [isCepValidado, setIsCepValidado] = useState();
     const [isEstadoValidado, setIsEstadoValidado] = useState();
     const [isCidadeValidado, setIsCidadeValidado] = useState();
@@ -152,7 +155,11 @@ export default function Fase2({
     }, [voltaCadastroDados]);
 
     return (
-        <div className="bg-white h-full min-w-[70%] flex flex-col items-center">
+        <div
+            className={`bg-white h-full flex flex-col items-center ${
+                windowWidth > 1000 ? "min-w-[70%]" : "min-w-[100%]"
+            }`}
+        >
             <CadastroProgress
                 fase={2}
                 fases={stepInfo.fases}
@@ -390,7 +397,7 @@ export default function Fase2({
                     </div>
                 </div>
             </div>
-            <div className="w-full h-[15%] flex justify-between items-center px-40">
+            <div className="w-[60%] h-[15%] flex justify-between items-center">
                 <button
                     onClick={voltarFase}
                     className="text-gray-400 text-xl mb-8 font-bold flex justify-center items-center h-[40px] cursor-pointer"

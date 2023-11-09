@@ -134,7 +134,7 @@ export default function AdmAprovacao() {
             />
             <div className="h-screen w-screen flex bg-cinza-claro-2">
                 <Sidebar />
-                <div className="w-[82%] h-full overflow-y-scroll">
+                <div className="grow h-full overflow-y-scroll">
                     <div className="h-[15%] w-full flex items-center justify-center">
                         <span className="text-gray-900 font-bold text-[30px]">
                             Aprovação de Prestadores

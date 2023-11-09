@@ -10,7 +10,7 @@ export default function Sidebar() {
     const { pathname } = useLocation();
 
     return (
-        <div className="h-full min-w-[250px] w-[18%] flex flex-col items-center bg-verde-escuro-1">
+        <div className="h-full min-w-[250px] flex flex-col items-center bg-verde-escuro-1">
             <div className="w-full h-[18%] flex justify-center items-center relative overflow-hidden">
                 <div
                     className="w-full h-full bg-center bg-no-repeat flex items-center justify-center"
