@@ -13,6 +13,7 @@ import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
 import GrayCheckmark from "@/assets/icons/gray_checkmark.svg";
 import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
+import { defer } from "@/utils/functions";
 
 export default function Chat({ forceChatOpen, forceChatRefetch }) {
     const tipoUsuario =
@@ -137,13 +138,11 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
             .catch((err) => console.error(err));
     };
 
-    const scrollDown = () => {
-        setTimeout(() => {
-            if (scrollingDiv.current) {
-                scrollingDiv.current.scrollTop =
-                    scrollingDiv.current.scrollHeight;
-            }
-        }, 1);
+    const scrollDown = async () => {
+        await defer();
+        if (scrollingDiv.current) {
+            scrollingDiv.current.scrollTop = scrollingDiv.current.scrollHeight;
+        }
     };
 
     const getDadosCrm = () => {
@@ -417,83 +416,98 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                         )
                     )}
                     {conversas !== "" &&
-                        conversas?.map((conversa) => (
-                            <div
-                                onClick={() => {
-                                    selecionarChat(conversa);
-                                }}
-                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                                key={conversa.solicitacaoId}
-                            >
-                                <div className="w-full h-full flex items-center border-b-2 border-gray-200 relative">
-                                    {tipoUsuario === 1 && (
-                                        <img
-                                            src={conversa.usuarioPfp}
-                                            className="w-10 h-10 rounded-full object-cover"
-                                            alt=""
-                                        />
-                                    )}
-                                    <div className="px-2 flex flex-col">
-                                        <span className="font-medium">
-                                            {conversa.usuarioNome}
-                                        </span>
-                                        <span className="text-gray-600 flex items-center gap-1">
-                                            {(() => {
-                                                const ultimaMensagem =
-                                                    conversa.mensagens?.[
-                                                        conversa.mensagens
-                                                            .length - 1
-                                                    ];
-                                                return ultimaMensagem?.mensagem ? (
-                                                    <>
-                                                        {ultimaMensagem.selfSender &&
-                                                            (ultimaMensagem.visto ? (
-                                                                <img
-                                                                    src={
-                                                                        BlueCheckmark
-                                                                    }
-                                                                    className="h-[8px] opacity-70"
-                                                                    alt=""
-                                                                />
-                                                            ) : (
-                                                                <img
-                                                                    src={
-                                                                        GrayCheckmark
-                                                                    }
-                                                                    className="h-[8px] opacity-70"
-                                                                    alt=""
-                                                                />
-                                                            ))}
-                                                        {
-                                                            ultimaMensagem.mensagem
-                                                        }
-                                                    </>
-                                                ) : (
-                                                    "Inicie a conversa já!"
-                                                );
-                                            })()}
-                                        </span>
-                                    </div>
-                                    {conversa.mensagens.length > 0 &&
-                                        conversa.mensagens[
-                                            conversa.mensagens.length - 1
-                                        ].selfSender === false &&
-                                        conversa.mensagens[
-                                            conversa.mensagens.length - 1
-                                        ].visto === false && (
-                                            <div className="h-6 w-6 rounded-full bg-red-600 text-white absolute right-2 flex items-center justify-center text-center">
-                                                {
-                                                    conversa.mensagens.filter(
-                                                        (m) =>
-                                                            m.selfSender ===
-                                                                false &&
-                                                            m.visto === false,
-                                                    ).length
-                                                }
-                                            </div>
-                                        )}
-                                </div>
+                        (conversas?.length === 0 ? (
+                            <div className="w-full h-full bg-white flex items-center justify-center flex-col gap-8">
+                                <img
+                                    src={NoChatsIcon}
+                                    className="w-[40%]"
+                                    alt=""
+                                />
+                                <span className="text-lg text-center max-w-[80%] font-bold">
+                                    Você não possui solicitações ativas no
+                                    momento
+                                </span>
                             </div>
+                        ) : (
+                            conversas?.map((conversa) => (
+                                <div
+                                    onClick={() => {
+                                        selecionarChat(conversa);
+                                    }}
+                                    className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                                    key={conversa.solicitacaoId}
+                                >
+                                    <div className="w-full h-full flex items-center border-b-2 border-gray-200 relative">
+                                        {tipoUsuario === 1 && (
+                                            <img
+                                                src={conversa.usuarioPfp}
+                                                className="w-10 h-10 rounded-full object-cover"
+                                                alt=""
+                                            />
+                                        )}
+                                        <div className="px-2 flex flex-col">
+                                            <span className="font-medium">
+                                                {conversa.usuarioNome}
+                                            </span>
+                                            <span className="text-gray-600 flex items-center gap-1">
+                                                {(() => {
+                                                    const ultimaMensagem =
+                                                        conversa.mensagens?.[
+                                                            conversa.mensagens
+                                                                .length - 1
+                                                        ];
+                                                    return ultimaMensagem?.mensagem ? (
+                                                        <>
+                                                            {ultimaMensagem.selfSender &&
+                                                                (ultimaMensagem.visto ? (
+                                                                    <img
+                                                                        src={
+                                                                            BlueCheckmark
+                                                                        }
+                                                                        className="h-[8px] opacity-70"
+                                                                        alt=""
+                                                                    />
+                                                                ) : (
+                                                                    <img
+                                                                        src={
+                                                                            GrayCheckmark
+                                                                        }
+                                                                        className="h-[8px] opacity-70"
+                                                                        alt=""
+                                                                    />
+                                                                ))}
+                                                            {
+                                                                ultimaMensagem.mensagem
+                                                            }
+                                                        </>
+                                                    ) : (
+                                                        "Inicie a conversa já!"
+                                                    );
+                                                })()}
+                                            </span>
+                                        </div>
+                                        {conversa.mensagens.length > 0 &&
+                                            conversa.mensagens[
+                                                conversa.mensagens.length - 1
+                                            ].selfSender === false &&
+                                            conversa.mensagens[
+                                                conversa.mensagens.length - 1
+                                            ].visto === false && (
+                                                <div className="h-6 w-6 rounded-full bg-red-600 text-white absolute right-2 flex items-center justify-center text-center">
+                                                    {
+                                                        conversa.mensagens.filter(
+                                                            (m) =>
+                                                                m.selfSender ===
+                                                                    false &&
+                                                                m.visto ===
+                                                                    false,
+                                                        ).length
+                                                    }
+                                                </div>
+                                            )}
+                                    </div>
+                                </div>
+                            ))
                         ))}
                 </div>
             ) : (

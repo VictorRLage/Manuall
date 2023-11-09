@@ -1,4 +1,3 @@
-import { useData } from "@/data/CreateContext";
 import AprovacaoCardGridSection from "@/components/adm/AprovacaoCardGridSection";
 import { formatAs } from "@/utils/functions";
 
@@ -21,14 +20,8 @@ export default function AprovacaoCard({
     aprovar,
     alterarStatusProcessoAprovacao,
 }) {
-    const { windowWidth } = useData();
-
     return (
-        <div
-            className={`gap-4 flex flex-col justify-center items-center bg-[#008042] p-4 rounded-lg ${
-                windowWidth < 1150 ? "w-[100%]" : "w-[49%]"
-            }`}
-        >
+        <div className="gap-4 flex flex-col justify-center items-center bg-[#008042] p-4 rounded-lg min min1150:w-[49%] max1150:w-[100%]">
             <div className="grid grid-cols-[auto_auto] gap-x-2 gap-y-2 text-white text-lg">
                 <AprovacaoCardGridSection label="Nome" value={nome} />
                 <AprovacaoCardGridSection label="Email" value={email} />

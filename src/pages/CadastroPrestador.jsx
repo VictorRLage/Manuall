@@ -221,7 +221,7 @@ export default function CadastroPrestador() {
         if (location.state?.id) {
             localStorage.setItem("ID_CADASTRANTE", location.state.id);
         }
-    }, []); // eslint-disable-line
+    }, []);
 
     useEffect(() => {
         if (stepAtual === 3) {
@@ -237,7 +237,7 @@ export default function CadastroPrestador() {
 
             setTimeout(() => {
                 setDelayedStepAtual(stepAtual);
-            }, 150);
+            }, 400);
         }
     }, [stepAtual]);
 
@@ -272,16 +272,7 @@ export default function CadastroPrestador() {
                 changePhaseTo={setStepAtual}
             />
             <div
-                className={`flex bg-white overflow-x-hidden ${
-                    windowWidth <= 800
-                        ? "w-[100%] h-[100%] rounded-none"
-                        : "h-[580px] rounded-lg drop-shadow-all " +
-                          (windowWidth > 1200
-                              ? "w-[1152px]"
-                              : windowWidth > 1000
-                              ? "w-[900px]"
-                              : "w-[800px]")
-                }`}
+                className="flex bg-white overflow-x-hidden h-full min800:h-[580px] rounded-none min800:rounded-lg min800:drop-shadow-all w-full min800:w-[800px] min1000:w-[900px] min1200:w-[1152px]"
                 ref={scrollingDiv}
             >
                 <Fase2

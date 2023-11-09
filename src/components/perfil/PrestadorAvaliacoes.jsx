@@ -27,29 +27,13 @@ export default function PrestadorAvaliacoes({ avaliacoes }) {
     };
 
     return (
-        <div
-            className={`w-full h-[500px] mt-8 ${
-                windowWidth < 700
-                    ? windowWidth < 500
-                        ? "px-8"
-                        : "px-16"
-                    : "px-32"
-            } flex flex-col`}
-        >
+        <div className="w-full h-[500px] mt-8 min700:px-32 min500:px-16 px-8 flex flex-col">
             <h2 className="text-3xl font-semibold text-gray-900 flex items-center gap-1">
                 Avaliações
                 <StarIcon className="w-6 h-6 text-yellow-500" />
             </h2>
             <div
-                className={`${
-                    windowWidth > 1000
-                        ? "w-[800px]"
-                        : windowWidth > 800
-                        ? "w-[600px]"
-                        : windowWidth > 450
-                        ? "w-[400px]"
-                        : "w-[330px]"
-                } h-[350px] relative flex items-center`}
+                className="min1000:w-[800px] min800:w-[600px] min450:w-[400px] w-[330px] h-[350px] relative flex items-center"
                 style={{ perspective: "1000px" }}
             >
                 <button
@@ -65,9 +49,7 @@ export default function PrestadorAvaliacoes({ avaliacoes }) {
                 />
                 {assessments?.map((item, i) => (
                     <div
-                        className={`bg-white ${
-                            windowWidth > 800 ? "w-[500px]" : "w-[300px]"
-                        } h-[300px] drop-shadow-lg rounded-2xl absolute ${
+                        className={`bg-white min800:w-[500px] w-[300px] h-[300px] drop-shadow-lg rounded-2xl absolute ${
                             i === 0 ? "z-50" : "z-40 opacity-40"
                         }`}
                         style={{

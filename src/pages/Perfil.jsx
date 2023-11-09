@@ -110,26 +110,14 @@ export default function Perfil({ isOwnProfile }) {
             <Header refetch={headerRefetch} />
             <div className="w-full bg-gray-100">
                 <div
-                    className={`flex flex-col bg-no-repeat ${
-                        windowWidth < 700
-                            ? windowWidth < 500
-                                ? ""
-                                : "px-16"
-                            : "px-32"
-                    } pb-16`}
+                    className={`flex flex-col bg-no-repeat min700:px-32 min500:px-16 pb-16`}
                     style={{
                         backgroundSize: "100% 100%",
                         backgroundImage: `url(${PerfilBg})`,
                         // backgroundPosition: "0",
                     }}
                 >
-                    <div
-                        className={`py-6 ${
-                            windowWidth < 500
-                                ? "flex items-center justify-center text-center bg-[#bde5be] px-8"
-                                : ""
-                        }`}
-                    >
+                    <div className="py-6 max500:flex max500:items-center max500:justify-center max500:text-center max500:bg-[#bde5be] max500:px-8">
                         <Breadcrumb
                             items={
                                 isOwnProfile
@@ -268,11 +256,7 @@ export default function Perfil({ isOwnProfile }) {
                                 </div>
                             </>
                         ) : (
-                            <div
-                                className={`flex flex-col items-center justify-center p-5 w-full drop-shadow-all bg-white ${
-                                    windowWidth > 500 ? "rounded-lg" : ""
-                                }`}
-                            >
+                            <div className="flex flex-col items-center justify-center p-5 w-full drop-shadow-all bg-white min500:rounded-lg">
                                 {windowWidth > 700 ? (
                                     <div className="flex items-center justify-center">
                                         <div className="w-[48%]">

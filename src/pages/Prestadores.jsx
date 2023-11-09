@@ -7,7 +7,6 @@ import Cards from "@/components/home/Cards";
 import FiltragemENUM from "@/enum/FiltragemENUM";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
-import { useData } from "@/data/CreateContext";
 import RegexENUM from "@/enum/RegexENUM";
 import { useSearchParams } from "react-router-dom";
 import BlackArrowhead from "@/assets/icons/black_arrowhead.svg";
@@ -15,7 +14,6 @@ import BlackArrowhead from "@/assets/icons/black_arrowhead.svg";
 export default function Prestadores() {
     const mockPrestadoresPorPagina = 18;
 
-    const { windowWidth } = useData();
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [paginasNavigator, setPaginasNavigator] = useState();
@@ -121,11 +119,7 @@ export default function Prestadores() {
         <div>
             <Header />
             <div className="w-full h-full bg-[#fafafa]">
-                <div
-                    className={`px-32 pt-8 flex ${
-                        windowWidth < 700 && "justify-center text-center"
-                    }`}
-                >
+                <div className="px-32 pt-8 flex max700:justify-center max700:text-center">
                     <Breadcrumb
                         items={[
                             { to: "/", desc: "Página Inicial" },

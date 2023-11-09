@@ -74,15 +74,7 @@ export default function Header({ refetch }) {
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
-            <header
-                className={`flex py-4 ${
-                    windowWidth < 700
-                        ? windowWidth < 500
-                            ? "px-8"
-                            : "px-16"
-                        : "px-32"
-                } w-full bg-white drop-shadow-md justify-between items-center`}
-            >
+            <header className="flex py-4 min700:px-32 min500:px-16 px-8 w-full bg-white drop-shadow-md justify-between items-center">
                 <img
                     onClick={() => {
                         navigate("/");

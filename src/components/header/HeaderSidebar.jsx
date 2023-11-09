@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/manuall/logo_only.png";
-import { useData } from "@/data/CreateContext";
 import { logoff } from "@/utils/functions";
 import { UserIcon } from "@heroicons/react/24/solid";
 
@@ -12,8 +11,6 @@ export default function HeaderSidebar({
 }) {
     const navigate = useNavigate();
     const { pathname } = useLocation();
-
-    const { windowWidth } = useData();
 
     return (
         <>
@@ -28,13 +25,9 @@ export default function HeaderSidebar({
             <div
                 className={`bg-white fixed flex flex-col items-center gap-4 top-0 py-8 overflow-y-auto ${
                     on
-                        ? windowWidth < 500
-                            ? "left-0"
-                            : "left-[calc(100vw-400px)]"
+                        ? "min500:left-[calc(100vw-400px)] left-0"
                         : "left-[100vw]"
-                } ${
-                    windowWidth < 500 ? "w-[100vw]" : "w-[400px]"
-                } z-50 h-full transition-all duration-150 ease-linear`}
+                } min500:w-[400px] w-[100vw] z-50 h-full transition-all duration-150 ease-linear`}
             >
                 <img
                     onClick={() => {
@@ -58,7 +51,8 @@ export default function HeaderSidebar({
                 </button>
                 <button
                     onClick={() => {
-                        pathname !== "/prestadores" && navigate("/prestadores?pagina=1");
+                        pathname !== "/prestadores" &&
+                            navigate("/prestadores?pagina=1");
                     }}
                     className={`w-[60%] min-h-[56px] hover:bg-gray-200 text-xl transition-all rounded-full border-[1px] border-gray-500 ${
                         pathname === "/prestadores"

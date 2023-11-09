@@ -41,19 +41,7 @@ export default function Contato() {
                         backgroundSize: "100% 100%",
                     }}
                 >
-                    <div
-                        className={`w-full flex flex-wrap py-12 ${
-                            windowWidth < 700
-                                ? windowWidth < 500
-                                    ? "px-8"
-                                    : "px-16"
-                                : "px-32"
-                        } ${
-                            windowWidth > 1150
-                                ? "justify-between"
-                                : "justify-center gap-12"
-                        }`}
-                    >
+                    <div className="w-full flex flex-wrap py-12 min1150:justify-between justify-center max1150:gap-12 min700:px-32 min500:px-16 px-8">
                         <div className="w-[400px] min-h-[450px] shadow-2xl rounded-md">
                             {iFrameIsLoading && (
                                 <Skeleton width="100%" height="100%" />

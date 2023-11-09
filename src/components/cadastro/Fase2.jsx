@@ -15,6 +15,7 @@ import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import InputMask from "react-input-mask";
 import { ThreeDots, Oval } from "react-loader-spinner";
 import { useData } from "@/data/CreateContext";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 
 export default function Fase2({
     stepInfo,
@@ -155,20 +156,16 @@ export default function Fase2({
     }, [voltaCadastroDados]);
 
     return (
-        <div
-            className={`bg-white h-full flex flex-col items-center ${
-                windowWidth > 1000 ? "min-w-[70%]" : "min-w-[100%]"
-            }`}
-        >
+        <div className="bg-white h-full flex flex-col items-center min-w-[100%] min1000:min-w-[70%]">
             <CadastroProgress
                 fase={2}
                 fases={stepInfo.fases}
                 mudarStep={stepInfo.passarFaseAtalho}
                 isFlagAtLeft={stepInfo.fases % 2 !== 0}
             />
-            <div className="w-full h-[70%] flex flex-col items-center justify-evenly">
+            <div className="w-full min-h-[70%] flex flex-col items-center justify-evenly">
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div className="w-[29%] relative">
+                    <div className="relative w-[39%] min:w-[29%]">
                         <InputMask
                             mask="99999-999"
                             onBlur={validar.cep}
@@ -202,7 +199,7 @@ export default function Fase2({
                             </label>
                         )}
                     </div>
-                    <div className="w-[29%] relative">
+                    <div className="relative w-[39%] min:w-[29%]">
                         <input
                             onBlur={validar.estado}
                             ref={estado_input}
@@ -235,7 +232,7 @@ export default function Fase2({
                     </div>
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div className="w-[29%] relative">
+                    <div className="relative w-[39%] min:w-[29%]">
                         <input
                             onBlur={validar.cidade}
                             ref={cidade_input}
@@ -266,7 +263,7 @@ export default function Fase2({
                             </label>
                         )}
                     </div>
-                    <div className="w-[29%] relative">
+                    <div className="relative w-[39%] min:w-[29%]">
                         <input
                             onBlur={validar.bairro}
                             maxLength={35}
@@ -298,7 +295,7 @@ export default function Fase2({
                         )}
                     </div>
                 </div>
-                <div className="w-[60%] relative">
+                <div className="relative w-[80%] min1000:w-[60%]">
                     <input
                         onBlur={validar.rua}
                         maxLength={45}
@@ -330,7 +327,7 @@ export default function Fase2({
                     )}
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div className="w-[29%] relative">
+                    <div className="relative w-[39%] min:w-[29%]">
                         <input
                             onBlur={validar.numero}
                             ref={numero_input}
@@ -360,7 +357,7 @@ export default function Fase2({
                             </label>
                         )}
                     </div>
-                    <div className="w-[29%] relative">
+                    <div className="relative w-[39%] min:w-[29%]">
                         <input
                             onBlur={validar.complemento}
                             ref={complemento_input}
@@ -397,7 +394,7 @@ export default function Fase2({
                     </div>
                 </div>
             </div>
-            <div className="w-[60%] h-[15%] flex justify-between items-center">
+            <div className="flex justify-between items-center w-[80%] min1000:w-[60%] min-h-[5%] min1000:min-h-[15%]">
                 <button
                     onClick={voltarFase}
                     className="text-gray-400 text-xl mb-8 font-bold flex justify-center items-center h-[40px] cursor-pointer"
@@ -450,6 +447,7 @@ export default function Fase2({
                     </button>
                 )}
             </div>
+            {windowWidth <= 1000 && <CadastroBottomBar />}
         </div>
     );
 }

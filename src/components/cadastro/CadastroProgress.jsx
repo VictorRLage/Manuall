@@ -13,7 +13,7 @@ export default function CadastroProgress({
     isFlagAtLeft,
 }) {
     return (
-        <div className="h-[15%] w-full relative flex justify-center items-center">
+        <div className="min-h-[15%] w-full relative flex justify-center items-center">
             <CadastroFlag isFlagAtLeft={isFlagAtLeft} />
             {Array.from({ length: fases }, (_, i) => (
                 <React.Fragment key={i}>

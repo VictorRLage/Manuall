@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import ChevronArrow from "@/assets/icons/ChevronArrow.svg";
 import React, { useEffect, useRef, useState } from "react";
+import { defer } from "@/utils/functions";
 
 /* NÃO EDITE ESSE ARQUIVO */
 
@@ -57,16 +58,17 @@ export default function Carousel({ slides = [] }) {
     }, [carouselIndex]);
 
     useEffect(() => {
-        if (currentSlides.length >= 2) {
-            setCanUserChange(false);
+        (async () => {
+            if (currentSlides.length >= 2) {
+                setCanUserChange(false);
 
-            if (
-                (carouselIndex === 0 &&
-                    previousCarouselIndex === slides.length - 1) ||
-                carouselIndex === previousCarouselIndex + 1
-            ) {
-                setIsScrollSmoothed(true);
-                setTimeout(() => {
+                if (
+                    (carouselIndex === 0 &&
+                        previousCarouselIndex === slides.length - 1) ||
+                    carouselIndex === previousCarouselIndex + 1
+                ) {
+                    setIsScrollSmoothed(true);
+                    await defer();
                     scrollingDiv.current.scrollLeft = 15000;
 
                     setCarouselIndexesTimeout(
@@ -77,26 +79,23 @@ export default function Carousel({ slides = [] }) {
                             ]);
                         }, 500),
                     );
-                }, 1);
-            } else {
-                setIsScrollSmoothed(false);
-                setTimeout(() => {
+                } else {
+                    setIsScrollSmoothed(false);
+                    await defer();
                     scrollingDiv.current.scrollLeft = 15000;
                     setIsScrollSmoothed(true);
-                    setTimeout(() => {
-                        scrollingDiv.current.scrollLeft = 0;
-
-                        setCarouselIndexesTimeout(
-                            setTimeout(() => {
-                                setCanUserChange(true);
-                                setCurrentSlides([currentSlides[0]]);
-                            }, 500),
-                        );
-                    }, 1);
-                }, 1);
+                    await defer();
+                    scrollingDiv.current.scrollLeft = 0;
+                    setCarouselIndexesTimeout(
+                        setTimeout(() => {
+                            setCanUserChange(true);
+                            setCurrentSlides([currentSlides[0]]);
+                        }, 500),
+                    );
+                }
             }
-        }
-        setPreviousCarouselIndex(carouselIndex);
+            setPreviousCarouselIndex(carouselIndex);
+        })();
     }, [currentSlides]);
 
     return (

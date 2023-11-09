@@ -8,6 +8,8 @@ import { MultiSelect } from "primereact/multiselect";
 import ReactSlider from "react-slider";
 import { ThreeDots } from "react-loader-spinner";
 import Regex from "@/enum/RegexENUM";
+import { defer } from "@/utils/functions";
+import { useData } from "@/data/CreateContext";
 
 export default function Fase3({
     stepInfo,
@@ -15,6 +17,8 @@ export default function Fase3({
     voltarFase,
     isNextLoading,
 }) {
+    const { windowWidth } = useData();
+
     const [isAreaSelecionadaValidado, setIsAreaSelecionadaValidado] =
         useState();
     const [isServicosSelecionadosValidado, setIsServicosSelecionadosValidado] =
@@ -127,9 +131,9 @@ export default function Fase3({
                 mudarStep={stepInfo.passarFaseAtalho}
                 isFlagAtLeft={stepInfo.fases % 2 === 0}
             />
-            <div className="w-full h-[85%] flex flex-col items-center justify-center">
-                <div className="w-full h-[50%] flex justify-center items-center">
-                    <div className="w-[40%] h-full flex flex-col justify-center items-center p-5 gap-5">
+            <div className="w-full flex flex-col items-center justify-center min1000:min-h-[85%] min-h-[75%]">
+                <div className="w-full flex justify-center items-center max1000:flex-col min1000:h-[50%]">
+                    <div className="h-full flex flex-col justify-center items-center p-5 gap-5 w-[90%] min1000:w-[40%]">
                         <Dropdown
                             value={areaSelecionada}
                             onChange={({ value }) => {
@@ -171,16 +175,18 @@ export default function Fase3({
                             }}
                         />
                     </div>
-                    <div className="w-[2px] h-[80%] bg-gray-300"></div>
-                    <div className="w-[40%] h-full flex flex-col p-5">
-                        <span className="h-[15%] flex items-end px-1">
+                    {windowWidth > 1000 && (
+                        <div className="w-[2px] h-[80%] bg-gray-300" />
+                    )}
+                    <div className="h-full flex flex-col p-5 w-[90%] min1000:w-[40%]">
+                        <span className="flex items-end px-1 min1000:h-[15%]">
                             Gostaria de ensinar?
                         </span>
-                        <div className="w-full h-[70%] flex flex-col justify-around">
+                        <div className="w-full flex flex-col justify-around min1000:h-[70%]">
                             <label
                                 htmlFor={1}
                                 className={`w-full bg-white border-2 rounded-lg p-2 text-gray-700
-                                hover:border-green-500 transition-colors h-[52px] flex items-center
+                                hover:border-green-500 transition-colors min-h-[52px] flex items-center
                                 ${
                                     prestaAula == 2
                                         ? "border-gray-200"
@@ -195,10 +201,11 @@ export default function Fase3({
                                     name="prestaAula"
                                     className="accent-verde-escuro-1"
                                     onChange={({ target }) => {
-                                        setPrestaAula(target.value);
-                                        setTimeout(() => {
+                                        (async () => {
+                                            setPrestaAula(target.value);
+                                            await defer();
                                             validar.prestaAula(target.value);
-                                        }, 1);
+                                        })();
                                     }}
                                 />
                                 <span className="ml-2">
@@ -208,7 +215,7 @@ export default function Fase3({
                             <label
                                 htmlFor={2}
                                 className={`w-full bg-white border-2 rounded-lg p-2 text-gray-700
-                                hover:border-green-500 transition-colors h-[52px] flex items-center
+                                hover:border-green-500 transition-colors min-h-[52px] flex items-center
                                 ${
                                     prestaAula == 1
                                         ? "border-gray-200"
@@ -223,8 +230,11 @@ export default function Fase3({
                                     name="prestaAula"
                                     className="accent-verde-escuro-1"
                                     onChange={({ target }) => {
-                                        setPrestaAula(target.value);
-                                        validar.prestaAula(target.value);
+                                        (async () => {
+                                            setPrestaAula(target.value);
+                                            await defer();
+                                            validar.prestaAula(target.value);
+                                        })();
                                     }}
                                 />
                                 <span className="ml-2">

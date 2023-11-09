@@ -14,8 +14,7 @@ import InputMask from "react-input-mask";
 import { Oval } from "react-loader-spinner";
 import { useEffect } from "react";
 import { useData } from "@/data/CreateContext";
-import { formatAs } from "@/utils/functions";
-import CustomInputMask from "../main/CustomInputMask";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 
 export default function Fase1({
     stepInfo,
@@ -36,7 +35,7 @@ export default function Fase1({
     const nome_input = useRef(null);
     const email_input = useRef(null);
     const cpf_input = useRef(null);
-    const [telefoneInput, setTelefoneInput] = useState("(__) ____-____");
+    const telefone_input = useRef(null);
     const senha_input = useRef(null);
 
     const validar = {
@@ -57,7 +56,10 @@ export default function Fase1({
         },
         telefone() {
             const telefone = String(
-                telefoneInput.replace(Regex.NUMBER_REPLACEABLE, ""),
+                telefone_input.current.value.replace(
+                    Regex.NUMBER_REPLACEABLE,
+                    "",
+                ),
             ).substring(2);
             setIsTelefoneValidado(Regex.PHONE.test(telefone));
         },
@@ -138,23 +140,15 @@ export default function Fase1({
     }, [voltaCadastroDados]);
 
     return (
-        <div
-            className={`bg-white h-full flex flex-col items-center ${
-                windowWidth > 1000 ? "min-w-[70%]" : "min-w-[100%]"
-            }`}
-        >
+        <div className="bg-white h-full flex flex-col items-center min-w-[100%] min1000:min-w-[70%]">
             <CadastroProgress
                 fase={1}
                 fases={stepInfo.fases}
                 mudarStep={stepInfo.passarFaseAtalho}
                 isFlagAtLeft={stepInfo.fases % 2 === 0}
             />
-            <div className="w-full h-[70%] flex flex-col items-center justify-evenly">
-                <div
-                    className={`relative ${
-                        windowWidth > 1000 ? "w-[60%]" : "w-[80%]"
-                    }`}
-                >
+            <div className="w-full min-h-[70%] flex flex-col items-center justify-evenly">
+                <div className="relative w-[80%] min1000:w-[60%]">
                     <input
                         onBlur={validar.nome}
                         ref={nome_input}
@@ -191,11 +185,7 @@ export default function Fase1({
                         </label>
                     )}
                 </div>
-                <div
-                    className={`relative ${
-                        windowWidth > 1000 ? "w-[60%]" : "w-[80%]"
-                    }`}
-                >
+                <div className="relative w-[80%] min1000:w-[60%]">
                     <input
                         onBlur={() => {
                             validar.email();
@@ -236,11 +226,7 @@ export default function Fase1({
                     )}
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div
-                        className={`relative ${
-                            windowWidth > 1000 ? "w-[29%]" : "w-[39%]"
-                        }`}
-                    >
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <InputMask
                             mask="999.999.999-99"
                             onBlur={validar.cpf}
@@ -274,32 +260,26 @@ export default function Fase1({
                             </label>
                         )}
                     </div>
-                    <div
-                        className={`relative ${
-                            windowWidth > 1000 ? "w-[29%]" : "w-[39%]"
-                        }`}
-                    >
-                        <CustomInputMask
-                            mask="(__) ____-____"
-                            maskIdentifierCharacter="_"
+                    <div className="relative w-[39%] min1000:w-[29%]">
+                        <InputMask
+                            mask="+55 (99) 99999-9999"
                             onBlur={validar.telefone}
-                            value={telefoneInput}
-                            onChange={(value) => {
-                                setTelefoneInput(value);
+                            ref={telefone_input}
+                            onChange={({ target: { value } }) => {
+                                telefone_input.current.value = value;
                             }}
-                            mainElement={{
-                                id: "telefone",
-                                placeholder: " ",
-                                className: `
-                                    block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                    appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-                                    ${
-                                        isTelefoneValidado === false
-                                            ? "border-red-500"
-                                            : "border-cinza-claro-1 hover:border-green-300"
-                                    }
-                                `,
-                            }}
+                            type="text"
+                            id="telefone"
+                            placeholder=" "
+                            className={`
+								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
+								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
+								${
+                                    isTelefoneValidado === false
+                                        ? "border-red-500"
+                                        : "border-cinza-claro-1 hover:border-green-300"
+                                }
+							`}
                         />
                         <label
                             htmlFor="telefone"
@@ -315,11 +295,7 @@ export default function Fase1({
                         )}
                     </div>
                 </div>
-                <div
-                    className={`relative ${
-                        windowWidth > 1000 ? "w-[60%]" : "w-[80%]"
-                    }`}
-                >
+                <div className="relative w-[80%] min1000:w-[60%]">
                     <input
                         onBlur={validar.senha}
                         disabled={senhaDisabled}
@@ -350,7 +326,7 @@ export default function Fase1({
                     <label
                         htmlFor="senha"
                         className={`${
-                            senhaDisabled ? "bg-[#e0e0e0]" : ""
+                            senhaDisabled && "bg-[#e0e0e0]"
                         } cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center`}
                     >
                         <LockClosedIcon className="h-5 w-5 mr-1" />
@@ -363,11 +339,7 @@ export default function Fase1({
                     )}
                 </div>
             </div>
-            <div
-                className={`h-[15%] flex justify-end items-center ${
-                    windowWidth > 1000 ? "w-[60%]" : "w-[80%]"
-                }`}
-            >
+            <div className="flex justify-end items-center w-[80%] min1000:w-[60%] min-h-[5%] min1000:min-h-[15%]">
                 <button
                     onClick={() => {
                         isEveryThingValidated() && avancar();
@@ -394,6 +366,7 @@ export default function Fase1({
                     )}
                 </button>
             </div>
+            {windowWidth <= 1000 && <CadastroBottomBar isAtLeft />}
         </div>
     );
 }

@@ -32,6 +32,6 @@ export function formatAs(as, value) {
     }
 }
 
-function defer(fn) {
-    return requestAnimationFrame(fn);
+export async function defer() {
+    await new Promise((resolve) => requestAnimationFrame(resolve));
 }

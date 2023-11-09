@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import ModalCustom from "./ModalCustom";
 import { useEffect } from "react";
+import { defer } from "@/utils/functions";
 
 export default function ModalAviso({
     modalGettr,
@@ -12,15 +13,16 @@ export default function ModalAviso({
     const transition_bar = useRef(null);
 
     useEffect(() => {
-        if (!transition_bar?.current) return;
-        if (modalGettr) {
-            transition_bar.current.style.transition = "0s linear";
-            transition_bar.current.style.width = "100%";
-            setTimeout(() => {
+        (async () => {
+            if (!transition_bar?.current) return;
+            if (modalGettr) {
+                transition_bar.current.style.transition = "0s linear";
+                transition_bar.current.style.width = "100%";
+                await defer();
                 transition_bar.current.style.transition = tempo + "ms linear";
                 transition_bar.current.style.width = "0%";
-            }, 1);
-        }
+            }
+        })();
     }, [modalGettr]);
 
     return (
