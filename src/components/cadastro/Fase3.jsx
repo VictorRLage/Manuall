@@ -10,6 +10,7 @@ import { ThreeDots } from "react-loader-spinner";
 import Regex from "@/enum/RegexENUM";
 import { defer } from "@/utils/functions";
 import { useData } from "@/data/CreateContext";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 
 export default function Fase3({
     stepInfo,
@@ -124,7 +125,7 @@ export default function Fase3({
     }, [orcamento]);
 
     return (
-        <div className="bg-white h-full min-w-[100%] flex flex-col items-center">
+        <div className="bg-white min-w-[100%] flex flex-col items-center">
             <CadastroProgress
                 fase={3}
                 fases={stepInfo.fases}
@@ -178,11 +179,11 @@ export default function Fase3({
                     {windowWidth > 1000 && (
                         <div className="w-[2px] h-[80%] bg-gray-300" />
                     )}
-                    <div className="h-full flex flex-col p-5 w-[90%] min1000:w-[40%]">
+                    <div className="h-full flex flex-col p-5 w-[90%] min1000:w-[40%] max1000:gap-4 max1000:pt-0">
                         <span className="flex items-end px-1 min1000:h-[15%]">
                             Gostaria de ensinar?
                         </span>
-                        <div className="w-full flex flex-col justify-around min1000:h-[70%]">
+                        <div className="w-full flex flex-col max1000:gap-4 justify-around min1000:h-[70%]">
                             <label
                                 htmlFor={1}
                                 className={`w-full bg-white border-2 rounded-lg p-2 text-gray-700
@@ -244,7 +245,7 @@ export default function Fase3({
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-[30%] flex flex-col px-[12%]">
+                <div className="h-[30%] flex flex-col w-[75%] max1000:w-[90%] max1000:px-5">
                     <h3 className="text-lg text-gray-900">
                         Média de seus orçamentos
                     </h3>
@@ -346,7 +347,7 @@ export default function Fase3({
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-[15%] flex justify-between items-center px-[12%]">
+                <div className="h-[15%] flex justify-between items-center w-[75%] max1000:w-[90%] max1000:px-5">
                     <button
                         onClick={voltarFase}
                         className="text-gray-400 text-xl mb-4 font-bold flex justify-center items-center h-[40px] cursor-pointer"
@@ -372,6 +373,8 @@ export default function Fase3({
                     </button>
                 </div>
             </div>
+            <div className="min-h-[6%] w-full" />
+            {windowWidth <= 1000 && <CadastroBottomBar isAtLeft />}
         </div>
     );
 }
