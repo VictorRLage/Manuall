@@ -17,6 +17,7 @@ export default function CadastroPrestador() {
     const { windowWidth } = useData();
 
     const scrollingDiv = useRef(null);
+    const [lastScrollX, setLastScrollX] = useState(0);
 
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
     const [modalJaPossuiConta, setModalJaPossuiConta] = useState(false);
@@ -272,8 +273,15 @@ export default function CadastroPrestador() {
                 changePhaseTo={setStepAtual}
             />
             <div
-                className="flex bg-white overflow-x-hidden h-full min800:h-[580px] rounded-none min800:rounded-lg min800:drop-shadow-all w-full min800:w-[800px] min1000:w-[900px] min1200:w-[1152px]"
+                className="flex bg-[#008042] overflow-x-hidden h-full min800:h-[580px] rounded-none min800:rounded-lg min800:drop-shadow-all w-full min800:w-[800px] min1000:w-[900px] min1200:w-[1152px]"
                 ref={scrollingDiv}
+                onScroll={(e) => {
+                    if (e.target.scrollLeft !== lastScrollX) {
+                        scrollingDiv.current.scrollLeft =
+                            stepAtual % 2 !== 0 ? 2000 : 0;
+                        setLastScrollX(e.target.scrollLeft);
+                    }
+                }}
             >
                 <Fase2
                     stepInfo={{

@@ -156,7 +156,7 @@ export default function Fase2({
     }, [voltaCadastroDados]);
 
     return (
-        <div className="bg-white h-full flex flex-col items-center min-w-[100%] min1000:min-w-[70%]">
+        <div className="bg-white flex flex-col items-center min-w-[100%] min1000:min-w-[70%]">
             <CadastroProgress
                 fase={2}
                 fases={stepInfo.fases}
@@ -165,7 +165,7 @@ export default function Fase2({
             />
             <div className="w-full min-h-[70%] flex flex-col items-center justify-evenly">
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div className="relative w-[39%] min:w-[29%]">
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <InputMask
                             mask="99999-999"
                             onBlur={validar.cep}
@@ -199,7 +199,7 @@ export default function Fase2({
                             </label>
                         )}
                     </div>
-                    <div className="relative w-[39%] min:w-[29%]">
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <input
                             onBlur={validar.estado}
                             ref={estado_input}
@@ -232,7 +232,7 @@ export default function Fase2({
                     </div>
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div className="relative w-[39%] min:w-[29%]">
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <input
                             onBlur={validar.cidade}
                             ref={cidade_input}
@@ -263,7 +263,7 @@ export default function Fase2({
                             </label>
                         )}
                     </div>
-                    <div className="relative w-[39%] min:w-[29%]">
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <input
                             onBlur={validar.bairro}
                             maxLength={35}
@@ -327,7 +327,7 @@ export default function Fase2({
                     )}
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
-                    <div className="relative w-[39%] min:w-[29%]">
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <input
                             onBlur={validar.numero}
                             ref={numero_input}
@@ -357,7 +357,7 @@ export default function Fase2({
                             </label>
                         )}
                     </div>
-                    <div className="relative w-[39%] min:w-[29%]">
+                    <div className="relative w-[39%] min1000:w-[29%]">
                         <input
                             onBlur={validar.complemento}
                             ref={complemento_input}
@@ -448,6 +448,7 @@ export default function Fase2({
                 )}
             </div>
             {windowWidth <= 1000 && <CadastroBottomBar />}
+            <div className="min-h-fit w-full"></div>
         </div>
     );
 }

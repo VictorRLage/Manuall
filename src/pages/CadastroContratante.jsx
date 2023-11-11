@@ -190,9 +190,9 @@ export default function CadastroContratante() {
                 changePhaseTo={mudarStep}
             />
             <div
-                className="flex bg-white h-144 w-[900px] rounded-lg drop-shadow-all overflow-x-hidden scroll-smooth"
+                className="scroll-smooth flex bg-white overflow-x-hidden h-full min800:h-[580px] rounded-none min800:rounded-lg min800:drop-shadow-all w-full min800:w-[800px] min1000:w-[900px] min1200:w-[1152px]"
                 ref={scrollingDiv}
-            >
+            >   
                 <Fase1
                     stepInfo={{
                         passarFaseAtalho: mudarStep,

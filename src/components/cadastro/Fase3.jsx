@@ -373,8 +373,12 @@ export default function Fase3({
                     </button>
                 </div>
             </div>
-            <div className="min-h-[6%] w-full" />
-            {windowWidth <= 1000 && <CadastroBottomBar isAtLeft />}
+            {windowWidth <= 1000 && (
+                <>
+                    <div className="min-h-[6%] w-full" />
+                    <CadastroBottomBar isAtLeft />
+                </>
+            )}
         </div>
     );
 }

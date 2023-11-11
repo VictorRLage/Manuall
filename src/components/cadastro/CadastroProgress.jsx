@@ -1,5 +1,6 @@
 import React from "react";
 import CadastroFlag from "@/components/cadastro/CadastroFlag";
+import { useData } from "@/data/CreateContext";
 
 /**
  * @param {{
@@ -12,9 +13,11 @@ export default function CadastroProgress({
     mudarStep,
     isFlagAtLeft,
 }) {
+    const { windowWidth } = useData();
+
     return (
         <div className="min-h-[15%] w-full relative flex justify-center items-center">
-            <CadastroFlag isFlagAtLeft={isFlagAtLeft} />
+            {windowWidth > 500 && <CadastroFlag isFlagAtLeft={isFlagAtLeft} />}
             {Array.from({ length: fases }, (_, i) => (
                 <React.Fragment key={i}>
                     <div
