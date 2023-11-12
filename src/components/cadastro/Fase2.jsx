@@ -195,7 +195,7 @@ export default function Fase2({
                         </label>
                         {isCepValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                CEP Inválido
                             </label>
                         )}
                     </div>
@@ -226,7 +226,7 @@ export default function Fase2({
                         </label>
                         {isEstadoValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                Informe seu estado
                             </label>
                         )}
                     </div>
@@ -259,7 +259,7 @@ export default function Fase2({
                         </label>
                         {isCidadeValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                Informe sua cidade
                             </label>
                         )}
                     </div>
@@ -290,7 +290,7 @@ export default function Fase2({
                         </label>
                         {isBairroValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                Informe seu bairro
                             </label>
                         )}
                     </div>
@@ -322,7 +322,7 @@ export default function Fase2({
                     </label>
                     {isRuaValidado === false && (
                         <label className="absolute ml-1 text-red-500 font-medium">
-                            Campo inválido
+                            Informe sua rua
                         </label>
                     )}
                 </div>
@@ -353,7 +353,7 @@ export default function Fase2({
                         </label>
                         {isNumeroValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                Informe o número da casa
                             </label>
                         )}
                     </div>
@@ -388,7 +388,7 @@ export default function Fase2({
                         </label>
                         {isComplementoValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                Preencha esse campo
                             </label>
                         )}
                     </div>

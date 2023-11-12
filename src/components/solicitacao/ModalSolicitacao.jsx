@@ -89,20 +89,22 @@ export default function ModalSolicitacao({
                         {faseAtual <= 3 ? (
                             <>
                                 <div className="flex flex-col items-center justify-center h-[20%] gap-4">
-                                    <div className="bg-cinza flex w-[450px] h-[10px] rounded-full mt-[10px]">
-                                        <div
-                                            className="bg-verde-padrao rounded-full transition-all"
-                                            style={{
-                                                width: faseAtual * (450 / 3),
-                                            }}
-                                        />
+                                    <div className="flex justify-between w-[450px] mt-[10px]">
+                                        {[1, 2, 3].map((step) => (
+                                            <div
+                                                key={step}
+                                                className={`h-[10px] flex-1 mx-1 rounded-full transition-all duration-300 ease-in-out ${faseAtual >= step ? 'bg-verde-padrao' : 'bg-cinza'
+                                                    }`}
+                                            />
+                                        ))}
                                     </div>
+
                                     <div className="w-full flex justify-center items-center text-gray-900 text-2xl font-extrabold mt-3">
                                         {faseAtual === 1
                                             ? "De qual serviço você necessita?"
                                             : faseAtual === 2
-                                            ? "Informe o tamanho e a medida do serviço:"
-                                            : "Algo mais a acrescentar? (Opcional)"}
+                                                ? "Informe o tamanho e a medida do serviço:"
+                                                : "Algo mais a acrescentar? (Opcional)"}
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center justify-center w-full h-[60%]">
@@ -170,11 +172,10 @@ export default function ModalSolicitacao({
                                         </span>
                                     </button>
                                     <button
-                                        className={`text-white text-lg flex justify-end items-center rounded-full h-[35px] w-[120px] ${
-                                            faseValidated[`fase${faseAtual}`]
-                                                ? "bg-verde-padrao"
-                                                : "bg-cinza-claro-1 cursor-default"
-                                        }`}
+                                        className={`text-white text-lg flex justify-end items-center rounded-full h-[35px] w-[120px] ${faseValidated[`fase${faseAtual}`]
+                                            ? "bg-verde-padrao"
+                                            : "bg-cinza-claro-1 cursor-default"
+                                            }`}
                                         onClick={() =>
                                             faseValidated[`fase${faseAtual}`] &&
                                             (faseAtual < 3

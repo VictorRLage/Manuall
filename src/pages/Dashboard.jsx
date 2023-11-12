@@ -61,10 +61,9 @@ export default function Dashboard() {
                     `${ano}-${(mes + 1)
                         .toString()
                         .padStart(2, "0")}-01T00:00:00`,
-                    `${ano}-${(mes + 1).toString().padStart(2, "0")}-${
-                        (mes + 1).toString().padStart(2, "0") == "02"
-                            ? "28"
-                            : "30"
+                    `${ano}-${(mes + 1).toString().padStart(2, "0")}-${(mes + 1).toString().padStart(2, "0") == "02"
+                        ? "28"
+                        : "30"
                     }T23:59:59`,
                 ],
                 desc: `${meses[mes]} de ${ano}`,
@@ -185,11 +184,10 @@ export default function Dashboard() {
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
                                 typeof dashboardData?.tempoMedioResposta ===
-                                "number" ? (
+                                    "number" ? (
                                     dashboardData?.tempoMedioResposta >= 60 ? (
-                                        `${
-                                            dashboardData?.tempoMedioResposta /
-                                            60
+                                        `${dashboardData?.tempoMedioResposta /
+                                        60
                                         }h`
                                     ) : (
                                         `${dashboardData?.tempoMedioResposta}min`
@@ -212,7 +210,7 @@ export default function Dashboard() {
                         <span className="text-lg">Valor arrecadado</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
-                                `R$${dashboardData.valorArrecadado},00`
+                                `R$${dashboardData.valorArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
                             ) : (
                                 <ThreeCircles
                                     height={40}

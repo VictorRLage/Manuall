@@ -165,10 +165,9 @@ export default function Fase1({
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${
-                                isNomeValidado === false
-                                    ? "border-red-500"
-                                    : "border-cinza-claro-1 hover:border-green-300"
+							${isNomeValidado === false
+                                ? "border-red-500"
+                                : "border-cinza-claro-1 hover:border-green-300"
                             }
 						`}
                     />
@@ -181,7 +180,7 @@ export default function Fase1({
                     </label>
                     {isNomeValidado === false && (
                         <label className="absolute ml-1 text-red-500 font-medium">
-                            Campo inválido
+                            Informe seu nome completo
                         </label>
                     )}
                 </div>
@@ -205,10 +204,9 @@ export default function Fase1({
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${
-                                isEmailValidado === false
-                                    ? "border-red-500"
-                                    : "border-cinza-claro-1 hover:border-green-300"
+							${isEmailValidado === false
+                                ? "border-red-500"
+                                : "border-cinza-claro-1 hover:border-green-300"
                             }
 						`}
                     />
@@ -221,7 +219,7 @@ export default function Fase1({
                     </label>
                     {isEmailValidado === false && (
                         <label className="absolute ml-1 text-red-500 font-medium">
-                            Campo inválido
+                            Deve conter '@', um provedor válido e '.com'
                         </label>
                     )}
                 </div>
@@ -240,10 +238,9 @@ export default function Fase1({
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-								${
-                                    isCpfValidado === false
-                                        ? "border-red-500"
-                                        : "border-cinza-claro-1 hover:border-green-300"
+								${isCpfValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
                                 }
 							`}
                         />
@@ -256,7 +253,7 @@ export default function Fase1({
                         </label>
                         {isCpfValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                CPF Inexistente
                             </label>
                         )}
                     </div>
@@ -274,10 +271,9 @@ export default function Fase1({
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-								${
-                                    isTelefoneValidado === false
-                                        ? "border-red-500"
-                                        : "border-cinza-claro-1 hover:border-green-300"
+								${isTelefoneValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
                                 }
 							`}
                         />
@@ -290,7 +286,7 @@ export default function Fase1({
                         </label>
                         {isTelefoneValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Campo inválido
+                                Número inexistente
                             </label>
                         )}
                     </div>
@@ -312,29 +308,26 @@ export default function Fase1({
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-                            ${
-                                senhaDisabled
-                                    ? "bg-[#e0e0e0]"
-                                    : `bg-transparent ${
-                                          isSenhaValidado === false
-                                              ? "border-red-500"
-                                              : "border-cinza-claro-1 hover:border-green-300"
-                                      }`
+                            ${senhaDisabled
+                                ? "bg-[#e0e0e0]"
+                                : `bg-transparent ${isSenhaValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
+                                }`
                             }
 						`}
                     />
                     <label
                         htmlFor="senha"
-                        className={`${
-                            senhaDisabled && "bg-[#e0e0e0]"
-                        } cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center`}
+                        className={`${senhaDisabled && "bg-[#e0e0e0]"
+                            } cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center`}
                     >
                         <LockClosedIcon className="h-5 w-5 mr-1" />
                         Senha
                     </label>
                     {isSenhaValidado === false && !senhaDisabled && (
                         <label className="absolute ml-1 text-red-500 font-medium">
-                            Campo inválido
+                            Deve ter entre 8 e 24 caracteres
                         </label>
                     )}
                 </div>
@@ -344,11 +337,10 @@ export default function Fase1({
                     onClick={() => {
                         isEveryThingValidated() && avancar();
                     }}
-                    className={`${
-                        isEveryThingValidated()
+                    className={`${isEveryThingValidated()
                             ? "text-verde-padrao cursor-pointer"
                             : "text-gray-400 cursor-default"
-                    } text-xl mb-8 font-bold flex justify-center items-center h-[40px]`}
+                        } text-xl mb-8 font-bold flex justify-center items-center h-[40px]`}
                 >
                     {isNextLoading ? (
                         <Oval
