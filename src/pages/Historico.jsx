@@ -43,32 +43,26 @@ export default function Historico() {
                 refetch={fetch}
             />
             <Header />
-            <div className="w-full h-full bg-[#fafafa] px-32 pt-8 pb-16">
-                {/* <Breadcrumb
-                    items={[
-                        { to: "/", desc: "Página Inicial" },
-                        { to: null, desc: "Histórico" },
-                    ]}
-                /> */}
+            <div className="w-full h-full bg-[#fafafa] min700:px-32 min500:px-16 px-1 pt-8 pb-16">
                 <div>
                     <p className="text-base pb-1 text-gray-400 font-semibold">
                         Olá {nomeUsuario}! Bem vindo ao seu
                     </p>
-                    <p className="text-5xl font-semibold">
+                    <p className="text-5xl font-semibold text-gray-900">
                         Histórico de compras
                     </p>
                 </div>
                 <div className="flex w-full h-[50px] justify-between gap-1 mt-8">
-                    <div className="text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tl-xl">
+                    <div className="text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tl-xl">
                         Data de Início
                     </div>
-                    <div className="text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
+                    <div className="text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
                         Prestador
                     </div>
-                    <div className="text-white h-full w-[40%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
+                    <div className="text-center text-white h-full w-[40%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
                         Serviço
                     </div>
-                    <div className="text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tr-xl">
+                    <div className="text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tr-xl">
                         Valor
                     </div>
                 </div>
