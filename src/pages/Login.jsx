@@ -9,9 +9,12 @@ import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
 import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import CadastroFlag from "@/components/cadastro/CadastroFlag";
 import Regex from "@/enum/RegexENUM";
+import { useData } from "@/data/CreateContext";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 
 export default function Login() {
     const navigate = useNavigate();
+    const { windowWidth } = useData();
 
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
     const [modalEscolherTipoUsuario, setModalEscolherTipoUsuario] =
@@ -147,24 +150,26 @@ export default function Login() {
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
-            <div className="flex bg-white h-144 w-288 rounded-lg drop-shadow-all">
-                <CadastroSidebar
-                    isLogin
-                    setModalEscolherCadastro={setModalEscolherCadastro}
-                />
-                <div className="w-full h-full flex flex-col items-center justify-evenly">
-                    <CadastroFlag isFlagAtLeft={false} />
+            <div className="flex max1000:flex-col bg-white h-full min550:h-[576px] w-full min550:w-[500px] min800:w-[700px] min950:w-[900px] min1000:w-[1000px] min1200:w-[1152px] min550:rounded-lg min550:drop-shadow-all overflow-y-scroll">
+                {windowWidth > 1000 && (
+                    <CadastroSidebar
+                        isLogin
+                        setModalEscolherCadastro={setModalEscolherCadastro}
+                    />
+                )}
+                <div className="w-full min-h-[90%] min1000:min-h-full flex flex-col items-center justify-evenly">
+                    {windowWidth > 800 && <CadastroFlag isFlagAtLeft={false} />}
                     <div className="w-full flex flex-col text-center gap-2">
-                        <p className="text-verde-padrao font-extrabold text-5xl">
+                        <p className="text-verde-padrao font-extrabold text-4xl min550:text-5xl">
                             Bem-vindo de volta!
                         </p>
-                        <p className="text-verde-padrao font-normal text-2xl">
+                        <p className="text-verde-padrao font-normal text-xl min550:text-2xl">
                             Acesse a sua conta agora mesmo.
                         </p>
                     </div>
                     <div className="flex flex-col justify-center items-center w-full gap-10">
                         <div className="flex flex-col justify-center items-center w-full gap-8">
-                            <div className="w-[50%] relative">
+                            <div className="w-[70%] min550:w-[50%] relative">
                                 <input
                                     onBlur={checarDuplicidadeEmail}
                                     onChange={({ target }) => {
@@ -178,11 +183,7 @@ export default function Login() {
                                     type="email"
                                     id="email"
                                     placeholder=" "
-                                    className="
-                                        block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                        appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-                                        border-cinza-claro-1 hover:border-green-300
-                                    "
+                                    className="block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2 appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors border-cinza-claro-1 hover:border-green-300"
                                 />
                                 <label
                                     htmlFor="email"
@@ -192,7 +193,7 @@ export default function Login() {
                                     Endereço de email
                                 </label>
                             </div>
-                            <div className="w-[50%] relative">
+                            <div className="w-[70%] min550:w-[50%] relative">
                                 <input
                                     ref={senha_input}
                                     onKeyDown={({ key }) => {
@@ -203,11 +204,7 @@ export default function Login() {
                                     type="password"
                                     id="senha"
                                     placeholder=" "
-                                    className="
-                                        block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
-                                        appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-                                        border-cinza-claro-1 hover:border-green-300
-                                    "
+                                    className="block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2 appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors border-cinza-claro-1 hover:border-green-300"
                                 />
                                 <label
                                     htmlFor="senha"
@@ -238,6 +235,7 @@ export default function Login() {
                         </div>
                     </div>
                 </div>
+                {windowWidth <= 1000 && <CadastroBottomBar isLogin />}
             </div>
         </div>
     );

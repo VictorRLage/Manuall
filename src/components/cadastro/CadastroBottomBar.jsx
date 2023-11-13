@@ -1,7 +1,10 @@
 import { ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 
-export default function CadastroBottomBar({ isAtLeft = false }) {
+export default function CadastroBottomBar({
+    isAtLeft = false,
+    isLogin = false,
+}) {
     const navigate = useNavigate();
 
     return (
@@ -13,19 +16,21 @@ export default function CadastroBottomBar({ isAtLeft = false }) {
                     : "polygon(0% 0%, 11.91% 4.26%, 32.55% 6.52%, 52.64% 7.08%, 68.18% 7.57%, 85% 6%, 100% 5.66%, 100% 100%, 0% 100%)",
             }}
         >
-            <div className="flex flex-col justify-center items-center">
-                <p className="text-xl font-semibold text-white text-center">
-                    Já possui uma conta?
-                </p>
-                <a
-                    className="text-xl font-bold text-white text-center underline cursor-pointer"
-                    onClick={() => {
-                        navigate("/login");
-                    }}
-                >
-                    Entre aqui
-                </a>
-            </div>
+            {!isLogin && (
+                <div className="flex flex-col justify-center items-center">
+                    <p className="text-xl font-semibold text-white text-center">
+                        Já possui uma conta?
+                    </p>
+                    <a
+                        className="text-xl font-bold text-white text-center underline cursor-pointer"
+                        onClick={() => {
+                            navigate("/login");
+                        }}
+                    >
+                        Entre aqui
+                    </a>
+                </div>
+            )}
             <button
                 onClick={() => {
                     navigate("/");
