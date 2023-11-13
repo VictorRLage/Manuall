@@ -41,22 +41,22 @@ export default function ModalAvaliacao({
             }}
         >
             <div
-                className="bg-white w-144 h-88 flex flex-col items-center rounded-lg bg-cover bg-center"
+                className="bg-white text-center w-[300px] min500:w-[400px] min600:w-[576px] h-88 flex flex-col items-center rounded-lg bg-cover bg-center"
                 style={{ backgroundImage: `url(${BgModal})` }}
             >
                 <div className="h-[33%] w-full flex justify-center items-center text-verde-escuro-1 text-3xl font-extrabold">
-                    Como foi o serviço do {notificacao?.nomeUsuario}?
+                    Como foi o serviço de {notificacao?.nomeUsuario}?
                 </div>
                 <div className="h-[18%] w-full flex justify-center items-center">
-                    {[1, 2, 3, 4, 5].map((_, index) => (
+                    {[1, 2, 3, 4, 5].map((_, i) => (
                         <span
-                            key={index}
-                            onMouseEnter={() => setHoveredRating(index + 1)}
+                            key={i}
+                            onMouseEnter={() => setHoveredRating(i + 1)}
                             onMouseLeave={() => setHoveredRating(0)}
-                            onClick={() => setRating(index + 1)}
+                            onClick={() => setRating(i + 1)}
                             className={
-                                (hoveredRating > 0 && index < hoveredRating) ||
-                                (hoveredRating === 0 && index < rating)
+                                (hoveredRating > 0 && i < hoveredRating) ||
+                                (hoveredRating === 0 && i < rating)
                                     ? "text-yellow-500 text-5xl cursor-pointer"
                                     : "text-gray-400 text-5xl cursor-pointer"
                             }

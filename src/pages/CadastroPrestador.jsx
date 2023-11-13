@@ -11,6 +11,8 @@ import { useLocation } from "react-router-dom";
 import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
 import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
 import { useData } from "@/data/CreateContext";
+import useWatch from "@/utils/useWatch";
+import { defer } from "@/utils/functions";
 
 export default function CadastroPrestador() {
     const location = useLocation();
@@ -34,11 +36,9 @@ export default function CadastroPrestador() {
     const [avisoTitulo, setAvisoTitulo] = useState("");
     const [avisoDescricao, setAvisoDescricao] = useState("");
 
-    const [stepAtual, setStepAtual] = useState(
-        location.state?.fase ? location.state.fase : 1,
-    );
+    const [stepAtual, setStepAtual] = useState(location.state?.fase || 1);
     const [delayedStepAtual, setDelayedStepAtual] = useState(
-        location.state?.fase ? location.state.fase : 1,
+        location.state?.fase || 1,
     );
 
     const [fase1FinalLoading, setFase1FinalLoading] = useState(false);
@@ -224,9 +224,10 @@ export default function CadastroPrestador() {
         }
     }, []);
 
-    useEffect(() => {
+    useWatch(async () => {
         if (stepAtual === 3) {
             setDelayedStepAtual(3);
+            await defer();
             setTimeout(() => {
                 scrollingDiv.current.style.scrollBehavior = "smooth";
                 scrollingDiv.current.scrollLeft =
@@ -240,7 +241,7 @@ export default function CadastroPrestador() {
                 setDelayedStepAtual(stepAtual);
             }, 400);
         }
-    }, [stepAtual]);
+    }, stepAtual);
 
     return (
         <div

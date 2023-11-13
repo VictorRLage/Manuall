@@ -39,7 +39,7 @@ export default function ModalUrlPfp({
             modalSettr={modalSettr}
             canClose={true}
         >
-            <div className="w-full h-full flex flex-col items-center py-8 px-10 gap-4">
+            <div className="w-[300px] min450:w-[400px] h-full flex flex-col items-center py-8 px-10 gap-4">
                 <span className="text-2xl text-gray-900 font-semibold text-center">
                     Insira o Url da sua imagem de perfil
                 </span>

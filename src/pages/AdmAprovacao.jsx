@@ -3,7 +3,6 @@ import { Oval } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "@/api/axios";
 import ModalAviso from "@/components/main/ModalAviso";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 import done from "@/assets/storyset/Done-rafiki.svg";
 import AprovacaoSection from "@/components/adm/AprovacaoSection";
 import lupaIcon from "@/assets/icons/lupa.png";
@@ -11,12 +10,16 @@ import FileDownload from "@/assets/icons/file_download.png";
 import FileUpload from "@/assets/icons/file_upload.png";
 import RegexENUM from "@/enum/RegexENUM";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
+import AprovacaoDesfazer from "../components/adm/AprovacaoDesfazer";
 
 export default function AdmAprovacao() {
     const [prestadores, setPrestadores] = useState();
 
     const [filtro, setFiltro] = useState("");
     const [agrupamentoSelecionado, setAgrupamentoSelecionado] = useState(0);
+
+    const [modalAviso, setModalAviso] = useState(false);
+    const [decisoes, setDecisoes] = useState([]);
 
     const { prestadoresPendente, prestadoresAgendado, prestadoresFinalizado } =
         prestadores?.reduce(
@@ -62,14 +65,16 @@ export default function AdmAprovacao() {
             prestadoresFinalizado: [],
         };
 
-    const [modalAviso, setModalAviso] = useState(false);
-    const [decisao, setDecisao] = useState([]);
-
-    const aprovar = (idPrestador, aprovar) => {
+    const aprovar = (idPrestador, aprovar, salvarRefazer = true) => {
         setPrestadores();
         axios
             .patch(`/usuario/aprovacoesPendentes/${idPrestador}/${aprovar}`)
-            .then(() => fetch(true, idPrestador))
+            .then(() => {
+                fetch();
+                if (salvarRefazer) {
+                    setDecisoes((prevItems) => [...prevItems, idPrestador]);
+                }
+            })
             .catch((err) => console.log(err));
     };
 
@@ -82,50 +87,33 @@ export default function AdmAprovacao() {
             .patch(
                 `/usuario/aprovacoesPendentes/alterarStatusProcesso/${idPrestador}/${statusProcessoAprovacao}`,
             )
-            .then(fetch)
-            .catch((err) => console.log(err));
-    };
-
-    const fetch = (doCoisar = false, idPrestador) => {
-        axios
-            .get("/usuario/aprovacoesPendentes")
-            .then(({ status, data }) => {
-                if (status === 200) {
-                    setPrestadores(data);
-                    if (doCoisar) {
-                        if (aprovar !== 1) {
-                            setDecisao((prevItems) => [
-                                ...prevItems,
-                                idPrestador,
-                            ]);
-                        }
-                    }
-                }
+            .then(() => {
+                fetch();
             })
             .catch((err) => console.log(err));
     };
 
-    const popDecisao = () => {
-        if (decisao.length > 0) {
-            aprovar(decisao[decisao.length - 1], 1);
-            const novaDecisao = decisao.slice(0, decisao.length - 1);
-            setDecisao(novaDecisao);
-        } else {
-            setModalAviso(true);
-        }
+    const fetch = () => {
+        axios
+            .get("/usuario/aprovacoesPendentes")
+            .then(({ status, data }) => {
+                if (status === 200) setPrestadores(data);
+            })
+            .catch((err) => console.log(err));
     };
 
     useEffect(fetch, []);
 
     return (
         <>
-            <button
-                onClick={popDecisao}
-                className="flex fixed bg-[#209D61] hover:bg-[rgb(44,191,120)] transition-colors text-white pt-4 pb-4 pr-5 pl-5 right-[50px] bottom-[50px] rounded-xl items-center"
-            >
-                <ArrowUturnLeftIcon className="h-6 mr-2" />{" "}
-                <span className="mt-1 text-lg">Desfazer última decisão</span>
-            </button>
+            {decisoes.length > 0 && (
+                <AprovacaoDesfazer
+                    desfazer={() => {
+                        aprovar(decisoes[decisoes.length - 1], 1, false);
+                        setDecisoes(decisoes.slice(0, decisoes.length - 1));
+                    }}
+                />
+            )}
             <ModalAviso
                 modalGettr={modalAviso}
                 modalSettr={setModalAviso}

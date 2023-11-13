@@ -14,7 +14,7 @@ export default function ModalJaPossuiConta({
             modalSettr={modalSettr}
             canClose={false}
         >
-            <div className="bg-white w-auto flex flex-col items-center rounded-lg p-8 gap-8 max-w-[500px]">
+            <div className="bg-white w-auto flex flex-col items-center rounded-lg p-8 gap-8 max-w-[300px] min500:max-w-[400px] min600:max-w-[500px]">
                 <div className="flex justify-center items-center text-verde-padrao text-2xl font-extrabold">
                     Oops...
                 </div>
@@ -22,9 +22,9 @@ export default function ModalJaPossuiConta({
                     Parece que você já possui uma conta cadastrada como{" "}
                     {tipoUsuario} neste endereço de e-mail.
                 </div>
-                <div className="flex justify-center items-center gap-4">
+                <div className="flex max500:flex-col-reverse justify-center items-center gap-4">
                     <button
-                        className="border-2 border-verde-padrao hover:bg-[rgb(218,255,237)] text-verde-padrao rounded-lg text-xl px-6 py-2 transition-all"
+                        className="border-2 max500:w-[100%] border-verde-padrao hover:bg-[rgb(218,255,237)] text-verde-padrao rounded-lg text-xl px-6 py-2 transition-all"
                         onClick={() => {
                             modalSettr(false);
                         }}

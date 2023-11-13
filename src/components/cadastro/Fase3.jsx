@@ -132,7 +132,7 @@ export default function Fase3({
                 mudarStep={stepInfo.passarFaseAtalho}
                 isFlagAtLeft={stepInfo.fases % 2 === 0}
             />
-            <div className="w-full flex flex-col items-center justify-center min1000:min-h-[85%] min-h-[75%]">
+            <div className="bg-white w-full flex flex-col items-center max1000:mt-8 justify-center min1000:min-h-[85%]">
                 <div className="w-full flex justify-center items-center max1000:flex-col min1000:h-[50%]">
                     <div className="h-full flex flex-col justify-center items-center p-5 gap-5 w-[90%] min1000:w-[40%]">
                         <Dropdown
@@ -249,8 +249,8 @@ export default function Fase3({
                     <h3 className="text-lg text-gray-900">
                         Média de seus orçamentos
                     </h3>
-                    <div className="flex items-center justify-between w-full py-8">
-                        <div className="flex items-center justify-between w-[17%]">
+                    <div className="flex items-center justify-between w-full py-8 max800:flex-wrap max800:gap-x-[4%] max800:gap-y-4">
+                        <div className="flex items-center justify-between w-[17%] max800:order-1 max800:w-[48%]">
                             <label
                                 htmlFor="orcamento_min"
                                 className="text-lg text-gray-800"
@@ -294,7 +294,7 @@ export default function Fase3({
                         <ReactSlider
                             value={orcamento}
                             onChange={(value) => setOrcamento(value)}
-                            className="w-[63%] h-[25px] flex items-center justify-center [&>*:nth-child(2)]:bg-verde-padrao"
+                            className="w-[63%] h-[25px] flex items-center justify-center [&>*:nth-child(2)]:bg-verde-padrao max800:order-2 max800:w-full"
                             thumbClassName="w-5 h-5 bg-verde-padrao cursor-grab rounded-full transition-colors hover:bg-green-600 focus:h-6 focus:w-6 focus:outline-none"
                             trackClassName="h-3 bg-gray-200 rounded-full"
                             min={0}
@@ -302,7 +302,7 @@ export default function Fase3({
                             pearling
                             minDistance={50}
                         />
-                        <div className="flex items-center justify-between w-[17%]">
+                        <div className="flex items-center justify-between w-[17%] max800:order-1 max800:w-[48%]">
                             <label
                                 htmlFor="orcamento_max"
                                 className="text-lg text-gray-800"
@@ -372,13 +372,13 @@ export default function Fase3({
                         )}
                     </button>
                 </div>
+                {windowWidth <= 1000 && (
+                    <>
+                        {/* <div className="bg-white min-h-[6%] w-full" /> */}
+                        <CadastroBottomBar isAtLeft />
+                    </>
+                )}
             </div>
-            {windowWidth <= 1000 && (
-                <>
-                    <div className="min-h-[6%] w-full" />
-                    <CadastroBottomBar isAtLeft />
-                </>
-            )}
         </div>
     );
 }

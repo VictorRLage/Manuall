@@ -29,6 +29,8 @@ export default function CadastroContratante() {
     const [fase1FinalLoading, setFase1FinalLoading] = useState(false);
     const [fase2FinalLoading, setFase2FinalLoading] = useState(false);
 
+    const [stepAtual, setStepAtual] = useState(1);
+
     const validarStep1 = (validado, { nome, email, cpf, telefone, senha }) => {
         if (!validado) {
             setModalAviso(true);
@@ -144,13 +146,13 @@ export default function CadastroContratante() {
     };
 
     useEffect(() => {
-        scrollingDiv.current.scrollLeft = 0;
+        setStepAtual(1);
     }, []);
     const mudarStep = () => {
-        scrollingDiv.current.scrollLeft = 2000;
+        setStepAtual(2);
     };
     const voltarStep = () => {
-        scrollingDiv.current.scrollLeft = 0;
+        setStepAtual(1);
 
         axios
             .get(`/cadastrar/1/${localStorage.getItem("ID_CADASTRANTE")}`)
@@ -158,6 +160,10 @@ export default function CadastroContratante() {
                 setVoltaCadastroDados(data);
             });
     };
+
+    useEffect(() => {
+        scrollingDiv.current.scrollLeft = stepAtual % 2 === 0 ? 2000 : 0;
+    }, [stepAtual]);
 
     return (
         <div
@@ -192,7 +198,7 @@ export default function CadastroContratante() {
             <div
                 className="scroll-smooth flex bg-white overflow-x-hidden h-full min800:h-[580px] rounded-none min800:rounded-lg min800:drop-shadow-all w-full min800:w-[800px] min1000:w-[900px] min1200:w-[1152px]"
                 ref={scrollingDiv}
-            >   
+            >
                 <Fase1
                     stepInfo={{
                         passarFaseAtalho: mudarStep,

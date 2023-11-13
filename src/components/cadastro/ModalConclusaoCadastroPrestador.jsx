@@ -15,17 +15,19 @@ export default function ModalConclusaoCadastroPrestador({
             canClose={false}
         >
             <div
-                className="bg-white w-144 h-100 flex flex-col items-center rounded-lg bg-cover bg-center"
-                style={{ backgroundImage: `url(${BgModal})` }}
+                className="bg-white w-[300px] min450:w-[400px] min600:w-[576px] text-center flex flex-col items-center rounded-lg bg-cover bg-center"
+                style={{
+                    backgroundImage: `url(${BgModal})`,
+                }}
             >
-                <div className="h-[33%] w-full flex justify-center items-center text-verde-padrao text-2xl font-extrabold">
+                <div className="h-[133px] w-full flex justify-center items-center text-verde-padrao text-2xl font-extrabold">
                     Obrigado por chegar até aqui!
                 </div>
-                <div className="h-[33%] w-[60%] flex justify-center items-center text-gray-800 text-2xl font-base text-center">
+                <div className="w-[60%] flex justify-center items-center text-gray-800 text-2xl font-base text-center">
                     Aguarde a sua aprovação por até 10 dias. Ao retornar, você
                     poderá escolher o seu plano!
                 </div>
-                <div className="h-[33%] w-full flex justify-center items-center">
+                <div className="h-[133px] w-full flex justify-center items-center">
                     <button
                         className="bg-verde-padrao hover:bg-[rgb(16,166,93)] text-white rounded-lg text-xl px-6 py-2 transition-all"
                         onClick={() => {

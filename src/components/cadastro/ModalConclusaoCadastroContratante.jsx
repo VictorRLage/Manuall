@@ -15,7 +15,7 @@ export default function ModalConclusaoCadastroContratante({
             canClose={false}
         >
             <div
-                className="bg-white w-144 h-88 flex flex-col items-center rounded-lg bg-cover bg-center"
+                className="bg-white text-center w-[300px] min450:w-[400px] min600:w-[576px] h-[350px] flex flex-col items-center rounded-lg bg-cover bg-center"
                 style={{ backgroundImage: `url(${BgModal})` }}
             >
                 <div className="h-[33%] w-full flex justify-center items-center text-verde-padrao text-2xl font-extrabold">

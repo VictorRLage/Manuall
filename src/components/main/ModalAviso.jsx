@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import ModalCustom from "./ModalCustom";
-import { useEffect } from "react";
 import { defer } from "@/utils/functions";
+import useWatch from "@/utils/useWatch";
 
 export default function ModalAviso({
     modalGettr,
@@ -12,17 +12,15 @@ export default function ModalAviso({
 }) {
     const transition_bar = useRef(null);
 
-    useEffect(() => {
-        (async () => {
-            if (!transition_bar?.current) return;
-            if (modalGettr) {
-                transition_bar.current.style.transition = "0s linear";
-                transition_bar.current.style.width = "100%";
-                await defer();
-                transition_bar.current.style.transition = tempo + "ms linear";
-                transition_bar.current.style.width = "0%";
-            }
-        })();
+    useWatch(async () => {
+        if (!transition_bar?.current) return;
+        if (modalGettr) {
+            transition_bar.current.style.transition = "0s linear";
+            transition_bar.current.style.width = "100%";
+            await defer();
+            transition_bar.current.style.transition = tempo + "ms linear";
+            transition_bar.current.style.width = "0%";
+        }
     }, [modalGettr]);
 
     return (
@@ -32,7 +30,7 @@ export default function ModalAviso({
             tempo={tempo}
             canClose={true}
         >
-            <div className="w-144 bg-white rounded-lg">
+            <div className="max-w-[300px] min500:max-w-[400px] min700:max-w-[576px] bg-white rounded-lg">
                 <div className="w-full h-1 relative">
                     <div className="absolute w-full h-1 bg-verde-claro-3" />
                     <div
