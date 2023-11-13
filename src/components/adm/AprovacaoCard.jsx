@@ -37,7 +37,7 @@ export default function AprovacaoCard({
                     label="Região"
                     value={`${cidade} - ${estado}`}
                 />
-                <span className="justify-self-end">Área/Serviços:</span>
+                <span className="justify-self-end text-end">Área/Serviços:</span>
                 <div>
                     <span className="font-bold">{area}</span>
                     <ul className="list-disc">
@@ -54,7 +54,7 @@ export default function AprovacaoCard({
                     label="Interesse em ensinar"
                     value={ensino ? "Sim" : "Não"}
                 />
-                <span className="justify-self-end">Status do processo:</span>
+                <span className="justify-self-end text-end">Status do processo:</span>
                 <select
                     value={statusProcesso || 1}
                     onChange={({ target }) =>

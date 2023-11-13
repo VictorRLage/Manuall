@@ -124,13 +124,13 @@ export default function AdmAprovacao() {
                 <Sidebar />
                 <div className="grow h-full overflow-y-scroll">
                     <div className="h-[15%] w-full flex items-center justify-center">
-                        <span className="text-gray-900 font-bold text-[30px]">
+                        <span className="text-gray-900 font-bold text-[30px] text-center">
                             Aprovação de Prestadores
                         </span>
                     </div>
-                    <div className="h-[50px] w-full flex px-12 gap-4">
+                    <div className="w-full flex px-3 min400:px-6 min450:px-8 min500:px-12 gap-4 justify-center flex-wrap">
                         <input
-                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl grow px-2 outline-none bg-no-repeat"
+                            className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl grow px-2 outline-none bg-no-repeat min-w-[180px]"
                             placeholder="Busca por nome"
                             style={{
                                 backgroundImage: `url(${lupaIcon})`,
@@ -141,7 +141,7 @@ export default function AdmAprovacao() {
                             onChange={({ target }) => setFiltro(target.value)}
                         />
                         <select
-                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl w-[30%] bg-no-repeat appearance-none bg-white px-2"
+                            className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl w-[30%] bg-no-repeat appearance-none bg-white px-2 min-w-[150px]"
                             style={{
                                 backgroundImage: `url(${SelectArrowIcon})`,
                                 backgroundPosition: "right 0.7rem top 50%",
@@ -158,7 +158,7 @@ export default function AdmAprovacao() {
                             <option value={3}>Finalizado</option>
                         </select>
                         <div
-                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
+                            className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
                             onClick={() => {}}
                         >
                             <img
@@ -168,7 +168,7 @@ export default function AdmAprovacao() {
                             />
                         </div>
                         <div
-                            className="h-full border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
+                            className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
                             onClick={() => {}}
                         >
                             <img
@@ -180,7 +180,7 @@ export default function AdmAprovacao() {
                     </div>
                     {prestadores ? (
                         prestadores.length > 0 ? (
-                            <div className="flex flex-col px-12 pt-4 pb-20 gap-4">
+                            <div className="flex flex-col px-3 min400:px-6 min450:px-8 min500:px-12 pt-4 pb-20 gap-4">
                                 {(agrupamentoSelecionado === 1 ||
                                     agrupamentoSelecionado === 0) && (
                                     <AprovacaoSection
