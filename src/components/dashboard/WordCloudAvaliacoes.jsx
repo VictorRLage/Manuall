@@ -9,8 +9,8 @@ export default function WordCloudAvaliacoes({ words, width, height }) {
     const [etlWords, setEtlWords] = useState([]);
 
     useEffect(() => {
-        const treatedWords = words.reduce((acc, word) => {
-            const treatedWord = word
+        const treatedWords = words.reduce((acc, wordd) => {
+            const treatedWord = wordd
                 .replace(RegexENUM.TEXT_NUMBER_LOCALES_REPLACEABLE, "")
                 .toLowerCase()
                 .split(" ");
@@ -19,19 +19,19 @@ export default function WordCloudAvaliacoes({ words, width, height }) {
         }, []);
 
         const filteredWords = treatedWords.filter(
-            (word) => !PreposicoesENUM.includes(word),
+            (wordd) => !PreposicoesENUM.includes(wordd),
         );
 
         setEtlWords(
-            filteredWords.reduce((acc, word) => {
-                const wordExists = acc.find((w) => w.text === word);
+            filteredWords.reduce((acc, wordd) => {
+                const wordExists = acc.find((w) => w.text === wordd);
 
                 if (wordExists) {
                     wordExists.value += 1;
                     return acc;
                 }
 
-                return [...acc, { text: word, value: 1 }];
+                return [...acc, { text: wordd, value: 1 }];
             }, []),
         );
     }, [words]);
