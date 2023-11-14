@@ -9,6 +9,8 @@ import GraficoServicosContratados from "@/components/dashboard/GraficoServicosCo
 import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
 import WordCloudAvaliacoes from "@/components/dashboard/WordCloudAvaliacoes";
 import GraficoSolicitacoesConcluidas from "@/components/dashboard/GraficoSolicitacoesConcluidas";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { Tooltip } from 'react-tooltip'
 
 const meses = [
     "Janeiro",
@@ -166,8 +168,14 @@ export default function Dashboard() {
                             ))}
                         </select>
                     </div>
-                    <div className="h-[120px] min-w-[200px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
-                        <span className="text-lg">Serviços Concluídos</span>
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 relative">
+                        <span className="text-lg">
+                            Serviços Concluídos
+                            <InformationCircleIcon className="h-6 absolute top-2 right-2"
+                                data-tooltip-id="my-tooltip"
+                                data-tooltip-content="Eu sou o exemplo de uma tooltip"
+                                data-tooltip-place="top" />
+                        </span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
                                 dashboardData.servicosConcluidos
@@ -182,16 +190,21 @@ export default function Dashboard() {
                             )}
                         </h2>
                     </div>
-                    <div className="h-[120px] min-w-[200px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
-                        <span className="text-lg">Tempo médio de resposta</span>
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                        <span className="text-lg">
+                            Tempo médio de resposta
+                            <InformationCircleIcon className="h-6 absolute top-2 right-2"
+                                data-tooltip-id="my-tooltip2"
+                                data-tooltip-content="Eu sou o exemplo de uma tooltip2"
+                                data-tooltip-place="top" />
+                                </span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
                                 typeof dashboardData?.tempoMedioResposta ===
-                                "number" ? (
+                                    "number" ? (
                                     dashboardData?.tempoMedioResposta >= 60 ? (
-                                        `${
-                                            dashboardData?.tempoMedioResposta /
-                                            60
+                                        `${dashboardData?.tempoMedioResposta /
+                                        60
                                         }h`
                                     ) : (
                                         `${dashboardData?.tempoMedioResposta}min`
@@ -210,14 +223,11 @@ export default function Dashboard() {
                             )}
                         </h2>
                     </div>
-                    <div className="h-[120px] min-w-[200px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">Valor arrecadado</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
-                                `R$${dashboardData.valorArrecadado.toLocaleString(
-                                    "pt-BR",
-                                    { minimumFractionDigits: 2 },
-                                )}`
+                                `R$${dashboardData.valorArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
                             ) : (
                                 <ThreeCircles
                                     height={40}
@@ -230,12 +240,12 @@ export default function Dashboard() {
                         </h2>
                     </div>
                 </div>
-                <div className="justify-between max1000:flex max1000:flex-wrap min1000:grid min1000:grid-cols-[23%_74.5%] gap-y-6">
-                    <div className="flex flex-col max1000:w-[49%] max1000:order-1">
+                <div className="flex justify-between">
+                    <div className="w-[23%] flex flex-col">
                         <div className="py-2 max-w-[90%] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
                             Seus serviços mais contratados
                         </div>
-                        <div className="min-h-[240px] max-h-[280px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
                                     dashboardData.servicos.length === 0 ? (
@@ -272,13 +282,13 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div
-                        className="flex flex-col max1000:w-[100%] max1000:order-2"
+                        className="w-[74.5%] flex flex-col"
                         ref={graficoMediaServico}
                     >
                         <div className="py-2 max-w-[90%] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
                             Média de avaliações em cada serviço
                         </div>
-                        <div className="min-h-[240px] max-h-[280px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
                                     dashboardData.servicos.length === 0 ? (
@@ -320,11 +330,13 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col max1000:w-[49%] max1000:order-1" ref={palavrasChave}>
+                </div>
+                <div className="flex justify-between">
+                    <div className="w-[23%] flex flex-col" ref={palavrasChave}>
                         <div className="py-2 max-w-[90%] w-fit bg-[#008042] flex items-center px-3 rounded-t-xl text-white font-semibold">
                             Palavras-chave comuns em suas avaliações
                         </div>
-                        <div className="min-h-[240px] max-h-[280px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
                                     dashboardData.avaliacoes.length === 0 ? (
@@ -364,7 +376,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                     <div
-                        className="flex flex-col max1000:w-[100%] max1000:order-3"
+                        className="w-[74.5%] flex flex-col"
                         ref={graficoSolicitacoesConcluidas}
                     >
                         <div className="max-w-[90%] flex items-center gap-2">
@@ -376,7 +388,7 @@ export default function Dashboard() {
                                 *esse gráfico não é influenciado pelos filtros
                             </span>
                         </div>
-                        <div className="min-h-[240px] max-h-[280px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
+                        <div className="min-h-[240px] h-full w-full bg-[#008042] rounded-b-xl rounded-tr-xl flex items-center justify-center p-2">
                             <div className="w-full h-full bg-white p-3 rounded-xl flex items-center justify-center">
                                 {dashboardData ? (
                                     <GraficoSolicitacoesConcluidas
@@ -400,6 +412,7 @@ export default function Dashboard() {
                                         ariaLabel="circles-with-bar-loading"
                                     />
                                 )}
+                                <Tooltip id="my-tooltip"/>
                             </div>
                         </div>
                     </div>

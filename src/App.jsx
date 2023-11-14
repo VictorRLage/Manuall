@@ -22,6 +22,7 @@ import Erro from "@/pages/Erro";
 import UnderConstruction from "@/pages/UnderConstruction";
 import VLibras from "@djpfs/react-vlibras";
 import Dashboard from "@/pages/Dashboard";
+import 'react-tooltip/dist/react-tooltip.css'
 
 const App = () => {
     const { setWindowWidth } = useData();
