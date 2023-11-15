@@ -6,6 +6,7 @@ import NotificacaoENUM from "@/enum/NotificacaoENUM";
 import ModalReceberSolicitacao from "@/components/header/ModalReceberSolicitacao";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 import ModalFormOrcamento from "@/components/perfil/ModalFormOrcamento";
+import { useData } from "@/data/CreateContext";
 
 export default function ModalNotificacoes({
     modalGettr,
@@ -13,9 +14,7 @@ export default function ModalNotificacoes({
     openSpecificChat,
     refetchAll,
 }) {
-    const tipoUsuario =
-        localStorage.getItem("TIPO_USUARIO") &&
-        Number(localStorage.getItem("TIPO_USUARIO"));
+    const { userType } = useData();
 
     const [notificacoes, setNotificacoes] = useState();
 
@@ -93,20 +92,20 @@ export default function ModalNotificacoes({
                                 onClick={() => {
                                     if (notificacao.type === 4) {
                                         setNotificacaoSelecionada(notificacao);
-                                        if (tipoUsuario === 1)
+                                        if (userType === 1)
                                             setModalAvaliacao(true);
-                                        else if (tipoUsuario === 2)
+                                        else if (userType === 2)
                                             setModalFormOrcamento(true);
                                     }
                                 }}
                             >
                                 <span className="text-xl text-[#1F1F1F]">
-                                    {NotificacaoENUM[tipoUsuario]?.[
+                                    {NotificacaoENUM[userType]?.[
                                         notificacao.type
                                     ]?.(notificacao.nomeUsuario)}
                                 </span>
                                 {notificacao.type === 1 ? (
-                                    tipoUsuario === 2 && (
+                                    userType === 2 && (
                                         <button
                                             className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold"
                                             onClick={() => {

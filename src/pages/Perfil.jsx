@@ -19,7 +19,7 @@ export default function Perfil({ isOwnProfile }) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { windowWidth } = useData();
+    const { windowWidth, userType } = useData();
 
     const [prestador, setPrestador] = useState();
     const [modalUrlPfp, setModalUrlPfp] = useState(false);
@@ -32,9 +32,6 @@ export default function Perfil({ isOwnProfile }) {
     const [descricao, setDescricao] = useState("");
 
     const [perfilEndpointLoaded, setPerfilEndpointLoaded] = useState(false);
-
-    const tipoUsuario =
-        localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO);
 
     const refetch = () => {
         setHeaderRefetch(!headerRefetch);
@@ -204,7 +201,7 @@ export default function Perfil({ isOwnProfile }) {
                                         />
                                         {perfilEndpointLoaded ? (
                                             !isOwnProfile &&
-                                            tipoUsuario !== 2 &&
+                                            userType !== 2 &&
                                             (prestador?.prestaAula ? (
                                                 <>
                                                     <button
@@ -385,7 +382,7 @@ export default function Perfil({ isOwnProfile }) {
                                 )}
                                 {perfilEndpointLoaded ? (
                                     !isOwnProfile &&
-                                    tipoUsuario !== 2 &&
+                                    userType !== 2 &&
                                     (prestador?.prestaAula ? (
                                         <>
                                             <button

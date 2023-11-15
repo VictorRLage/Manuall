@@ -14,10 +14,10 @@ import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
 import GrayCheckmark from "@/assets/icons/gray_checkmark.svg";
 import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
 import { defer } from "@/utils/functions";
+import { useData } from "@/data/CreateContext";
 
 export default function Chat({ forceChatOpen, forceChatRefetch }) {
-    const tipoUsuario =
-        localStorage.TIPO_USUARIO && Number(localStorage.TIPO_USUARIO);
+    const { userType } = useData();
 
     const btnFecharConversa = useRef(null);
     const imgBtnFecharConversa = useRef(null);
@@ -154,9 +154,9 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
     useEffect(() => {
         getDadosCrm();
-        tipoUsuario &&
+        userType &&
             axios
-                .get(`/crm/dados/${tipoUsuario}`)
+                .get(`/crm/dados/${userType}`)
                 .then(({ data }) => setDadosUsuarioCrm(data))
                 .catch((err) => {
                     console.log(err);
@@ -438,7 +438,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                                     key={conversa.solicitacaoId}
                                 >
                                     <div className="w-full h-full flex items-center border-b-2 border-gray-200 relative">
-                                        {tipoUsuario === 1 && (
+                                        {userType === 1 && (
                                             <img
                                                 src={conversa.usuarioPfp}
                                                 className="w-10 h-10 rounded-full object-cover"
