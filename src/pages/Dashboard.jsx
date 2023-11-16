@@ -10,7 +10,7 @@ import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
 import WordCloudAvaliacoes from "@/components/dashboard/WordCloudAvaliacoes";
 import GraficoSolicitacoesConcluidas from "@/components/dashboard/GraficoSolicitacoesConcluidas";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
-import { Tooltip } from 'react-tooltip'
+import { Tooltip } from "react-tooltip";
 
 const meses = [
     "Janeiro",
@@ -171,10 +171,12 @@ export default function Dashboard() {
                     <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 relative">
                         <span className="text-lg">
                             Serviços Concluídos
-                            <InformationCircleIcon className="h-6 absolute top-2 right-2"
+                            <InformationCircleIcon
+                                className="h-6 absolute top-2 right-2"
                                 data-tooltip-id="my-tooltip"
                                 data-tooltip-content="Eu sou o exemplo de uma tooltip"
-                                data-tooltip-place="top" />
+                                data-tooltip-place="top"
+                            />
                         </span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
@@ -193,18 +195,21 @@ export default function Dashboard() {
                     <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
                         <span className="text-lg">
                             Tempo médio de resposta
-                            <InformationCircleIcon className="h-6 absolute top-2 right-2"
+                            <InformationCircleIcon
+                                className="h-6 absolute top-2 right-2"
                                 data-tooltip-id="my-tooltip2"
                                 data-tooltip-content="Eu sou o exemplo de uma tooltip2"
-                                data-tooltip-place="top" />
-                                </span>
+                                data-tooltip-place="top"
+                            />
+                        </span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
                                 typeof dashboardData?.tempoMedioResposta ===
-                                    "number" ? (
+                                "number" ? (
                                     dashboardData?.tempoMedioResposta >= 60 ? (
-                                        `${dashboardData?.tempoMedioResposta /
-                                        60
+                                        `${
+                                            dashboardData?.tempoMedioResposta /
+                                            60
                                         }h`
                                     ) : (
                                         `${dashboardData?.tempoMedioResposta}min`
@@ -227,7 +232,10 @@ export default function Dashboard() {
                         <span className="text-lg">Valor arrecadado</span>
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
-                                `R$${dashboardData.valorArrecadado.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+                                `R$${dashboardData.valorArrecadado.toLocaleString(
+                                    "pt-BR",
+                                    { minimumFractionDigits: 2 },
+                                )}`
                             ) : (
                                 <ThreeCircles
                                     height={40}
@@ -412,7 +420,7 @@ export default function Dashboard() {
                                         ariaLabel="circles-with-bar-loading"
                                     />
                                 )}
-                                <Tooltip id="my-tooltip"/>
+                                <Tooltip id="my-tooltip" />
                             </div>
                         </div>
                     </div>
