@@ -59,6 +59,7 @@ export default function Carousel({ slides = [] }) {
     }, [carouselIndex]);
 
     useWatch(async () => {
+        if (!scrollingDiv.current) return;
         if (currentSlides.length >= 2) {
             setCanUserChange(false);
 
@@ -80,8 +81,6 @@ export default function Carousel({ slides = [] }) {
                     }, 500),
                 );
             } else {
-                if (!scrollingDiv.current) return;
-
                 setIsScrollSmoothed(false);
                 await defer();
                 scrollingDiv.current.scrollLeft = 15000;

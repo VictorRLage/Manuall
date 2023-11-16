@@ -7,22 +7,16 @@ import {
 } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { logoff } from "@/utils/functions";
-import ModalAcessibilidade from "@/components/perfil/ModalAcessibilidade";
-import ModalNotificacoes from "@/components/header/ModalNotificacoes";
 import { useData } from "@/data/CreateContext";
 
 export default function HeaderDropdown({
     dropdownGettr,
     dropdownSettr,
-    refetchAll,
-    openSpecificChat,
 }) {
     const { userType } = useData();
     const navigate = useNavigate();
 
     const [realOn, setRealOn] = useState(dropdownGettr);
-    const [modalAcessibilidade, setModalAcessibilidade] = useState(false);
-    const [modalNotificacoes, setModalNotificacoes] = useState(false);
 
     useEffect(() => {
         if (dropdownGettr) {
@@ -36,27 +30,11 @@ export default function HeaderDropdown({
 
     return (
         <>
-            <ModalAcessibilidade
-                modalGettr={modalAcessibilidade}
-                modalSettr={setModalAcessibilidade}
-            />
-            <ModalNotificacoes
-                modalGettr={modalNotificacoes}
-                modalSettr={setModalNotificacoes}
-                openSpecificChat={(solicitacaoId) => {
-                    setModalNotificacoes(false);
-                    dropdownSettr(false);
-                    openSpecificChat(solicitacaoId);
-                }}
-                refetchAll={refetchAll}
-            />
             {realOn && (
                 <div
-                    className="absolute w-screen h-screen"
+                    className="absolute w-full h-screen"
                     style={{ zIndex: 499 }}
-                    onClick={() => {
-                        dropdownSettr(false);
-                    }}
+                    onClick={() => dropdownSettr(false)}
                 >
                     <div
                         className="absolute right-32 top-[60px] flex flex-col items-end overflow-hidden transition-all drop-shadow-xl"

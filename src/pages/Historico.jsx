@@ -1,15 +1,15 @@
 import Header from "@/components/header/Header";
-import Breadcrumb from "@/components/main/Breadcrumb";
 import axios from "@/api/axios";
 import { useEffect, useState } from "react";
 import HistoricoRow from "@/components/dashboard/HistoricoRow";
 import Skeleton from "react-loading-skeleton";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
+import { useData } from "@/data/CreateContext";
 
 export default function Historico() {
+    const { userName } = useData();
     const [solicitacoes, setSolicitacoes] = useState();
     const [modalAvaliacao, setModalAvaliacao] = useState(false);
-    const [nomeUsuario, setNomeUsuario] = useState("");
     const [solicitacaoId, setSolicitacaoId] = useState();
 
     const fetch = () => {
@@ -27,8 +27,6 @@ export default function Historico() {
 
     useEffect(() => {
         fetch();
-
-        axios.get("/usuario/nome").then(({ data }) => setNomeUsuario(data));
     }, []);
 
     return (
@@ -38,7 +36,7 @@ export default function Historico() {
                 modalSettr={setModalAvaliacao}
                 notificacao={{
                     solicitacaoId: solicitacaoId,
-                    nomeUsuario: nomeUsuario,
+                    nomeUsuario: userName,
                 }}
                 refetch={fetch}
             />
@@ -46,7 +44,7 @@ export default function Historico() {
             <div className="w-full h-full bg-[#fafafa] min700:px-32 min500:px-16 px-1 pt-8 pb-16">
                 <div>
                     <p className="text-base pb-1 text-gray-400 font-semibold">
-                        Olá {nomeUsuario}! Bem vindo ao seu
+                        Olá {userName}! Bem vindo ao seu
                     </p>
                     <p className="text-5xl font-semibold text-gray-900">
                         Histórico de compras

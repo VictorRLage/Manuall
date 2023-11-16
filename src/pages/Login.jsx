@@ -14,7 +14,7 @@ import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { windowWidth } = useData();
+    const { windowWidth, setUserType } = useData();
 
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
     const [modalEscolherTipoUsuario, setModalEscolherTipoUsuario] =
@@ -66,6 +66,7 @@ export default function Login() {
                 if (status === 200) {
                     localStorage.TOKEN = data.token;
                     localStorage.TIPO_USUARIO = data.tipoUsuario;
+                    setUserType(data.tipoUsuario);
                     localStorage.PLANO = data.plano;
                     if (data.tipoUsuario === 1) {
                         navigate("/prestadores?pagina=1");
@@ -89,6 +90,7 @@ export default function Login() {
                     } else if (data.fase === 4) {
                         localStorage.TOKEN = data.token;
                         localStorage.TIPO_USUARIO = data.tipoUsuario;
+                        setUserType(data.tipoUsuario);
                         localStorage.PLANO = data.plano;
                         navigate("/cadastro/prestador/planos");
                     }

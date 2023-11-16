@@ -5,6 +5,8 @@ export default function HeaderSidebarMode({
     on,
     setOn,
     openModalEscolherCadastro,
+    setModalNotificacoes,
+    setModalAcessibilidade,
 }) {
     return (
         <>
@@ -34,6 +36,9 @@ export default function HeaderSidebarMode({
                 <HeaderItems
                     responsiveMode
                     openModalCadastro={openModalEscolherCadastro}
+                    closeHeaderSidebar={() => setOn(false)}
+                    setModalNotificacoes={setModalNotificacoes}
+                    setModalAcessibilidade={setModalAcessibilidade}
                 />
             </div>
         </>

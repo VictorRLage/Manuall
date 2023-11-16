@@ -5,6 +5,8 @@ export default function HeaderItemLayout({
     url,
     redirectionUrl,
     responsiveMode,
+    onPathClick = () => {},
+    onClick,
 }) {
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -12,7 +14,13 @@ export default function HeaderItemLayout({
     return (
         <button
             onClick={() => {
-                pathname !== url && navigate(redirectionUrl || url);
+                if (pathname === url) {
+                    onPathClick();
+                } else {
+                    onClick?.();
+                    const hasRedirectionUrl = redirectionUrl || url;
+                    if (hasRedirectionUrl) navigate(hasRedirectionUrl);
+                }
             }}
             className={`text-xl ${
                 responsiveMode

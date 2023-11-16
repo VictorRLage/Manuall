@@ -5,9 +5,12 @@ import { useData } from "@/data/CreateContext";
 import { useNavigate } from "react-router-dom";
 
 export default function HeaderTopMode({
+    setOn,
     openSidebar,
     openModalEscolherCadastro,
     toggleDropdown,
+    setModalNotificacoes,
+    setModalAcessibilidade,
 }) {
     const { windowWidth } = useData();
     const navigate = useNavigate();
@@ -26,6 +29,9 @@ export default function HeaderTopMode({
                 <HeaderItems
                     openModalCadastro={openModalEscolherCadastro}
                     toggleDropdown={toggleDropdown}
+                    closeHeaderSidebar={() => setOn(false)}
+                    setModalNotificacoes={setModalNotificacoes}
+                    setModalAcessibilidade={setModalAcessibilidade}
                 />
             ) : (
                 <img

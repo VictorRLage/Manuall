@@ -6,11 +6,15 @@ import { useData } from "@/data/CreateContext";
 import axios from "@/api/axios";
 import HeaderDropdown from "@/components/header/HeaderDropdown";
 import HeaderTopMode from "@/components/header/HeaderTopMode";
+import ModalAcessibilidade from "@/components/perfil/ModalAcessibilidade";
+import ModalNotificacoes from "@/components/header/ModalNotificacoes";
 
 export default function Header({ refetch }) {
     const { setUserPfp, windowWidth, userType } = useData();
 
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState();
+    const [modalAcessibilidade, setModalAcessibilidade] = useState(false);
+    const [modalNotificacoes, setModalNotificacoes] = useState(false);
 
     const [sidebar, setSidebar] = useState(false);
     const [dropdown, setDropdown] = useState(false);
@@ -39,17 +43,27 @@ export default function Header({ refetch }) {
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
+            <ModalAcessibilidade
+                modalGettr={modalAcessibilidade}
+                modalSettr={setModalAcessibilidade}
+            />
+            <ModalNotificacoes
+                modalGettr={modalNotificacoes}
+                modalSettr={setModalNotificacoes}
+                openSpecificChat={(solicitacaoId) => {
+                    setModalNotificacoes(false);
+                    setDropdown(false);
+                    setForceChatOpen(solicitacaoId);
+                }}
+                refetchAll={() => {
+                    refetchAll();
+                    setForceChatRefetch(!forceChatRefetch);
+                }}
+            />
             {windowWidth > 1000 ? (
                 <HeaderDropdown
                     dropdownGettr={dropdown}
                     dropdownSettr={setDropdown}
-                    refetchAll={() => {
-                        refetchAll();
-                        setForceChatRefetch(!forceChatRefetch);
-                    }}
-                    openSpecificChat={(solicitacaoId) =>
-                        setForceChatOpen(solicitacaoId)
-                    }
                 />
             ) : (
                 <HeaderSidebarMode
@@ -59,12 +73,17 @@ export default function Header({ refetch }) {
                     openModalEscolherCadastro={() =>
                         setModalEscolherCadastro(true)
                     }
+                    setModalNotificacoes={setModalNotificacoes}
+                    setModalAcessibilidade={setModalAcessibilidade}
                 />
             )}
             <HeaderTopMode
+                setOn={setSidebar}
                 openSidebar={() => setSidebar(true)}
                 openModalEscolherCadastro={() => setModalEscolherCadastro(true)}
                 toggleDropdown={() => setDropdown(!dropdown)}
+                setModalNotificacoes={setModalNotificacoes}
+                setModalAcessibilidade={setModalAcessibilidade}
             />
             {(userType === 1 || userType === 2) && (
                 <Chat
