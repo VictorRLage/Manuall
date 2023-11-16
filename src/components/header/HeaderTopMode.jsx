@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export default function HeaderTopMode({
     openSidebar,
     openModalEscolherCadastro,
+    toggleDropdown,
 }) {
     const { windowWidth } = useData();
     const navigate = useNavigate();
@@ -22,7 +23,10 @@ export default function HeaderTopMode({
                 className="w-[200px] cursor-pointer"
             />
             {windowWidth > 1000 ? (
-                <HeaderItems openModalCadastro={openModalEscolherCadastro} />
+                <HeaderItems
+                    openModalCadastro={openModalEscolherCadastro}
+                    toggleDropdown={toggleDropdown}
+                />
             ) : (
                 <img
                     src={ThreeBars}

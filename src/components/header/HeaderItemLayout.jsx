@@ -21,7 +21,7 @@ export default function HeaderItemLayout({
             } ${
                 pathname === url
                     ? "text-[#00CC69] cursor-default"
-                    : `text-black ${responsiveMode && "hover:underline"}`
+                    : `text-black ${!responsiveMode && "hover:underline"}`
             }`}
         >
             {name}

@@ -9,14 +9,15 @@ import { useNavigate } from "react-router-dom";
 import { logoff } from "@/utils/functions";
 import ModalAcessibilidade from "@/components/perfil/ModalAcessibilidade";
 import ModalNotificacoes from "@/components/header/ModalNotificacoes";
+import { useData } from "@/data/CreateContext";
 
 export default function HeaderDropdown({
     dropdownGettr,
     dropdownSettr,
-    tipoUsuario,
     refetchAll,
     openSpecificChat,
 }) {
+    const { userType } = useData();
     const navigate = useNavigate();
 
     const [realOn, setRealOn] = useState(dropdownGettr);
@@ -76,7 +77,7 @@ export default function HeaderDropdown({
                             }}
                         />
                         <div className="bg-white h-auto flex flex-col w-[300px] rounded-xl rounded-tr-none p-4 gap-3">
-                            {tipoUsuario === 2 && (
+                            {userType === 2 && (
                                 <button
                                     className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                                     onClick={() => {

@@ -13,7 +13,6 @@ export default function Header({ refetch }) {
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState();
 
     const [sidebar, setSidebar] = useState(false);
-
     const [dropdown, setDropdown] = useState(false);
 
     const [forceChatOpen, setForceChatOpen] = useState();
@@ -40,11 +39,19 @@ export default function Header({ refetch }) {
                 modalGettr={modalEscolherCadastro}
                 modalSettr={setModalEscolherCadastro}
             />
-            <HeaderTopMode
-                openSidebar={() => setSidebar(true)}
-                openModalEscolherCadastro={() => setModalEscolherCadastro(true)}
-            />
-            {windowWidth <= 1000 && (
+            {windowWidth > 1000 ? (
+                <HeaderDropdown
+                    dropdownGettr={dropdown}
+                    dropdownSettr={setDropdown}
+                    refetchAll={() => {
+                        refetchAll();
+                        setForceChatRefetch(!forceChatRefetch);
+                    }}
+                    openSpecificChat={(solicitacaoId) =>
+                        setForceChatOpen(solicitacaoId)
+                    }
+                />
+            ) : (
                 <HeaderSidebarMode
                     on={sidebar}
                     setOn={setSidebar}
@@ -54,17 +61,10 @@ export default function Header({ refetch }) {
                     }
                 />
             )}
-            <HeaderDropdown
-                dropdownGettr={dropdown && windowWidth > 1000}
-                dropdownSettr={setDropdown}
-                userType={userType}
-                refetchAll={() => {
-                    refetchAll();
-                    setForceChatRefetch(!forceChatRefetch);
-                }}
-                openSpecificChat={(solicitacaoId) =>
-                    setForceChatOpen(solicitacaoId)
-                }
+            <HeaderTopMode
+                openSidebar={() => setSidebar(true)}
+                openModalEscolherCadastro={() => setModalEscolherCadastro(true)}
+                toggleDropdown={() => setDropdown(!dropdown)}
             />
             {(userType === 1 || userType === 2) && (
                 <Chat

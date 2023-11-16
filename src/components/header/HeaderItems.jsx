@@ -1,14 +1,19 @@
 import UserIcon from "@/assets/icons/user_icon.png";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useData } from "@/data/CreateContext";
 import HeaderItemLayout from "@/components/header/HeaderItemLayout";
 import Dynamic from "@/components/main/Dynamic";
 import { Fragment } from "react";
 
-export default function HeaderItems({ responsiveMode, openModalCadastro }) {
+export default function HeaderItems({
+    responsiveMode,
+    openModalCadastro,
+    toggleDropdown,
+}) {
     const { userPfp, userType, windowWidth } = useData();
     const { pathname } = useLocation();
+    const navigate = useNavigate();
 
     return (
         <Dynamic
@@ -86,9 +91,7 @@ export default function HeaderItems({ responsiveMode, openModalCadastro }) {
                                     ? `url(${userPfp}), url(${defaultPfp})`
                                     : `url(${UserIcon})`,
                         }}
-                        onClick={() => {
-                            setDropdown(!dropdown);
-                        }}
+                        onClick={toggleDropdown}
                     />
                 </>
             )}
