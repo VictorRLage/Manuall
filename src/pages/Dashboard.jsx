@@ -9,8 +9,8 @@ import GraficoServicosContratados from "@/components/dashboard/GraficoServicosCo
 import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
 import WordCloudAvaliacoes from "@/components/dashboard/WordCloudAvaliacoes";
 import GraficoSolicitacoesConcluidas from "@/components/dashboard/GraficoSolicitacoesConcluidas";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Tooltip } from "react-tooltip";
+import InfoIcon from "@/components/dashboard/IconeInformacao";
 
 const meses = [
     "Janeiro",
@@ -171,11 +171,10 @@ export default function Dashboard() {
                     <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 relative">
                         <span className="text-lg">
                             Serviços Concluídos
-                            <InformationCircleIcon
-                                className="h-6 absolute top-2 right-2"
-                                data-tooltip-id="my-tooltip"
-                                data-tooltip-content="Eu sou o exemplo de uma tooltip"
-                                data-tooltip-place="top"
+                            <InfoIcon
+                                tooltipId="my-tooltip"
+                                tooltipContent="A quantidade de serviços que você já realizou"
+                                tooltipPlace="top"
                             />
                         </span>
                         <h2 className="text-4xl font-bold">
@@ -192,14 +191,13 @@ export default function Dashboard() {
                             )}
                         </h2>
                     </div>
-                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 relative">
                         <span className="text-lg">
                             Tempo médio de resposta
-                            <InformationCircleIcon
-                                className="h-6 absolute top-2 right-2"
-                                data-tooltip-id="my-tooltip2"
-                                data-tooltip-content="Eu sou o exemplo de uma tooltip2"
-                                data-tooltip-place="top"
+                            <InfoIcon
+                                tooltipId="my-tooltip"
+                                tooltipContent="O tempo que você geralmente leva para responder o chat"
+                                tooltipPlace="top"
                             />
                         </span>
                         <h2 className="text-4xl font-bold">
@@ -228,8 +226,13 @@ export default function Dashboard() {
                             )}
                         </h2>
                     </div>
-                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 text-center">
+                    <div className="h-[120px] w-[23%] bg-[#008042] rounded-xl text-white flex items-center justify-center flex-col gap-2 relative">
                         <span className="text-lg">Valor arrecadado</span>
+                        <InfoIcon
+                            tooltipId="my-tooltip"
+                            tooltipContent="O valor total que você já recebeu pela Manuall"
+                            tooltipPlace="top"
+                        />
                         <h2 className="text-4xl font-bold">
                             {dashboardData ? (
                                 `R$${dashboardData.valorArrecadado.toLocaleString(
