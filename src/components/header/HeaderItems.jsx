@@ -16,7 +16,7 @@ export default function HeaderItems({
     setModalNotificacoes,
     setModalAcessibilidade,
 }) {
-    const { userPfp, userType, windowWidth } = useData();
+    const { userPfp, userType, windowWidth, notificacoesCount } = useData();
     const navigate = useNavigate();
 
     return (
@@ -123,16 +123,26 @@ export default function HeaderItems({
                             />
                         </>
                     ) : (
-                        <button
-                            className="bg-verde-padrao w-10 h-10 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
-                            style={{
-                                backgroundImage:
-                                    userType === 2
-                                        ? `url(${userPfp}), url(${defaultPfp})`
-                                        : `url(${UserIcon})`,
-                            }}
-                            onClick={toggleDropdown}
-                        />
+                        <div className="relative">
+                            <button
+                                className="bg-verde-padrao w-10 h-10 rounded-full border-2 border-verde-padrao drop-shadow-all-icon bg-center bg-cover bg-no-repeat"
+                                style={{
+                                    backgroundImage:
+                                        userType === 2
+                                            ? `url(${userPfp}), url(${defaultPfp})`
+                                            : `url(${UserIcon})`,
+                                }}
+                                onClick={toggleDropdown}
+                            />
+                            {userType === 2 && (
+                                <div
+                                    className="absolute top-0 right-0 bg-red-500 rounded-full h-4 w-4 flex items-center justify-center text-white text-xs cursor-pointer"
+                                    onClick={() => setModalNotificacoes(true)}
+                                >
+                                    {notificacoesCount}
+                                </div>
+                            )}
+                        </div>
                     )}
                 </>
             )}

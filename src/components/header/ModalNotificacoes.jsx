@@ -14,7 +14,7 @@ export default function ModalNotificacoes({
     openSpecificChat,
     refetchAll,
 }) {
-    const { userType } = useData();
+    const { userType, setNotificacoesCount } = useData();
 
     const [notificacoes, setNotificacoes] = useState();
 
@@ -34,6 +34,8 @@ export default function ModalNotificacoes({
                 .get("/usuario/notificacoes")
                 .then((res) => {
                     setNotificacoes(res.data.reverse());
+                    setNotificacoesCount(res.data.length);
+                    console.log(res.data)
                 })
                 .catch((err) => console.log(err));
         }
