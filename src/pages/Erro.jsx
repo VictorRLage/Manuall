@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import ErrorIcon from "@/assets/storyset/404.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function Erro() {
     const navigate = useNavigate();

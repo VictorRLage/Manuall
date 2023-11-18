@@ -1,15 +1,15 @@
-import Sidebar from "@/components/adm/Sidebar";
-import { Oval } from "react-loader-spinner";
-import { useEffect, useState } from "react";
 import axios from "@/api/axios";
-import ModalAviso from "@/components/main/ModalAviso";
-import done from "@/assets/storyset/Done-rafiki.svg";
-import AprovacaoSection from "@/components/adm/AprovacaoSection";
-import lupaIcon from "@/assets/icons/lupa.png";
 import FileDownload from "@/assets/icons/file_download.png";
 import FileUpload from "@/assets/icons/file_upload.png";
-import RegexENUM from "@/enum/RegexENUM";
+import lupaIcon from "@/assets/icons/lupa.png";
 import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
+import done from "@/assets/storyset/Done-rafiki.svg";
+import AprovacaoSection from "@/components/adm/AprovacaoSection";
+import Sidebar from "@/components/adm/Sidebar";
+import ModalAviso from "@/components/main/ModalAviso";
+import RegexENUM from "@/enum/RegexENUM";
+import { useEffect, useState } from "react";
+import { Oval } from "react-loader-spinner";
 import AprovacaoDesfazer from "../components/adm/AprovacaoDesfazer";
 
 export default function AdmAprovacao() {

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import Sidebar from "@/components/adm/Sidebar";
 import axios, { routineApiInstance } from "@/api/axios";
-import { Oval } from "react-loader-spinner";
+import Sidebar from "@/components/adm/Sidebar";
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 export default function AdmApiStatus() {
     const [statusApiPipefy, setStatusApiPipefy] = useState();

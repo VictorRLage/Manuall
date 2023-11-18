@@ -5,11 +5,7 @@ export default function ModalCompraAprovada({ modalGettr, modalSettr }) {
     const navigate = useNavigate();
 
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={false}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr}>
             <div className="flex flex-col items-center justify-center p-8 gap-8">
                 <span className="text-3xl font-bold">Parabéns!</span>
                 <span className="text-xl">

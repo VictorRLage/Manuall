@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { StarIcon } from "@heroicons/react/24/solid";
 import ChevronArrow from "@/assets/icons/ChevronArrow.svg";
 import { useData } from "@/data/CreateContext";
+import { StarIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 export default function PrestadorAvaliacoes({ avaliacoes }) {
     const { windowWidth } = useData();

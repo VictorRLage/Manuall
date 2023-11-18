@@ -1,17 +1,17 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import logo from "@/assets/manuall/logo_green_white.png";
-import AbasAdmParametrizacao from "@/enum/AbasAdmParametrizacao";
-import CircleSidebar from "@/assets/shapes/circle_sidebar.png";
 import arrowLeftOnRectangleIcon from "@/assets/icons/arrow_left_on_rectangle_icon.svg";
-import { logoff } from "@/utils/functions";
-import { useEffect, useState } from "react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
+import logo from "@/assets/manuall/logo_green_white.png";
+import CircleSidebar from "@/assets/shapes/circle_sidebar.png";
 import { useData } from "@/data/CreateContext";
+import AbasAdmParametrizacao from "@/enum/AbasAdmParametrizacao";
+import { logoff } from "@/utils/functions";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+    const { windowWidth } = useData();
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const { windowWidth } = useData();
 
     const [isOpen, setIsOpen] = useState(true);
     const [responsiveModeOn, setResponsiveModeOn] = useState(false);

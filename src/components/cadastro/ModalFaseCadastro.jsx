@@ -10,11 +10,7 @@ export default function ModalFaseCadastro({
     const navigate = useNavigate();
 
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={false}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr}>
             <div className="bg-white w-auto flex flex-col items-center rounded-lg p-8 gap-8 max-w-[300px] min500:max-w-[400px] min600:max-w-[500px]">
                 <div className="flex justify-center items-center text-verde-padrao text-2xl font-extrabold">
                     Oops...

@@ -1,16 +1,16 @@
-import ModalCustom from "@/components/main/ModalCustom";
-import AcessibilidadeBg from "@/assets/shapes/AcessibilidadeBg.png";
-import Normal from "@/assets/icons/acessibilidade_normal.png";
 import Deuteranopia from "@/assets/icons/acessibilidade_deuteranopia.png";
+import Normal from "@/assets/icons/acessibilidade_normal.png";
 import Protanopia from "@/assets/icons/acessibilidade_protanopia.png";
 import Tritanopia from "@/assets/icons/acessibilidade_tritanopia.png";
+import AcessibilidadeBg from "@/assets/shapes/AcessibilidadeBg.png";
+import ModalCustom from "@/components/main/ModalCustom";
 
 export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
     return (
         <ModalCustom
             modalGettr={modalGettr}
             modalSettr={modalSettr}
-            canClose={true}
+            canClose
             blurBackgroundStyle={{
                 zIndex: "600",
             }}

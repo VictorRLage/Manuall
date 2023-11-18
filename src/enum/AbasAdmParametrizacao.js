@@ -1,27 +1,21 @@
 import CheckmarkIcon from "@/assets/icons/checkmark.png";
-import GraphbarIcon from "@/assets/icons/graphbars.png";
-import GearIcon from "@/assets/icons/gear.png";
 import ClockIcon from "@/assets/icons/clock.svg";
+import GraphbarIcon from "@/assets/icons/graphbars.png";
 
 export default [
     {
         title: "Aprovação",
         url: "/adm/aprovacao",
-        icon: CheckmarkIcon
+        icon: CheckmarkIcon,
     },
     {
         title: "Dashboard",
         url: "/adm/dashboard",
-        icon: GraphbarIcon
+        icon: GraphbarIcon,
     },
-    // {
-    //     title: "Parametrização",
-    //     url: "/adm/parametrizacao",
-    //     icon: GearIcon
-    // },
     {
         title: "API Rotineira",
         url: "/adm/api",
-        icon: ClockIcon
+        icon: ClockIcon,
     },
-]
+];

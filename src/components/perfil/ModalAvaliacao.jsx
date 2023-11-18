@@ -1,7 +1,7 @@
+import axios from "@/api/axios";
 import BgModal from "@/assets/shapes/ModalBg.png";
 import ModalCustom from "@/components/main/ModalCustom";
 import { useState } from "react";
-import axios from "@/api/axios";
 
 export default function ModalAvaliacao({
     modalGettr,

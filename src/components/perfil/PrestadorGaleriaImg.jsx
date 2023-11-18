@@ -1,6 +1,6 @@
 import defaultImg from "@/assets/demo/default_img.jpg";
-import { useState } from "react";
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 export default function PrestadorGaleriaImg({
     isOwnProfile,

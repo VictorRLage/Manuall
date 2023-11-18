@@ -1,5 +1,5 @@
-import Skeleton from "react-loading-skeleton";
 import { useData } from "@/data/CreateContext";
+import Skeleton from "react-loading-skeleton";
 
 export default function ContratarButtons({
     hasInfoLoaded,

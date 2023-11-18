@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import axios from "@/api/axios";
+import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
 import Fase1 from "@/components/cadastro/Fase1";
 import Fase2 from "@/components/cadastro/Fase2";
 import Fase3 from "@/components/cadastro/Fase3";
-import ModalAviso from "@/components/main/ModalAviso";
-import CadastroBg from "@/assets/shapes/CadastroBg.svg";
-import axios from "@/api/axios";
 import ModalConclusaoCadastroPrestador from "@/components/cadastro/ModalConclusaoCadastroPrestador";
-import { useLocation } from "react-router-dom";
-import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
 import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
+import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
+import ModalAviso from "@/components/main/ModalAviso";
 import { useData } from "@/data/CreateContext";
-import useWatch from "@/utils/useWatch";
 import { defer } from "@/utils/functions";
+import useWatch from "@/utils/useWatch";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function CadastroPrestador() {
     const location = useLocation();

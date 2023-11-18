@@ -1,6 +1,6 @@
-import ModalCustom from "@/components/main/ModalCustom";
-import defaultImg from "@/assets/demo/default_img.jpg";
 import axios from "@/api/axios";
+import defaultImg from "@/assets/demo/default_img.jpg";
+import ModalCustom from "@/components/main/ModalCustom";
 
 export default function ModalReceberSolicitacao({
     modalGettr,

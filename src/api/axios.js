@@ -1,5 +1,5 @@
-import axios from "axios";
 import { logoff } from "@/utils/functions";
+import axios from "axios";
 
 const mainApiUrl = import.meta.env.VITE_APP_MAIN_API_URL;
 

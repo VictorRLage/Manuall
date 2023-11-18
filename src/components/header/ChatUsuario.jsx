@@ -1,6 +1,6 @@
+import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
 import ClockIcon from "@/assets/icons/clock_icon.png";
 import GrayCheckmark from "@/assets/icons/gray_checkmark.svg";
-import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
 
 export default function ChatUsuario({ chat }) {
     return chat.mensagens.map(

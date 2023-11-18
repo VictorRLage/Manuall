@@ -1,9 +1,6 @@
-import { useData } from "@/data/CreateContext";
 import Skeleton from "react-loading-skeleton";
 
 export default function PrestadorServicos({ servicos, hasInfoLoaded }) {
-    const { windowWidth } = useData();
-
     return (
         <div className="flex flex-col">
             <div

@@ -6,4 +6,4 @@ export default [
     { id: 5, texto: "Osasco" },
     { id: 6, texto: "Bauru" },
     { id: 7, texto: "Outro" },
-]
+];

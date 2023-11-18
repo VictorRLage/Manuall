@@ -1,12 +1,12 @@
-import ModalCustom from "@/components/main/ModalCustom";
-import { BellIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
 import axios from "@/api/axios";
-import NotificacaoENUM from "@/enum/NotificacaoENUM";
 import ModalReceberSolicitacao from "@/components/header/ModalReceberSolicitacao";
+import ModalCustom from "@/components/main/ModalCustom";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 import ModalFormOrcamento from "@/components/perfil/ModalFormOrcamento";
 import { useData } from "@/data/CreateContext";
+import NotificacaoENUM from "@/enum/NotificacaoENUM";
+import { BellIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
 
 export default function ModalNotificacoes({
     modalGettr,
@@ -35,7 +35,7 @@ export default function ModalNotificacoes({
                 .then((res) => {
                     setNotificacoes(res.data.reverse());
                     setNotificacoesCount(res.data.length);
-                    console.log(res.data)
+                    console.log(res.data);
                 })
                 .catch((err) => console.log(err));
         }
@@ -68,7 +68,7 @@ export default function ModalNotificacoes({
             <ModalCustom
                 modalGettr={modalGettr}
                 modalSettr={modalSettr}
-                canClose={true}
+                canClose
                 blurBackgroundStyle={{
                     zIndex: "600",
                 }}

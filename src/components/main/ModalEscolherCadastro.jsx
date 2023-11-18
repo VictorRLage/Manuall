@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import ModalCustom from "@/components/main/ModalCustom";
 import cantoSuperior from "@/assets/shapes/cantoSuperiorModalEscolhaCadastro.png";
+import ModalCustom from "@/components/main/ModalCustom";
+import { useNavigate } from "react-router-dom";
 
 export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
         <ModalCustom
             modalGettr={modalGettr}
             modalSettr={modalSettr}
-            canClose={true}
+            canClose
             modalStyle={{ overflow: "hidden" }}
         >
             <div

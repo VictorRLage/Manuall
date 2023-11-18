@@ -1,20 +1,20 @@
-import { useEffect, useRef, useState } from "react";
-import { Oval } from "react-loader-spinner";
+import axios from "@/api/axios";
 import Arrow from "@/assets/icons/arrow.svg";
 import ArrowHead from "@/assets/icons/arrowhead.svg";
+import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
+import BotCertification from "@/assets/icons/checkmark_bot.svg";
+import GrayCheckmark from "@/assets/icons/gray_checkmark.svg";
+import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
 import Manuel from "@/assets/manuall/manuel_pfp.png";
 import ChatManuel from "@/components/header/ChatManuel";
 import ChatUsuario from "@/components/header/ChatUsuario";
-import BotCertification from "@/assets/icons/checkmark_bot.svg";
-import axios from "@/api/axios";
+import { useData } from "@/data/CreateContext";
+import { defer } from "@/utils/functions";
+import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
+import { useEffect, useRef, useState } from "react";
+import { Oval } from "react-loader-spinner";
 import SockJS from "sockjs-client/dist/sockjs";
 import { over } from "stompjs";
-import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
-import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
-import GrayCheckmark from "@/assets/icons/gray_checkmark.svg";
-import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
-import { defer } from "@/utils/functions";
-import { useData } from "@/data/CreateContext";
 
 export default function Chat({
     forceChatOpen,

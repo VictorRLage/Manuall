@@ -1,15 +1,15 @@
-import Header from "@/components/header/Header";
-import { useEffect, useState } from "react";
-import lupaIcon from "@/assets/icons/lupa.png";
 import axios from "@/api/axios";
-import FooterWave from "@/assets/shapes/FooterWave.svg?react";
-import Cards from "@/components/home/Cards";
-import FiltragemENUM from "@/enum/FiltragemENUM";
-import Breadcrumb from "@/components/main/Breadcrumb";
-import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
-import RegexENUM from "@/enum/RegexENUM";
-import { useSearchParams } from "react-router-dom";
 import BlackArrowhead from "@/assets/icons/black_arrowhead.svg";
+import lupaIcon from "@/assets/icons/lupa.png";
+import SelectArrowIcon from "@/assets/icons/select_arrow_gray_600.svg";
+import FooterWave from "@/assets/shapes/FooterWave.svg?react";
+import Header from "@/components/header/Header";
+import Cards from "@/components/home/Cards";
+import Breadcrumb from "@/components/main/Breadcrumb";
+import FiltragemENUM from "@/enum/FiltragemENUM";
+import RegexENUM from "@/enum/RegexENUM";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export default function Prestadores() {
     const mockPrestadoresPorPagina = 18;

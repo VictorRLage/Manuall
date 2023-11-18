@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import UnderConstructionIcon from "@/assets/storyset/under_construction.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function UnderConstructions() {
     const navigate = useNavigate();

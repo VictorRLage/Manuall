@@ -1,13 +1,13 @@
-import Carousel from "@/components/home/Carousel";
+import elemento1 from "@/assets/manuall/banner_2_element_1.png";
+import elemento2 from "@/assets/manuall/banner_2_element_2.png";
+import elemento3 from "@/assets/manuall/banner_3_element_3.png";
 import BannerBase1 from "@/assets/manuall/banner_base1.jpg";
 import BannerBase1Responsive from "@/assets/manuall/banner_base1_responsive.jpg";
 import BannerBase2 from "@/assets/manuall/banner_base2.jpg";
 import BannerBase3 from "@/assets/manuall/banner_base3.jpg";
-import elemento1 from "@/assets/manuall/banner_2_element_1.png";
-import elemento2 from "@/assets/manuall/banner_2_element_2.png";
-import elemento3 from "@/assets/manuall/banner_3_element_3.png";
-import { useNavigate } from "react-router-dom";
+import Carousel from "@/components/home/Carousel";
 import { useData } from "@/data/CreateContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CarouselHome() {
     const navigate = useNavigate();

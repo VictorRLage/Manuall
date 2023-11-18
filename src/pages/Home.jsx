@@ -1,7 +1,4 @@
-import Header from "@/components/header/Header";
-import { useEffect, useState } from "react";
 import axios from "@/api/axios";
-import Skeleton from "react-loading-skeleton";
 import FooterWave from "@/assets/shapes/FooterWave.svg?react";
 import comoContratar1 from "@/assets/storyset/como_contratar_1.png";
 import comoContratar2 from "@/assets/storyset/como_contratar_2.png";
@@ -9,10 +6,13 @@ import comoContratar3 from "@/assets/storyset/como_contratar_3.png";
 import comoEnsinar1 from "@/assets/storyset/como_ensinar_1.png";
 import comoEnsinar2 from "@/assets/storyset/como_ensinar_2.png";
 import comoEnsinar3 from "@/assets/storyset/como_ensinar_3.png";
-import CarouselHome from "@/components/home/CarouselHome";
+import Header from "@/components/header/Header";
 import Cards from "@/components/home/Cards";
+import CarouselHome from "@/components/home/CarouselHome";
 import HomeLabel from "@/components/home/HomeLabel";
 import InfoCard from "@/components/home/InfoCard";
+import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function Home() {
     const [areas, setAreas] = useState();

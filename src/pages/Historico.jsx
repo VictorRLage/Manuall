@@ -1,10 +1,10 @@
-import Header from "@/components/header/Header";
 import axios from "@/api/axios";
-import { useEffect, useState } from "react";
 import HistoricoRow from "@/components/dashboard/HistoricoRow";
-import Skeleton from "react-loading-skeleton";
+import Header from "@/components/header/Header";
 import ModalAvaliacao from "@/components/perfil/ModalAvaliacao";
 import { useData } from "@/data/CreateContext";
+import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function Historico() {
     const { windowWidth, userName } = useData();

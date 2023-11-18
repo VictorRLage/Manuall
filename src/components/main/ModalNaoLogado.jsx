@@ -1,6 +1,6 @@
+import ModalCustom from "@/components/main/ModalCustom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ModalCustom from "@/components/main/ModalCustom";
 
 export default function ModalNaoLogado({ modalGettr, modalSettr }) {
     const navigate = useNavigate();
@@ -14,11 +14,7 @@ export default function ModalNaoLogado({ modalGettr, modalSettr }) {
     }, [modalGettr]);
 
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={true}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr} canClose>
             {switchPhase ? (
                 <div className="w-[380px] min500:w-full h-full flex flex-col items-center py-8 gap-10 px-16">
                     <span className="text-3xl font-semibold text-center max-w-[240px] min500:max-w-[300px] flex items-center justify-center flex-wrap">

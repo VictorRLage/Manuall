@@ -1,5 +1,5 @@
-import { useState } from "react";
 import ModalCustom from "@/components/main/ModalCustom";
+import { useState } from "react";
 
 export default function ModalUrlGaleria({
     modalGettr,

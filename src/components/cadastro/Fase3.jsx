@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
 import axios from "@/api/axios";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
-import CadastroProgress from "@/components/cadastro/CadastroProgress";
 import SelectArrowIcon from "@/assets/icons/select_arrow.svg";
-import { Dropdown } from "primereact/dropdown";
-import { MultiSelect } from "primereact/multiselect";
-import ReactSlider from "react-slider";
-import { ThreeDots } from "react-loader-spinner";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import CadastroProgress from "@/components/cadastro/CadastroProgress";
+import { useData } from "@/data/CreateContext";
 import Regex from "@/enum/RegexENUM";
 import { defer } from "@/utils/functions";
-import { useData } from "@/data/CreateContext";
-import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
+import { Dropdown } from "primereact/dropdown";
+import { MultiSelect } from "primereact/multiselect";
+import { useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import ReactSlider from "react-slider";
 
 export default function Fase3({
     stepInfo,
@@ -372,12 +372,7 @@ export default function Fase3({
                         )}
                     </button>
                 </div>
-                {windowWidth <= 1000 && (
-                    <>
-                        {/* <div className="bg-white min-h-[6%] w-full" /> */}
-                        <CadastroBottomBar isAtLeft />
-                    </>
-                )}
+                {windowWidth <= 1000 && <CadastroBottomBar isAtLeft />}
             </div>
         </div>
     );

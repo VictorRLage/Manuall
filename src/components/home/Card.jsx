@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
-import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
-import Skeleton from "react-loading-skeleton";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
+import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
+import Skeleton from "react-loading-skeleton";
+import { useNavigate } from "react-router-dom";
 
 export default function Card({
     prestador: {

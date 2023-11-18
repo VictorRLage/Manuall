@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
 import axios from "@/api/axios";
+import { createContext, useContext, useState } from "react";
 
 const DataContext = createContext();
 
@@ -31,7 +31,7 @@ export function CreateContext({ children }) {
                 windowWidth,
                 setWindowWidth,
                 notificacoesCount,
-                setNotificacoesCount
+                setNotificacoesCount,
             }}
         >
             {children}

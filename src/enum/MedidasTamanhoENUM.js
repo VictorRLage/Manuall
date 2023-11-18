@@ -1,6 +1,1 @@
-export default [
-    "Unidade",
-    "m²",
-    "m",
-    "cm",
-]
+export default ["Unidade", "m²", "m", "cm"];

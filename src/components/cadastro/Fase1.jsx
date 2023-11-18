@@ -1,20 +1,19 @@
-import { useRef, useState } from "react";
+import axios from "@/api/axios";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import CadastroProgress from "@/components/cadastro/CadastroProgress";
+import { useData } from "@/data/CreateContext";
+import Regex from "@/enum/RegexENUM";
 import {
-    UserIcon,
+    ChevronDoubleRightIcon,
     EnvelopeIcon,
     IdentificationIcon,
     LockClosedIcon,
-    ChevronDoubleRightIcon,
     PhoneIcon,
+    UserIcon,
 } from "@heroicons/react/24/solid";
-import axios from "@/api/axios";
-import CadastroProgress from "@/components/cadastro/CadastroProgress";
-import Regex from "@/enum/RegexENUM";
+import { useEffect, useRef, useState } from "react";
 import InputMask from "react-input-mask";
 import { Oval } from "react-loader-spinner";
-import { useEffect } from "react";
-import { useData } from "@/data/CreateContext";
-import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 
 export default function Fase1({
     stepInfo,
@@ -165,9 +164,10 @@ export default function Fase1({
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${isNomeValidado === false
-                                ? "border-red-500"
-                                : "border-cinza-claro-1 hover:border-green-300"
+							${
+                                isNomeValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
                             }
 						`}
                     />
@@ -204,9 +204,10 @@ export default function Fase1({
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-							${isEmailValidado === false
-                                ? "border-red-500"
-                                : "border-cinza-claro-1 hover:border-green-300"
+							${
+                                isEmailValidado === false
+                                    ? "border-red-500"
+                                    : "border-cinza-claro-1 hover:border-green-300"
                             }
 						`}
                     />
@@ -238,9 +239,10 @@ export default function Fase1({
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-								${isCpfValidado === false
-                                    ? "border-red-500"
-                                    : "border-cinza-claro-1 hover:border-green-300"
+								${
+                                    isCpfValidado === false
+                                        ? "border-red-500"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
 							`}
                         />
@@ -271,9 +273,10 @@ export default function Fase1({
                             className={`
 								block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 bg-transparent rounded-lg border-2
 								appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-								${isTelefoneValidado === false
-                                    ? "border-red-500"
-                                    : "border-cinza-claro-1 hover:border-green-300"
+								${
+                                    isTelefoneValidado === false
+                                        ? "border-red-500"
+                                        : "border-cinza-claro-1 hover:border-green-300"
                                 }
 							`}
                         />
@@ -308,19 +311,22 @@ export default function Fase1({
                         className={`
 							block px-2.5 pb-2.5 pt-4 w-full text-base text-gray-900 rounded-lg border-2
 							appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors
-                            ${senhaDisabled
-                                ? "bg-[#e0e0e0]"
-                                : `bg-transparent ${isSenhaValidado === false
-                                    ? "border-red-500"
-                                    : "border-cinza-claro-1 hover:border-green-300"
-                                }`
+                            ${
+                                senhaDisabled
+                                    ? "bg-[#e0e0e0]"
+                                    : `bg-transparent ${
+                                          isSenhaValidado === false
+                                              ? "border-red-500"
+                                              : "border-cinza-claro-1 hover:border-green-300"
+                                      }`
                             }
 						`}
                     />
                     <label
                         htmlFor="senha"
-                        className={`${senhaDisabled && "bg-[#e0e0e0]"
-                            } cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center`}
+                        className={`${
+                            senhaDisabled && "bg-[#e0e0e0]"
+                        } cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center`}
                     >
                         <LockClosedIcon className="h-5 w-5 mr-1" />
                         Senha
@@ -337,10 +343,11 @@ export default function Fase1({
                     onClick={() => {
                         isEveryThingValidated() && avancar();
                     }}
-                    className={`${isEveryThingValidated()
+                    className={`${
+                        isEveryThingValidated()
                             ? "text-verde-padrao cursor-pointer"
                             : "text-gray-400 cursor-default"
-                        } text-xl mb-8 font-bold flex justify-center items-center h-[40px]`}
+                    } text-xl mb-8 font-bold flex justify-center items-center h-[40px]`}
                 >
                     {isNextLoading ? (
                         <Oval

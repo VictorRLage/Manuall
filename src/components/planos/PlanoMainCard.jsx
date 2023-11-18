@@ -1,7 +1,6 @@
-import WhiteOk from "@/assets/icons/white_ok.svg";
 import RedX from "@/assets/icons/red_x.svg";
-import { useEffect, useRef } from "react";
-import { useState } from "react";
+import WhiteOk from "@/assets/icons/white_ok.svg";
+import { useEffect, useRef, useState } from "react";
 
 export default function PlanoMainCard({
     titulo,

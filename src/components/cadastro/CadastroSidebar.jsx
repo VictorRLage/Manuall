@@ -1,5 +1,5 @@
-import { ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
 import logo_extensa from "@/assets/manuall/logo_black_white.png";
+import { ChevronDoubleLeftIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 
 export default function CadastroSidebar({

@@ -1,9 +1,9 @@
-import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
-import { useEffect, useState } from "react";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
-import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
-import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
 import { useData } from "@/data/CreateContext";
+import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
 
 export default function HistoricoRow({
     solicitacao: {

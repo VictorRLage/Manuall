@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import Chat from "@/components/header/Chat";
-import HeaderSidebarMode from "@/components/header/HeaderSidebarMode";
-import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
-import { useData } from "@/data/CreateContext";
 import axios from "@/api/axios";
+import Chat from "@/components/header/Chat";
 import HeaderDropdown from "@/components/header/HeaderDropdown";
+import HeaderSidebarMode from "@/components/header/HeaderSidebarMode";
 import HeaderTopMode from "@/components/header/HeaderTopMode";
-import ModalAcessibilidade from "@/components/perfil/ModalAcessibilidade";
 import ModalNotificacoes from "@/components/header/ModalNotificacoes";
+import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
+import ModalAcessibilidade from "@/components/perfil/ModalAcessibilidade";
+import { useData } from "@/data/CreateContext";
+import { useEffect, useState } from "react";
 
 export default function Header({ refetch }) {
     const { setUserPfp, windowWidth, userType } = useData();

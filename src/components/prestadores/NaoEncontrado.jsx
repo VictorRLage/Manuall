@@ -2,9 +2,9 @@ import imagemNotFound from "@/assets/storyset/Not_Found.svg";
 
 const NenhumPrestadorEncontrado = ({ isHome }) => {
     const imagemStyle = {
-        width: "400px", // Ajuste o tamanho da imagem como desejado
-        height: "auto", // Isso manterá a proporção da imagem
-        marginBottom: "20px", // Ajuste o espaçamento inferior da imagem como desejado
+        width: "400px",
+        height: "auto",
+        marginBottom: "20px",
     };
 
     return (

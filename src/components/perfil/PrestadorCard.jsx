@@ -1,8 +1,7 @@
-import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
-import { StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 import ImageAddIcon from "@/assets/icons/image_add.png";
+import { PencilSquareIcon, StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import Skeleton from "react-loading-skeleton";
 
 export default function PrestadorCard({

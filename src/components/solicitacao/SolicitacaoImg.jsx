@@ -1,6 +1,6 @@
 import defaultImg from "@/assets/demo/default_img.jpg";
-import { useState } from "react";
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 export default function SolicitacaoImg({
     openCreateImageModal,
@@ -13,9 +13,7 @@ export default function SolicitacaoImg({
     return (
         <div
             className="relative flex items-center justify-center"
-            onMouseOver={() =>
-                currentImg && setIsMouseOver(true)
-            }
+            onMouseOver={() => currentImg && setIsMouseOver(true)}
             onMouseLeave={() => setIsMouseOver(false)}
         >
             <img

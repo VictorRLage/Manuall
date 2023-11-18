@@ -9,11 +9,7 @@ export default function ModalConclusaoCadastroContratante({
     const navigate = useNavigate();
 
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={false}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr}>
             <div
                 className="bg-white text-center w-[300px] min450:w-[400px] min600:w-[576px] h-[350px] flex flex-col items-center rounded-lg bg-cover bg-center"
                 style={{ backgroundImage: `url(${BgModal})` }}
@@ -27,9 +23,7 @@ export default function ModalConclusaoCadastroContratante({
                 <div className="h-[33%] w-full flex justify-center items-center">
                     <button
                         className="bg-verde-padrao hover:bg-[rgb(16,166,93)] text-white rounded-lg text-xl px-6 py-2 transition-all"
-                        onClick={() => {
-                            navigate("/login");
-                        }}
+                        onClick={() => navigate("/login")}
                     >
                         Entrar agora
                     </button>

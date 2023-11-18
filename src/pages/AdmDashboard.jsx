@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import Sidebar from "@/components/adm/Sidebar";
 import axios from "@/api/axios";
+import Sidebar from "@/components/adm/Sidebar";
+import { useEffect } from "react";
 
 export default function AdmDashboard() {
     useEffect(() => {

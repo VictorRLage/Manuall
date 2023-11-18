@@ -1,8 +1,8 @@
+import SelectArrowIcon from "@/assets/icons/select_arrow.svg";
 import SentMessage from "@/assets/storyset/SentMessage.svg";
 import MedidasTamanhoENUM from "@/enum/MedidasTamanhoENUM";
-import SelectArrowIcon from "@/assets/icons/select_arrow.svg";
-import { Dropdown } from "primereact/dropdown";
 import Regex from "@/enum/RegexENUM";
+import { Dropdown } from "primereact/dropdown";
 
 export default function SolicitacaoFase2({
     tamanho: { tamanho, setTamanho },

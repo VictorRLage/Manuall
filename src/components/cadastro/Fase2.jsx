@@ -1,21 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { viaCepInstance } from "@/api/axios";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import CadastroProgress from "@/components/cadastro/CadastroProgress";
+import { useData } from "@/data/CreateContext";
+import Regex from "@/enum/RegexENUM";
 import {
-    MapIcon,
-    MapPinIcon,
+    BuildingLibraryIcon,
     BuildingOffice2Icon,
+    ChevronDoubleRightIcon,
+    HashtagIcon,
     HomeIcon,
     HomeModernIcon,
-    BuildingLibraryIcon,
-    HashtagIcon,
-    ChevronDoubleRightIcon,
+    MapIcon,
+    MapPinIcon,
 } from "@heroicons/react/24/solid";
-import { viaCepInstance } from "@/api/axios";
-import Regex from "@/enum/RegexENUM";
-import CadastroProgress from "@/components/cadastro/CadastroProgress";
+import { useEffect, useRef, useState } from "react";
 import InputMask from "react-input-mask";
-import { ThreeDots, Oval } from "react-loader-spinner";
-import { useData } from "@/data/CreateContext";
-import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import { Oval, ThreeDots } from "react-loader-spinner";
 
 export default function Fase2({
     stepInfo,

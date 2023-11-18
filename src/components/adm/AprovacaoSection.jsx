@@ -1,5 +1,5 @@
-import AprovacaoCard from "@/components/adm/AprovacaoCard";
 import done from "@/assets/storyset/Done-rafiki.svg";
+import AprovacaoCard from "@/components/adm/AprovacaoCard";
 
 export default function AprovacaoSection({
     label,

@@ -5,4 +5,4 @@ export default [
     { id: "PrecoMin", desc: "Menor Orçamento" },
     { id: "Servico", desc: "Serviços" },
     { id: "ServicoAula", desc: "Serviços e Aulas" },
-]
+];

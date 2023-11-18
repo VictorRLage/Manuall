@@ -1,7 +1,7 @@
-import { useRef } from "react";
-import ModalCustom from "./ModalCustom";
 import { defer } from "@/utils/functions";
 import useWatch from "@/utils/useWatch";
+import { useRef } from "react";
+import ModalCustom from "./ModalCustom";
 
 export default function ModalAviso({
     modalGettr,
@@ -28,7 +28,7 @@ export default function ModalAviso({
             modalGettr={modalGettr}
             modalSettr={modalSettr}
             tempo={tempo}
-            canClose={true}
+            canClose
         >
             <div className="max-w-[300px] min500:max-w-[400px] min700:max-w-[576px] bg-white rounded-lg">
                 <div className="w-full h-1 relative">

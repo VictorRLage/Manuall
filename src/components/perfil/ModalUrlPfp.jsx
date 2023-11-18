@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import axios from "@/api/axios";
 import ModalCustom from "@/components/main/ModalCustom";
+import { useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function ModalUrlPfp({
@@ -34,11 +34,7 @@ export default function ModalUrlPfp({
     }, [currentPfp]);
 
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={true}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr} canClose>
             <div className="w-[300px] min450:w-[400px] h-full flex flex-col items-center py-8 px-10 gap-4">
                 <span className="text-2xl text-gray-900 font-semibold text-center">
                     Insira o Url da sua imagem de perfil

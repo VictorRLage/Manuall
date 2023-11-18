@@ -1,8 +1,8 @@
 import Card from "@/components/home/Card";
-import NaoEncontrado from "@/components/prestadores/NaoEncontrado";
-import Skeleton from "react-loading-skeleton";
 import ModalNaoLogado from "@/components/main/ModalNaoLogado";
+import NaoEncontrado from "@/components/prestadores/NaoEncontrado";
 import { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function Cards({ areas, prestadores, isHome }) {
     const [modalNaoLogado, setModalNaoLogado] = useState(false);

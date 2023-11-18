@@ -1,27 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "react-loading-skeleton/dist/skeleton.css";
-import "primereact/resources/themes/saga-blue/theme.css";
-import "primereact/resources/primereact.min.css";
-
 import { CreateContext, useData } from "@/data/CreateContext";
-import { useEffect } from "react";
-
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import CadastroPrestador from "@/pages/CadastroPrestador";
-import CadastroContratante from "@/pages/CadastroContratante";
-import CadastroPlanos from "@/pages/CadastroPlanos";
-import Prestadores from "@/pages/Prestadores";
-import Contato from "@/pages/Contato";
-import Historico from "@/pages/Historico";
+import AdmApiStatus from "@/pages/AdmApiStatus";
 import AdmAprovacao from "@/pages/AdmAprovacao";
 import AdmDashboard from "@/pages/AdmDashboard";
-import AdmApiStatus from "@/pages/AdmApiStatus";
-import Perfil from "@/pages/Perfil";
+import CadastroContratante from "@/pages/CadastroContratante";
+import CadastroPlanos from "@/pages/CadastroPlanos";
+import CadastroPrestador from "@/pages/CadastroPrestador";
+import Contato from "@/pages/Contato";
+import Dashboard from "@/pages/Dashboard";
 import Erro from "@/pages/Erro";
+import Historico from "@/pages/Historico";
+import Home from "@/pages/Home";
+import Login from "@/pages/Login";
+import Perfil from "@/pages/Perfil";
+import Prestadores from "@/pages/Prestadores";
 import UnderConstruction from "@/pages/UnderConstruction";
 import VLibras from "@djpfs/react-vlibras";
-import Dashboard from "@/pages/Dashboard";
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/saga-blue/theme.css";
+import { useEffect } from "react";
+import "react-loading-skeleton/dist/skeleton.css";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 const App = () => {
     const { setWindowWidth } = useData();

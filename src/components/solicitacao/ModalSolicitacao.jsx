@@ -1,15 +1,14 @@
-import { useState } from "react";
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/24/solid";
-import ModalCustom from "@/components/main/ModalCustom";
+import axios from "@/api/axios";
 import CantoEsquerdo from "@/assets/shapes/ModalBottomRightWave.svg";
 import CantoDireito from "@/assets/shapes/ModalTopLeftWave.svg";
+import ModalCustom from "@/components/main/ModalCustom";
+import ModalUrlGaleria from "@/components/perfil/ModalUrlGaleria";
+import SolicitacaoConclusao from "@/components/solicitacao/SolicitacaoConclusao";
 import SolicitacaoFase1 from "@/components/solicitacao/SolicitacaoFase1";
 import SolicitacaoFase2 from "@/components/solicitacao/SolicitacaoFase2";
 import SolicitacaoFase3 from "@/components/solicitacao/SolicitacaoFase3";
-import SolicitacaoConclusao from "@/components/solicitacao/SolicitacaoConclusao";
-import axios from "@/api/axios";
-import { useEffect } from "react";
-import ModalUrlGaleria from "@/components/perfil/ModalUrlGaleria";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
 
 export default function ModalSolicitacao({
     modalGettr,
@@ -72,7 +71,7 @@ export default function ModalSolicitacao({
                 }}
             />
             <ModalCustom
-                canClose={true}
+                canClose
                 modalGettr={modalGettr}
                 modalSettr={modalSettr}
             >
@@ -93,8 +92,11 @@ export default function ModalSolicitacao({
                                         {[1, 2, 3].map((step) => (
                                             <div
                                                 key={step}
-                                                className={`h-[10px] flex-1 mx-1 rounded-full transition-all duration-300 ease-in-out ${faseAtual >= step ? 'bg-verde-padrao' : 'bg-cinza'
-                                                    }`}
+                                                className={`h-[10px] flex-1 mx-1 rounded-full transition-all duration-300 ease-in-out ${
+                                                    faseAtual >= step
+                                                        ? "bg-verde-padrao"
+                                                        : "bg-cinza"
+                                                }`}
                                             />
                                         ))}
                                     </div>
@@ -103,8 +105,8 @@ export default function ModalSolicitacao({
                                         {faseAtual === 1
                                             ? "De qual serviço você necessita?"
                                             : faseAtual === 2
-                                                ? "Informe o tamanho e a medida do serviço:"
-                                                : "Algo mais a acrescentar? (Opcional)"}
+                                            ? "Informe o tamanho e a medida do serviço:"
+                                            : "Algo mais a acrescentar? (Opcional)"}
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center justify-center w-full h-[60%]">
@@ -172,10 +174,11 @@ export default function ModalSolicitacao({
                                         </span>
                                     </button>
                                     <button
-                                        className={`text-white text-lg flex justify-end items-center rounded-full h-[35px] w-[120px] ${faseValidated[`fase${faseAtual}`]
-                                            ? "bg-verde-padrao"
-                                            : "bg-cinza-claro-1 cursor-default"
-                                            }`}
+                                        className={`text-white text-lg flex justify-end items-center rounded-full h-[35px] w-[120px] ${
+                                            faseValidated[`fase${faseAtual}`]
+                                                ? "bg-verde-padrao"
+                                                : "bg-cinza-claro-1 cursor-default"
+                                        }`}
                                         onClick={() =>
                                             faseValidated[`fase${faseAtual}`] &&
                                             (faseAtual < 3

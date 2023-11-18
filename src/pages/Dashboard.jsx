@@ -1,16 +1,16 @@
+import axios from "@/api/axios";
+import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
+import ChartsAmico from "@/assets/storyset/Charts-amico.svg";
+import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
+import GraficoServicosContratados from "@/components/dashboard/GraficoServicosContratados";
+import GraficoSolicitacoesConcluidas from "@/components/dashboard/GraficoSolicitacoesConcluidas";
+import InfoIcon from "@/components/dashboard/IconeInformacao";
+import WordCloudAvaliacoes from "@/components/dashboard/WordCloudAvaliacoes";
 import Header from "@/components/header/Header";
 import Breadcrumb from "@/components/main/Breadcrumb";
-import GreenArrowhead from "@/assets/icons/green_arrowhead.svg";
-import { useState, useRef, useEffect } from "react";
-import axios from "@/api/axios";
-import ChartsAmico from "@/assets/storyset/Charts-amico.svg";
-import { ThreeCircles, CirclesWithBar } from "react-loader-spinner";
-import GraficoServicosContratados from "@/components/dashboard/GraficoServicosContratados";
-import GraficoMediaServico from "@/components/dashboard/GraficoMediaServico";
-import WordCloudAvaliacoes from "@/components/dashboard/WordCloudAvaliacoes";
-import GraficoSolicitacoesConcluidas from "@/components/dashboard/GraficoSolicitacoesConcluidas";
+import { useEffect, useRef, useState } from "react";
+import { CirclesWithBar, ThreeCircles } from "react-loader-spinner";
 import { Tooltip } from "react-tooltip";
-import InfoIcon from "@/components/dashboard/IconeInformacao";
 
 const meses = [
     "Janeiro",

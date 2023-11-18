@@ -1,13 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import axios from "@/api/axios";
+import CadastroBg from "@/assets/shapes/CadastroBg.svg";
 import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
 import Fase1 from "@/components/cadastro/Fase1";
 import Fase2 from "@/components/cadastro/Fase2";
-import ModalAviso from "@/components/main/ModalAviso";
-import CadastroBg from "@/assets/shapes/CadastroBg.svg";
-import axios from "@/api/axios";
 import ModalConclusaoCadastroContratante from "@/components/cadastro/ModalConclusaoCadastroContratante";
-import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
 import ModalFaseCadastro from "@/components/cadastro/ModalFaseCadastro";
+import ModalJaPossuiConta from "@/components/cadastro/ModalJaPossuiConta";
+import ModalAviso from "@/components/main/ModalAviso";
+import { useEffect, useRef, useState } from "react";
 
 export default function CadastroContratante() {
     const scrollingDiv = useRef(null);

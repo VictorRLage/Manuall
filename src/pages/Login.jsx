@@ -1,16 +1,16 @@
-import { useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import axios from "@/api/axios";
+import CadastroBg from "@/assets/shapes/CadastroBg.svg";
+import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import CadastroFlag from "@/components/cadastro/CadastroFlag";
+import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
 import ModalEscolherTipoUsuario from "@/components/login/ModalEscolherTipoUsuario";
 import ModalAviso from "@/components/main/ModalAviso";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
-import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
-import CadastroBg from "@/assets/shapes/CadastroBg.svg";
-import CadastroFlag from "@/components/cadastro/CadastroFlag";
-import Regex from "@/enum/RegexENUM";
 import { useData } from "@/data/CreateContext";
-import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
+import Regex from "@/enum/RegexENUM";
+import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const navigate = useNavigate();

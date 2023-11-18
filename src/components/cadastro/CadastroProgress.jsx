@@ -1,6 +1,6 @@
-import React from "react";
 import CadastroFlag from "@/components/cadastro/CadastroFlag";
 import { useData } from "@/data/CreateContext";
+import { Fragment } from "react";
 
 /**
  * @param {{
@@ -19,7 +19,7 @@ export default function CadastroProgress({
         <div className="min-h-[15%] w-full relative flex justify-center items-center">
             {windowWidth > 500 && <CadastroFlag isFlagAtLeft={isFlagAtLeft} />}
             {Array.from({ length: fases }, (_, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                     <div
                         onClick={() => {
                             i == fase && mudarStep?.();
@@ -39,7 +39,7 @@ export default function CadastroProgress({
                             } h-1 w-10`}
                         />
                     )}
-                </React.Fragment>
+                </Fragment>
             ))}
         </div>
     );

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import RegexENUM from "@/enum/RegexENUM";
-import Wordcloud from "@visx/wordcloud/lib/Wordcloud";
-import { Text } from "@visx/text";
-import { scaleLog } from "@visx/scale";
 import PreposicoesENUM from "@/enum/PreposicoesENUM";
+import RegexENUM from "@/enum/RegexENUM";
+import { scaleLog } from "@visx/scale";
+import { Text } from "@visx/text";
+import Wordcloud from "@visx/wordcloud/lib/Wordcloud";
+import { useEffect, useState } from "react";
 
 export default function WordCloudAvaliacoes({ words, width, height }) {
     const [etlWords, setEtlWords] = useState([]);

@@ -9,11 +9,7 @@ export default function ModalConclusaoCadastroPrestador({
     const navigate = useNavigate();
 
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={false}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr}>
             <div
                 className="bg-white w-[300px] min450:w-[400px] min600:w-[576px] text-center flex flex-col items-center rounded-lg bg-cover bg-center"
                 style={{

@@ -1,13 +1,13 @@
-import { useState } from "react";
-import Header from "@/components/header/Header";
-import fundoContato from "@/assets/shapes/MainBg.png";
-import Skeleton from "react-loading-skeleton";
 import imagemTelemarketing from "@/assets/demo/telemarketing.png";
-import iconeTelefone from "@/assets/icons/phone.png";
-import iconeMapa from "@/assets/icons/gps.png";
 import iconeRelogio from "@/assets/icons/clock.png";
+import iconeMapa from "@/assets/icons/gps.png";
+import iconeTelefone from "@/assets/icons/phone.png";
+import fundoContato from "@/assets/shapes/MainBg.png";
+import Header from "@/components/header/Header";
 import Breadcrumb from "@/components/main/Breadcrumb";
 import { useData } from "@/data/CreateContext";
+import { useState } from "react";
+import Skeleton from "react-loading-skeleton";
 
 export default function Contato() {
     const [iFrameIsLoading, setIFrameIsLoading] = useState(true);

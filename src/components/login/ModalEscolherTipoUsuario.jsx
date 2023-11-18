@@ -8,11 +8,7 @@ export default function ModalEscolherTipoUsuario({
     setarUsuario,
 }) {
     return (
-        <ModalCustom
-            modalGettr={modalGettr}
-            modalSettr={modalSettr}
-            canClose={false}
-        >
+        <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr}>
             <div className="bg-white rounded-lg flex flex-col items-center p-8 gap-8">
                 <div className="max-w-[300px] min550:max-w-[450px] flex flex-col justify-center items-center flex-wrap gap-4">
                     <span className="text-2xl text-center font-semibold">

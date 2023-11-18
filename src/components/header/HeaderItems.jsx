@@ -1,11 +1,11 @@
-import UserIcon from "@/assets/icons/user_icon.png";
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
-import { useNavigate } from "react-router-dom";
-import { useData } from "@/data/CreateContext";
+import UserIcon from "@/assets/icons/user_icon.png";
 import HeaderItemLayout from "@/components/header/HeaderItemLayout";
 import Dynamic from "@/components/main/Dynamic";
-import { Fragment } from "react";
+import { useData } from "@/data/CreateContext";
 import { logoff } from "@/utils/functions";
+import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderItems({
     responsiveMode,
