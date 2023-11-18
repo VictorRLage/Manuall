@@ -61,6 +61,12 @@ module.exports = {
         "all-inp": "3px 2px 2px rgba(0, 0, 0, 0.25)",
       },
     },
+    scale: {
+      101: "1.01",
+      102: "1.02",
+      103: "1.03",
+      104: "1.04",
+    },
     screens: {
       min50: { min: "50px" },
       max50: { max: "50px" },

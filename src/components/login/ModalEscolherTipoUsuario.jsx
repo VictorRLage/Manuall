@@ -14,7 +14,7 @@ export default function ModalEscolherTipoUsuario({
             canClose={false}
         >
             <div className="bg-white rounded-lg flex flex-col items-center p-8 gap-8">
-                <div className="max-w-[450px] flex flex-col justify-center items-center flex-wrap gap-4">
+                <div className="max-w-[300px] min550:max-w-[450px] flex flex-col justify-center items-center flex-wrap gap-4">
                     <span className="text-2xl text-center font-semibold">
                         Parece que você possui mais de uma conta cadastrada
                         neste endereço de e-mail.

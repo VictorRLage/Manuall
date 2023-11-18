@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import ModalCustom from "@/components/main/ModalCustom";
-import cantoSuperior from "@/assets/shapes/cantoSuperiorModalEscolhaCadastro.png"
+import cantoSuperior from "@/assets/shapes/cantoSuperiorModalEscolhaCadastro.png";
 
 export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
     const navigate = useNavigate();
@@ -12,10 +12,13 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
             canClose={true}
             modalStyle={{ overflow: "hidden" }}
         >
-            <div className="relative w-full h-full flex flex-col items-center py-8 gap-10 px-16 bg-no-repeat"
-                style = {{ backgroundImage: `url(${cantoSuperior})`,
-                backgroundPosition: "top 0",
-                backgroundSize:"440px"}}
+            <div
+                className="relative w-full h-full flex flex-col items-center py-8 gap-10 px-16 bg-no-repeat"
+                style={{
+                    backgroundImage: `url(${cantoSuperior})`,
+                    backgroundPosition: "top 0",
+                    backgroundSize: "440px",
+                }}
             >
                 <span className="text-2xl font-semibold text-white text-center max-w-[300px] flex items-center justify-center flex-wrap">
                     Como deseja se cadastrar?

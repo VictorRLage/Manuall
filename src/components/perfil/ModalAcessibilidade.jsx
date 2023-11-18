@@ -18,7 +18,7 @@ export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
                 zIndex: "601",
             }}
         >
-            <div className="w-[600px] flex flex-col bg-center">
+            <div className="w-[400px] min500:w-[450px] min700:w-[600px] flex flex-col bg-center">
                 <div
                     className="w-full h-[125px] bg-no-repeat flex justify-center"
                     style={{

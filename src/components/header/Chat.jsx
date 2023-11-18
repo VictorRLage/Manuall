@@ -16,8 +16,12 @@ import BlueCheckmark from "@/assets/icons/blue_checkmark.svg";
 import { defer } from "@/utils/functions";
 import { useData } from "@/data/CreateContext";
 
-export default function Chat({ forceChatOpen, forceChatRefetch }) {
-    const { userType } = useData();
+export default function Chat({
+    forceChatOpen,
+    redefineForceChatOpen,
+    forceChatRefetch,
+}) {
+    const { userType, windowWidth } = useData();
 
     const btnFecharConversa = useRef(null);
     const imgBtnFecharConversa = useRef(null);
@@ -275,9 +279,13 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
     };
 
     useEffect(() => {
-        if (forceChatOpen) {
+        if (forceChatOpen !== undefined) {
             for (let i = 0; i < conversas?.length; i++) {
-                if (conversas[i].solicitacaoId === forceChatOpen) {
+                if (forceChatOpen === null) {
+                    setIsOpen(true);
+                    setChatAtual(undefined);
+                    break;
+                } else if (conversas[i].solicitacaoId === forceChatOpen) {
                     selecionarChat(conversas[i]);
                     setIsOpen(true);
                     break;
@@ -288,14 +296,20 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
 
     useEffect(fetch, [forceChatRefetch]);
 
+    useEffect(() => {
+        redefineForceChatOpen();
+    }, [isOpen]);
+
+    if (windowWidth <= 600 && !isOpen) return <></>;
+
     return (
         <div
-            className="fixed z-40 right-8 w-[350px] transition-all"
+            className="fixed z-40 min600:right-8 max600:flex max600:flex-col max600:h-full w-full min600:w-[350px] transition-all"
             style={{ bottom: isOpen ? "0" : "-400px" }}
         >
             <div
                 onClick={alternarChat}
-                className="bg-verde-escuro-1 h-[50px] rounded-t-lg flex items-center justify-between px-4 cursor-pointer hover:bg-verde-escuro-2 transition-all"
+                className="bg-verde-escuro-1 h-[50px] min600:rounded-t-lg flex items-center justify-between px-4 cursor-pointer hover:bg-verde-escuro-2 transition-all"
             >
                 <div className="flex justify-center items-center">
                     {chatAtual && (
@@ -335,10 +349,11 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                 <>
                     <div
                         ref={scrollingDiv}
-                        className="bg-gray-100 flex flex-col overflow-y-auto py-2 scroll-smooth"
-                        style={{
-                            height: chatAtual.isManuel ? "400px" : "360px",
-                        }}
+                        className={`bg-gray-100 flex flex-col overflow-y-auto py-2 scroll-smooth ${
+                            chatAtual.isManuel
+                                ? "max600:grow min600:h-[400px]"
+                                : "max600:grow min600:h-[360px]"
+                        }`}
                     >
                         {chatAtual.isManuel ? (
                             <ChatManuel
@@ -376,7 +391,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                     )}
                 </>
             ) : conversas !== undefined && manuelMsgs && dadosUsuarioCrm ? (
-                <div className="bg-gray-100 h-[400px] flex flex-col overflow-y-auto">
+                <div className="bg-gray-100 max600:grow min600:h-[400px] flex flex-col overflow-y-auto">
                     {typeof manuelMsgs !== "boolean" &&
                     typeof dadosUsuarioCrm !== "boolean" ? (
                         <div
@@ -511,7 +526,7 @@ export default function Chat({ forceChatOpen, forceChatRefetch }) {
                         ))}
                 </div>
             ) : (
-                <div className="bg-white h-[400px] flex justify-center items-center">
+                <div className="bg-white max600:grow min600:h-[400px] flex justify-center items-center">
                     <Oval
                         height={50}
                         color="#00cc69"

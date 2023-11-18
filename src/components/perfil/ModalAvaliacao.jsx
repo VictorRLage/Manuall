@@ -32,7 +32,7 @@ export default function ModalAvaliacao({
         <ModalCustom
             modalGettr={modalGettr}
             modalSettr={modalSettr}
-            canClose={true}
+            canClose
             blurBackgroundStyle={{
                 zIndex: "602",
             }}

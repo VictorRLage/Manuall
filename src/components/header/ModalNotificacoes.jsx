@@ -77,7 +77,7 @@ export default function ModalNotificacoes({
                     backgroundColor: "#268054",
                 }}
             >
-                <div className="w-[700px] p-[4%] h-[500px] gap-8 flex flex-col items-center justify-center">
+                <div className="w-[100%] min550:w-[500px] min800:w-[700px] p-[4%] h-[500px] gap-8 flex flex-col items-center justify-center">
                     <div className="w-full flex items-center justify-center gap-4 text-white text-3xl font-semibold">
                         <BellIcon className="w-8 h-8" />
                         Notificações

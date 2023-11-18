@@ -20,6 +20,7 @@ export default function Header({ refetch }) {
     const [dropdown, setDropdown] = useState(false);
 
     const [forceChatOpen, setForceChatOpen] = useState();
+    const redefineForceChatOpen = () => setForceChatOpen();
     const [forceChatRefetch, setForceChatRefetch] = useState(false);
 
     const refetchAll = () => {
@@ -64,6 +65,8 @@ export default function Header({ refetch }) {
                 <HeaderDropdown
                     dropdownGettr={dropdown}
                     dropdownSettr={setDropdown}
+                    setModalNotificacoes={setModalNotificacoes}
+                    setModalAcessibilidade={setModalAcessibilidade}
                 />
             ) : (
                 <HeaderSidebarMode
@@ -73,6 +76,10 @@ export default function Header({ refetch }) {
                     openModalEscolherCadastro={() =>
                         setModalEscolherCadastro(true)
                     }
+                    openChat={() => {
+                        setSidebar(false);
+                        setForceChatOpen(null);
+                    }}
                     setModalNotificacoes={setModalNotificacoes}
                     setModalAcessibilidade={setModalAcessibilidade}
                 />
@@ -88,6 +95,7 @@ export default function Header({ refetch }) {
             {(userType === 1 || userType === 2) && (
                 <Chat
                     forceChatOpen={forceChatOpen}
+                    redefineForceChatOpen={redefineForceChatOpen}
                     forceChatRefetch={forceChatRefetch}
                 />
             )}

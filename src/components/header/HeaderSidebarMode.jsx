@@ -5,6 +5,7 @@ export default function HeaderSidebarMode({
     on,
     setOn,
     openModalEscolherCadastro,
+    openChat,
     setModalNotificacoes,
     setModalAcessibilidade,
 }) {
@@ -37,6 +38,7 @@ export default function HeaderSidebarMode({
                     responsiveMode
                     openModalCadastro={openModalEscolherCadastro}
                     closeHeaderSidebar={() => setOn(false)}
+                    includeChat={openChat}
                     setModalNotificacoes={setModalNotificacoes}
                     setModalAcessibilidade={setModalAcessibilidade}
                 />

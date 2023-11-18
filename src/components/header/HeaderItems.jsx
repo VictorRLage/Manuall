@@ -12,6 +12,7 @@ export default function HeaderItems({
     openModalCadastro,
     toggleDropdown,
     closeHeaderSidebar,
+    includeChat,
     setModalNotificacoes,
     setModalAcessibilidade,
 }) {
@@ -21,9 +22,7 @@ export default function HeaderItems({
     return (
         <Dynamic
             tag={responsiveMode ? Fragment : "nav"}
-            {...(responsiveMode
-                ? {}
-                : { className: "flex items-center gap-4" })}
+            className="flex items-center gap-4"
         >
             <HeaderItemLayout
                 name="Início"
@@ -98,6 +97,13 @@ export default function HeaderItems({
                                     url="/perfil"
                                     responsiveMode
                                     onPathClick={closeHeaderSidebar}
+                                />
+                            )}
+                            {includeChat && windowWidth <= 600 && (
+                                <HeaderItemLayout
+                                    name="Chat"
+                                    responsiveMode
+                                    onClick={includeChat}
                                 />
                             )}
                             <HeaderItemLayout

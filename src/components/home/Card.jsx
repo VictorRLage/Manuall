@@ -35,7 +35,10 @@ export default function Card({
     };
 
     return (
-        <div className="w-80 rounded-3xl drop-shadow-xl">
+        <div
+            className="w-80 rounded-3xl drop-shadow-xl hover:scale-102 transition-transform"
+            onClick={verificarLogin}
+        >
             <img
                 onError={({ target }) => (target.src = defaultPfp)}
                 src={anexoPfp}
@@ -74,10 +77,7 @@ export default function Card({
                     </span>
                 </div>
                 <div className="flex justify-center">
-                    <button
-                        className="px-6 py-2 text-xl bg-verde-padrao rounded-full text-white font-semibold"
-                        onClick={verificarLogin}
-                    >
+                    <button className="px-6 py-2 text-xl bg-verde-padrao rounded-full text-white font-semibold">
                         CONTRATAR
                     </button>
                 </div>

@@ -38,7 +38,7 @@ export default function HistoricoRow({
                 <div
                     className={`${
                         isOpen && "border-b-2"
-                    } min-w-[130px] border-r-2 border-[#00cc69] h-[48px] w-[20%] flex items-center justify-center relative`}
+                    } min-w-[190px] border-r-2 border-[#00cc69] h-[48px] w-[20%] flex items-center justify-center relative`}
                 >
                     <img
                         src={GreenArrowhead}
@@ -56,21 +56,21 @@ export default function HistoricoRow({
                 <div
                     className={`${
                         isOpen && "border-b-2"
-                    } min-w-[130px] text-center border-r-2 border-[#00cc69] h-[48px] w-[20%] flex items-center justify-center`}
+                    } min-w-[190px] text-center border-r-2 border-[#00cc69] h-[48px] w-[20%] flex items-center justify-center`}
                 >
                     {prestadorNome}
                 </div>
                 <div
                     className={`${
                         isOpen && "border-b-2"
-                    } min-w-[280px] text-center border-r-2 border-[#00cc69] h-[48px] w-[40%] flex items-center justify-center`}
+                    } min-w-[380px] text-center border-r-2 border-[#00cc69] h-[48px] w-[40%] flex items-center justify-center`}
                 >
                     {servico}
                 </div>
                 <div
                     className={`${
                         isOpen && "border-b-2"
-                    } min-w-[130px] text-center border-[#00cc69] h-[48px] w-[20%] flex items-center justify-center`}
+                    } min-w-[190px] text-center border-[#00cc69] h-[48px] w-[20%] flex items-center justify-center`}
                 >
                     {(valorOrcamento && `R${valorOrcamento},00`) || "N/A"}
                 </div>

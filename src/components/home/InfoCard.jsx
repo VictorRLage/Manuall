@@ -1,6 +1,6 @@
 export default function InfoCard({ img, children }) {
     return (
-        <div className="w-80 h-120 rounded-3xl drop-shadow-xl bg-white">
+        <div className="w-80 h-120 rounded-3xl drop-shadow-xl bg-white hover:scale-102 transition-transform">
             <div className="h-[60%] flex items-center justify-center">
                 <img src={img} alt="" />
             </div>

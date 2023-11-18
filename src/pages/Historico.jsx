@@ -42,7 +42,7 @@ export default function Historico() {
                 refetch={fetch}
             />
             <Header />
-            <div className="min-w-full h-full bg-[#fafafa] min700:px-32 min500:px-16 px-2 pt-8 pb-16">
+            <div className="min-w-full h-full bg-[#fafafa] min700:px-32 min500:px-16 px-2 pt-3 min500:pt-8 pb-16">
                 {windowWidth > 500 && (
                     <div className="mb-8">
                         <p className="text-base pb-1 text-gray-400 font-semibold">
@@ -55,16 +55,16 @@ export default function Historico() {
                 )}
                 <div className="overflow-x-scroll flex-wrap flex flex-col">
                     <div className="flex relative h-[50px] justify-between gap-1">
-                        <div className="min-w-[130px] text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tl-xl">
+                        <div className="min-w-[190px] text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tl-xl">
                             Data de Início
                         </div>
-                        <div className="min-w-[130px] text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
+                        <div className="min-w-[190px] text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
                             Prestador
                         </div>
-                        <div className="min-w-[280px] text-center text-white h-full w-[40%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
+                        <div className="min-w-[380px] text-center text-white h-full w-[40%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl">
                             Serviço
                         </div>
-                        <div className="min-w-[130px] text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tr-xl">
+                        <div className="min-w-[190px] text-center text-white h-full w-[20%] flex items-center justify-center bg-[#00cc69] font-semibold text-xl rounded-tr-xl">
                             Valor
                         </div>
                     </div>

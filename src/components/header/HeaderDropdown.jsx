@@ -12,6 +12,8 @@ import { useData } from "@/data/CreateContext";
 export default function HeaderDropdown({
     dropdownGettr,
     dropdownSettr,
+    setModalNotificacoes,
+    setModalAcessibilidade,
 }) {
     const { userType } = useData();
     const navigate = useNavigate();
