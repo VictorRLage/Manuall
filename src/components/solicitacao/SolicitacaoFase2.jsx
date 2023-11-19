@@ -3,12 +3,15 @@ import SentMessage from "@/assets/storyset/SentMessage.svg";
 import MedidasTamanhoENUM from "@/enum/MedidasTamanhoENUM";
 import Regex from "@/enum/RegexENUM";
 import { Dropdown } from "primereact/dropdown";
+import { useData } from "@/data/CreateContext";
 
 export default function SolicitacaoFase2({
     tamanho: { tamanho, setTamanho },
     medida: { medida, setMedida },
     setIsEveryThingValidated,
 }) {
+    const { windowWidth } = useData();
+
     return (
         <>
             <div className="flex flex-col justify-center items-center gap-2 w-[275px]">
@@ -41,11 +44,13 @@ export default function SolicitacaoFase2({
                     }}
                 />
             </div>
-            <img
-                src={SentMessage}
-                alt="Ícone de rapaz enviando arquivo"
-                className="w-[200px] absolute bottom-[55px] left-[85px]"
-            />
+            {windowWidth > 1100 && (
+                <img
+                    src={SentMessage}
+                    alt="Ícone de rapaz enviando arquivo"
+                    className="w-[200px] absolute bottom-[55px] left-[85px]"
+                />
+            )}
         </>
     );
 }

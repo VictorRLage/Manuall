@@ -75,24 +75,16 @@ export default function ModalSolicitacao({
                 modalGettr={modalGettr}
                 modalSettr={modalSettr}
             >
-                <div className="relative w-[1000px] h-[500px] flex flex-col justify-center items-center rounded-lg overflow-hidden">
-                    <img
-                        src={CantoEsquerdo}
-                        className="absolute top-0 left-0 w-[175px]"
-                    />
-                    <img
-                        src={CantoDireito}
-                        className="absolute bottom-0 right-0 w-[175px]"
-                    />
-                    <div className="flex flex-col justify-center items-center border-[30px] border-gray-200 w-[90%] h-[90%]">
+                <div className="relative w-[400px] min700:w-[600px] min900:w-[800px] min1100:w-[1000px] h-[500px] flex flex-col justify-center items-center rounded-lg overflow-hidden">
+                    <div className="absolute flex flex-col justify-center items-center border-[30px] border-transparent w-[90%] h-[90%] z-20">
                         {faseAtual <= 3 ? (
                             <>
-                                <div className="flex flex-col items-center justify-center h-[20%] gap-4">
-                                    <div className="flex justify-between w-[450px] mt-[10px]">
+                                <div className="flex flex-col items-center justify-center h-[20%] gap-4 w-full">
+                                    <div className="flex justify-center gap-4 w-full mt-[10px]">
                                         {[1, 2, 3].map((step) => (
                                             <div
                                                 key={step}
-                                                className={`h-[10px] flex-1 mx-1 rounded-full transition-all duration-300 ease-in-out ${
+                                                className={`h-[10px] w-[20%] min900:w-[15%] rounded-full transition-all duration-300 ease-in-out ${
                                                     faseAtual >= step
                                                         ? "bg-verde-padrao"
                                                         : "bg-cinza"
@@ -100,8 +92,7 @@ export default function ModalSolicitacao({
                                             />
                                         ))}
                                     </div>
-
-                                    <div className="w-full flex justify-center items-center text-gray-900 text-2xl font-extrabold mt-3">
+                                    <div className="w-full flex justify-center items-center text-center text-gray-900 text-2xl font-extrabold mt-3">
                                         {faseAtual === 1
                                             ? "De qual serviço você necessita?"
                                             : faseAtual === 2
@@ -151,7 +142,7 @@ export default function ModalSolicitacao({
                                         />
                                     )}
                                 </div>
-                                <div className="flex items-center justify-between w-[50%]">
+                                <div className="flex items-center justify-between w-[90%] min700:w-[60%] min900:w-[50%]">
                                     <button
                                         className="flex items-center rounded-full border-2 border-verde-padrao h-[35px] w-[120px] text-verde-padrao text-lg"
                                         onClick={() =>
@@ -203,6 +194,15 @@ export default function ModalSolicitacao({
                             <SolicitacaoConclusao />
                         )}
                     </div>
+                    <img
+                        src={CantoEsquerdo}
+                        className="absolute top-0 left-0 w-[175px]"
+                    />
+                    <img
+                        src={CantoDireito}
+                        className="absolute bottom-0 right-0 w-[175px]"
+                    />
+                    <div className="flex flex-col justify-center items-center border-[30px] border-gray-200 w-[90%] h-[90%]"></div>
                 </div>
             </ModalCustom>
         </>
