@@ -1,7 +1,7 @@
 import { defer } from "@/utils/functions";
 import useWatch from "@/utils/useWatch";
 import { useRef } from "react";
-import ModalCustom from "./ModalCustom";
+import ModalCustom from "@/components/main/ModalCustom";
 
 export default function ModalAviso({
     modalGettr,

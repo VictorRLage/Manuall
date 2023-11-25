@@ -1,4 +1,4 @@
-import ModalCustom from "../main/ModalCustom";
+import ModalCustom from "@/components/main/ModalCustom";
 import axios from "@/api/axios";
 
 export default function ModalDownload({ modalGettr, modalSettr }) {

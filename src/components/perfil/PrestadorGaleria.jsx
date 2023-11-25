@@ -24,7 +24,7 @@ export default function PrestadorGaleria({
                 Galeria de <span className="text-verde-escuro-1">Imagens</span>
             </span>
             <div className="py-4">
-                <div className="flex flex-wrap min1180:max-w-[910px] min876:max-w-[606px] max-w-[302px] rounded-3xl overflow-hidden gap-[4px]">
+                <div className="grid grid-cols-1 min500:grid-cols-2 min500:max-w-[600px] max-w-[300px] rounded-3xl overflow-hidden gap-[4px]">
                     {hasInfoLoaded
                         ? Array.from({ length: 6 }, (_, i) => (
                               <PrestadorGaleriaImg

@@ -6,7 +6,7 @@ import PrestadorCard from "@/components/perfil/PrestadorCard";
 import { useData } from "@/data/CreateContext";
 import { Fragment } from "react";
 import Skeleton from "react-loading-skeleton";
-import ContratarButtons from "./ContratarButtons";
+import ContratarButtons from "@/components/perfil/ContratarButtons";
 
 export default function PrestadorMain({
     prestador,

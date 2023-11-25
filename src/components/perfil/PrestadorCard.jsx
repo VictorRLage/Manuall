@@ -1,6 +1,9 @@
 import defaultPfp from "@/assets/demo/default_pfp.jpg";
 import ImageAddIcon from "@/assets/icons/image_add.png";
-import { PencilSquareIcon, StarIcon as StarIconVazio } from "@heroicons/react/24/outline";
+import {
+    PencilSquareIcon,
+    StarIcon as StarIconVazio,
+} from "@heroicons/react/24/outline";
 import { StarIcon as StarIconCheio } from "@heroicons/react/24/solid";
 import Skeleton from "react-loading-skeleton";
 
@@ -83,13 +86,13 @@ export default function PrestadorCard({
                     <Skeleton width={120} height={20} />
                 </>
             )}
-            <div className="flex w-full py-4">
-                <div className="w-full flex flex-col items-center justify-center">
-                    <span>Preço</span>
-                    <span>Cidade</span>
-                    <span>Estado</span>
+            <div className="grid grid-cols-2 py-4">
+                <div className="w-fit flex flex-col">
+                    <span>Preço:</span>
+                    <span>Estado:</span>
+                    <span>Cidade:</span>
                 </div>
-                <div className="w-full flex flex-col items-center justify-center">
+                <div className="w-fit flex flex-col">
                     {hasInfoLoaded ? (
                         <>
                             <span>

@@ -48,7 +48,7 @@ export default function SolicitacaoFase2({
                 <img
                     src={SentMessage}
                     alt="Ícone de rapaz enviando arquivo"
-                    className="w-[200px] absolute bottom-[55px] left-[85px]"
+                    className="w-[200px] absolute -bottom-[20px] left-0"
                 />
             )}
         </>
