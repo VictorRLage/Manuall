@@ -162,7 +162,7 @@ export default function HistoricoRow({
                         <button
                             className={`${
                                 valorOrcamento
-                                    ? "bg-[#00cc69]"
+                                    ? "bg-[#00cc69] hover:bg-green-600 transition-colors"
                                     : "bg-gray-400 cursor-default"
                             } px-8 py-4 rounded-lg text-white font-semibold`}
                             onClick={() => {

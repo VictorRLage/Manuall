@@ -167,7 +167,7 @@ export default function AdmAprovacao() {
                             <option value={3}>Finalizado</option>
                         </select>
                         <div
-                            className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
+                            className="hover:bg-gray-100 transition-colors h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
                             onClick={() => setModalDownload(true)}
                         >
                             <img
@@ -177,7 +177,7 @@ export default function AdmAprovacao() {
                             />
                         </div>
                         <div
-                            className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
+                            className="hover:bg-gray-100 transition-colors h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
                             onClick={() => setModalUpload(true)}
                         >
                             <img

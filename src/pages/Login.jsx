@@ -10,6 +10,7 @@ import { useData } from "@/data/CreateContext";
 import Regex from "@/enum/RegexENUM";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import { useRef, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -30,6 +31,8 @@ export default function Login() {
 
     const email_input = useRef(null);
     const senha_input = useRef(null);
+
+    const [loading, setLoading] = useState(false);
 
     const checarDuplicidadeEmail = () => {
         axios
@@ -56,6 +59,7 @@ export default function Login() {
     };
 
     const login = () => {
+        setLoading(true);
         axios
             .post("/usuario/login/efetuar", {
                 email: email_input.current.value,
@@ -124,7 +128,8 @@ export default function Login() {
                     setAvisoTitulo("Erro inesperado");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
                 }
-            });
+            })
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -221,9 +226,13 @@ export default function Login() {
                             <div className="flex justify-center mt-3">
                                 <button
                                     onClick={login}
-                                    className="rounded-full text-2xl font-semibold text-white px-16 py-2 bg-verde-padrao"
+                                    className="w-[200px] h-[50px] flex items-center justify-center rounded-full text-2xl font-semibold text-white bg-verde-padrao hover:bg-green-400 transition-colors"
                                 >
-                                    Entrar
+                                    {loading ? (
+                                        <ThreeDots height="20" color="#fff" />
+                                    ) : (
+                                        "Entrar"
+                                    )}
                                 </button>
                             </div>
                             <div className="w-full flex justify-center">

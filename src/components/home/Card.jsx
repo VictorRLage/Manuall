@@ -77,7 +77,7 @@ export default function Card({
                     </span>
                 </div>
                 <div className="flex justify-center">
-                    <button className="px-6 py-2 text-xl bg-verde-padrao rounded-full text-white font-semibold">
+                    <button className="px-6 py-2 text-xl bg-verde-padrao hover:bg-green-400 transition-colors rounded-full text-white font-semibold">
                         CONTRATAR
                     </button>
                 </div>

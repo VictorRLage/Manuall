@@ -2,6 +2,7 @@ import axios from "@/api/axios";
 import BgModal from "@/assets/shapes/ModalBg.png";
 import ModalCustom from "@/components/main/ModalCustom";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function ModalAvaliacao({
     modalGettr,
@@ -14,7 +15,10 @@ export default function ModalAvaliacao({
 
     const [txtDescricao, setTxtDescricao] = useState("");
 
+    const [loading, setLoading] = useState(false);
+
     const postarAvaliacao = () => {
+        setLoading(true);
         axios
             .post(`/solicitacao/postarAvaliacao`, {
                 solicitacaoId: notificacao?.solicitacaoId,
@@ -25,7 +29,8 @@ export default function ModalAvaliacao({
                 refetch();
                 modalSettr(false);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -74,10 +79,14 @@ export default function ModalAvaliacao({
                         onChange={(e) => setTxtDescricao(e.target.value)}
                     />
                     <button
-                        className="bg-verde-padrao hover:bg-[rgb(16,166,93)] text-white rounded-lg text-xl px-6 py-2 transition-all"
+                        className="bg-verde-padrao hover:bg-[rgb(16,166,93)] w-[100px] h-[45px] flex items-center justify-center text-white rounded-lg text-xl transition-all"
                         onClick={postarAvaliacao}
                     >
-                        Avaliar
+                        {loading ? (
+                            <ThreeDots height="15" color="#fff" />
+                        ) : (
+                            "Avaliar"
+                        )}
                     </button>
                 </div>
             </div>

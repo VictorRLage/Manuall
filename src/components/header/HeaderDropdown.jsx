@@ -59,7 +59,7 @@ export default function HeaderDropdown({
                         <div className="bg-white h-auto flex flex-col w-[300px] rounded-xl rounded-tr-none p-4 gap-3">
                             {userType === 2 && (
                                 <button
-                                    className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                    className="bg-[#008042] hover:bg-green-800 transition-colors min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                                     onClick={() => {
                                         navigate("/perfil");
                                     }}
@@ -69,7 +69,7 @@ export default function HeaderDropdown({
                                 </button>
                             )}
                             <button
-                                className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                className="bg-[#008042] hover:bg-green-800 transition-colors min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                                 onClick={() => {
                                     setModalNotificacoes(true);
                                 }}
@@ -78,7 +78,7 @@ export default function HeaderDropdown({
                                 Notificações
                             </button>
                             <button
-                                className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                className="bg-[#008042] hover:bg-green-800 transition-colors min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                                 onClick={() => {
                                     setModalAcessibilidade(true);
                                 }}
@@ -87,7 +87,7 @@ export default function HeaderDropdown({
                                 Acessibilidade
                             </button>
                             <button
-                                className="bg-[#008042] min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
+                                className="bg-[#008042] hover:bg-green-800 transition-colors min-h-[50px] w-full text-white flex items-center px-4 gap-2 font-semibold rounded-lg"
                                 onClick={logoff}
                             >
                                 <ArrowLeftOnRectangleIcon className="w-5 h-5" />

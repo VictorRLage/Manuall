@@ -4,8 +4,11 @@ import Protanopia from "@/assets/icons/acessibilidade_protanopia.png";
 import Tritanopia from "@/assets/icons/acessibilidade_tritanopia.png";
 import AcessibilidadeBg from "@/assets/shapes/AcessibilidadeBg.png";
 import ModalCustom from "@/components/main/ModalCustom";
+import { useNavigate } from "react-router-dom";
 
 export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
+    const navigate = useNavigate();
+
     return (
         <ModalCustom
             modalGettr={modalGettr}
@@ -32,7 +35,10 @@ export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
                 </div>
                 <div className="w-full h-[375px] flex flex-col pb-4">
                     <div className="h-[50%] flex justify-center items-center gap-8">
-                        <div className="w-[160px] h-[160px] bg-[#f5f5f5] drop-shadow-md flex flex-col justify-center items-center gap-3">
+                        <div
+                            onClick={() => navigate("/development")}
+                            className="w-[160px] h-[160px] bg-[#f5f5f5] hover:bg-gray-200 transition-colors cursor-pointer drop-shadow-md flex flex-col justify-center items-center gap-3"
+                        >
                             <span className="text-xl">Visão Normal</span>
                             <img
                                 src={Normal}
@@ -40,7 +46,10 @@ export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
                                 className="h-[50%]"
                             />
                         </div>
-                        <div className="w-[160px] h-[160px] bg-[#f5f5f5] drop-shadow-md flex flex-col justify-center items-center gap-3">
+                        <div
+                            onClick={() => navigate("/development")}
+                            className="w-[160px] h-[160px] bg-[#f5f5f5] hover:bg-gray-200 transition-colors cursor-pointer drop-shadow-md flex flex-col justify-center items-center gap-3"
+                        >
                             <span className="text-xl">Deuteranopia</span>
                             <img
                                 src={Deuteranopia}
@@ -50,7 +59,10 @@ export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
                         </div>
                     </div>
                     <div className="h-[50%] flex justify-center items-center gap-8">
-                        <div className="w-[160px] h-[160px] bg-[#f5f5f5] drop-shadow-md flex flex-col justify-center items-center gap-3">
+                        <div
+                            onClick={() => navigate("/development")}
+                            className="w-[160px] h-[160px] bg-[#f5f5f5] hover:bg-gray-200 transition-colors cursor-pointer drop-shadow-md flex flex-col justify-center items-center gap-3"
+                        >
                             <span className="text-xl">Protanopia</span>
                             <img
                                 src={Protanopia}
@@ -58,7 +70,10 @@ export default function ModalAcessibilidade({ modalGettr, modalSettr }) {
                                 className="h-[50%]"
                             />
                         </div>
-                        <div className="w-[160px] h-[160px] bg-[#f5f5f5] drop-shadow-md flex flex-col justify-center items-center gap-3">
+                        <div
+                            onClick={() => navigate("/development")}
+                            className="w-[160px] h-[160px] bg-[#f5f5f5] hover:bg-gray-200 transition-colors cursor-pointer drop-shadow-md flex flex-col justify-center items-center gap-3"
+                        >
                             <span className="text-xl">Tritanopia</span>
                             <img
                                 src={Tritanopia}

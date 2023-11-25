@@ -9,6 +9,7 @@ import SolicitacaoFase2 from "@/components/solicitacao/SolicitacaoFase2";
 import SolicitacaoFase3 from "@/components/solicitacao/SolicitacaoFase3";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function ModalSolicitacao({
     modalGettr,
@@ -27,6 +28,8 @@ export default function ModalSolicitacao({
 
     const [modalUrlGaleria, setModalUrlGaleria] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const [faseValidated, setFaseValidated] = useState({
         fase1: false,
         fase2: false,
@@ -34,6 +37,7 @@ export default function ModalSolicitacao({
     });
 
     const finalizar = () => {
+        setLoading(true);
         axios
             .post("/solicitacao", {
                 idPrestador,
@@ -47,7 +51,8 @@ export default function ModalSolicitacao({
             .then(() => {
                 setFaseAtual(faseAtual + 1);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => setLoading(false));
     };
 
     useEffect(() => {
@@ -144,7 +149,7 @@ export default function ModalSolicitacao({
                                 </div>
                                 <div className="flex items-center justify-between w-[90%] min700:w-[60%] min900:w-[50%]">
                                     <button
-                                        className="flex items-center rounded-full border-2 border-verde-padrao h-[35px] w-[120px] text-verde-padrao text-lg"
+                                        className="flex items-center hover:bg-gray-100 transition-colors rounded-full border-2 border-verde-padrao h-[35px] w-[120px] text-verde-padrao text-lg"
                                         onClick={() =>
                                             faseAtual === 1
                                                 ? modalSettr(false)
@@ -165,10 +170,14 @@ export default function ModalSolicitacao({
                                         </span>
                                     </button>
                                     <button
-                                        className={`text-white text-lg flex justify-end items-center rounded-full h-[35px] w-[120px] ${
+                                        className={`text-white text-lg flex items-center rounded-full h-[35px] w-[120px] ${
                                             faseValidated[`fase${faseAtual}`]
-                                                ? "bg-verde-padrao"
+                                                ? "bg-verde-padrao hover:bg-green-400 transition-colors"
                                                 : "bg-cinza-claro-1 cursor-default"
+                                        } ${
+                                            loading
+                                                ? "justify-center"
+                                                : "justify-end"
                                         }`}
                                         onClick={() =>
                                             faseValidated[`fase${faseAtual}`] &&
@@ -177,16 +186,27 @@ export default function ModalSolicitacao({
                                                 : finalizar())
                                         }
                                     >
-                                        <span
-                                            className={
-                                                faseAtual < 3 ? "mr-2" : "mr-1"
-                                            }
-                                        >
-                                            {faseAtual < 3
-                                                ? "Próximo"
-                                                : "Finalizar"}
-                                        </span>
-                                        <ChevronRightIcon className="text-white mr-1 w-[25px] h-[25px]" />
+                                        {loading ? (
+                                            <ThreeDots
+                                                height="15"
+                                                color="#fff"
+                                            />
+                                        ) : (
+                                            <>
+                                                <span
+                                                    className={
+                                                        faseAtual < 3
+                                                            ? "mr-2"
+                                                            : "mr-1"
+                                                    }
+                                                >
+                                                    {faseAtual < 3
+                                                        ? "Próximo"
+                                                        : "Finalizar"}
+                                                </span>
+                                                <ChevronRightIcon className="text-white mr-1 w-[25px] h-[25px]" />
+                                            </>
+                                        )}
                                     </button>
                                 </div>
                             </>

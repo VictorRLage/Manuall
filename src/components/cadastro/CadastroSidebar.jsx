@@ -41,7 +41,7 @@ export default function CadastroSidebar({
                             onClick={() => {
                                 setModalEscolherCadastro(true);
                             }}
-                            className="text-2xl text-verde-escuro-1 bg-white shadow-md py-2 px-12 rounded-full font-semibold"
+                            className="text-2xl text-verde-escuro-1 bg-white hover:bg-gray-200 transition-colors shadow-md py-2 px-12 rounded-full font-semibold"
                         >
                             Cadastre-se
                         </button>

@@ -1,6 +1,8 @@
 import axios from "@/api/axios";
 import defaultImg from "@/assets/demo/default_img.jpg";
 import ModalCustom from "@/components/main/ModalCustom";
+import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function ModalReceberSolicitacao({
     modalGettr,
@@ -9,14 +11,18 @@ export default function ModalReceberSolicitacao({
     refetch,
 }) {
     const aprovarSolicitacao = (aprovar) => {
+        setLoading(String(aprovar));
         axios
             .post(`/solicitacao/${notificacao.solicitacaoId}/${aprovar}`)
             .then(() => {
                 refetch();
                 modalSettr(false);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => setLoading(null));
     };
+
+    const [loading, setLoading] = useState(null);
 
     return (
         <ModalCustom
@@ -82,20 +88,30 @@ export default function ModalReceberSolicitacao({
                     </div>
                     <div className="w-full h-full flex justify-center items-center gap-8">
                         <button
-                            className="text-white bg-[#388760] w-fit self-end px-5 rounded-md text-2xl py-1 mt-4 hover:bg-[rgb(43,111,77)] transition-colors"
+                            className="text-white flex items-center justify-center bg-[#388760] w-[120px] h-[40px] self-end rounded-md text-2xl mt-4 hover:bg-[rgb(43,111,77)] transition-colors"
                             onClick={() => {
+                                if (loading) return;
                                 aprovarSolicitacao(true);
                             }}
                         >
-                            Aceitar
+                            {loading === "true" ? (
+                                <ThreeDots height="15" color="#fff" />
+                            ) : (
+                                "Aceitar"
+                            )}
                         </button>
                         <button
-                            className="text-white bg-[#BE4343] w-fit self-start px-5 rounded-md text-2xl py-1 mt-4 hover:bg-[rgb(168,37,37)] transition-colors"
+                            className="text-white flex items-center justify-center bg-[#BE4343] w-[120px] h-[40px] self-start rounded-md text-2xl mt-4 hover:bg-[rgb(168,37,37)] transition-colors"
                             onClick={() => {
+                                if (loading) return;
                                 aprovarSolicitacao(false);
                             }}
                         >
-                            Recusar
+                            {loading === "false" ? (
+                                <ThreeDots height="15" color="#fff" />
+                            ) : (
+                                "Recusar"
+                            )}
                         </button>
                     </div>
                 </div>
