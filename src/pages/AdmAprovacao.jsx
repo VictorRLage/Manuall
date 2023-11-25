@@ -10,7 +10,9 @@ import ModalAviso from "@/components/main/ModalAviso";
 import RegexENUM from "@/enum/RegexENUM";
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
-import AprovacaoDesfazer from "../components/adm/AprovacaoDesfazer";
+import AprovacaoDesfazer from "@/components/adm/AprovacaoDesfazer";
+import ModalDownload from "@/components/adm/ModalDownload";
+import ModalUpload from "@/components/adm/ModalUpload";
 
 export default function AdmAprovacao() {
     const [prestadores, setPrestadores] = useState();
@@ -19,6 +21,8 @@ export default function AdmAprovacao() {
     const [agrupamentoSelecionado, setAgrupamentoSelecionado] = useState(0);
 
     const [modalAviso, setModalAviso] = useState(false);
+    const [modalDownload, setModalDownload] = useState(false);
+    const [modalUpload, setModalUpload] = useState(false);
     const [decisoes, setDecisoes] = useState([]);
 
     const { prestadoresPendente, prestadoresAgendado, prestadoresFinalizado } =
@@ -120,6 +124,11 @@ export default function AdmAprovacao() {
                 tempo={5000}
                 titulo={"Não existem decisões para serem desfeitas"}
             />
+            <ModalDownload
+                modalGettr={modalDownload}
+                modalSettr={setModalDownload}
+            />
+            <ModalUpload modalGettr={modalUpload} modalSettr={setModalUpload} />
             <div className="h-screen w-screen flex bg-cinza-claro-2">
                 <Sidebar />
                 <div className="grow h-full overflow-y-scroll">
@@ -159,7 +168,7 @@ export default function AdmAprovacao() {
                         </select>
                         <div
                             className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
-                            onClick={() => {}}
+                            onClick={() => setModalDownload(true)}
                         >
                             <img
                                 src={FileDownload}
@@ -169,7 +178,7 @@ export default function AdmAprovacao() {
                         </div>
                         <div
                             className="h-[50px] border-2 border-[rgb(134,134,134)] rounded-xl min-w-[50px] flex items-center justify-center cursor-pointer bg-white"
-                            onClick={() => {}}
+                            onClick={() => setModalUpload(true)}
                         >
                             <img
                                 src={FileUpload}
