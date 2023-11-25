@@ -4,9 +4,7 @@ import { useEffect } from "react";
 
 export default function AdmDashboard() {
     useEffect(() => {
-        axios.get("/usuario/login/checar/validade").catch((err) => {
-            console.log(err);
-        });
+        axios.get("/usuario/login/checar/validade").catch(console.log);
     }, []);
 
     return (

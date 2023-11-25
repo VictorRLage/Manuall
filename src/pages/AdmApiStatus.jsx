@@ -12,18 +12,14 @@ export default function AdmApiStatus() {
         routineApiInstance
             .post(`/pipefy/${ativar ? "ligar" : "desligar"}`)
             .then(checarApis)
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch(console.log);
     };
 
     const alterarApiCrm = (ativar) => {
         routineApiInstance
             .post(`/crm/${ativar ? "ligar" : "desligar"}`)
             .then(checarApis)
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch(console.log);
     };
 
     const checarApis = () => {
@@ -36,9 +32,7 @@ export default function AdmApiStatus() {
     };
 
     useEffect(() => {
-        axios.get("/usuario/login/checar/validade").catch((err) => {
-            console.log(err);
-        });
+        axios.get("/usuario/login/checar/validade").catch(console.log);
         checarApis();
     }, []);
 

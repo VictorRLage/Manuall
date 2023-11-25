@@ -113,7 +113,7 @@ export default function Dashboard() {
         axios
             .get(`dashboard/${intervalo[0]}/${intervalo[1]}`)
             .then((res) => setDashboardData(res.data))
-            .catch((err) => console.log(err));
+            .catch(console.log);
     }, [intervalo]);
 
     return (

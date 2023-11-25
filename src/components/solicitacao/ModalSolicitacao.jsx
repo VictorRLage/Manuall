@@ -51,7 +51,7 @@ export default function ModalSolicitacao({
             .then(() => {
                 setFaseAtual(faseAtual + 1);
             })
-            .catch((err) => console.log(err))
+            .catch(console.log)
             .finally(() => setLoading(false));
     };
 

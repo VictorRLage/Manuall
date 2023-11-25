@@ -105,7 +105,7 @@ export default function Fase3({
         axios
             .get("/usuario/areas")
             .then(({ data }) => setAreas(data))
-            .catch((err) => console.log(err));
+            .catch(console.log);
     }, []);
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export default function Fase3({
         axios
             .get(`/usuario/servico/${areaSelecionada}`)
             .then(({ data }) => setServicos(data))
-            .catch((err) => console.log(err));
+            .catch(console.log);
     }, [areaSelecionada]);
 
     useEffect(() => {

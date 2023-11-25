@@ -57,7 +57,7 @@ export default function Perfil({ isOwnProfile }) {
                 setModalUrlGaleria(false);
                 refetch();
             })
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     useEffect(() => {

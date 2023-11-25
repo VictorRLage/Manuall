@@ -26,7 +26,7 @@ export default function PrestadorMain({
                 descricao: descricao.value,
             })
             .then(refetch)
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     return (

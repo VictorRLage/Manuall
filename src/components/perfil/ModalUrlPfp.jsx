@@ -23,7 +23,7 @@ export default function ModalUrlPfp({
                 refetch();
                 modalSettr(false);
             })
-            .catch((err) => console.log(err))
+            .catch(console.log)
             .finally(() => {
                 setLoading(false);
             });

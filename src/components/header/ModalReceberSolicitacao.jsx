@@ -18,7 +18,7 @@ export default function ModalReceberSolicitacao({
                 refetch();
                 modalSettr(false);
             })
-            .catch((err) => console.log(err))
+            .catch(console.log)
             .finally(() => setLoading(null));
     };
 

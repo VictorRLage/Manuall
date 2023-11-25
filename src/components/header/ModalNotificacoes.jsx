@@ -35,9 +35,8 @@ export default function ModalNotificacoes({
                 .then((res) => {
                     setNotificacoes(res.data.reverse());
                     setNotificacoesCount(res.data.length);
-                    console.log(res.data);
                 })
-                .catch((err) => console.log(err));
+                .catch(console.log);
         }
 
         refetchAll();

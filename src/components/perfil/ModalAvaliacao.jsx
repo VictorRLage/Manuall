@@ -29,7 +29,7 @@ export default function ModalAvaliacao({
                 refetch();
                 modalSettr(false);
             })
-            .catch((err) => console.log(err))
+            .catch(console.log)
             .finally(() => setLoading(false));
     };
 

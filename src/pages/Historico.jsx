@@ -21,9 +21,7 @@ export default function Historico() {
                     setSolicitacoes(res.data);
                 }
             })
-            .catch((err) => {
-                console.log(err);
-            });
+            .catch(console.log);
     };
 
     useEffect(() => {

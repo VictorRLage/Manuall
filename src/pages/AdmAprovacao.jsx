@@ -79,7 +79,7 @@ export default function AdmAprovacao() {
                     setDecisoes((prevItems) => [...prevItems, idPrestador]);
                 }
             })
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     const alterarStatusProcessoAprovacao = (
@@ -94,7 +94,7 @@ export default function AdmAprovacao() {
             .then(() => {
                 fetch();
             })
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     const fetch = () => {
@@ -103,7 +103,7 @@ export default function AdmAprovacao() {
             .then(({ status, data }) => {
                 if (status === 200) setPrestadores(data);
             })
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     useEffect(fetch, []);
