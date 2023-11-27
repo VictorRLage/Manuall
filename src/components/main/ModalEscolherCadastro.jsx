@@ -29,7 +29,7 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
                         onClick={() => {
                             navigate("/cadastro/contratante");
                         }}
-                        className="w-42 h-12 text-2xl bg-verde-escuro-1 rounded-2xl text-white"
+                        className="w-42 h-12 text-2xl bg-verde-escuro-1 hover:bg-green-800 transition-colors rounded-2xl text-white"
                     >
                         Contratante
                     </button>
@@ -37,7 +37,7 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
                         onClick={() => {
                             navigate("/cadastro/prestador");
                         }}
-                        className="w-42 h-12 text-2xl bg-verde-escuro-1 rounded-2xl text-white"
+                        className="w-42 h-12 text-2xl bg-verde-escuro-1 hover:bg-green-800 transition-colors rounded-2xl text-white"
                     >
                         Prestador
                     </button>

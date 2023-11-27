@@ -125,7 +125,6 @@ export default function CadastroContratante() {
                 }
             })
             .catch((err) => {
-                console.log(err);
                 if (err.response.status === 404) {
                     setModalAviso(true);
                     setAvisoTitulo("Você ainda não chegou nessa fase");
@@ -138,6 +137,7 @@ export default function CadastroContratante() {
                     setModalAviso(true);
                     setAvisoTitulo("Erro interno");
                     setAvisoDescricao("Por favor tente novamente mais tarde");
+                    console.log(err);
                 }
             })
             .finally(() => {

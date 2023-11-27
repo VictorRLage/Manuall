@@ -38,14 +38,14 @@ export default function Prestadores() {
             .then(({ data }) => {
                 setPrestadores(data);
             })
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     useEffect(() => {
         axios
             .get("/usuario/areas")
             .then(({ data }) => setAreas(data))
-            .catch((err) => console.log(err));
+            .catch(console.log);
 
         getPrestadores();
 

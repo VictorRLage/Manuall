@@ -8,6 +8,7 @@ import NoChatsIcon from "@/assets/icons/no_chats_icon.png";
 import Manuel from "@/assets/manuall/manuel_pfp.png";
 import ChatManuel from "@/components/header/ChatManuel";
 import ChatUsuario from "@/components/header/ChatUsuario";
+import ModalChatUrlMensagem from "@/components/header/ModalChatUrlMensagem";
 import { useData } from "@/data/CreateContext";
 import { defer } from "@/utils/functions";
 import { PaperAirplaneIcon, PhotoIcon } from "@heroicons/react/24/solid";
@@ -39,7 +40,10 @@ export default function Chat({
     const [stompClient, setStompClient] = useState(null);
 
     const [mensagem, setMensagem] = useState("");
+    const [anexo, setAnexo] = useState("");
     const [tempId, setTempId] = useState(0);
+
+    const [chatUrlMensagem, setChatUrlMensagem] = useState(false);
 
     const alternarChat = (e) => {
         if (
@@ -136,7 +140,7 @@ export default function Chat({
                             setUserId(data);
                             setStompClient(stomp);
                         })
-                        .catch((err2) => console.log(err2));
+                        .catch(console.log);
                 }
             })
             .catch((err) => console.error(err));
@@ -255,9 +259,9 @@ export default function Chat({
 
         const mensagemAtual = {
             mensagem,
+            anexo,
             solicitacaoId: chatAtual.solicitacaoId,
             token: localStorage.getItem("TOKEN"),
-            anexo: null,
             tempId: curTempId,
         };
         stompClient.send("/app/chat", {}, JSON.stringify(mensagemAtual));
@@ -303,241 +307,257 @@ export default function Chat({
     if (windowWidth <= 600 && !isOpen) return <></>;
 
     return (
-        <div
-            className="fixed z-40 min600:right-8 max600:flex max600:flex-col max600:h-full w-full min600:w-[350px] transition-all"
-            style={{ bottom: isOpen ? "0" : "-400px" }}
-        >
+        <>
+            <ModalChatUrlMensagem
+                modalGettr={chatUrlMensagem}
+                modalSettr={setChatUrlMensagem}
+                mensagem={{ mensagem, setMensagem }}
+                anexo={{ anexo, setAnexo }}
+                enviar={sendMessage}
+            />
             <div
-                onClick={alternarChat}
-                className="bg-verde-escuro-1 h-[50px] min600:rounded-t-lg flex items-center justify-between px-4 cursor-pointer hover:bg-verde-escuro-2 transition-all"
+                className="fixed z-40 min600:right-8 max600:flex max600:flex-col max600:h-full w-full min600:w-[350px] transition-all"
+                style={{ bottom: isOpen ? "0" : "-400px" }}
             >
-                <div className="flex justify-center items-center">
-                    {chatAtual && (
-                        <button
-                            ref={btnFecharConversa}
-                            onClick={() => {
-                                setChatAtual(undefined);
-                                getDadosCrm();
-                            }}
-                            className="w-8 h-8 p-1 flex justify-center items-center rotate-180 hover:bg-verde-escuro-1 transition-all rounded-full"
-                        >
-                            <img
-                                ref={imgBtnFecharConversa}
-                                className="transition-all"
-                                src={Arrow}
-                                alt=""
-                            />
-                        </button>
-                    )}
-                    <span
-                        className="text-white font-bold text-xl"
-                        style={{ paddingLeft: chatAtual ? "4px" : "0" }}
-                    >
-                        {chatAtual?.name || "Conversas"}
-                    </span>
-                </div>
-                <div className="w-8 h-8 p-1 flex justify-center items-center">
-                    <img
-                        className="transition-all h-4"
-                        style={{ rotate: isOpen ? "180deg" : "360deg" }}
-                        src={ArrowHead}
-                        alt=""
-                    />
-                </div>
-            </div>
-            {chatAtual ? (
-                <>
-                    <div
-                        ref={scrollingDiv}
-                        className={`bg-gray-100 flex flex-col overflow-y-auto py-2 scroll-smooth ${
-                            chatAtual.isManuel
-                                ? "max600:grow min600:h-[400px]"
-                                : "max600:grow min600:h-[360px]"
-                        }`}
-                    >
-                        {chatAtual.isManuel ? (
-                            <ChatManuel
-                                chat={chatAtual}
-                                scrollDown={scrollDown}
-                            />
-                        ) : (
-                            <ChatUsuario chat={chatAtual} />
-                        )}
-                    </div>
-                    {!chatAtual.isManuel && (
-                        <div className="bg-gray-100 h-[40px] flex items-center justify-between px-1 gap-2 border-2 border-t-gray-200 relative">
-                            <div className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full cursor-pointer">
-                                <PhotoIcon className="text-white" />
-                            </div>
-                            <input
-                                className="bg-gray-200 h-[30px] w-full rounded-xl px-1 focus:border-[2px] border-verde-escuro-1 outline-none"
-                                placeholder="Digite sua mensagem aqui"
-                                value={mensagem}
-                                onChange={({ target }) =>
-                                    setMensagem(target.value)
-                                }
-                                onKeyDown={({ key }) => {
-                                    if (key === "Enter") sendMessage();
+                <div
+                    onClick={alternarChat}
+                    className="bg-verde-escuro-1 h-[50px] min600:rounded-t-lg flex items-center justify-between px-4 cursor-pointer hover:bg-verde-escuro-2 transition-all"
+                >
+                    <div className="flex justify-center items-center">
+                        {chatAtual && (
+                            <button
+                                ref={btnFecharConversa}
+                                onClick={() => {
+                                    setChatAtual(undefined);
+                                    getDadosCrm();
                                 }}
-                                maxLength={150}
-                            />
-                            <div
-                                className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] rounded-full cursor-pointer"
-                                onClick={sendMessage}
+                                className="w-8 h-8 p-1 flex justify-center items-center rotate-180 hover:bg-verde-escuro-1 transition-all rounded-full"
                             >
-                                <PaperAirplaneIcon className="text-white" />
-                            </div>
-                        </div>
-                    )}
-                </>
-            ) : conversas !== undefined && manuelMsgs && dadosUsuarioCrm ? (
-                <div className="bg-gray-100 max600:grow min600:h-[400px] flex flex-col overflow-y-auto">
-                    {typeof manuelMsgs !== "boolean" &&
-                    typeof dadosUsuarioCrm !== "boolean" ? (
-                        <div
-                            onClick={() => {
-                                selecionarChat(undefined, true);
-                            }}
-                            className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                                <img
+                                    ref={imgBtnFecharConversa}
+                                    className="transition-all"
+                                    src={Arrow}
+                                    alt=""
+                                />
+                            </button>
+                        )}
+                        <span
+                            className="text-white font-bold text-xl"
+                            style={{ paddingLeft: chatAtual ? "4px" : "0" }}
                         >
-                            <div className="w-full h-full flex items-center border-b-2 border-gray-200">
-                                <img
-                                    src={Manuel}
-                                    className="w-10 rounded-full"
-                                    alt=""
+                            {chatAtual?.name || "Conversas"}
+                        </span>
+                    </div>
+                    <div className="w-8 h-8 p-1 flex justify-center items-center">
+                        <img
+                            className="transition-all h-4"
+                            style={{ rotate: isOpen ? "180deg" : "360deg" }}
+                            src={ArrowHead}
+                            alt=""
+                        />
+                    </div>
+                </div>
+                {chatAtual ? (
+                    <>
+                        <div
+                            ref={scrollingDiv}
+                            className={`bg-gray-100 flex flex-col overflow-y-auto py-2 scroll-smooth ${
+                                chatAtual.isManuel
+                                    ? "max600:grow min600:h-[400px]"
+                                    : "max600:grow min600:h-[360px]"
+                            }`}
+                        >
+                            {chatAtual.isManuel ? (
+                                <ChatManuel
+                                    chat={chatAtual}
+                                    scrollDown={scrollDown}
                                 />
-                                <span className="p-2">Manuel</span>
-                                <img
-                                    src={BotCertification}
-                                    className="w-5"
-                                    alt=""
-                                />
-                            </div>
+                            ) : (
+                                <ChatUsuario chat={chatAtual} />
+                            )}
                         </div>
-                    ) : (
-                        conversas === "" &&
-                        conversas?.length === 0 && (
-                            <div className="w-full h-full bg-white flex items-center justify-center flex-col gap-8">
-                                <img
-                                    src={NoChatsIcon}
-                                    className="w-[40%]"
-                                    alt=""
+                        {!chatAtual.isManuel && (
+                            <div className="bg-gray-100 h-[40px] flex items-center justify-between px-1 gap-2 border-2 border-t-gray-200 relative">
+                                <button
+                                    className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] hover:bg-green-800 transition-colors rounded-full cursor-pointer"
+                                    onClick={() => setChatUrlMensagem(true)}
+                                >
+                                    <PhotoIcon className="text-white" />
+                                </button>
+                                <input
+                                    className="bg-gray-200 h-[30px] w-full rounded-xl px-1 focus:border-[2px] border-verde-escuro-1 outline-none"
+                                    placeholder="Digite sua mensagem aqui"
+                                    value={mensagem}
+                                    onChange={({ target }) =>
+                                        setMensagem(target.value)
+                                    }
+                                    onKeyDown={({ key }) => {
+                                        if (key === "Enter") sendMessage();
+                                    }}
+                                    maxLength={150}
                                 />
-                                <span className="text-lg text-center max-w-[80%] font-bold">
-                                    Você não possui solicitações ativas no
-                                    momento
-                                </span>
+                                <button
+                                    className="h-[30px] min-w-[30px] flex items-center justify-center p-[6px] bg-[#008042] hover:bg-green-800 transition-colors rounded-full cursor-pointer"
+                                    onClick={sendMessage}
+                                >
+                                    <PaperAirplaneIcon className="text-white" />
+                                </button>
                             </div>
-                        )
-                    )}
-                    {conversas !== "" &&
-                        (conversas?.length === 0 ? (
-                            <div className="w-full h-full bg-white flex items-center justify-center flex-col gap-8">
-                                <img
-                                    src={NoChatsIcon}
-                                    className="w-[40%]"
-                                    alt=""
-                                />
-                                <span className="text-lg text-center max-w-[80%] font-bold">
-                                    Você não possui solicitações ativas no
-                                    momento
-                                </span>
+                        )}
+                    </>
+                ) : conversas !== undefined && manuelMsgs && dadosUsuarioCrm ? (
+                    <div className="bg-gray-100 max600:grow min600:h-[400px] flex flex-col overflow-y-auto">
+                        {typeof manuelMsgs !== "boolean" &&
+                        typeof dadosUsuarioCrm !== "boolean" ? (
+                            <div
+                                onClick={() => {
+                                    selecionarChat(undefined, true);
+                                }}
+                                className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                            >
+                                <div className="w-full h-full flex items-center border-b-2 border-gray-200">
+                                    <img
+                                        src={Manuel}
+                                        className="w-10 rounded-full"
+                                        alt=""
+                                    />
+                                    <span className="p-2">Manuel</span>
+                                    <img
+                                        src={BotCertification}
+                                        className="w-5"
+                                        alt=""
+                                    />
+                                </div>
                             </div>
                         ) : (
-                            conversas?.map((conversa) => (
-                                <div
-                                    onClick={() => {
-                                        selecionarChat(conversa);
-                                    }}
-                                    className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
-                                    key={conversa.solicitacaoId}
-                                >
-                                    <div className="w-full h-full flex items-center border-b-2 border-gray-200 relative">
-                                        {userType === 1 && (
-                                            <img
-                                                src={conversa.usuarioPfp}
-                                                className="w-10 h-10 rounded-full object-cover"
-                                                alt=""
-                                            />
-                                        )}
-                                        <div className="px-2 flex flex-col">
-                                            <span className="font-medium">
-                                                {conversa.usuarioNome}
-                                            </span>
-                                            <span className="text-gray-600 flex items-center gap-1">
-                                                {(() => {
-                                                    const ultimaMensagem =
-                                                        conversa.mensagens?.[
-                                                            conversa.mensagens
-                                                                .length - 1
-                                                        ];
-                                                    return ultimaMensagem?.mensagem ? (
-                                                        <>
-                                                            {ultimaMensagem.selfSender &&
-                                                                (ultimaMensagem.visto ? (
-                                                                    <img
-                                                                        src={
-                                                                            BlueCheckmark
-                                                                        }
-                                                                        className="h-[8px] opacity-70"
-                                                                        alt=""
-                                                                    />
-                                                                ) : (
-                                                                    <img
-                                                                        src={
-                                                                            GrayCheckmark
-                                                                        }
-                                                                        className="h-[8px] opacity-70"
-                                                                        alt=""
-                                                                    />
-                                                                ))}
-                                                            {
-                                                                ultimaMensagem.mensagem
-                                                            }
-                                                        </>
-                                                    ) : (
-                                                        "Inicie a conversa já!"
-                                                    );
-                                                })()}
-                                            </span>
-                                        </div>
-                                        {conversa.mensagens.length > 0 &&
-                                            conversa.mensagens[
-                                                conversa.mensagens.length - 1
-                                            ].selfSender === false &&
-                                            conversa.mensagens[
-                                                conversa.mensagens.length - 1
-                                            ].visto === false && (
-                                                <div className="h-6 w-6 rounded-full bg-red-600 text-white absolute right-2 flex items-center justify-center text-center">
-                                                    {
-                                                        conversa.mensagens.filter(
-                                                            (m) =>
-                                                                m.selfSender ===
-                                                                    false &&
-                                                                m.visto ===
-                                                                    false,
-                                                        ).length
-                                                    }
-                                                </div>
-                                            )}
-                                    </div>
+                            conversas === "" &&
+                            conversas?.length === 0 && (
+                                <div className="w-full h-full bg-white flex items-center justify-center flex-col gap-8">
+                                    <img
+                                        src={NoChatsIcon}
+                                        className="w-[40%]"
+                                        alt=""
+                                    />
+                                    <span className="text-lg text-center max-w-[80%] font-bold">
+                                        Você não possui solicitações ativas no
+                                        momento
+                                    </span>
                                 </div>
-                            ))
-                        ))}
-                </div>
-            ) : (
-                <div className="bg-white max600:grow min600:h-[400px] flex justify-center items-center">
-                    <Oval
-                        height={50}
-                        color="#00cc69"
-                        visible={true}
-                        ariaLabel="oval-loading"
-                        secondaryColor="#00cc69"
-                        strokeWidth={1}
-                        strokeWidthSecondary={4}
-                    />
-                </div>
-            )}
-        </div>
+                            )
+                        )}
+                        {conversas !== "" &&
+                            (conversas?.length === 0 ? (
+                                <div className="w-full h-full bg-white flex items-center justify-center flex-col gap-8">
+                                    <img
+                                        src={NoChatsIcon}
+                                        className="w-[40%]"
+                                        alt=""
+                                    />
+                                    <span className="text-lg text-center max-w-[80%] font-bold">
+                                        Você não possui solicitações ativas no
+                                        momento
+                                    </span>
+                                </div>
+                            ) : (
+                                conversas?.map((conversa) => (
+                                    <div
+                                        onClick={() => {
+                                            selecionarChat(conversa);
+                                        }}
+                                        className="w-full min-h-[60px] px-4 cursor-pointer hover:bg-gray-100 transition-all"
+                                        key={conversa.solicitacaoId}
+                                    >
+                                        <div className="w-full h-full flex items-center border-b-2 border-gray-200 relative">
+                                            {userType === 1 && (
+                                                <img
+                                                    src={conversa.usuarioPfp}
+                                                    className="w-10 h-10 rounded-full object-cover"
+                                                    alt=""
+                                                />
+                                            )}
+                                            <div className="px-2 flex flex-col">
+                                                <span className="font-medium">
+                                                    {conversa.usuarioNome}
+                                                </span>
+                                                <span className="text-gray-600 flex items-center gap-1">
+                                                    {(() => {
+                                                        const ultimaMensagem =
+                                                            conversa
+                                                                .mensagens?.[
+                                                                conversa
+                                                                    .mensagens
+                                                                    .length - 1
+                                                            ];
+                                                        return ultimaMensagem?.mensagem ? (
+                                                            <>
+                                                                {ultimaMensagem.selfSender &&
+                                                                    (ultimaMensagem.visto ? (
+                                                                        <img
+                                                                            src={
+                                                                                BlueCheckmark
+                                                                            }
+                                                                            className="h-[8px] opacity-70"
+                                                                            alt=""
+                                                                        />
+                                                                    ) : (
+                                                                        <img
+                                                                            src={
+                                                                                GrayCheckmark
+                                                                            }
+                                                                            className="h-[8px] opacity-70"
+                                                                            alt=""
+                                                                        />
+                                                                    ))}
+                                                                {
+                                                                    ultimaMensagem.mensagem
+                                                                }
+                                                            </>
+                                                        ) : (
+                                                            "Inicie a conversa já!"
+                                                        );
+                                                    })()}
+                                                </span>
+                                            </div>
+                                            {conversa.mensagens.length > 0 &&
+                                                conversa.mensagens[
+                                                    conversa.mensagens.length -
+                                                        1
+                                                ].selfSender === false &&
+                                                conversa.mensagens[
+                                                    conversa.mensagens.length -
+                                                        1
+                                                ].visto === false && (
+                                                    <div className="h-6 w-6 rounded-full bg-red-600 text-white absolute right-2 flex items-center justify-center text-center">
+                                                        {
+                                                            conversa.mensagens.filter(
+                                                                (m) =>
+                                                                    m.selfSender ===
+                                                                        false &&
+                                                                    m.visto ===
+                                                                        false,
+                                                            ).length
+                                                        }
+                                                    </div>
+                                                )}
+                                        </div>
+                                    </div>
+                                ))
+                            ))}
+                    </div>
+                ) : (
+                    <div className="bg-white max600:grow min600:h-[400px] flex justify-center items-center">
+                        <Oval
+                            height={50}
+                            color="#00cc69"
+                            visible={true}
+                            ariaLabel="oval-loading"
+                            secondaryColor="#00cc69"
+                            strokeWidth={1}
+                            strokeWidthSecondary={4}
+                        />
+                    </div>
+                )}
+            </div>
+        </>
     );
 }

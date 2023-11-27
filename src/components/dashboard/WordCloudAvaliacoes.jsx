@@ -8,6 +8,14 @@ import { useEffect, useState } from "react";
 export default function WordCloudAvaliacoes({ words, width, height }) {
     const [etlWords, setEtlWords] = useState([]);
 
+    const coresDisponiveis = [
+        "#00CC69",
+        "#4DFFA9",
+        "#185c3b",
+        "#008042",
+        "#268054",
+    ];
+
     useEffect(() => {
         const treatedWords = words.reduce((acc, wordd) => {
             const treatedWord = wordd
@@ -60,15 +68,7 @@ export default function WordCloudAvaliacoes({ words, width, height }) {
                     cloudWords.map((w, i) => (
                         <Text
                             key={i}
-                            fill={
-                                [
-                                    "#00CC69",
-                                    "#4DFFA9",
-                                    "rgba(17, 173, 14, 0.25)",
-                                    "#008042",
-                                    "#268054",
-                                ][i % 5]
-                            }
+                            fill={coresDisponiveis[i % coresDisponiveis.length]}
                             textAnchor="middle"
                             transform={`translate(${w.x}, ${w.y}) rotate(${w.rotate})`}
                             fontSize={w.size}

@@ -35,9 +35,8 @@ export default function ModalNotificacoes({
                 .then((res) => {
                     setNotificacoes(res.data.reverse());
                     setNotificacoesCount(res.data.length);
-                    console.log(res.data);
                 })
-                .catch((err) => console.log(err));
+                .catch(console.log);
         }
 
         refetchAll();
@@ -109,7 +108,7 @@ export default function ModalNotificacoes({
                                 {notificacao.type === 1 ? (
                                     userType === 2 && (
                                         <button
-                                            className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold"
+                                            className="bg-[#4DAF7F] hover:bg-green-500 transition-colors text-white px-4 py-1 rounded-lg font-semibold"
                                             onClick={() => {
                                                 setNotificacaoSelecionada(
                                                     notificacao,
@@ -124,7 +123,7 @@ export default function ModalNotificacoes({
                                     )
                                 ) : notificacao.type === 2 ? (
                                     <button
-                                        className="bg-[#4DAF7F] text-white px-4 py-1 rounded-lg font-semibold"
+                                        className="bg-[#4DAF7F] hover:bg-green-500 transition-colors text-white px-4 py-1 rounded-lg font-semibold"
                                         onClick={() => {
                                             openSpecificChat(
                                                 notificacao.solicitacaoId,

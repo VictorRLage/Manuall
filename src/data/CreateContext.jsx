@@ -1,4 +1,5 @@
 import axios from "@/api/axios";
+import { useEffect } from "react";
 import { createContext, useContext, useState } from "react";
 
 const DataContext = createContext();
@@ -16,6 +17,15 @@ export function CreateContext({ children }) {
     if (localStorage.TOKEN) {
         axios.get("/usuario/nome").then(({ data }) => setUserName(data));
     }
+
+    useEffect(() => {
+        if (
+            userType === 3 &&
+            window.location.pathname.substring(0, 4) !== "/adm"
+        ) {
+            window.location.href = "/adm/aprovacao";
+        }
+    }, [userType]);
 
     return (
         <DataContext.Provider

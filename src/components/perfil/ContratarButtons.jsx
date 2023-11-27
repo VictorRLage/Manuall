@@ -16,7 +16,7 @@ export default function ContratarButtons({
             (prestaAula ? (
                 <>
                     <button
-                        className="bg-verde-padrao text-white px-6 py-2 text-xl m-auto rounded-full"
+                        className="bg-verde-padrao hover:bg-green-400 transition-colors text-white px-6 py-2 text-xl m-auto rounded-full"
                         onClick={() => {
                             setModalSolicitacao(true);
                             setIncluiAula(true);
@@ -25,7 +25,7 @@ export default function ContratarButtons({
                         Contratar com aula
                     </button>
                     <button
-                        className="text-verde-padrao px-6 py-2 text-lg mt-2 m-auto"
+                        className="text-verde-padrao hover:text-green-400 transition-colors px-6 py-2 text-lg mt-2 m-auto"
                         onClick={() => {
                             setModalSolicitacao(true);
                             setIncluiAula(false);
@@ -36,7 +36,7 @@ export default function ContratarButtons({
                 </>
             ) : (
                 <button
-                    className="bg-verde-padrao text-white px-6 py-2 text-2xl m-auto rounded-full"
+                    className="bg-verde-padrao hover:bg-green-400 transition-colors text-white px-6 py-2 text-2xl m-auto rounded-full"
                     onClick={() => {
                         setModalSolicitacao(true);
                         setIncluiAula(false);

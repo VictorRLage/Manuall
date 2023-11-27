@@ -3,7 +3,7 @@ import PlanosBg from "@/assets/shapes/PlanosBg.png";
 import ModalCompraAprovada from "@/components/planos/ModalCompraAprovada";
 import PlanoMinorCard from "@/components/planos/PlanoMinorCard.jsx";
 import { useState } from "react";
-import PlanoMainCard from "../components/planos/PlanoMainCard";
+import PlanoMainCard from "@/components/planos/PlanoMainCard";
 
 const AcessoManual = () => (
     <>
@@ -35,7 +35,7 @@ export default function CadastroPlanos() {
                     setModalCompraAprovada(true);
                 }
             })
-            .catch((err) => console.log(err));
+            .catch(console.log);
     };
 
     return (

@@ -2,6 +2,7 @@ import axios from "@/api/axios";
 import ModalCustom from "@/components/main/ModalCustom";
 import RegexENUM from "@/enum/RegexENUM";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function ModalFormOrcamento({
     modalGettr,
@@ -12,9 +13,12 @@ export default function ModalFormOrcamento({
     const [servico, setServico] = useState("");
     const [valor, setValor] = useState("0");
 
+    const [loading, setLoading] = useState(false);
+
     const [isValueSelected, setIsValueSelected] = useState(false);
 
     const enviarOrcamento = () => {
+        setLoading(true);
         axios
             .post("/solicitacao/postarOrcamento", {
                 mensagem: servico,
@@ -25,7 +29,8 @@ export default function ModalFormOrcamento({
                 refetch();
                 modalSettr(false);
             })
-            .catch((err) => console.log(err));
+            .catch(console.log)
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -78,9 +83,13 @@ export default function ModalFormOrcamento({
                 </div>
                 <button
                     onClick={enviarOrcamento}
-                    className="w-24 h-10 text-xl bg-verde-padrao rounded-full text-white"
+                    className="w-24 h-10 flex items-center justify-center text-xl bg-verde-padrao hover:bg-green-400 transition-colors rounded-xl text-white"
                 >
-                    Enviar
+                    {loading ? (
+                        <ThreeDots height="15" color="#fff" />
+                    ) : (
+                        "Enviar"
+                    )}
                 </button>
             </div>
         </ModalCustom>

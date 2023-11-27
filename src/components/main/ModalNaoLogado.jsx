@@ -49,7 +49,7 @@ export default function ModalNaoLogado({ modalGettr, modalSettr }) {
                             onClick={() => {
                                 navigate("/login");
                             }}
-                            className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white"
+                            className="w-42 h-12 text-2xl bg-verde-padrao hover:bg-green-400 transition-colors rounded-full text-white"
                         >
                             Login
                         </button>
@@ -57,7 +57,7 @@ export default function ModalNaoLogado({ modalGettr, modalSettr }) {
                             onClick={() => {
                                 setSwitchPhase(true);
                             }}
-                            className="w-42 h-12 text-2xl bg-verde-padrao rounded-full text-white"
+                            className="w-42 h-12 text-2xl bg-verde-padrao hover:bg-green-400 transition-colors rounded-full text-white"
                         >
                             Cadastro
                         </button>

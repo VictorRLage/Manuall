@@ -24,9 +24,7 @@ export default function ChatManuel({ chat, scrollDown }) {
             if (msgsFlow.length === i + 1) {
                 if (proximaMsg) {
                     setMsgsFlow([...msgsFlow, proximaMsg.id]);
-                    axios.post("/crm", msgsFlow).catch((err) => {
-                        console.log(err);
-                    });
+                    axios.post("/crm", msgsFlow).catch(console.log);
                     return;
                 }
             }
