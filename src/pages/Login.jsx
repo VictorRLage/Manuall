@@ -4,6 +4,7 @@ import CadastroBottomBar from "@/components/cadastro/CadastroBottomBar";
 import CadastroFlag from "@/components/cadastro/CadastroFlag";
 import CadastroSidebar from "@/components/cadastro/CadastroSidebar";
 import ModalEscolherTipoUsuario from "@/components/login/ModalEscolherTipoUsuario";
+import ModalEsqueciSenha from "@/components/login/ModalEsqueciSenha";
 import ModalAviso from "@/components/main/ModalAviso";
 import ModalEscolherCadastro from "@/components/main/ModalEscolherCadastro";
 import { useData } from "@/data/CreateContext";
@@ -19,6 +20,7 @@ export default function Login() {
     const [modalEscolherCadastro, setModalEscolherCadastro] = useState(false);
     const [modalEscolherTipoUsuario, setModalEscolherTipoUsuario] =
         useState(false);
+    const [modalEsqueciSenha, setModalEsqueciSenha] = useState(false);
     const [modalAviso, setModalAviso] = useState(false);
     const [avisoTitulo, setAvisoTitulo] = useState("");
     const [avisoDescricao, setAvisoDescricao] = useState("");
@@ -141,6 +143,10 @@ export default function Login() {
                 contas={modalEscolherTipoUsuarioList}
                 setarUsuario={setTipoUsuario}
             />
+            <ModalEsqueciSenha
+                modalGettr={modalEsqueciSenha}
+                modalSettr={setModalEsqueciSenha}
+            />
             <ModalAviso
                 modalGettr={modalAviso}
                 modalSettr={setModalAviso}
@@ -227,12 +233,14 @@ export default function Login() {
                                 </button>
                             </div>
                             <div className="w-full flex justify-center">
-                                <Link
-                                    to={"/development"}
-                                    className="text-center text-verde-padrao font-medium underline text-base"
+                                <span
+                                    className="text-center text-verde-padrao font-medium underline text-base cursor-pointer"
+                                    onClick={() => {
+                                        setModalEsqueciSenha(true);
+                                    }}
                                 >
                                     Esqueci minha senha
-                                </Link>
+                                </span>
                             </div>
                         </div>
                     </div>
