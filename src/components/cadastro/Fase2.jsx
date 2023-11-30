@@ -119,8 +119,8 @@ export default function Fase2({
                 if (data.erro) {
                     setValidacaoCep(1);
                 } else {
-                    estado_input.current.value = data.localidade;
-                    cidade_input.current.value = data.uf;
+                    estado_input.current.value = data.uf;
+                    cidade_input.current.value = data.localidade;
                     bairro_input.current.value = data.bairro;
                     rua_input.current.value = data.logradouro;
 
