@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import ModalCustom from "@/components/main/ModalCustom";
 import axios from "@/api/axios";
 
@@ -14,8 +14,8 @@ export default function ModalEsqueciMinhaSenha({
     const handleEnviarLinkRecuperacao = () => {
         // Lógica para enviar o link de recuperação
         // Você pode adicionar a lógica de envio de e-mail aqui
+        enviarEmail()
         console.log("Link de recuperação enviado para:", email);
-
         // Avançar para o próximo passo (passo 2)
         setStep(2);
     };
@@ -37,28 +37,16 @@ export default function ModalEsqueciMinhaSenha({
         modalSettr(false);
     };
 
+    const subject = "Teste"
+    const text = "Texto"
+
     const enviarEmail = () => {
         axios
-            .post("/enviaremail", {
-                email: email_input.current.value,
+            .post("/email/enviaremail", {
+                email,
+                subject,
+                text,
             })
-            .then(({ data, status }) => {
-                if (status === 200) {
-                    setTipoUsuario(null);
-                } else if (status === 207) {
-                    setModalEscolherTipoUsuario(true);
-                    setModalEscolherTipoUsuarioList(data);
-                } else {
-                    setModalAviso(true);
-                    setAvisoTitulo("Erro inesperado");
-                    setAvisoDescricao("Por favor tente novamente mais tarde");
-                }
-            })
-            .catch(() => {
-                setModalAviso(true);
-                setAvisoTitulo("Erro inesperado");
-                setAvisoDescricao("Por favor tente novamente mais tarde");
-            });
     };
 
     return (
