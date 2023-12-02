@@ -239,7 +239,7 @@ export default function CadastroPrestador() {
                 setDelayedStepAtual(stepAtual);
             }
             setTransitioning(false);
-        }, 400);
+        }, 1000);
     }, stepAtual);
 
     return (
