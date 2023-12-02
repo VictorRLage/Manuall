@@ -14,7 +14,7 @@ export function CreateContext({ children }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [notificacoesCount, setNotificacoesCount] = useState(0);
 
-    if (localStorage.TOKEN) {
+    if (localStorage.TOKEN && !userName) {
         axios.get("/usuario/nome").then(({ data }) => setUserName(data));
     }
 

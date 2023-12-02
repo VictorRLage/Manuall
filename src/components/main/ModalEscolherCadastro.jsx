@@ -10,6 +10,12 @@ export default function ModalEscolherCadastro({ modalGettr, modalSettr }) {
             modalGettr={modalGettr}
             modalSettr={modalSettr}
             canClose
+            blurBackgroundStyle={{
+                zIndex: "600",
+            }}
+            modalBackgroundStyle={{
+                zIndex: "601",
+            }}
             modalStyle={{ overflow: "hidden" }}
         >
             <div

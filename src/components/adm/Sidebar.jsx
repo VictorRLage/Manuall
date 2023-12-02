@@ -90,7 +90,7 @@ export default function Sidebar() {
                     </div>
                 </div>
                 <div
-                    className="absolute w-[40px] h-[40px] bg-[#008042] top-0 -right-[40px] rounded-br-xl p-[4px] cursor-pointer"
+                    className="absolute w-[40px] h-[40px] bg-[#0f623a] top-0 -right-[40px] rounded-br-xl p-[4px] cursor-pointer"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? (

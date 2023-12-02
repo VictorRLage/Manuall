@@ -113,7 +113,7 @@ export default function CadastroContratante() {
                 bairro,
                 rua,
                 numero,
-                complemento: !complemento ? null : complemento,
+                complemento: complemento || null,
             })
             .then((res) => {
                 if (res.status === 201) {

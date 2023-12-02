@@ -127,7 +127,7 @@ export default function CadastroPrestador() {
                 bairro,
                 rua,
                 numero,
-                complemento: !complemento ? null : complemento,
+                complemento: complemento || null,
             })
             .then((res) => {
                 if (res.status === 201) {
@@ -228,11 +228,8 @@ export default function CadastroPrestador() {
         if (stepAtual === 3) {
             setDelayedStepAtual(3);
             await defer();
-            setTimeout(() => {
-                scrollingDiv.current.style.scrollBehavior = "smooth";
-                scrollingDiv.current.scrollLeft =
-                    stepAtual % 2 !== 0 ? 2000 : 0;
-            }, 1);
+            scrollingDiv.current.style.scrollBehavior = "smooth";
+            scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
         } else {
             scrollingDiv.current.style.scrollBehavior = "smooth";
             scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
