@@ -41,6 +41,7 @@ export default function Fase1({
         nome() {
             const nome = nome_input.current.value;
             setIsNomeValidado(Regex.TEXT_SPACE.test(nome));
+            setIsNomeValidado(Regex.NAME_MIN_LENGTH.test(nome));
         },
         email() {
             const email = email_input.current.value;
@@ -179,9 +180,12 @@ export default function Fase1({
                         Nome completo
                     </label>
                     {isNomeValidado === false && (
-                        <label className="absolute ml-1 text-red-500 font-medium">
-                            Informe seu nome completo
-                        </label>
+                        
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                {nome_input.current.value.length === 0
+                                    ? "Informe seu nome completo"
+                                    : "O nome deve ter no mínimo três caracteres"}
+                            </label>
                     )}
                 </div>
                 <div className="relative w-[80%] min1000:w-[60%]">

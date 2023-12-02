@@ -42,6 +42,36 @@ export default function Fase2({
     const numero_input = useRef(null);
     const complemento_input = useRef(null);
 
+    const estadosBrasileiros = [
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SP",
+        "SE",
+        "TO",
+    ];
+
     const validar = {
         cep() {
             const cep = cep_input.current.value.replace(/[^0-9]/g, "");
@@ -49,25 +79,38 @@ export default function Fase2({
         },
         estado() {
             const estado = estado_input.current.value;
-            setIsEstadoValidado(estado?.length > 0);
+            const estadoValido =
+                /^[A-Za-z]{2}$/.test(estado) &&
+                estadosBrasileiros.includes(estado.toUpperCase());
+            setIsEstadoValidado(estadoValido);
         },
         cidade() {
             const cidade = cidade_input.current.value;
-            setIsCidadeValidado(cidade?.length > 0);
+            const cidadeValida = cidade.length >= 3 && !/\s/.test(cidade);
+            setIsCidadeValidado(cidadeValida);
         },
         bairro() {
             const bairro = bairro_input.current.value;
-            setIsBairroValidado(bairro?.length > 0);
+            const bairroValido = bairro.length >= 3 && !/\s/.test(bairro);
+            setIsBairroValidado(bairroValido);
         },
         rua() {
             const rua = rua_input.current.value;
-            setIsRuaValidado(rua?.length > 0);
+            const ruaValida = rua.length >= 3 && !/\s/.test(rua);
+            setIsRuaValidado(ruaValida);
         },
         numero() {
             const numero = numero_input.current.value;
-            setIsNumeroValidado(numero?.length > 0);
+            const numeroValido =
+                numero.length >= 1 && numero.length <= 25 && !/\s/.test(numero);
+            setIsNumeroValidado(numeroValido);
         },
-        complemento: () => setIsComplementoValidado(true),
+        complemento() {
+            const complemento = complemento_input.current.value;
+            const complementoValido =
+                complemento.length >= 0 && complemento.length <= 30;
+            setIsComplementoValidado(complementoValido);
+        },
     };
 
     const isEveryThingValidated = () => {
@@ -203,7 +246,7 @@ export default function Fase2({
                         <input
                             onBlur={validar.estado}
                             ref={estado_input}
-                            maxLength={25}
+                            maxLength={2}
                             type="text"
                             id="estado"
                             placeholder=" "
@@ -225,9 +268,11 @@ export default function Fase2({
                             Estado
                         </label>
                         {isEstadoValidado === false && (
-                            <label className="absolute ml-1 text-red-500 font-medium">
-                                Informe seu estado
-                            </label>
+                             <label className="absolute ml-1 text-red-500 font-medium">
+                             {estado_input.current.value.length === 0
+                                 ? "Informe seu Estado"
+                                 : "Esse Estado não é brasileiro"}
+                         </label>
                         )}
                     </div>
                 </div>
@@ -259,8 +304,10 @@ export default function Fase2({
                         </label>
                         {isCidadeValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Informe sua cidade
-                            </label>
+                            {cidade_input.current.value.length === 0
+                                ? "Informe sua cidade"
+                                : "Deve ter pelo menos 3 caracteres"}
+                        </label>
                         )}
                     </div>
                     <div className="relative w-[39%] min1000:w-[29%]">
@@ -290,8 +337,10 @@ export default function Fase2({
                         </label>
                         {isBairroValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Informe seu bairro
-                            </label>
+                            {bairro_input.current.value.length === 0
+                                ? "Informe seu bairro"
+                                : "Deve ter pelo menos 3 caracteres"}
+                        </label>
                         )}
                     </div>
                 </div>
@@ -322,8 +371,10 @@ export default function Fase2({
                     </label>
                     {isRuaValidado === false && (
                         <label className="absolute ml-1 text-red-500 font-medium">
-                            Informe sua rua
-                        </label>
+                        {rua_input.current.value.length === 0
+                            ? "Informe sua rua"
+                            : "Deve ter pelo menos 3 caracteres"}
+                    </label>
                     )}
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
@@ -343,6 +394,7 @@ export default function Fase2({
                                         : "border-cinza-claro-1 hover:border-green-300"
                                 }
                             `}
+                            maxLength={25}
                         />
                         <label
                             htmlFor="numero"
@@ -353,8 +405,10 @@ export default function Fase2({
                         </label>
                         {isNumeroValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                                Informe o número da casa
-                            </label>
+                            {numero_input.current.value.length === 0
+                                ? "Informe o número da residência"
+                                : "Deve ter entre 1 e 25 caracteres"}
+                        </label>
                         )}
                     </div>
                     <div className="relative w-[39%] min1000:w-[29%]">
