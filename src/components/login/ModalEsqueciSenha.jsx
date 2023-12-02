@@ -7,7 +7,7 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
     const [step, setStep] = useState(1);
     const [email, setEmail] = useState("");
     const [codigo, setcodigo] = useState("");
-    const [newPassword, setNewPassword] = useState("");
+    const [novaSenha, setnovaSenha] = useState("");
 
     const [mensagem, setMensagem] = useState(null);
 
@@ -28,9 +28,9 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
 
     const handleVerificarCodigo = () => {
         console.log("Código verificado com sucesso:", codigo);
-
+    
         axios
-            .post("/usuario/login/checar", {
+            .post("/email/verificar", {
                 email,
                 codigo,
             })
@@ -45,7 +45,7 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
                 } else {
                     // Código inválido
                     setMensagem(
-                        "Código inválido ou expirado. Por favor, verifique e tente novamente.",
+                        "Ocorreu um erro ao verificar o código. Tente novamente mais tarde.",
                     );
                 }
             })
@@ -53,18 +53,19 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
                 // Ocorreu um erro na chamada
                 console.error("Erro ao verificar código:", error);
                 setMensagem(
-                    "Ocorreu um erro ao verificar o código. Tente novamente mais tarde.",
+                    "Código inválido ou expirado. Por favor, verifique e tente novamente.",
                 );
             });
     };
 
     const handleRedefinirSenha = () => {
         axios
-            .patch("/usuario/atualizar-senha", {
+            .patch("/email/alterarsenha", {
                 email,
-                novaSenha: newPassword,
+                novaSenha,
             })
             .then((response) => {
+                console.log(novaSenha)
                 if (response.status === 200) {
                     // Senha redefinida com sucesso
                     console.log("Senha redefinida com sucesso.");
@@ -158,19 +159,19 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
                         </div>
                     ) : (
                         <div className="flex flex-col gap-4 w-full mt-10 text-center items-center">
-                            <label htmlFor="newPassword" className="text-lg">
+                            <label htmlFor="novaSenha" className="text-lg">
                                 Digite sua nova senha:
                             </label>
                             <div className="relative">
                                 <input
                                     type="password"
-                                    id="newPassword"
-                                    name="newPassword"
+                                    id="novaSenha"
+                                    name="novaSenha"
                                     className="border-2 p-2 rounded w-80 border-green-600"
                                     placeholder="Nova Senha"
-                                    value={newPassword}
+                                    value={novaSenha}
                                     onChange={(e) =>
-                                        setNewPassword(e.target.value)
+                                        setnovaSenha(e.target.value)
                                     }
                                 />
                             </div>
