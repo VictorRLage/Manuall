@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ModalCustom from "@/components/main/ModalCustom";
 import axios from "@/api/axios";
+import { EnvelopeIcon} from "@heroicons/react/24/solid";
 
 export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
     const [step, setStep] = useState(1);
@@ -14,18 +15,19 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
         const subject = "";
         const text = "";
 
-        axios.post("/email/enviaremail", {
-            email,
-            subject,
-            text,
-        });
+        axios
+            .post("/email/enviaremail", {
+                email,
+                subject,
+                text,
+            })
+            .then(() => setStep(2));
+
         console.log("Link de recuperação enviado para:", email);
-        setStep(2);
     };
 
     const handleVerificarCodigo = () => {
         console.log("Código verificado com sucesso:", codigo);
-
 
         axios
             .post("/usuario/login/checar", {
@@ -58,30 +60,30 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
 
     const handleRedefinirSenha = () => {
         axios
-        .patch("/usuario/atualizar-senha", {
-            email,
-            novaSenha: newPassword,
-        })
-        .then((response) => {
-            if (response.status === 200) {
-                // Senha redefinida com sucesso
-                console.log("Senha redefinida com sucesso.");
-                // Fechar o modal após a redefinição da senha
-                modalSettr(false);
-            } else {
-                // Trate erros de acordo com a resposta do servidor
-                console.error("Erro ao redefinir a senha:", response.data);
-            }
-        })
-        .catch((error) => {
-            // Ocorreu um erro na chamada
-            console.error("Erro ao redefinir a senha:", error);
-        }); 
+            .patch("/usuario/atualizar-senha", {
+                email,
+                novaSenha: newPassword,
+            })
+            .then((response) => {
+                if (response.status === 200) {
+                    // Senha redefinida com sucesso
+                    console.log("Senha redefinida com sucesso.");
+                    // Fechar o modal após a redefinição da senha
+                    modalSettr(false);
+                } else {
+                    // Trate erros de acordo com a resposta do servidor
+                    console.error("Erro ao redefinir a senha:", response.data);
+                }
+            })
+            .catch((error) => {
+                // Ocorreu um erro na chamada
+                console.error("Erro ao redefinir a senha:", error);
+            });
     };
 
     return (
         <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr} canClose>
-            <div className="bg-white rounded-lg flex flex-col items-center p-8 gap-8 border-2 border-green-600">
+            <div className="bg-white rounded-lg flex flex-col items-center p-8 gap-8 border-2">
                 <div className="w-120 h-60 flex flex-col justify-center items-center gap-4">
                     <span className="text-2xl text-center font-semibold">
                         {step === 1
@@ -100,11 +102,18 @@ export default function ModalEsqueciMinhaSenha({ modalGettr, modalSettr }) {
                                     type="email"
                                     id="email"
                                     name="email"
-                                    className="border-2 p-2 rounded w-80 border-green-600"
+                                    className="block px-2.5 pb-2.5 pt-4 w-84 text-base text-gray-900 bg-transparent rounded-lg border-2 appearance-none focus:outline-none focus:ring-0 focus:border-verde-padrao peer transition-colors border-cinza-claro-1 hover:border-green-300"
                                     placeholder="Seu e-mail"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
+                                <label
+                                    htmlFor="email"
+                                    className="cursor-text absolute text-lg text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-verde-padrao peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1 flex items-center"
+                                >
+                                    <EnvelopeIcon className="h-5 w-5 mr-1" />
+                                    Endereço de email
+                                </label>
                             </div>
                             <button
                                 className="bg-verde-padrao text-white px-4 py-2 rounded hover:bg-verde-escuro-1 mt-9"
