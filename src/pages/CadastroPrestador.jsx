@@ -20,6 +20,7 @@ export default function CadastroPrestador() {
 
     const scrollingDiv = useRef(null);
     const [lastScrollX, setLastScrollX] = useState(0);
+    const [transitioning, setTransitioning] = useState(false);
 
     const [modalConclusaoCadastro, setModalConclusaoCadastro] = useState(false);
     const [modalJaPossuiConta, setModalJaPossuiConta] = useState(false);
@@ -225,19 +226,20 @@ export default function CadastroPrestador() {
     }, []);
 
     useWatch(async () => {
+        setTransitioning(true);
         if (stepAtual === 3) {
             setDelayedStepAtual(3);
             await defer();
-            scrollingDiv.current.style.scrollBehavior = "smooth";
-            scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
-        } else {
-            scrollingDiv.current.style.scrollBehavior = "smooth";
-            scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
-
-            setTimeout(() => {
-                setDelayedStepAtual(stepAtual);
-            }, 400);
         }
+        scrollingDiv.current.style.scrollBehavior = "smooth";
+        scrollingDiv.current.scrollLeft = stepAtual % 2 !== 0 ? 2000 : 0;
+
+        setTimeout(() => {
+            if (stepAtual !== 3) {
+                setDelayedStepAtual(stepAtual);
+            }
+            setTransitioning(false);
+        }, 400);
     }, stepAtual);
 
     return (
@@ -274,6 +276,7 @@ export default function CadastroPrestador() {
                 className="flex bg-[#008042] overflow-x-hidden h-full min800:h-[580px] rounded-none min800:rounded-lg min800:drop-shadow-all w-full min800:w-[800px] min1000:w-[900px] min1200:w-[1152px]"
                 ref={scrollingDiv}
                 onScroll={(e) => {
+                    if (transitioning) return;
                     if (e.target.scrollLeft !== lastScrollX) {
                         scrollingDiv.current.scrollLeft =
                             stepAtual % 2 !== 0 ? 2000 : 0;
