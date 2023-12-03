@@ -40,6 +40,34 @@ export default function Fase3({
         false,
     ]);
 
+    const changeOrcamentoSelected = (index, value) => {
+        let newArr = [...isOrcamentoSelected];
+        newArr[index] = value;
+        setIsOrcamentoSelected(newArr);
+    };
+
+    const changeOrcamento = (index, value) => {
+        let newOrcamento = [...orcamento];
+        newOrcamento[index] = value;
+
+        if (newOrcamento[0] < 50) newOrcamento[0] = 50;
+        else if (newOrcamento[0] > 4950) newOrcamento[0] = 4950;
+        if (newOrcamento[1] < 100) newOrcamento[1] = 100;
+        else if (newOrcamento[1] > 5000) newOrcamento[1] = 5000;
+
+        if (index === 0) {
+            if (newOrcamento[0] > newOrcamento[1]) {
+                newOrcamento[1] = newOrcamento[0] + 1;
+            }
+        } else {
+            if (newOrcamento[1] < newOrcamento[0]) {
+                newOrcamento[0] = newOrcamento[1] - 1;
+            }
+        }
+
+        setOrcamento(newOrcamento);
+    };
+
     const validar = {
         areaSelecionada: (areaSelecionadaValue = areaSelecionada) => {
             setIsAreaSelecionadaValidado(areaSelecionadaValue !== null);
@@ -116,13 +144,6 @@ export default function Fase3({
             .then(({ data }) => setServicos(data))
             .catch(console.log);
     }, [areaSelecionada]);
-
-    useEffect(() => {
-        if (orcamento[0] < 50) setOrcamento([50, orcamento[1]]);
-        else if (orcamento[0] > 4950) setOrcamento([4950, orcamento[1]]);
-        if (orcamento[1] < 100) setOrcamento([orcamento[0], 100]);
-        else if (orcamento[1] > 5000) setOrcamento([orcamento[0], 5000]);
-    }, [orcamento]);
 
     return (
         <div className="bg-white min-w-[100%] flex flex-col items-center">
@@ -263,41 +284,35 @@ export default function Fase3({
                                 value={`${orcamento[0]}${
                                     isOrcamentoSelected[0] ? "" : ",00"
                                 }`}
-                                onBlur={() => {
-                                    setIsOrcamentoSelected([
-                                        false,
-                                        isOrcamentoSelected[1],
-                                    ]);
-                                }}
-                                onFocus={() => {
-                                    setIsOrcamentoSelected([
-                                        true,
-                                        isOrcamentoSelected[1],
-                                    ]);
-                                }}
+                                onBlur={() => changeOrcamentoSelected(0, false)}
+                                onFocus={() => changeOrcamentoSelected(0, true)}
                                 onChange={({ target }) => {
-                                    setOrcamento([
+                                    changeOrcamento(
+                                        0,
                                         Number(
                                             target.value.replace(
                                                 Regex.NUMBER_REPLACEABLE,
                                                 "",
                                             ),
                                         ),
-                                        orcamento[1] > target.value
-                                            ? orcamento[1]
-                                            : Number(target.value) + 1,
-                                    ]);
+                                    );
                                 }}
                                 className="border-2 border-cinza-claro-1 rounded-lg w-[70%] px-2 hover:border-green-300 transition-all outline-none focus:border-green-600"
                             />
                         </div>
                         <ReactSlider
                             value={orcamento}
-                            onChange={(value) => setOrcamento(value)}
+                            onChange={(value) => {
+                                if (value[0] != orcamento[0]) {
+                                    changeOrcamento(0, value[0]);
+                                } else if (value[1] != orcamento[1]) {
+                                    changeOrcamento(1, value[1]);
+                                }
+                            }}
                             className="w-[63%] h-[25px] flex items-center justify-center [&>*:nth-child(2)]:bg-verde-padrao max800:order-2 max800:w-full"
                             thumbClassName="w-5 h-5 bg-verde-padrao cursor-grab rounded-full transition-colors hover:bg-green-600 focus:h-6 focus:w-6 focus:outline-none"
                             trackClassName="h-3 bg-gray-200 rounded-full"
-                            min={0}
+                            min={50}
                             max={5000}
                             pearling
                             minDistance={50}
@@ -315,32 +330,18 @@ export default function Fase3({
                                 value={`${orcamento[1]}${
                                     isOrcamentoSelected[1] ? "" : ",00"
                                 }`}
-                                onBlur={() => {
-                                    setIsOrcamentoSelected([
-                                        isOrcamentoSelected[0],
-                                        false,
-                                    ]);
-                                }}
-                                onFocus={() => {
-                                    setIsOrcamentoSelected([
-                                        isOrcamentoSelected[0],
-                                        true,
-                                    ]);
-                                }}
+                                onBlur={() => changeOrcamentoSelected(1, false)}
+                                onFocus={() => changeOrcamentoSelected(1, true)}
                                 onChange={({ target }) => {
-                                    setOrcamento([
-                                        orcamento[0] < target.value
-                                            ? orcamento[0]
-                                            : target.value - 1 >= 0
-                                            ? target.value - 1
-                                            : target.value || 0,
+                                    changeOrcamento(
+                                        1,
                                         Number(
                                             target.value.replace(
                                                 Regex.NUMBER_REPLACEABLE,
                                                 "",
                                             ),
                                         ),
-                                    ]);
+                                    );
                                 }}
                                 className="border-2 border-cinza-claro-1 rounded-lg w-[70%] px-2 hover:border-green-300 transition-all outline-none focus:border-green-600"
                             />

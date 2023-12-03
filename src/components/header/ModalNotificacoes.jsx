@@ -59,7 +59,7 @@ export default function ModalNotificacoes({
                 refetch={fetch}
             />
             <ModalFormOrcamento
-                modalGettr={modalFormOrcamento}
+                modalGettr={!modalFormOrcamento}
                 modalSettr={setModalFormOrcamento}
                 notificacao={notificacaoSelecionda}
                 refetch={fetch}
