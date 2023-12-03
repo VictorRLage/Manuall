@@ -128,7 +128,11 @@ export default function AdmAprovacao() {
                 modalGettr={modalDownload}
                 modalSettr={setModalDownload}
             />
-            <ModalUpload modalGettr={modalUpload} modalSettr={setModalUpload} />
+            <ModalUpload
+                modalGettr={modalUpload}
+                modalSettr={setModalUpload}
+                refetch={fetch}
+            />
             <div className="h-screen w-screen flex bg-cinza-claro-2">
                 <Sidebar />
                 <div className="grow h-full overflow-y-scroll">

@@ -28,6 +28,8 @@ export default function ModalAvaliacao({
             .then(() => {
                 refetch();
                 modalSettr(false);
+                setRating(0);
+                setTxtDescricao("");
             })
             .catch(console.log)
             .finally(() => setLoading(false));

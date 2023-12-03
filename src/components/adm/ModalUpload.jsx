@@ -7,7 +7,7 @@ import { ThreeDots } from "react-loader-spinner";
 import { useEffect } from "react";
 import GreenOk from "@/assets/icons/green_ok.svg";
 
-export default function ModalUpload({ modalGettr, modalSettr }) {
+export default function ModalUpload({ modalGettr, modalSettr, refetch }) {
     const [file, setFile] = useState(undefined);
     const [dragging, setDragging] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -49,6 +49,7 @@ export default function ModalUpload({ modalGettr, modalSettr }) {
             .then(() => {
                 setAllRight(true);
                 setFile(undefined);
+                refetch();
             })
             .catch(() => {
                 setErrorMsg(

@@ -11,7 +11,7 @@ export default function ModalFormOrcamento({
     refetch,
 }) {
     const [servico, setServico] = useState("");
-    const [valor, setValor] = useState("0");
+    const [valor, setValor] = useState(0);
 
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState(undefined);
@@ -19,7 +19,7 @@ export default function ModalFormOrcamento({
     const [isValueSelected, setIsValueSelected] = useState(false);
 
     const enviarOrcamento = () => {
-        if (!servico) {
+        if (!servico.trim()) {
             setErrorMsg("O campo de serviço prestado não pode estar vazio");
             return;
         }
@@ -38,6 +38,8 @@ export default function ModalFormOrcamento({
             .then(() => {
                 refetch();
                 modalSettr(false);
+                setServico("");
+                setValor(0);
             })
             .catch(console.log)
             .finally(() => setLoading(false));
