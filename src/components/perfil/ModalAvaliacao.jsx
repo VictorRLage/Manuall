@@ -77,6 +77,7 @@ export default function ModalAvaliacao({
                         className="mb-4 px-4 py-2 w-3/4 border-2 rounded-2xl border-verde-escuro-1 focus:outline-none focus:border-verde-escuro-2"
                         value={txtDescricao}
                         onChange={(e) => setTxtDescricao(e.target.value)}
+                        maxLength={75}
                     />
                     <button
                         className="bg-verde-padrao hover:bg-[rgb(16,166,93)] w-[100px] h-[45px] flex items-center justify-center text-white rounded-lg text-xl transition-all"

@@ -9,6 +9,12 @@ export default function ModalUrlGaleria({
     const [url, setUrl] = useState("");
     const [isUrlLoaded, setIsUrlLoaded] = useState(false);
 
+    const [checarGif, setChecarGif] = useState(false);
+    
+    const eGif = (url) => {
+        return url.match(/\.(gif)$/i) != null;
+    };
+
     return (
         <ModalCustom
             modalGettr={modalGettr}
@@ -36,8 +42,21 @@ export default function ModalUrlGaleria({
                     <textarea
                         className="border-cinza-claro-3 border-2 text-gray-900 rounded-lg"
                         value={url}
-                        onChange={({ target }) => setUrl(target.value)}
+                        onChange={({ target }) => {
+                            if (eGif(target.value)) {
+                                setChecarGif(true);
+                            } else {
+                                setChecarGif(false);
+                                setUrl(target.value);
+                            }
+                        }}
                     />
+                    {checarGif && (
+                        <div className="text-red-500 mt-2">
+                            Formatos GIF não são permitidos para a foto de
+                            perfil.
+                        </div>
+                    )}
                     <button
                         onClick={() => {
                             if (isUrlLoaded) {

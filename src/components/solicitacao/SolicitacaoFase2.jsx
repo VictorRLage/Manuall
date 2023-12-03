@@ -27,6 +27,7 @@ export default function SolicitacaoFase2({
                         setTamanho(newValue);
                         setIsEveryThingValidated(newValue && true);
                     }}
+                    maxLength={10}
                 />
                 <Dropdown
                     value={medida}

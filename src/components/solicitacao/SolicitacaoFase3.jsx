@@ -16,6 +16,7 @@ export default function SolicitacaoFase3({
                 placeholder="Descreva mais sobre o serviço/aula desejado"
                 value={descricao}
                 onChange={({ target }) => setDescricao(target.value)}
+                maxLength={120}
             />
             <div className="grid grid-cols-3 rounded-3xl w-[290px] min-h-[180px] overflow-hidden gap-[4px]">
                 {Array.from({ length: 6 }, (_, i) => (
