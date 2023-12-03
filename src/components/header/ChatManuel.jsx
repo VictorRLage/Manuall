@@ -53,7 +53,7 @@ export default function ChatManuel({ chat, scrollDown }) {
             );
         }
         if (texto.redirecionar) {
-            navigate(texto.redirecionar);
+            window.location.href = texto.redirecionar;
         }
         setMsgsFlow(
             msgsFlow.slice(0, msgsFlow.length - 1).concat(texto.nextId),
