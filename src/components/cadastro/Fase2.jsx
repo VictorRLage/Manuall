@@ -71,6 +71,7 @@ export default function Fase2({
         "SE",
         "TO",
     ];
+    
 
     const validar = {
         cep() {

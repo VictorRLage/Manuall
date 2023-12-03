@@ -106,7 +106,7 @@ export default function PrestadorMain({
                                         }
                                         className="my-6 p-2 outline-none w-full rounded-lg border border-gray-300 h-[200px]"
                                         placeholder="Escreva sua descrição aqui..."
-                                        maxLength={270}
+                                        maxLength={400}
                                     />
                                 ) : (
                                     <p className="my-6 p-2 text-lg w-full">

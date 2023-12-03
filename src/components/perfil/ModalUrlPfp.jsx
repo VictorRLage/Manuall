@@ -12,6 +12,11 @@ export default function ModalUrlPfp({
     const [pfp, setPfp] = useState(currentPfp);
     const [isPfpLoaded, setIsPfpLoaded] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [checarGif, setChecarGif] = useState(false);
+
+    const eGif = (url) => {
+        return url.match(/\.(gif)$/i) != null;
+    };
 
     const alterarFtPerfil = () => {
         setLoading(true);
@@ -50,8 +55,21 @@ export default function ModalUrlPfp({
                     <textarea
                         className="border-cinza-claro-3 border-2 text-gray-900 rounded-lg"
                         value={pfp}
-                        onChange={({ target }) => setPfp(target.value)}
+                        onChange={({ target }) => {
+                            if (eGif(target.value)) {
+                                setChecarGif(true);
+                            } else {
+                                setChecarGif(false);
+                                setPfp(target.value);
+                            }
+                        }}
                     />
+                    {checarGif && (
+                        <div className="text-red-500 mt-2">
+                            Formatos GIF não são permitidos para a foto de
+                            perfil.
+                        </div>
+                    )}
                     <button
                         onClick={() => {
                             isPfpLoaded && alterarFtPerfil();
