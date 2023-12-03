@@ -332,7 +332,7 @@ export default [
                 {
                     nextId: 96135,
                     msg: "Sim",
-                    redirecionar: "/prestadores?pagina=1&cidade=sopaulo",
+                    redirecionar: "/prestadores?pagina=1&cidade=São Paulo",
                 },
             ];
         },
@@ -347,7 +347,7 @@ export default [
                     nextId: 96135,
                     msg: "Sim",
                     redirecionar:
-                        "/prestadores?pagina=1&cidade=sobernardodocampo",
+                        "/prestadores?pagina=1&cidade=São Bernardo do Campo",
                 },
             ];
         },
@@ -361,7 +361,7 @@ export default [
                 {
                     nextId: 96135,
                     msg: "Sim",
-                    redirecionar: "/prestadores?pagina=1&cidade=socaetanodosul",
+                    redirecionar: "/prestadores?pagina=1&cidade=São Caetano do Sul",
                 },
             ];
         },
@@ -375,7 +375,7 @@ export default [
                 {
                     nextId: 96135,
                     msg: "Sim",
-                    redirecionar: "/prestadores?pagina=1&cidade=santoandr",
+                    redirecionar: "/prestadores?pagina=1&cidade=Santo André",
                 },
             ];
         },
@@ -389,7 +389,7 @@ export default [
                 {
                     nextId: 96135,
                     msg: "Sim",
-                    redirecionar: "/prestadores?pagina=1&cidade=osasco",
+                    redirecionar: "/prestadores?pagina=1&cidade=Osasco",
                 },
             ];
         },
@@ -403,7 +403,7 @@ export default [
                 {
                     nextId: 96135,
                     msg: "Sim",
-                    redirecionar: "/prestadores?pagina=1&cidade=bauru",
+                    redirecionar: "/prestadores?pagina=1&cidade=Bauru",
                 },
             ];
         },

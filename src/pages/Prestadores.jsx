@@ -25,6 +25,7 @@ export default function Prestadores() {
     const [areaSelecionada, setAreaSelecionada] = useState(0);
     const [filtroSelecionado, setFiltroSelecionado] = useState("Nota");
     const [ordemSelecionada, setOrdemSelecionada] = useState(false);
+    const [tipoSelecionado, setTipoSelecionado] = useState("todos");
 
     const [searchbarText, setSearchbarText] = useState("");
     const [cidadeSelecionada, setCidadeSelecionada] = useState();
@@ -33,11 +34,9 @@ export default function Prestadores() {
         setPrestadores();
         axios
             .get(
-                `/usuario/prestadores/${areaSelecionada}/${filtroSelecionado}/${ordemSelecionada}`,
+                `/usuario/prestadores/${areaSelecionada}/${filtroSelecionado}/${ordemSelecionada}/${tipoSelecionado}`,
             )
-            .then(({ data }) => {
-                setPrestadores(data);
-            })
+            .then(({ data }) => setPrestadores(data))
             .catch(console.log);
     };
 
@@ -53,13 +52,14 @@ export default function Prestadores() {
             setSearchParams({ pagina: 1 });
         }
 
-        setCidadeSelecionada(searchParams.get("cidade")?.substring(8));
+        setCidadeSelecionada(searchParams.get("cidade"));
     }, []);
 
     useEffect(getPrestadores, [
         areaSelecionada,
         filtroSelecionado,
         ordemSelecionada,
+        tipoSelecionado,
     ]);
 
     useEffect(() => {
@@ -81,37 +81,32 @@ export default function Prestadores() {
     }, [searchParams, prestadores]);
 
     useEffect(() => {
-        setFilteredPrestadores(
-            (cidadeSelecionada
-                ? prestadores?.filter(
-                      ({ cidade }) =>
-                          cidade
-                              .toLowerCase()
-                              .replace(
-                                  RegexENUM.LOCALELESS_TEXT_REPLACEABLE,
-                                  "",
-                              ) === cidadeSelecionada,
-                  )
-                : prestadores
-            )
-                ?.filter(({ nome }) =>
-                    nome
+        console.log(prestadores);
+        if (!prestadores) return;
+        let newFilteredPrestadores = [...prestadores];
+
+        if (cidadeSelecionada) {
+            newFilteredPrestadores = newFilteredPrestadores.filter(
+                ({ cidade }) => cidade === cidadeSelecionada,
+            );
+        }
+        newFilteredPrestadores = newFilteredPrestadores.filter(({ nome }) =>
+            nome
+                .toLowerCase()
+                .replace(RegexENUM.TEXT_NUMBER_LOCALES_REPLACEABLE, "")
+                .includes(
+                    searchbarText
                         .toLowerCase()
-                        .replace(RegexENUM.LOCALELESS_TEXT_REPLACEABLE, "")
-                        .includes(
-                            searchbarText
-                                .toLowerCase()
-                                .replace(
-                                    RegexENUM.LOCALELESS_TEXT_REPLACEABLE,
-                                    "",
-                                ),
-                        ),
-                )
-                .splice(
-                    mockPrestadoresPorPagina * searchParams.get("pagina") -
-                        mockPrestadoresPorPagina,
-                    mockPrestadoresPorPagina,
+                        .replace(RegexENUM.TEXT_NUMBER_LOCALES_REPLACEABLE, ""),
                 ),
+        );
+
+        setFilteredPrestadores(
+            newFilteredPrestadores.splice(
+                mockPrestadoresPorPagina * searchParams.get("pagina") -
+                    mockPrestadoresPorPagina,
+                mockPrestadoresPorPagina,
+            ),
         );
     }, [searchbarText, prestadores, cidadeSelecionada, searchParams]);
 
@@ -119,13 +114,31 @@ export default function Prestadores() {
         <div>
             <Header />
             <div className="w-full h-full bg-[#fafafa]">
-                <div className="px-32 pt-8 flex max700:justify-center max700:text-center">
+                <div className="px-32 pt-8 flex max700:justify-center max700:text-center gap-4 items-center">
                     <Breadcrumb
                         items={[
                             { to: "/", desc: "Página Inicial" },
                             { to: null, desc: "Prestadores" },
                         ]}
                     />
+                    {cidadeSelecionada && (
+                        <button
+                            className="flex items-center gap-2 bg-[#008042] px-2 py-1 rounded-lg"
+                            onClick={() => {
+                                setSearchParams({
+                                    pagina: 1,
+                                });
+                                window.location.reload();
+                            }}
+                        >
+                            <span className="text-xl font-semibold text-white">
+                                {cidadeSelecionada}
+                            </span>
+                            <span className="text-xl text-white font-semibold">
+                                x
+                            </span>
+                        </button>
+                    )}
                 </div>
                 <div className="w-full pt-8 px-32 gap-4 flex items-center justify-center flex-wrap">
                     <input
@@ -151,9 +164,9 @@ export default function Prestadores() {
                             backgroundSize: "20px",
                         }}
                         value={areaSelecionada}
-                        onChange={({ target }) => {
-                            setAreaSelecionada(target.value);
-                        }}
+                        onChange={({ target }) =>
+                            setAreaSelecionada(target.value)
+                        }
                     >
                         <option value={0}>Todas as categorias</option>
                         {areas?.map(({ id, nome }) => (
@@ -161,6 +174,23 @@ export default function Prestadores() {
                                 {nome}
                             </option>
                         ))}
+                    </select>
+                    <select
+                        name="tipo"
+                        className="h-[50px] bg-transparent bg-no-repeat rounded-lg border-[1px] border-gray-600 pl-4 pr-12 appearance-none bg-white"
+                        style={{
+                            backgroundImage: `url(${SelectArrowIcon})`,
+                            backgroundPosition: "right 16px top 50%",
+                            backgroundSize: "20px",
+                        }}
+                        value={tipoSelecionado}
+                        onChange={({ target }) =>
+                            setTipoSelecionado(target.value)
+                        }
+                    >
+                        <option value="todos">Todos os tipos</option>
+                        <option value="apenasServico">Apenas serviço</option>
+                        <option value="servicoAula">Serviço + Aula</option>
                     </select>
                     <select
                         name="filtro"
@@ -171,9 +201,9 @@ export default function Prestadores() {
                             backgroundSize: "20px",
                         }}
                         value={filtroSelecionado}
-                        onChange={({ target }) => {
-                            setFiltroSelecionado(target.value);
-                        }}
+                        onChange={({ target }) =>
+                            setFiltroSelecionado(target.value)
+                        }
                     >
                         {FiltragemENUM.map(({ id, desc }) => (
                             <option key={id} value={id}>

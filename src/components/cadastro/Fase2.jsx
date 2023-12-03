@@ -71,7 +71,6 @@ export default function Fase2({
         "SE",
         "TO",
     ];
-    
 
     const validar = {
         cep() {
@@ -87,17 +86,17 @@ export default function Fase2({
         },
         cidade() {
             const cidade = cidade_input.current.value;
-            const cidadeValida = cidade.length >= 3 && !/\s/.test(cidade);
+            const cidadeValida = cidade.length >= 3;
             setIsCidadeValidado(cidadeValida);
         },
         bairro() {
             const bairro = bairro_input.current.value;
-            const bairroValido = bairro.length >= 3 && !/\s/.test(bairro);
+            const bairroValido = bairro.length >= 3;
             setIsBairroValidado(bairroValido);
         },
         rua() {
             const rua = rua_input.current.value;
-            const ruaValida = rua.length >= 3 && !/\s/.test(rua);
+            const ruaValida = rua.length >= 3;
             setIsRuaValidado(ruaValida);
         },
         numero() {
@@ -269,11 +268,11 @@ export default function Fase2({
                             Estado
                         </label>
                         {isEstadoValidado === false && (
-                             <label className="absolute ml-1 text-red-500 font-medium">
-                             {estado_input.current.value.length === 0
-                                 ? "Informe seu Estado"
-                                 : "Esse Estado não é brasileiro"}
-                         </label>
+                            <label className="absolute ml-1 text-red-500 font-medium">
+                                {estado_input.current.value.length === 0
+                                    ? "Informe seu Estado"
+                                    : "Esse Estado não é brasileiro"}
+                            </label>
                         )}
                     </div>
                 </div>
@@ -305,10 +304,10 @@ export default function Fase2({
                         </label>
                         {isCidadeValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                            {cidade_input.current.value.length === 0
-                                ? "Informe sua cidade"
-                                : "Deve ter pelo menos 3 caracteres"}
-                        </label>
+                                {cidade_input.current.value.length === 0
+                                    ? "Informe sua cidade"
+                                    : "Deve ter pelo menos 3 caracteres"}
+                            </label>
                         )}
                     </div>
                     <div className="relative w-[39%] min1000:w-[29%]">
@@ -338,10 +337,10 @@ export default function Fase2({
                         </label>
                         {isBairroValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                            {bairro_input.current.value.length === 0
-                                ? "Informe seu bairro"
-                                : "Deve ter pelo menos 3 caracteres"}
-                        </label>
+                                {bairro_input.current.value.length === 0
+                                    ? "Informe seu bairro"
+                                    : "Deve ter pelo menos 3 caracteres"}
+                            </label>
                         )}
                     </div>
                 </div>
@@ -372,10 +371,10 @@ export default function Fase2({
                     </label>
                     {isRuaValidado === false && (
                         <label className="absolute ml-1 text-red-500 font-medium">
-                        {rua_input.current.value.length === 0
-                            ? "Informe sua rua"
-                            : "Deve ter pelo menos 3 caracteres"}
-                    </label>
+                            {rua_input.current.value.length === 0
+                                ? "Informe sua rua"
+                                : "Deve ter pelo menos 3 caracteres"}
+                        </label>
                     )}
                 </div>
                 <div className="w-full flex items-center justify-center gap-[2%]">
@@ -406,10 +405,10 @@ export default function Fase2({
                         </label>
                         {isNumeroValidado === false && (
                             <label className="absolute ml-1 text-red-500 font-medium">
-                            {numero_input.current.value.length === 0
-                                ? "Informe o número da residência"
-                                : "Deve ter entre 1 e 25 caracteres"}
-                        </label>
+                                {numero_input.current.value.length === 0
+                                    ? "Informe o número da residência"
+                                    : "Deve ter entre 1 e 25 caracteres"}
+                            </label>
                         )}
                     </div>
                     <div className="relative w-[39%] min1000:w-[29%]">
