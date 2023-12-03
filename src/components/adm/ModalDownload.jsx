@@ -55,7 +55,7 @@ export default function ModalDownload({ modalGettr, modalSettr }) {
     return (
         <ModalCustom modalGettr={modalGettr} modalSettr={modalSettr} canClose>
             <div className="flex flex-col justify-center items-center gap-12 p-12">
-                <span className="text-lg">
+                <span className="text-lg text-center">
                     Baixe a lista de prestadores para acessar de onde quiser
                 </span>
                 <div className="flex justify-evenly w-full">
