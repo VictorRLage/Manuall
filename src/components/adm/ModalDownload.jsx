@@ -59,10 +59,7 @@ export default function ModalDownload({ modalGettr, modalSettr }) {
                     Baixe a lista de prestadores para acessar de onde quiser
                 </span>
                 <div className="flex justify-evenly w-full">
-                    <button
-                        className="w-[150px] h-[150px] bg-white border-2 hover:bg-gray-100 transition-colors border-gray-300 rounded-xl flex items-center justify-center"
-                        onClick={csv}
-                    >
+                    <button className="w-[150px] h-[150px] bg-white border-2 hover:bg-gray-100 transition-colors border-gray-300 rounded-xl flex items-center justify-center">
                         {csvLoading ? (
                             <ThreeCircles
                                 height={80}
