@@ -5,12 +5,12 @@ const mainApiUrl = import.meta.env.VITE_APP_MAIN_API_URL;
 
 export const routineApiInstance = axios.create({
     baseURL: import.meta.env.VITE_APP_ROUTINE_API_INSTANCE,
-    timeout: 10000,
+    timeout: 20000,
 });
 
 export const viaCepInstance = axios.create({
     baseURL: "https://viacep.com.br/ws",
-    timeout: 10000,
+    timeout: 20000,
 });
 
 export const mainApiInstance = axios.create({

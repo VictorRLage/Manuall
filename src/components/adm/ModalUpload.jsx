@@ -45,7 +45,9 @@ export default function ModalUpload({ modalGettr, modalSettr, refetch }) {
         const data = new FormData();
         data.append("arquivo", blob);
         axios
-            .post(`/usuario/aprovacoesPendentes/${extension}`, data)
+            .post(`/usuario/aprovacoesPendentes/${extension}`, data, {
+                timeout: 120000,
+            })
             .then(() => {
                 setAllRight(true);
                 setFile(undefined);
